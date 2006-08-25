@@ -1,3 +1,16 @@
+// Copyright 2006 The Parancoe Team
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 package org.parancoe.utility.error;
 
 
@@ -51,7 +64,7 @@ public class ErrorMessagesList implements Serializable {
               return;
     	}
     	ZoneErrorMessageList item = (ZoneErrorMessageList) this.errors.get(zone);
-        // Se non � la prima volta che aggiungo una lista d'errori per la zona indicata
+        // Se non ??? la prima volta che aggiungo una lista d'errori per la zona indicata
         // allora devo aggiungere ai precedenti gli errori attuali altrimenti aggiungo il nuovo elemento alla lista degli errori.
         if (item == null) {
           item = new ZoneErrorMessageList();
@@ -129,8 +142,8 @@ public class ErrorMessagesList implements Serializable {
     }//[m] clear
 
     /**
-     * <p>Restituisce lo stato della lista degli errori globali (se � vuota o no)</p>
-     * @return <code>true</code> se � vuota, <code>false</code> altrimenti
+     * <p>Restituisce lo stato della lista degli errori globali (se ??? vuota o no)</p>
+     * @return <code>true</code> se ??? vuota, <code>false</code> altrimenti
      */
     public boolean isEmpty() {
         return (errors.isEmpty());
@@ -161,7 +174,7 @@ public class ErrorMessagesList implements Serializable {
 
     /**
      * <p>Recuera la lista degli errori associati ad una specifica zona
-     * Se la lista � vuota viene ritornato <code>null</code></p>
+     * Se la lista ??? vuota viene ritornato <code>null</code></p>
      * @param zone il nome della zona
      * @return la collezione degli errori per la zona indicata
      */

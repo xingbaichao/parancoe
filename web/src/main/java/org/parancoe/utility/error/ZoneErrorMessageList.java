@@ -1,3 +1,16 @@
+// Copyright 2006 The Parancoe Team
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 package org.parancoe.utility.error;
 
 import java.io.Serializable;
@@ -77,8 +90,8 @@ public class ZoneErrorMessageList  implements Serializable {
 
         ZoneErrorMessageItem item = (ZoneErrorMessageItem) this.errors.get(property);
         List list = null;
-        // Se � la prima volta che aggiungo un errore alla propriet� indicata
-        // allora creo una lista per gli errori di questa propriet� ed aggiungo il nuovo elemento alla lista degli errori.
+        // Se ??? la prima volta che aggiungo un errore alla propriet??? indicata
+        // allora creo una lista per gli errori di questa propriet??? ed aggiungo il nuovo elemento alla lista degli errori.
         if (item == null) {
             list = new ArrayList();
             item = new ZoneErrorMessageItem(list, this.iCount++, property);
@@ -106,12 +119,12 @@ public class ZoneErrorMessageList  implements Serializable {
       if (errorMessages == null) {
         return;
       }
-      // Aggiunge le propriet� alla lista della collezione degli errori.
+      // Aggiunge le propriet??? alla lista della collezione degli errori.
       Iterator props = errorMessages.properties();
       while (props.hasNext()) {
         String property = (String) props.next();
 
-        // Aggiunge gli errori per la specifica propriet�
+        // Aggiunge gli errori per la specifica propriet???
         Iterator errs = errorMessages.get(property);
         while (errs.hasNext()) {
           ErrorMessage msg = (ErrorMessage) errs.next();
@@ -146,8 +159,8 @@ public class ZoneErrorMessageList  implements Serializable {
     }//[m] isAccessed
 
     /**
-     * <p>Ritorna l'insieme di tutti gli errori della collezione,senza distinzione delle propriet� di appartenenza.
-     * <br>Se la collezione � vuota viene ritornata una enumeration vuota.</p>
+     * <p>Ritorna l'insieme di tutti gli errori della collezione,senza distinzione delle propriet??? di appartenenza.
+     * <br>Se la collezione ??? vuota viene ritornata una enumeration vuota.</p>
      * @return un iteratore sugli errori di tutte le propriet&agrave;.
      */
     public Iterator get() {
@@ -165,7 +178,7 @@ public class ZoneErrorMessageList  implements Serializable {
             errorItems.add(i.next());
         }
 
-        // Ordina gli errori in base al campo iOrder con cui sono stati inseriti nella propriet�.
+        // Ordina gli errori in base al campo iOrder con cui sono stati inseriti nella propriet???.
         Collections.sort(errorItems, errorItemComparator);
 
         // aggiunge alla lista finale gli errori ordinati
@@ -181,10 +194,10 @@ public class ZoneErrorMessageList  implements Serializable {
     }//[m] get
 
     /**
-     * <p>Recupera la lista degli errori associati ad una specifica propriet�
-     * Se la lista � vuota viene ritornata una enumeration vuota</p>
+     * <p>Recupera la lista degli errori associati ad una specifica propriet???
+     * Se la lista ??? vuota viene ritornata una enumeration vuota</p>
      * @param property Il nome della propriet&agrave; o ZoneErrorMessageList.GENERIC_ERROR
-     * @return un iteratore sugli errori della propriet� indicata
+     * @return un iteratore sugli errori della propriet??? indicata
      */
     public Iterator get(String property) {
 
@@ -203,7 +216,7 @@ public class ZoneErrorMessageList  implements Serializable {
 
     /**
      * <p>Ritorna l'insieme ordinato delle propriet&agrave; presenti nella collezione</p>
-     * @return un iteratore sulle propriet� che hanno una lista di errori
+     * @return un iteratore sulle propriet??? che hanno una lista di errori
      */
     public Iterator properties() {
       if (errors.isEmpty()) {
@@ -216,7 +229,7 @@ public class ZoneErrorMessageList  implements Serializable {
       for (Iterator i = errors.values().iterator(); i.hasNext(); ) {
         errorItems.add(i.next());
       }
-      //Ordina la lista delle propriet� presenti nella collezione.
+      //Ordina la lista delle propriet??? presenti nella collezione.
       Collections.sort(errorItems, errorItemComparator);
 
       for (Iterator i = errorItems.iterator(); i.hasNext(); ) {
