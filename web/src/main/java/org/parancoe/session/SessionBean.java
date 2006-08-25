@@ -1,30 +1,15 @@
 package org.parancoe.session;
 
-public class SessionBean implements ISessionBean {
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 2390884971235946728L;
+public interface SessionBean extends Serializable {
 
-	private String sessionBeanName = null;
+  public String getSessionBeanName();
 
-	public String scope = null;
+  public void setSessionBeanName(String nome);
 
-	public SessionBean() {
-	}
+  public String getBeanScope();
 
-	public String getSessionBeanName() {
-		return this.sessionBeanName;
-	}
-
-	public void setSessionBeanName(String nome) {
-		this.sessionBeanName = nome;
-	}
-
-	public String getBeanScope() {
-		return scope;
-	}
-
-	public void setBeanScope(String scope) {
-		this.scope = scope;
-	}
+  public void setBeanScope(String scope);
 
 }

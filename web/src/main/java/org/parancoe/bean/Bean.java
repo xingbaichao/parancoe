@@ -1,64 +1,48 @@
 package org.parancoe.bean;
 
+import java.io.Serializable;
+import javax.servlet.http.HttpServletRequest;
+
+import org.parancoe.utility.error.ZoneErrorMessageList;
+
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-public abstract class Bean implements IBean {
-	public static final String RULE_NODE = "rule";
+public interface Bean extends Serializable {
 
-	public static final String RULE_TYPE = "kind";
+  public Map getBeanRules();
+  public void setBeanRules(Map getBeanRules);
+  /**
+   * <p>Restituisce la chiave utilizzata per identificare univocamente il bean</p>
+   * @return la chiave del bean
+   */
+  public String getBeanKey();
 
-	public static final String RULE_EMPTY = "empty";
+  /**
+   * <p>Imposta la chiave del bean</p>
+   * @param key la chiave del bean
+   */
+  public void setBeanKey(String key);
 
-	public static final String RULE_TRIM = "trim";
+  /**
+   * <p>Restituisce lo scope del bean (<code>session</code> o <code>request</code>)</p>
+   * @return lo scope del bean
+   */
+  public String getBeanScope();
 
-	public static final String RULE_ERROR = "error";
+  /**
+   * <p>Imposta lo scope del bean (<code>session</code> o <code>code request</code>)</p>
+   * @param scope lo scope del bean
+   */
+  public void setBeanScope(String scope);
 
-	public static final String RULE_ERROR_ARGS = "errorArgs";
+  /**
+   * <p>Valida i dati relativi ad attributi del bean della request</p>
+   * @param resolver il nome del resolver da utilizzare per la validazione
+   * @param request la request con i dati da popolare
+   * @param selector selettore della validazione (per effettuare validazioni differenti in uno stesso bean)
+   * @return la lista degli errori di validazione
+   */
+  public ZoneErrorMessageList validate(String resolver, HttpServletRequest request, String selector);
 
-	public static final String RULE_ARGS = "args";
-
-	public static final String RULE_ARG = "arg";
-
-	public static final String ARG_NAME = "name";
-
-	public static final String ARG_TYPE = "type";
-
-	public static final String ARG_VALUE = "value";
-
-	private Map beanRules = null;
-
-	private String beanKey = null;
-
-	private String beanScope = null;
-
-	public Map getBeanRules() {
-		return this.beanRules;
-	}
-
-	public void setBeanRules(Map beanRules) {
-		this.beanRules = beanRules;
-	}
-
-	public String getBeanKey() {
-		return this.beanKey;
-	}
-
-	public void setBeanKey(String beanKey) {
-		this.beanKey = beanKey;
-	}
-
-	public String getBeanScope() {
-		return this.beanScope;
-	}
-
-	public void setBeanScope(String beanScope) {
-		this.beanScope = beanScope;
-	}
-
-	public Log getLogger() {
-		return LogFactory.getLog(this.getClass().getName());
-	}
-}
+}//{i} IBaseBean

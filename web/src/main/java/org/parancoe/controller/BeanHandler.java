@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.parancoe.bean.IBean;
+import org.parancoe.bean.Bean;
 import org.parancoe.utility.WebKeys;
 import org.parancoe.utility.error.ErrorMessage;
 import org.parancoe.utility.error.ErrorMessagesList;
@@ -25,7 +25,7 @@ public class BeanHandler {
     this.packageName = packageName;
   }
 
-  private IBean getInstance(String beanId, String beanScope, String beanKey,
+  private Bean getInstance(String beanId, String beanScope, String beanKey,
                         HttpServletRequest request, boolean reset, boolean validate, ZoneErrorMessageList errors, String selector, Map validationrules) {
 
     if (getLogger().isDebugEnabled()) {
@@ -40,7 +40,7 @@ public class BeanHandler {
     sb.append(WebKeys.BEAN_POSTFIX);
     String beanClassName = sb.toString();
 
-    IBean bean = null;
+    Bean bean = null;
 
     if ((beanKey == null) || (beanKey.equals(""))) {
       if (getLogger().isDebugEnabled()) {
@@ -52,7 +52,7 @@ public class BeanHandler {
     if (beanScope.equals(WebKeys.SESSION)) {
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] lo scope del bean � session, cerco nella sessione il bean [" + beanKey + "]");
+        getLogger().debug("[getInstance] lo scope del bean ??? session, cerco nella sessione il bean [" + beanKey + "]");
       }
 
       Object oBean = request.getSession().getAttribute(beanKey);
@@ -60,9 +60,9 @@ public class BeanHandler {
       if (oBean != null) {
 
         if (getLogger().isDebugEnabled()) {
-          getLogger().debug("[getInstance] il bean [" + beanKey + "] � gi� presente in sessione, lo riutilizzo");
+          getLogger().debug("[getInstance] il bean [" + beanKey + "] ??? gi??? presente in sessione, lo riutilizzo");
         }
-        bean = (IBean) oBean;
+        bean = (Bean) oBean;
 
         if (reset) {
           if (getLogger().isDebugEnabled()) {
@@ -71,7 +71,7 @@ public class BeanHandler {
           request.getSession().removeAttribute(beanKey);
           bean = null;
           try {
-                  bean = (IBean) Class.forName(beanClassName).newInstance();
+                  bean = (Bean) Class.forName(beanClassName).newInstance();
           }
           catch (InstantiationException ie) {
             if (getLogger().isErrorEnabled()) {
@@ -123,7 +123,7 @@ public class BeanHandler {
       }
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] il bean [" + beanKey + "] non � presente in sessione");
+        getLogger().debug("[getInstance] il bean [" + beanKey + "] non ??? presente in sessione");
       }
     }
 
@@ -132,7 +132,7 @@ public class BeanHandler {
         getLogger().debug("[getInstance] creo un bean di tipo " + beanClassName);
       }
 
-      bean = (IBean) Class.forName(beanClassName).newInstance();
+      bean = (Bean) Class.forName(beanClassName).newInstance();
       bean.setBeanKey(beanKey);
       bean.setBeanScope(beanScope);
       bean.setBeanRules(validationrules);
@@ -195,17 +195,17 @@ public class BeanHandler {
   }
 
   
-  public IBean getRequestInstance(String id, String key, HttpServletRequest request) {
+  public Bean getRequestInstance(String id, String key, HttpServletRequest request) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, false, null, null, null);
   }
   
-  public IBean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors) {
+  public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, true, errors, null, null);
   }
 
-  public IBean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ErrorMessagesList errors) {
+  public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ErrorMessagesList errors) {
     ZoneErrorMessageList validationErrors = new ZoneErrorMessageList();
-    IBean bean = getInstance(id, WebKeys.REQUEST, key, request, false, true, validationErrors, null, null);
+    Bean bean = getInstance(id, WebKeys.REQUEST, key, request, false, true, validationErrors, null, null);
     if (!validationErrors.isEmpty()) {
       errors.addZoneErrorMessageList(validationErrors);
     }
@@ -213,20 +213,20 @@ public class BeanHandler {
   }
 
   
-  public IBean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors, String selector) {
+  public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors, String selector) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, true, errors, selector, null);
   }
 
-  public IBean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ErrorMessagesList errors, String selector) {
+  public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ErrorMessagesList errors, String selector) {
     ZoneErrorMessageList validationErrors = new ZoneErrorMessageList();
-    IBean bean = getInstance(id, WebKeys.REQUEST, key, request, false, true, validationErrors, selector, null);
+    Bean bean = getInstance(id, WebKeys.REQUEST, key, request, false, true, validationErrors, selector, null);
     if (!validationErrors.isEmpty()) {
       errors.addZoneErrorMessageList(validationErrors);
     }
     return bean;
   }
 
-    private void load(IBean bean, HttpServletRequest request)  {
+    private void load(Bean bean, HttpServletRequest request)  {
 
     if (getLogger().isDebugEnabled()) {
       getLogger().debug("[load] start");
@@ -260,9 +260,9 @@ public class BeanHandler {
     try {
         BeanUtils.populate(bean, properties);
     }catch (InvocationTargetException ite) {
-      if (getLogger().isErrorEnabled()) getLogger().error("[load] Errore nel tentativo di accesso alla propriet� del bean - " + ite);
+      if (getLogger().isErrorEnabled()) getLogger().error("[load] Errore nel tentativo di accesso alla propriet??? del bean - " + ite);
     }catch (IllegalAccessException iae) {
-      if (getLogger().isErrorEnabled()) getLogger().error("[load] Accesso negato per la propriet� del bean - " + iae);
+      if (getLogger().isErrorEnabled()) getLogger().error("[load] Accesso negato per la propriet??? del bean - " + iae);
     }
     if (getLogger().isDebugEnabled()) {
       getLogger().debug("[load] end");

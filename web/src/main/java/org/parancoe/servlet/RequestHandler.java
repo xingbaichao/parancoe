@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.parancoe.controller.IController;
+import org.parancoe.controller.Controller;
 import org.parancoe.utility.WebKeys;
 import org.parancoe.utility.error.ErrorMessagesList;
 
@@ -75,7 +75,7 @@ public class RequestHandler {
     }
   }
 
-  private void executeMethod(IController controller, String method, HttpServletRequest request,HttpServletResponse response)
+  private void executeMethod(Controller controller, String method, HttpServletRequest request,HttpServletResponse response)
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     Class c = controller.getClass();
 
@@ -127,7 +127,7 @@ public class RequestHandler {
      }
 
      try {
-       IController controller = (IController) (Class.forName(classController.toString()).newInstance());
+       Controller controller = (Controller) (Class.forName(classController.toString()).newInstance());
        nextLayout = myAction;
        try {
          if (getLogger().isDebugEnabled()) getLogger().debug("[executeController] eseguo il metodo: " + myMethod);
