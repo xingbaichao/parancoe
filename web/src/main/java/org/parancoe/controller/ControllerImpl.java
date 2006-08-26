@@ -25,7 +25,12 @@ import org.parancoe.bean.Bean;
 import org.parancoe.session.SessionBean;
 import org.parancoe.utility.ProfileHandler;
 import org.parancoe.utility.WebKeys;
-
+//TODO complete this trivial javadoc comment
+/**
+ * This class implements Controller interface
+ * @author Enrico Giurin
+ *
+ */
 public class ControllerImpl implements Controller {
 
 	private String layout;
