@@ -1,11 +1,11 @@
 // Copyright 2006 The Parancoe Team
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import org.parancoe.utility.error.ZoneErrorMessageList;
 public class BeanHandler {
 
   private String packageName = null;
-  
+
   public BeanHandler(String packageName) {
     this.packageName = packageName;
   }
@@ -57,7 +57,7 @@ public class BeanHandler {
 
     if ((beanKey == null) || (beanKey.equals(""))) {
       if (getLogger().isDebugEnabled()) {
-        getLogger().error("[getInstance] chiave nulla o vuota");
+        getLogger().error("[getInstance] null or empty key");
       }
       return bean;
     }
@@ -65,7 +65,7 @@ public class BeanHandler {
     if (beanScope.equals(WebKeys.SESSION)) {
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] lo scope del bean ??? session, cerco nella sessione il bean [" + beanKey + "]");
+        getLogger().debug("[getInstance] searching bean [" + beanKey + "] in session");
       }
 
       Object oBean = request.getSession().getAttribute(beanKey);
@@ -73,13 +73,13 @@ public class BeanHandler {
       if (oBean != null) {
 
         if (getLogger().isDebugEnabled()) {
-          getLogger().debug("[getInstance] il bean [" + beanKey + "] ??? gi??? presente in sessione, lo riutilizzo");
+          getLogger().debug("[getInstance] bean [" + beanKey + "] already present in session, using it");
         }
         bean = (Bean) oBean;
 
         if (reset) {
           if (getLogger().isDebugEnabled()) {
-            getLogger().debug("[getInstance] resetto il bean [" + beanKey + "]...");
+            getLogger().debug("[getInstance] resetting bean [" + beanKey + "]...");
           }
           request.getSession().removeAttribute(beanKey);
           bean = null;
@@ -88,17 +88,17 @@ public class BeanHandler {
           }
           catch (InstantiationException ie) {
             if (getLogger().isErrorEnabled()) {
-              getLogger().error("[getInstance] impossibile istanziare il bean [" + beanKey + "]: " + ie);
+              getLogger().error("[getInstance] can't instantiate bean [" + beanKey + "]: " + ie);
             }
           }
           catch (IllegalAccessException iae) {
             if (getLogger().isErrorEnabled()) {
-              getLogger().error("[getInstance] impossibile accedere agli attributi del bean [" + beanKey + "]: " + iae);
+              getLogger().error("[getInstance] can't get attributes for bean [" + beanKey + "]: " + iae);
             }
           }
           catch (ClassNotFoundException cnfe) {
             if (getLogger().isErrorEnabled()) {
-              getLogger().error("[getInstance] impossibile trovare la classe relativa al bean [" + beanKey + "]: " + cnfe);
+              getLogger().error("[getInstance] can't find class for bean [" + beanKey + "]: " + cnfe);
             }
           }
           bean.setBeanKey(beanKey);
@@ -107,12 +107,12 @@ public class BeanHandler {
 
         if (validate) {
           if (getLogger().isDebugEnabled()) {
-            getLogger().debug("[getInstance] valido i dati in request del bean [" + beanKey + "]...");
+            getLogger().debug("[getInstance] validating input data for bean [" + beanKey + "]...");
           }
           ZoneErrorMessageList errorList = bean.validate("HttpRequestResolver", request, selector);
           if (errorList == null) {
             errorList = new ZoneErrorMessageList();
-            errorList.add("DataSiftError", new ErrorMessage("Attenzione: Errore DataSift. Impossibile eseguire la validazione!", false));
+            errorList.add("DataSiftError", new ErrorMessage("Warning: DataSift Error. Can't do validation!", false));
             errors.add(errorList);
             return null;
           }
@@ -123,12 +123,12 @@ public class BeanHandler {
         }
 
         if (getLogger().isDebugEnabled()) {
-            getLogger().debug("[getInstance] carico i nuovi dati nel bean [" + beanKey + "]...");
+            getLogger().debug("[getInstance] loading new data on bean [" + beanKey + "]...");
         }
         load(bean, request);
 
         if (getLogger().isDebugEnabled()) {
-          getLogger().debug("[getInstance] salvo il bean [" + beanKey + "] in sessione");
+          getLogger().debug("[getInstance] saving bean [" + beanKey + "] in session");
         }
         request.getSession().setAttribute(beanKey, bean);
 
@@ -136,13 +136,13 @@ public class BeanHandler {
       }
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] il bean [" + beanKey + "] non ??? presente in sessione");
+        getLogger().debug("[getInstance] can't find bean [" + beanKey + "] in session scope");
       }
     }
 
     try {
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] creo un bean di tipo " + beanClassName);
+        getLogger().debug("[getInstance] creating bean of type " + beanClassName);
       }
 
       bean = (Bean) Class.forName(beanClassName).newInstance();
@@ -152,13 +152,13 @@ public class BeanHandler {
 
       if (validate) {
         if (getLogger().isDebugEnabled()) {
-          getLogger().debug("[getInstance] valido i dati in request del bean [" + beanKey + "]...");
+          getLogger().debug("[getInstance] validating request data for bean [" + beanKey + "]...");
         }
         ZoneErrorMessageList errorList = bean.validate("HttpRequestResolver", request, selector);
         if (errorList == null) {
           errorList = new ZoneErrorMessageList();
           errorList.add("DataSiftError",
-              new ErrorMessage("Attenzione: Errore DataSift. Impossibile eseguire la validazione!", false));
+              new ErrorMessage("Warning: DataSift Error. Can't do validation!", false));
           errors.add(errorList);
           return null;
         }
@@ -169,34 +169,34 @@ public class BeanHandler {
       }
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] popolo il bean [" + beanKey + "]");
+        getLogger().debug("[getInstance] setting data on bean [" + beanKey + "]");
       }
       load(bean, request);
 
       if (getLogger().isDebugEnabled()) {
-        getLogger().debug("[getInstance] istanziato correttamente il bean [" + beanKey + "]");
+        getLogger().debug("[getInstance] instantiating bean [" + beanKey + "]");
       }
       if (bean.getBeanScope().equals(WebKeys.SESSION)) {
         if (getLogger().isDebugEnabled()) {
-          getLogger().debug("[getInstance] salvo il bean [" + beanKey + "] in sessione");
+          getLogger().debug("[getInstance] saving bean [" + beanKey + "] in session");
         }
         request.getSession().setAttribute(beanKey, bean);
       }
     }
     catch (InstantiationException ie) {
       if (getLogger().isErrorEnabled()) {
-        getLogger().error("[getInstance] impossibile istanziare il bean [" + beanKey + "]: " + ie);
+        getLogger().error("[getInstance] can't instantiate bean bean [" + beanKey + "]: " + ie);
       }
     }
     catch (IllegalAccessException iae) {
       if (getLogger().isErrorEnabled()) {
-        getLogger().error("[getInstance] impossibile accedere agli attributi del bean [" + beanKey + "]: " +
+        getLogger().error("[getInstance] can't get attributes for bean [" + beanKey + "]: " +
                           iae);
       }
     }
     catch (ClassNotFoundException cnfe) {
       if (getLogger().isErrorEnabled()) {
-        getLogger().error("[getInstance] impossibile trovare la classe relativa al bean [" + beanKey + "]: " + cnfe);
+        getLogger().error("[getInstance] can't find class for bean [" + beanKey + "]: " + cnfe);
       }
     }
 
@@ -207,11 +207,11 @@ public class BeanHandler {
     return bean;
   }
 
-  
+
   public Bean getRequestInstance(String id, String key, HttpServletRequest request) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, false, null, null, null);
   }
-  
+
   public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, true, errors, null, null);
   }
@@ -225,7 +225,7 @@ public class BeanHandler {
     return bean;
   }
 
-  
+
   public Bean getRequestInstanceAndValidate(String id, String key, HttpServletRequest request, ZoneErrorMessageList errors, String selector) {
     return getInstance(id, WebKeys.REQUEST, key, request, false, true, errors, selector, null);
   }
@@ -253,7 +253,7 @@ public class BeanHandler {
     boolean isMultipart = false;
     if ( (contentType != null) && (contentType.startsWith("multipart/form-data"))
     	&& (method.equalsIgnoreCase("post")) ) {
-        //TODO to be add a multipart handler 
+        //TODO to be add a multipart handler
     }
     if (!isMultipart) {
         names = request.getParameterNames();
@@ -273,16 +273,16 @@ public class BeanHandler {
     try {
         BeanUtils.populate(bean, properties);
     }catch (InvocationTargetException ite) {
-      if (getLogger().isErrorEnabled()) getLogger().error("[load] Errore nel tentativo di accesso alla propriet??? del bean - " + ite);
+      if (getLogger().isErrorEnabled()) getLogger().error("[load] Error accessing property of bean - " + ite);
     }catch (IllegalAccessException iae) {
-      if (getLogger().isErrorEnabled()) getLogger().error("[load] Accesso negato per la propriet??? del bean - " + iae);
+      if (getLogger().isErrorEnabled()) getLogger().error("[load] Access denied for property of bean - " + iae);
     }
     if (getLogger().isDebugEnabled()) {
       getLogger().debug("[load] end");
     }
 
   }
-  
+
   private Log getLogger() {
     return LogFactory.getLog(this.getClass().getName());
   }
