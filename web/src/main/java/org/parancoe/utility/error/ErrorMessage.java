@@ -61,7 +61,7 @@ public class ErrorMessage implements Serializable {
     }//[c] ErrorMessage
 
     /**
-     * <p>Costruisce un errore con la possibilit??? di specificare il messaggio direttamente e non tramite chiave del resurceBundle</p>
+     * <p>Costruisce un errore con la possibilit&agrave di specificare il messaggio direttamente e non tramite chiave del resurceBundle</p>
      * @param key la chiave del'errore o il messaggio d'errore
      * @param resource se <code>true</code> indica che <code>key</code> &egrave; una chiave del ResurceBundle altrimenti &egrave; da considerarsi il vero messaggio d'errore
      */
