@@ -42,10 +42,10 @@ public interface ProfileHandler {
       public void removeUserProfile(HttpServletRequest request);
 
      /**
-      * Verifica se l'utente attualmente autenticato ??? in possesso di una determinata
-      * regola. Possedere una regola significa che l'utente ??? abilitato
+      * Verifica se l'utente attualmente autenticato &egrave in possesso di una determinata
+      * regola. Possedere una regola significa che l'utente &egrave abilitato
       * all'esecuzione di una operazione nell'applicazione. Es: inserimento anagrafica
-      * ??? una regola.
+      * &egrave una regola.
       *
       * @param ruleCode String Codice univoco della regola.
       * @return boolean True se l'utente possiede la regola.
@@ -53,9 +53,9 @@ public interface ProfileHandler {
      public boolean hasUserRule(HttpServletRequest request, String ruleCode);
 
      /**
-      * Verifica se l'utente corrente ??? logato.
+      * Verifica se l'utente corrente &egrave loggato.
       *
-      * @return boolean True se l'utente ??? logato.
+      * @return boolean True se l'utente &egrave loggato.
       */
      public boolean isUserLogged(HttpServletRequest request);
 
