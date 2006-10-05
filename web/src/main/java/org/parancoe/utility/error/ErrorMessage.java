@@ -1,11 +1,11 @@
 // Copyright 2006 The Parancoe Team
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,42 +17,42 @@ import java.io.Serializable;
 
 /**
  * <p>ErrorMessage</p>
- * <p>Un contenitore per i messaggi d'errore, usato nella validazione dei bean o altrove nei controller
- * <br>&Egrave; possibile specificare un messaggio direttamente anziche utilizzare una chiave del resurceBundle, per
- * <br>farlo si dovr&agrave; impostare l'attributo <code>resource</code> a [false] altrimenti viene sempre cercata la chiave</p>
- * @author NEC
+ * <p>A container for error messages, used during bean validation and in other controller operations.
+ * <br>To specify a message without using the resource bundle key, set to [false] <code>resource</code> attribute.
+ * <br>The default behaviour is to search for the key</p>
+ * @author
  * @version 1.0
  */
 public class ErrorMessage implements Serializable {
 
-    /** La chiave dell'errore nel ResurceBundle o il messaggio d'errore vero e proprio  */
+    /** The error key in the ResurceBundle */
     protected String key = null;
-    /** I valori di rimpiazzo nei messaggi d'errore del ResurceBundle */
+    /** The parametrized values in ResurceBundle error messages */
     protected Object[] values = null;
-    /** Indica se key rappresenta il messaggio d'errore vero e proprio [false] o una chiave del resurceBundle [true] */
+    /** If true, key is the key in the ResourceBundle, otherwise key is the message string itself */
     protected boolean resource = true;
 
     /**
-     * <p>Costruisce un errore senza parti variabili</p>
-     *  @param key la chiave nel ResurceBundle
+     * <p>Constructor for an error not parametrized</p>
+     *  @param key the ResourceBundle key
      */
     public ErrorMessage(String key) {
         this(key, null);
     }//[c] ErrorMessage
 
     /**
-     * <p>Costruisce un errore con un solo valore di rimpiazzo</p>
-     * @param key la chiave nel ResurceBundle
-     * @param value la parte variabile da rimpiazzare nel messaggio
+     * <p>Construct an error with only one parametrized value</p>
+     * @param key the ResourceBundle key
+     * @param value the parametrized value
      */
     public ErrorMessage(String key, Object value) {
         this(key, new Object[] {value});
     }//[c] ErrorMessage
 
     /**
-     * <p>Costruisce un errore con un array di valori di rimpiazzo</p>
-     * @param key la chiave nel ResurceBundle
-     * @param values l'array contenente i valori da rimpiazzare nelle parti variabili dell'errore
+     * <p>Construct an error with an array of parametrized values</p>
+     * @param key the ResourceBundle key
+     * @param values an array containing the parametrized values
      */
     public ErrorMessage(String key, Object[] values) {
         this.key = key;
@@ -61,9 +61,9 @@ public class ErrorMessage implements Serializable {
     }//[c] ErrorMessage
 
     /**
-     * <p>Costruisce un errore con la possibilit&agrave di specificare il messaggio direttamente e non tramite chiave del resurceBundle</p>
-     * @param key la chiave del'errore o il messaggio d'errore
-     * @param resource se <code>true</code> indica che <code>key</code> &egrave; una chiave del ResurceBundle altrimenti &egrave; da considerarsi il vero messaggio d'errore
+     * <p>Construct an error in which the key could be the message itself</p>
+     * @param key the key of the error or the message itself
+     * @param resource if <code>true</code> then <code>key</code> is a key in the ResurceBundle otherwise key is the error message itself
      */
     public ErrorMessage(String key, boolean resource) {
         this.key = key;
@@ -71,24 +71,24 @@ public class ErrorMessage implements Serializable {
     }//[c] ErrorMessage
 
     /**
-     * <p>La chiave del messaggio d'errore</p>
-     * @return La chiave del messaggio d'errore
+     * <p>The error message key</p>
+     * @return the error message key
      */
     public String getKey() {
         return (this.key);
     }//[m] getKey
 
     /**
-     * <p>I valori di rimpiazzo per le parti variabili del messaggio d'errore</p>
-     * @return I valori di rimpiazzo per le parti variabili del messaggio d'errore
+     * <p>An array of values for pararmetrized error messages</p>
+     * @return An array of values for pararmetrized error messages
      */
     public Object[] getValues() {
         return (this.values);
     }//[m] getValues
 
     /**
-     * <p>Indica se la chiave key &egrave; il vero messaggio d'errore [false] oppure una chiave del ResurceBundle [true]</p>
-     * @param resource se <code>true</code> indica che <code>key</code> &egrave; una chiave del ResurceBundle altrimenti &egrave; da considerarsi il vero messaggio d'errore
+     * <p>Tells if key is an error message or the ResourceBundle key </p>
+     * @param if <code>true</code> then <code>key</code> is a key of the ResurceBundle otherwise is the error message string.
      */
     public boolean isResource() {
         return (this.resource);
