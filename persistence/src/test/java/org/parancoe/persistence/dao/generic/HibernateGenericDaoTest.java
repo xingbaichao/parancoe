@@ -22,6 +22,7 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
 
 /**
+ * Test case for the generic DAO.
  *
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
  * @version $Revision$

@@ -17,6 +17,7 @@ import java.util.List;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 
 /**
+ * A DAO to be used for the tests of the generic DAO.
  *
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
  * @version $Revision$
