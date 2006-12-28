@@ -46,11 +46,7 @@ public class HibernateDaoInstrumentation {
         logger.debug("target: "+target);
         logger.debug("method: "+method);
         logger.debug("args: "+args);
-        
-        if (target instanceof HibernateGenericDao) { // no decoration on the base DAO
-            return pjp.proceed(args);
-        }
-        
+
         // query using a named query from the method name
         result = target.getHibernateTemplate().executeFind(
                 new HibernateCallback() {
@@ -90,8 +86,6 @@ public class HibernateDaoInstrumentation {
                 });
             } else {
                 // Call an instance method
-                Class daoEntity = getDaoEntityType(target);
-                target.setType(daoEntity);
                 result = pjp.proceed(args);
             }
         }
@@ -99,12 +93,12 @@ public class HibernateDaoInstrumentation {
     }
     
     private String queryNameFromMethod(GenericDaoHibernateSupport target, Method finderMethod) {
-        return getDaoEntityType(target).getSimpleName() + "." + finderMethod.getName();
+        return target.getType().getSimpleName() + "." + finderMethod.getName();
     }
     
     private String queryStringFromMethod(GenericDaoHibernateSupport target, Method finderMethod) {
         StringBuffer result = new StringBuffer();
-        result.append("from ").append(getDaoEntityType(target).getSimpleName());
+        result.append("from ").append(target.getType().getSimpleName());
         String[] parameters = finderMethod.getName().substring(6).split("And");
         result.append(" where ").append(StringUtils.uncapitalize(parameters[0])).append(" = ?");
         for (int i=1; i < parameters.length; i++) {
@@ -113,18 +107,4 @@ public class HibernateDaoInstrumentation {
         return result.toString();
     }
     
-    private Class getDaoEntityType(GenericDaoHibernateSupport target) {
-        Class result = null;
-        Class[] interfaces = target.getClass().getInterfaces();
-        for (int i = 0; i < interfaces.length; i++) {
-            Dao daoAnnotation = (Dao) interfaces[i].getAnnotation(Dao.class);
-            if (daoAnnotation != null) {
-                result = daoAnnotation.entity();
-            }
-        }
-        if (result == null) {
-            throw new IllegalArgumentException("target Dao interface not annotated with Dao annotation");
-        }
-        return result;
-    }
 }

@@ -1,11 +1,11 @@
 // Copyright 2006 The Parancoe Team
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,10 +13,10 @@
 // limitations under the License.
 package org.parancoe.xml;
 
+import org.parancoe.persistence.dao.generic.Dao;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
-import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
@@ -38,8 +38,22 @@ public class DaoBeanDefinitionParser extends AbstractSingleBeanDefinitionParser 
     protected void doParse(Element element, BeanDefinitionBuilder bean) {
         String daoInterface = element.getAttribute("interface");
         bean.addPropertyValue("proxyInterfaces", daoInterface);
+        Class entityType = null;
+        try {
+            Class daoInterfaceClass = Class.forName(daoInterface, true, this.getClass().getClassLoader());
+            Dao daoAnnotation = (Dao) daoInterfaceClass.getAnnotation(Dao.class);
+            if (daoAnnotation != null) {
+                entityType = daoAnnotation.entity();
+            }
+            if (entityType == null) {
+                throw new IllegalArgumentException("target Dao interface not annotated with Dao annotation");
+            }
+        } catch (ClassNotFoundException ex) {
+            throw new IllegalArgumentException("Dao interface not found", ex);
+        }
         String genericDao = element.getAttribute("genericDao");
-        BeanDefinitionBuilder genericDaoBDB = bean.childBeanDefinition(genericDao);        
+        BeanDefinitionBuilder genericDaoBDB = bean.childBeanDefinition(genericDao);
+        genericDaoBDB.addPropertyValue("type", entityType);
         bean.addPropertyValue("target", genericDaoBDB.getBeanDefinition());
     }
 }
