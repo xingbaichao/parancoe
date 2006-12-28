@@ -16,9 +16,13 @@ limitations under the License.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"       
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-    
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://parancoe.dev.java.net/schema/parancoe
+       https://jugpadova.dev.java.net/schema/parancoe.xsd">
+
+<!-- The old way
     <bean id="personDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>org.parancoe.example.dao.PersonDao</value>
@@ -27,5 +31,9 @@ limitations under the License.
             <bean parent="hibernateGenericDao"/>
         </property>
     </bean>
-        
+-->
+
+    <parancoe:dao id="personDao"
+        interface="org.parancoe.example.dao.PersonDao"/>
+    
 </beans>
