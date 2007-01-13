@@ -33,11 +33,60 @@ limitations under the License.
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>aspectj</groupId>
+      <artifactId>aspectjlib</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.5.3</version>
+    </dependency>  
+    <dependency>
+       <groupId>commons-configuration</groupId>
+	   <artifactId>commons-configuration</artifactId>
+       <version>1.2</version>
+       <scope>compile</scope>
+	</dependency>
+	<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1</version>
+            <scope>compile</scope>
+        </dependency>
+         <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscache</artifactId>
+            <version>2.3</version>
+             <scope>compile</scope>
+        </dependency>	
   </dependencies>
   <modules>
     <module>web</module>
-    <module>tags</module>
-    <module>persistence</module>
+    <module>core</module>
     <module>examples</module>
   </modules>
 </project>
