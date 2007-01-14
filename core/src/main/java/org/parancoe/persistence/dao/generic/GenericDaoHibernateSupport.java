@@ -13,7 +13,6 @@
 // limitations under the License.
 package org.parancoe.persistence.dao.generic;
 
-import java.lang.reflect.Method;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**

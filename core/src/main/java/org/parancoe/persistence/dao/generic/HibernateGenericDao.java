@@ -14,7 +14,7 @@
 package org.parancoe.persistence.dao.generic;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**

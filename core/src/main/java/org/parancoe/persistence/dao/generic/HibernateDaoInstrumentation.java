@@ -75,8 +75,7 @@ public class HibernateDaoInstrumentation {
                         new HibernateCallback() {
                     public Object doInHibernate(Session session) throws HibernateException {
                         String queryString = queryStringFromMethod(target, method);
-                        Query query = null;
-                        query = session.createQuery(queryString);
+                        Query query = session.createQuery(queryString);
                         for(int i = 0; i < args.length; i++) {
                             Object arg = args[i];
                             query.setParameter(i, arg);
