@@ -73,7 +73,7 @@ public class PersonBO {
         }
     }
     
-    @Transactional(readOnly=true)
+//    @Transactional(readOnly=true)
     public Person retrievePerson(Long id) {
         return dao.read(id);
     }
