@@ -50,6 +50,11 @@ public class HibernateGenericDaoTest extends TestCase {
         assertEquals(entity, retrievedEntity);
         assertNotSame(entity, retrievedEntity);
     }
+
+    public void testFindAll(){
+        List<EntityTC> list = this.entityTCBO.getDao().findAll();
+        assertNotNull(list);
+    }
     
     public void testGetByFieldOne() {
         EntityTC entity = new EntityTC();

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context
+        path="/basicWebApp"
+        reloadable="true">
+
+    <Resource
+            auth="Container"
+            name="jdbc/dataSource"
+            type="javax.sql.DataSource"
+            driverClassName="org.hsqldb.jdbcDriver"
+            password=""
+            username="sa"
+            url="jdbc:hsqldb:mem:test"
+            maxActive="1"/>
+</Context>

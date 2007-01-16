@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://parancoe.dev.java.net/schema/parancoe
+       https://jugpadova.dev.java.net/schema/parancoe.xsd">
+
+
+    <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
+
+    <bean id="daos" class="org.parancoe.basicWebApp.Daos" autowire="byType"/>
+    <bean id="blos" class="org.parancoe.basicWebApp.Blos" autowire="byType"/>
+
+    <bean name="/home/*.html" id="homeController"
+          class="org.parancoe.basicWebApp.controllers.HomeController" parent="abstractController"/>
+    <bean name="/admin/*.html" id="adminController"
+          class="org.parancoe.basicWebApp.controllers.AdminController" parent="abstractController"/>
+    <bean name="/people/*.html" id="peopleController"
+          class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
+
+</beans>

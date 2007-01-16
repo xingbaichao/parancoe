@@ -37,6 +37,12 @@ public class BaseConf {
     //     return getConfiguration().getInt("myparam");
     //  }
 
+    // parancoe configuration parameters
+
+    public String[] getSupportedLanguages() {
+        return getConfiguration().getStringArray("supportedLanguages");
+    }
+    
     // Injection
 
     public void setDevelopmentConfiguration(Configuration developmentConfiguration) {
@@ -72,7 +78,7 @@ public class BaseConf {
         System.setProperty("ENVIRONMENT", env);
     }
 
-    private Configuration getConfiguration() {
+    public Configuration getConfiguration() {
         if (isProduction()) return productionConfiguration;
         if (isTest()) return testConfiguration;
         return developmentConfiguration;

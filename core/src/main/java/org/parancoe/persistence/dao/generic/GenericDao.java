@@ -14,6 +14,7 @@
 package org.parancoe.persistence.dao.generic;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -39,4 +40,6 @@ public interface GenericDao <T, PK extends Serializable> extends GenericDaoHiber
 
     /** Remove an object from persistent storage in the database */
     void delete(T persistentObject);
+
+    List<T> findAll();
 }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2006 The Parancoe Team
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- database -->
+
+    <tx:annotation-driven/>
+
+    <bean id="abstractSessionFactory" abstract="true"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
+        <property name="configLocation" value="classpath:hibernate-mappings.cfg.xml"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- environments configuration -->
+
+    <bean id="developmentConfiguration"
+          class="org.apache.commons.configuration.PropertiesConfiguration">
+        <constructor-arg value="development.properties"/>
+    </bean>
+    <bean id="testConfiguration"
+          class="org.apache.commons.configuration.PropertiesConfiguration">
+        <constructor-arg value="test.properties"/>
+    </bean>
+    <bean id="productionConfiguration"
+          class="org.apache.commons.configuration.PropertiesConfiguration">
+        <constructor-arg value="production.properties"/>
+    </bean>
+
+    <bean id="abstractConf" abstract="true">
+        <property name="developmentConfiguration">
+            <ref bean="developmentConfiguration"/>
+        </property>
+        <property name="testConfiguration">
+            <ref bean="testConfiguration"/>
+        </property>
+        <property name="productionConfiguration">
+            <ref bean="productionConfiguration"/>
+        </property>
+    </bean>
+
+    <!-- this is the default conf Object, you can override it in your parancoe-servlet.xml
+         just remember to set parent="abstractConf" -->
+    <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>
+
+    <bean id="abstractHandlerMapping" abstract="true"
+          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="localeChangeInterceptor"/>
+                <ref bean="languageInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- this is the default handler mapping, you can override it in your parancoe-servlet.xml -->
+    <bean id="handlerMapping" parent="abstractHandlerMapping"/>
+
+    <!-- i18n -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages"/>
+        <property name="cacheSeconds" value="1"/>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- sends exceptions to genericError.jsp -->
+    <bean id="exceptionResolver" class="org.parancoe.web.ExceptionResolver"/>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000"/>
+    </bean>
+
+    <!-- locale change -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+
+    <bean id="languageInterceptor"
+          class="org.parancoe.web.LanguageInterceptor"/>
+
+    <bean id="localeChangeInterceptor"
+          class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language"/>
+    </bean>
+
+    <!-- Abstract Controller -->
+    <bean id="abstractController" abstract="true">
+        <property name="conf">
+            <ref bean="conf"/>
+        </property>
+        <lookup-method name="dao" bean="daos"/>
+        <lookup-method name="blo" bean="blos"/>
+    </bean>
+
+</beans>
