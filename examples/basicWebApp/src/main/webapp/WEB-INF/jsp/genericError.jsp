@@ -11,12 +11,12 @@
     <jsp:include page="banda.jsp" />
     <div id="content">
         <h2>
-            <spring:message code="attenzione"/>
+            <spring:message code="attention"/>
         </h2>
 
         <div id="errore">
             <h3>
-                <spring:message code="errore"/>
+                <spring:message code="error"/>
             </h3>
 
             <p>
