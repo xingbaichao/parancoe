@@ -21,6 +21,6 @@ a.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
         </input-charset>
     </charset-params>
 
-    <context-root>/specialitaly</context-root>
+    <context-root>/basicWebApp</context-root>
 
 </weblogic-web-app>
