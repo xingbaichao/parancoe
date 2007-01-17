@@ -10,6 +10,10 @@
 
     <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
 
+    <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">    
+        <property name="dao" ref="personDao"/>
+    </bean>    
+    
     <bean id="daos" class="org.parancoe.basicWebApp.Daos" autowire="byType"/>
     <bean id="blos" class="org.parancoe.basicWebApp.Blos" autowire="byType"/>
 
