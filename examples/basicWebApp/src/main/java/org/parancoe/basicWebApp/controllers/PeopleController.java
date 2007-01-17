@@ -24,15 +24,7 @@ public abstract class PeopleController extends BaseMultiActionController {
     public ModelAndView populate(HttpServletRequest req, HttpServletResponse res){
         Map params = new HashMap();
         try {
-            if (blo() != null) {
-                if (blo().person != null) {
-                    blo().person.populateArchive();
-                } else {
-                    return genericError("blo().person è null");
-                }
-            } else {
-                return genericError("blo() è null");
-            }
+            blo().person.populateArchive();
         } catch (ParseException ex) {
             return genericError(ex);
         }
