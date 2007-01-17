@@ -30,6 +30,9 @@ public interface GenericDao <T, PK extends Serializable> extends GenericDaoHiber
     /** Persist the newInstance object into database */
     PK create(T newInstance);
 
+    /** create or update an object */
+    void createOrUpdate(T o);
+
     /** Retrieve an object that was previously persisted to the database using
      *   the indicated id as primary key
      */

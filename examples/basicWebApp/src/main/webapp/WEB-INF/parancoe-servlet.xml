@@ -9,8 +9,9 @@
 
 
     <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
+    <bean id="personValidator" class="org.parancoe.basicWebApp.po.PersonValidator"/>
 
-    <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">    
+    <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
     </bean>    
     
@@ -23,5 +24,15 @@
           class="org.parancoe.basicWebApp.controllers.AdminController" parent="abstractController"/>
     <bean name="/people/*.html" id="peopleController"
           class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
+
+    <bean name="/people/edit.form" id="peopleEditController"
+          class="org.parancoe.basicWebApp.controllers.PeopleEditController"
+          parent="abstractController">
+        <property name="commandClass" value="org.parancoe.basicWebApp.po.Person"/>
+        <property name="commandName" value="person"/>
+        <property name="formView" value="people/edit"/>
+        <property name="successView" value="redirect:list.html"/>
+        <property name="validator" ref="personValidator"/>
+    </bean>
 
 </beans>

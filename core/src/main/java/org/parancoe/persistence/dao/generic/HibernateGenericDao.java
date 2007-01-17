@@ -36,6 +36,10 @@ public class HibernateGenericDao <T, PK extends Serializable>
     public PK create(T o) {
         return (PK) getHibernateTemplate().save(o);
     }
+    @SuppressWarnings("unchecked")
+    public void createOrUpdate(T o) {
+        getHibernateTemplate().saveOrUpdate(o);
+    }
     
     @SuppressWarnings("unchecked")
     public T read(PK id) {
