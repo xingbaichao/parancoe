@@ -17,7 +17,7 @@
     <a href="<%=queryString%>&language=${supportedLanguage}" title="${supportedLanguage}">
         <c:if test="${requestScope.lang eq supportedLanguage}"><b></c:if>
         <spring:message code="${supportedLanguage}"/>
-        <c:if test="${requestScope.lang eq supportedLanguage}"></b></c:if>
+        <c:if test="${requestScope.lang eq supportedLanguage}"></c:if></b>
     </a>
 </c:forEach>
 </span>
