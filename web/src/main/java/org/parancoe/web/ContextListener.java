@@ -9,7 +9,11 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContext;
-
+/**
+ * Context Listener of parancoe web application.
+ * @author Paolo Dona
+ *
+ */
 public class ContextListener implements ServletContextListener {
     private static final Logger log = Logger.getLogger(ContextListener.class);
     private ServletContext servletContext;
