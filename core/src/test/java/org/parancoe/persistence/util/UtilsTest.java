@@ -24,6 +24,6 @@ public class UtilsTest extends TestCase {
         expected.add("A=B");
         expected.add("C=D");
         
-        assertEquals(expected, Utils.convertToNameValueList(input));
+        assertTrue(expected.containsAll(Utils.convertToNameValueList(input)));
     }
 }
