@@ -2,24 +2,13 @@ package org.parancoe.basicWebApp;
 
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.dao.SampleDao;
+import org.parancoe.persistence.dao.DaoProvider;
 
-public class Daos {
-    public PersonDao person;
-    public SampleDao sample;
-
-    public PersonDao getPerson() {
-        return person;
-    }
-
-    public void setPerson(PersonDao person) {
-        this.person = person;
-    }
-
-    public SampleDao getSample() {
-        return sample;
-    }
-
-    public void setSample(SampleDao sample) {
-        this.sample = sample;
-    }
+/**
+ * Interface for the DAO Provider. Doesn't require an implementation.
+ * Simply add methods for the DAOs you need to use.
+ * The convention for the methods is get<dao_bean_id>.
+ */
+public interface Daos extends DaoProvider {
+    public PersonDao getPersonDao();    
 }
