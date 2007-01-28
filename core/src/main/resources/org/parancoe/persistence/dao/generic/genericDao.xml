@@ -24,6 +24,8 @@ limitations under the License.
     
     <aop:aspectj-autoproxy/>
     
+    <!-- Generic Dao -->
+    
     <bean id="hibernateGenericDaoInstrumentationAspect"
           class="org.parancoe.persistence.dao.generic.HibernateDaoInstrumentation" />
 
@@ -36,5 +38,24 @@ limitations under the License.
     
     <bean id="abstractDao"
           class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
-    </bean>    
+    </bean>
+
+    <!-- Dao provider -->
+
+    <bean id="daoProviderInstrumentationAspect"
+          class="org.parancoe.persistence.dao.DaoProviderInstrumentation" />
+    
+    <bean id="daoMap" class="java.util.HashMap"></bean>
+    
+    <bean id="genericDaoProvider"
+          class="org.parancoe.persistence.dao.BaseDaoProvider">
+        <property name="daoMap">
+            <ref bean="daoMap"/>
+        </property>
+    </bean>
+    
+    <bean id="abstractDaoProvider"
+          class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+    </bean>
+
 </beans>
