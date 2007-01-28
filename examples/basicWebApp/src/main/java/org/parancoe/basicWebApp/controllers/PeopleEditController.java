@@ -29,7 +29,7 @@ public abstract class PeopleEditController extends BaseFormController {
         Person person = null;
         try {
             person = (Person) command;
-            dao().person.createOrUpdate(person);
+            dao().getPersonDao().createOrUpdate(person);
 
             return onSubmit(command, errors); // restituisce succesView
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public abstract class PeopleEditController extends BaseFormController {
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         try {
             Long id = Long.parseLong(req.getParameter("id"));
-            Person p = dao().person.read(id);
+            Person p = dao().getPersonDao().read(id);
             if (p==null) throw new Exception();
             return p;
         } catch(Exception e){

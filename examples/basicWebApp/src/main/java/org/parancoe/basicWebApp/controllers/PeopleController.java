@@ -18,7 +18,7 @@ public abstract class PeopleController extends BaseMultiActionController {
 
     public ModelAndView list(HttpServletRequest req, HttpServletResponse res){
         Map params = new HashMap();
-        params.put("people", dao().person.findAll());
+        params.put("people", dao().getPersonDao().findAll());
         return new ModelAndView("people/list", params);
     }
 
@@ -29,7 +29,7 @@ public abstract class PeopleController extends BaseMultiActionController {
         } catch (ParseException ex) {
             return genericError(ex);
         }
-        params.put("people", dao().person.findAll());
+        params.put("people", dao().getPersonDao().findAll());
         return new ModelAndView("people/list", params);
     }
 
@@ -38,7 +38,7 @@ public abstract class PeopleController extends BaseMultiActionController {
             Long id = Long.parseLong(req.getParameter("id"));
             logger.debug("got id "+id);
             Map params = new HashMap();
-            Person p = dao().person.read(id);
+            Person p = dao().getPersonDao().read(id);
 
             params.put("person",p);
             return new ModelAndView("people/show", params);
