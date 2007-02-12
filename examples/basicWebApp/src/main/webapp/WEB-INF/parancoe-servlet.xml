@@ -6,10 +6,9 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://parancoe.dev.java.net/schema/parancoe
        https://jugpadova.dev.java.net/schema/parancoe.xsd">
-
-
+       
+       
     <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
-    <bean id="personValidator" class="org.parancoe.basicWebApp.po.PersonValidator"/>
 
     <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
@@ -42,7 +41,6 @@
         <property name="commandName" value="person"/>
         <property name="formView" value="people/edit"/>
         <property name="successView" value="redirect:list.html"/>
-        <property name="validator" ref="personValidator"/>
     </bean>
-
+        
 </beans>
