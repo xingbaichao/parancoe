@@ -8,10 +8,24 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import org.springmodules.validation.bean.conf.loader.annotation.handler.InThePast;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
+
 @javax.persistence.Entity()
 public class Person extends EntityBase {
+    
+    @NotBlank
+    @Length(min=2, max=7)
     private String firstName;
+    
+    @NotBlank
+    @Length(min=2, max=10)
     private String lastName;
+    
+    @NotNull
+    @InThePast
     private Date birthDate;
 
     /** Creates a new instance of Person */
