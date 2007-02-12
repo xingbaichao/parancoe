@@ -52,6 +52,10 @@ h3 {
   text-align: center;
 }
 
+.errorBox{
+  color: red;
+}
+
 #header{
   border-bottom: solid 2px black;
   background-color: white;
