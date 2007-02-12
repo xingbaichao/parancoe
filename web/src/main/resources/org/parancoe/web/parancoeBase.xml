@@ -20,7 +20,8 @@ limitations under the License.
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator.xsd">
 
     <!-- database -->
 
@@ -116,13 +117,23 @@ limitations under the License.
         <property name="paramName" value="language"/>
     </bean>
 
+	<!-- This is the annotation validator -->
+	<bean id="validator" class="org.springmodules.validation.bean.BeanValidator">
+		<property name="configurationLoader" ref="configurationLoader"/>
+	</bean>
+	<bean id="configurationLoader" class="org.springmodules.validation.bean.conf.loader.annotation.AnnotationBeanValidationConfigurationLoader" />
+    
     <!-- Abstract Controller -->
     <bean id="abstractController" abstract="true">
         <property name="conf">
             <ref bean="conf"/>
         </property>
+        <property name="validators">
+            <ref bean="validator"/>
+        </property>
         <lookup-method name="dao" bean="daos"/>
         <lookup-method name="blo" bean="blos"/>
     </bean>
 
+	
 </beans>
