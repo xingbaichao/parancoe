@@ -15,24 +15,32 @@
     <form:hidden path="id"/>
     <table>
     <tr>
-        <td>First Name</td>
-        <td><form:input path="firstName"/> * required</td>
+        <td>First Name (*)</td>
+        <td><form:input path="firstName"/></td>
+        <td><form:errors path="firstName" cssClass="errorBox"/></td>
     </tr>
     <tr>
-        <td>Last Name</td>
-        <td><form:input path="lastName"/> * required </td>
+        <td>Last Name (*)</td>
+        <td><form:input path="lastName"/></td>
+        <td><form:errors path="lastName" cssClass="errorBox"/></td>
     </tr>
     <tr>
-        <td>Birth Date</td>
-        <td><form:input path="birthDate"/> (dd/MM/yyyy)</td>
+        <td>Birth Date (**)</td>
+        <td><form:input path="birthDate"/></td>
+        <td><form:errors path="birthDate" cssClass="errorBox"/></td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td><input type="submit" value="Submit"/><br/><br/>
         </td>
     </tr>       
+    <tr>
+        <td>(*): required</td>
+        <td>(**): format dd/MM/yyyy</td>
+    </tr>       
+       
     </table>
-    <form:errors path="*" cssClass="errorBox"/>
+    <!-- <form:errors path="*" cssClass="errorBox"/> -->
 </form:form>
 
 <jsp:include page="../footer.jsp"/>
