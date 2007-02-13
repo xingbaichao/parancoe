@@ -13,6 +13,7 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
 
 /**
+ * A simple example of an application using Parancoe persistence module for Book entity.
  * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
  * @version $Revision$
  *

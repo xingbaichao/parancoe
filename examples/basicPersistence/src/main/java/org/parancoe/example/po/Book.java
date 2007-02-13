@@ -7,7 +7,7 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
  * Represents a book entity.
- * @author Enrico Giurin
+ * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
  *
  */
 @javax.persistence.Entity()

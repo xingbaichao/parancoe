@@ -11,7 +11,8 @@ import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 
 /**
- * @author Enrico Giurin
+ * Represents Book DAO
+  * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
  *
  */
 @Dao(entity=Book.class)

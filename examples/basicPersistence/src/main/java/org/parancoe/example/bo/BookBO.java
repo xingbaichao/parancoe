@@ -6,8 +6,9 @@ package org.parancoe.example.bo;
 import org.parancoe.example.dao.BookDao;
 
 /**
- * @author Enrico Giurin
- *
+  * Represents Book Business object.
+  * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
+  *
  */
 public class BookBO {
 	private BookDao dao;
