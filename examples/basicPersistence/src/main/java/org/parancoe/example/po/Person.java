@@ -14,8 +14,10 @@
 package org.parancoe.example.po;
 
 import java.util.Date;
+
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**

@@ -15,6 +15,7 @@ package org.parancoe.example.dao;
 
 import java.util.Date;
 import java.util.List;
+
 import org.parancoe.example.po.Person;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
