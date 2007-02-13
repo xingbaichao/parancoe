@@ -23,7 +23,11 @@ limitations under the License.
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     
+    <bean id="bookBO" class="org.parancoe.example.bo.BookBO">    
+        <property name="dao" ref="bookDao"/>
+    </bean>   
     <bean id="personBO" class="org.parancoe.example.bo.PersonBO">    
         <property name="dao" ref="personDao"/>
-    </bean>    
+    </bean>   
+   
 </beans>

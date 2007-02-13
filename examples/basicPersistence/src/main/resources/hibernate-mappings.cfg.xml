@@ -21,5 +21,7 @@ limitations under the License.
 <hibernate-configuration>    
     <session-factory>
         <mapping class="org.parancoe.example.po.Person"/>
+        <mapping class="org.parancoe.example.po.Book"/>
     </session-factory>
+   
 </hibernate-configuration>

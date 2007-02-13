@@ -35,5 +35,8 @@ limitations under the License.
 
     <parancoe:dao id="personDao"
         interface="org.parancoe.example.dao.PersonDao"/>
+        
+        <parancoe:dao id="bookDao"
+        interface="org.parancoe.example.dao.BookDao"/>
     
 </beans>
