@@ -1,4 +1,4 @@
-// Copyright 2006 The Parancoe Team
+// Copyright 2006-2007 The Parancoe Team
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import java.util.Map;
 public class ExceptionResolver implements HandlerExceptionResolver {
     private static final Logger log = Logger.getLogger(ExceptionResolver.class);
 
-    /*
-     * gira tutti gli errori non gestiti a genericError.jsp
+    /**
+     * sends unhandled exceptions to genericError.jsp
      */
     public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res,
             Object object, Exception e) {

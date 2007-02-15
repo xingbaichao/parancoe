@@ -1,4 +1,4 @@
-// Copyright 2006 The Parancoe Team
+// Copyright 2006-2007 The Parancoe Team
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,11 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContext;
-/**
- * Context Listener of parancoe web application.
- * @author Paolo Dona
- *
- */
 /**
  * A context listener for initializing the Spring context.
  *

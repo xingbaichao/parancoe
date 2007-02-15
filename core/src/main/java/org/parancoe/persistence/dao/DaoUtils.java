@@ -1,4 +1,4 @@
-// Copyright 2006 The Parancoe Team
+// Copyright 2006-2007 The Parancoe Team
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@ package org.parancoe.persistence.dao;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.parancoe.persistence.dao.generic.Dao;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.ListableBeanFactory;
 
