@@ -9,7 +9,7 @@
     <groupId>org.parancoe</groupId>
     <artifactId>basicPersistence</artifactId>
     <packaging>jar</packaging>
-    <name>basicPersistence</name>
+    <name>Parancoe Example - Basic Persistence</name>
     <version>1.0-SNAPSHOT</version>
     <url>http://parancoe.dev.java.net</url>
     <dependencies>

@@ -8,7 +8,7 @@
 	<artifactId>basicWebApp</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>Parancoe Basic WebApp</name>
+	<name>Parancoe Example - Basic WebApp</name>
 	<url>http://parancoe.dev.java.net</url>
 	<build>
 		<finalName>basicWebApp</finalName>
@@ -67,6 +67,7 @@
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.4</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 </project>
