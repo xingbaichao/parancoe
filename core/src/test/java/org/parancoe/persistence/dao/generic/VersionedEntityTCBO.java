@@ -13,8 +13,8 @@
 // limitations under the License.
 package org.parancoe.persistence.dao.generic;
 
-import java.util.List;
-import org.parancoe.persistence.po.hibernate.EntityTC;
+import org.parancoe.persistence.po.hibernate.VersionedEntityDataTC;
+import org.parancoe.persistence.po.hibernate.VersionedEntityTC;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -23,45 +23,39 @@ import org.springframework.transaction.annotation.Transactional;
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
  * @version $Revision$
  */
-public class EntityTCBO {
-    private EntityTCDao dao;    
+public class VersionedEntityTCBO {
+    private VersionedEntityTCDao dao;    
     
-    /** Creates a new instance of EntityTCBO */
-    public EntityTCBO() {
+    /** Creates a new instance of VersionedEntityTCBO */
+    public VersionedEntityTCBO() {
     }
 
-    public EntityTCDao getDao() {
+    public VersionedEntityTCDao getDao() {
         return dao;
     }
 
-    public void setDao(EntityTCDao dao) {
+    public void setDao(VersionedEntityTCDao dao) {
         this.dao = dao;
     }
     
     @Transactional()
-    public Long createEntity(EntityTC entity) {
+    public Long createEntity(VersionedEntityTC entity) {
         return (Long)dao.create(entity);
     }
     
     @Transactional(readOnly=true)
-    public EntityTC retrieveEntity(Long id) {
-        EntityTC retrievedEntity = this.dao.read(id);
+    public VersionedEntityTC retrieveEntity(Long id) {
+        VersionedEntityTC retrievedEntity = this.dao.read(id);
+        retrievedEntity.getVersionedData().size(); // for initializing lazy collection
         return retrievedEntity;
     }
-
-    @Transactional(readOnly=true)    
-    List retrieveEntityByFieldOne(String value) {
-        return this.dao.findByFieldOne(value);
-    }
-
-    @Transactional(readOnly=true)    
-    List retrieveEntityByFieldTwo(String value) {
-        return this.dao.findByFieldTwo(value);
-    }
     
-    @Transactional(readOnly=true)    
-    List retrieveEntityByFieldOneAndFieldTwo(String one, String two) {
-        return this.dao.findByFieldOneAndFieldTwo(one, two);
+    @Transactional()
+    public VersionedEntityTC updateVersionedData(Long id, VersionedEntityDataTC versionedData) {
+        VersionedEntityTC retrievedEntity = this.dao.read(id);
+        retrievedEntity.updateVersionedData(versionedData);
+        this.dao.update(retrievedEntity);
+        return retrievedEntity;
     }
     
 }

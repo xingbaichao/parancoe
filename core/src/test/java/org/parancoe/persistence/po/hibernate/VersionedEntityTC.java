@@ -13,39 +13,29 @@
 // limitations under the License.
 package org.parancoe.persistence.po.hibernate;
 
+import javax.persistence.Entity;
 /**
- * Common interface for a persistent entity.
+ * A test class for a versioned entity.
  *
- * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
+ * @author Lucio Benfante (<a href="lucio.benfante@jugpadova.it">lucio.benfante@jugpadova.it</a>)
  * @version $Revision$
  */
-public interface Entity {
-    /**
-     * Return the entity id
-     * 
-     * @return The entity id
-     */
-    Long getId();
+@Entity()
+public class VersionedEntityTC extends VersionedEntityBase<VersionedEntityDataTC> {
 
-    /**
-     * Return the version of this entity
-     * 
-     * @return The version of this entity
-     */
-    Integer getVersion();
+    /** A not versioned attribute of VersionedEntityTC */
+    private String name;
+    
+    /** Creates a new instance of VersionedEntityTC */
+    public VersionedEntityTC() {
+    }
 
-    /**
-     * Set the entity id
-     * 
-     * @param id The entity id
-     */
-    void setId(Long id);
+    public String getName() {
+        return name;
+    }
 
-    /**
-     * Set the version of this entity
-     * 
-     * @param version The version
-     */
-    void setVersion(Integer version);
+    public void setName(String name) {
+        this.name = name;
+    }
     
 }

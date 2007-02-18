@@ -1,11 +1,11 @@
 // Copyright 2006-2007 The Parancoe Team
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,39 +13,37 @@
 // limitations under the License.
 package org.parancoe.persistence.po.hibernate;
 
+import java.util.List;
+
 /**
- * Common interface for a persistent entity.
+ * The interface tham must be implemented by an entity with versioned localized data.
  *
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
  * @version $Revision$
  */
-public interface Entity {
+public interface VersionedEntity<T extends VersionedData> extends Entity {
     /**
-     * Return the entity id
-     * 
-     * @return The entity id
+     * Return the collection of versioned localized data.
+     * @return The collection of versioned localized data
      */
-    Long getId();
-
+    List<T> getVersionedData();
+    
     /**
-     * Return the version of this entity
-     * 
-     * @return The version of this entity
+     * Set the collection of versioned localized data
+     * @param versionedData The collection of versioned localized data
      */
-    Integer getVersion();
-
+    void setVersionedData(List<T> versionedData);
+    
     /**
-     * Set the entity id
-     * 
-     * @param id The entity id
+     * Return the default locale for this entity
+     * @return The default locale
      */
-    void setId(Long id);
-
+    String getDefaultLocale();
+    
     /**
-     * Set the version of this entity
-     * 
-     * @param version The version
+     * Set the default locale for this entity.
+     * @param locale The default locale
      */
-    void setVersion(Integer version);
+    void setDefaultLocale(String locale);
     
 }

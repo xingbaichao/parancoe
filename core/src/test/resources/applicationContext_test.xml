@@ -25,5 +25,10 @@ limitations under the License.
     
     <bean id="entityTCBO" class="org.parancoe.persistence.dao.generic.EntityTCBO">    
         <property name="dao" ref="entityTCDao"/>
+    </bean>
+    
+    <bean id="versionedEntityTCBO" class="org.parancoe.persistence.dao.generic.VersionedEntityTCBO">    
+        <property name="dao" ref="versionedEntityTCDao"/>
     </bean>    
+    
 </beans>
