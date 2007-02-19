@@ -112,6 +112,10 @@ public abstract class VersionedEntityBase<T extends VersionedData> extends Entit
         Date current = new Date();
         T last = findLastVersionedData(newVersionData.getLocale());
         if (last != null) {
+            if (!current.after(last.getDateFrom())) {
+                // sometimes it happens with fast machines
+                current.setTime(last.getDateFrom().getTime()+1);
+            }
             last.setDateTo(current);
         }
         newVersionData.setDateFrom(current);
