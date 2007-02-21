@@ -13,14 +13,14 @@
 // limitations under the License.
 package org.parancoe.util;
 
-import org.apache.log4j.WriterAppender;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.Layout;
-import org.apache.log4j.spi.LoggingEvent;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.ArrayUtils;
-
 import java.io.StringWriter;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Layout;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.WriterAppender;
+import org.apache.log4j.spi.LoggingEvent;
 
 public class MemoryAppender extends WriterAppender {
     private static StringWriter buffer = new StringWriter();

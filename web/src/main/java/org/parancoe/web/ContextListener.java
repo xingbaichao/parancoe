@@ -14,16 +14,19 @@
 package org.parancoe.web;
 
 import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.apache.log4j.Logger;
 import org.parancoe.persistence.dao.DaoUtils;
-import org.parancoe.util.MemoryAppender;
+import org.parancoe.persistence.security.AuthoritiesBO;
+import org.parancoe.persistence.security.UserBO;
 import org.parancoe.util.BaseConf;
-import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.parancoe.util.MemoryAppender;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.servlet.ServletContextListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 /**
  * A context listener for initializing the Spring context.
  *
@@ -51,22 +54,26 @@ public class ContextListener implements ServletContextListener {
      * files and the application specific configuration
      */
     private void loadApplicationContext() {
-        String[] config = new String[4];
+        String[] config = new String[5];
         // generici
         config[0] = "classpath:org/parancoe/persistence/dao/generic/genericDao.xml";
         config[1] = "classpath:org/parancoe/web/parancoeBase.xml";
         // application specific
         config[2] = "WEB-INF/parancoe-servlet.xml";
         config[3] = "WEB-INF/database.xml";
+        //acegi-configuration
+        config[4] = "WEB-INF/parancoe-acegi-security.xml";
 
         XmlWebApplicationContext ctx = new XmlWebApplicationContext();
         ctx.setServletContext(servletContext);
         ctx.setConfigLocations(config);
         ctx.refresh();
         
+        
         servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
         
         populateDaoMap(ctx);
+        setSecurity(ctx);
     }
 
     public void contextDestroyed(ServletContextEvent evt) {
@@ -80,5 +87,19 @@ public class ContextListener implements ServletContextListener {
         Map daoMap = (Map)ctx.getBean("daoMap");
         Map daos = DaoUtils.getDaos(ctx);
         daoMap.putAll(daos);
+    }
+    /**
+     * Populate and create if don't exist tables User and Authorities.
+     * @param ctx
+     */
+    private void setSecurity(XmlWebApplicationContext ctx)
+    {
+    	 UserBO userBO = (UserBO)ctx.getBean("userBO");
+         AuthoritiesBO authoritiesBO= (AuthoritiesBO)ctx.getBean("authoritiesBO");
+         // Popoulating the database
+         userBO.populateTable();
+         authoritiesBO.populateTable();
+         
+        
     }
 }

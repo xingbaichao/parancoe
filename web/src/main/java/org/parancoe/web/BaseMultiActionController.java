@@ -13,13 +13,13 @@
 // limitations under the License.
 package org.parancoe.web;
 
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
-import org.springframework.web.servlet.ModelAndView;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.parancoe.util.BaseConf;
-
-import java.util.Map;
-import java.util.HashMap;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 public abstract class BaseMultiActionController extends MultiActionController {
     protected BaseConf conf;

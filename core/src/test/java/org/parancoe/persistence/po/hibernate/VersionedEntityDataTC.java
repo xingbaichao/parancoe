@@ -14,6 +14,7 @@
 package org.parancoe.persistence.po.hibernate;
 
 import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 
 /**

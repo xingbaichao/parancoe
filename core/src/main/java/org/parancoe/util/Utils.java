@@ -1,13 +1,13 @@
 package org.parancoe.util;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.ClassPathResource;
-
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+import org.springframework.core.io.ClassPathResource;
 
 public class Utils {
      public static List<String> convertToNameValueList(Map map) {

@@ -11,21 +11,20 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.persistence.dao.generic;
+package org.parancoe.persistence.security;
 
 import java.util.List;
 
-import org.parancoe.persistence.po.hibernate.EntityTC;
+import org.parancoe.persistence.dao.generic.Dao;
+import org.parancoe.persistence.dao.generic.GenericDao;
 
 /**
- * A DAO to be used for the tests of the generic DAO.
+ * The DAO interface for the User entity.
  *
- * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
+ * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
  * @version $Revision$
  */
-@Dao(entity=EntityTC.class)
-public interface EntityTCDao extends GenericDao<EntityTC, Long> {
-    List findByFieldOne(String value);
-    List findByFieldTwo(String value);
-    List findByFieldOneAndFieldTwo(String one, String two);
+@Dao(entity=Authorities.class)
+public interface AuthoritiesDao extends GenericDao<Authorities, Long> {
+	List<Authorities> findByUsernameAndAuthority(String username, String authority);
 }

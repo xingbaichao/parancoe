@@ -16,10 +16,10 @@ package org.parancoe.persistence.po.hibernate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import org.apache.log4j.Logger;
 
 /**
  * The standard abstract implementation for an entity with versioned localized data.

@@ -15,7 +15,9 @@ package org.parancoe.persistence.dao.generic;
 
 import java.util.Iterator;
 import java.util.List;
-import junit.framework.*;
+
+import junit.framework.TestCase;
+
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.beans.factory.access.BeanFactoryReference;

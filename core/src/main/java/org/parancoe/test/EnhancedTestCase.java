@@ -14,8 +14,9 @@
 
 package org.parancoe.test;
 
-import junit.framework.TestCase;
 import java.util.Collection;
+
+import junit.framework.TestCase;
 
 /**
  * Adds useful assertions to the standard JUnit TestCase

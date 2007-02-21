@@ -15,6 +15,7 @@ package org.parancoe.persistence.po.hibernate;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;

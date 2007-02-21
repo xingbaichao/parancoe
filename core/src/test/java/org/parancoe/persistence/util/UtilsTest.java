@@ -13,12 +13,12 @@
 // limitations under the License.
 package org.parancoe.persistence.util;
 
-import junit.framework.TestCase;
-
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+
+import junit.framework.TestCase;
 
 import org.parancoe.util.Utils;
 

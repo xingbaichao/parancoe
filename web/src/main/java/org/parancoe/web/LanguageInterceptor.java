@@ -13,12 +13,12 @@
 // limitations under the License.
 package org.parancoe.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContext;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 public class LanguageInterceptor extends HandlerInterceptorAdapter {
     public static final Logger logger = Logger.getLogger(LanguageInterceptor.class);

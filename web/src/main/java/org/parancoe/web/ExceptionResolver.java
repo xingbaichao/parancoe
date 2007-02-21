@@ -13,14 +13,15 @@
 // limitations under the License.
 package org.parancoe.web;
 
-import org.apache.log4j.Logger;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.HandlerExceptionResolver;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
 
 public class ExceptionResolver implements HandlerExceptionResolver {
     private static final Logger log = Logger.getLogger(ExceptionResolver.class);

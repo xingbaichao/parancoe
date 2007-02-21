@@ -13,6 +13,25 @@
     <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
     </bean>    
+   
+   
+   <!--  begin security section -->
+    <parancoe:dao id="userDao" interface="org.parancoe.persistence.security.UserDao"/>
+
+    <bean id="userBO" class="org.parancoe.persistence.security.UserBO">
+        <property name="dao" ref="userDao"/>
+    </bean>   
+    
+    <parancoe:dao id="authoritiesDao" interface="org.parancoe.persistence.security.AuthoritiesDao"/>
+
+    <bean id="authoritiesBO" class="org.parancoe.persistence.security.AuthoritiesBO">
+        <property name="dao" ref="authoritiesDao"/>
+    </bean>   
+    
+    <!--  end security section -->
+    
+    
+    
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">

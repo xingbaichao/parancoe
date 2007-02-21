@@ -13,8 +13,10 @@
 // limitations under the License.
 package org.parancoe.persistence.dao;
 
-import junit.framework.*;
 import java.util.Map;
+
+import junit.framework.TestCase;
+
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
