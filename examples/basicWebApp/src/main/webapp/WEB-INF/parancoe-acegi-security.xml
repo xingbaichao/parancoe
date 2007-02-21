@@ -147,17 +147,6 @@
 	  	
 	
 	
-	
-	<!-- UserDetailsService is the most commonly frequently Acegi Security interface implemented by end users -->
-	<bean id="userDetailsService" class="org.acegisecurity.userdetails.memory.InMemoryDaoImpl">
-		<property name="userProperties">
-			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-				<property name="location" value="/WEB-INF/users.properties"/>
-			</bean>
-		</property>
-	</bean>
-	
-
 	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
 	<bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
 
