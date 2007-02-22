@@ -2,13 +2,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
-    
+
     <listener>
         <listener-class>org.parancoe.web.ContextListener</listener-class>
     </listener>
-    <!-- begin  acegi security  -->
-      
-    
+
+    <!-- set requests encoding to UTF8 (needs to be the firs filter) -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <!-- begin  acegi security  -->    
     <filter>
         <filter-name>Acegi Filter Chain Proxy</filter-name>
         <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
@@ -19,11 +28,15 @@
     </filter>
 
     <filter-mapping>
-      <filter-name>Acegi Filter Chain Proxy</filter-name>
-      <url-pattern>/*</url-pattern>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- end  acegi security  -->
-    
+
+    <filter-mapping>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>parancoe</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -49,8 +62,8 @@
         <location>/WEB-INF/jsp/404.jsp</location>
     </error-page>
     <error-page>
-       <error-code>500</error-code>
-        <location>/WEB-INF/jsp/500.jsp</location> 
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/500.jsp</location>
     </error-page>
     <mime-mapping>
         <extension>css</extension>

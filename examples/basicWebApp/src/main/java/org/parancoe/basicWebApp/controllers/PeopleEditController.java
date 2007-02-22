@@ -43,12 +43,12 @@ public abstract class PeopleEditController extends BaseFormController {
         try {
             person = (Person) command;
             dao().getPersonDao().createOrUpdate(person);
-
             return onSubmit(command, errors); // restituisce succesView
         } catch (Exception e) {
-            errors.reject("error.generic");
             logger.error("Problema salvando Utente " + person, e);
-            return showForm(req, res, errors);
+                     
+            errors.reject("error.generic");
+             return showForm(req, res, errors);
         }
     }
 

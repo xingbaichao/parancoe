@@ -109,6 +109,7 @@ limitations under the License.
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
 
+    <!-- copy the locale into a request attribute for easier inspection -->
     <bean id="languageInterceptor"
           class="org.parancoe.web.LanguageInterceptor"/>
 
@@ -133,10 +134,5 @@ limitations under the License.
         </property>
         <lookup-method name="dao" bean="daos"/>
         <lookup-method name="blo" bean="blos"/>
-    </bean>
-    
-    
-    
-
-	
+    </bean>	
 </beans>

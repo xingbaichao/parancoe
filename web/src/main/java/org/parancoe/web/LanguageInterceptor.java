@@ -32,7 +32,7 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
                              Object object) throws Exception {
         RequestContext rc = new RequestContext(req);
         req.setAttribute("requestContext",rc);
-        req.setAttribute("lang", rc.getLocale());
+        req.setAttribute("lang", rc.getLocale().getLanguage());
         return true;
     }
 }

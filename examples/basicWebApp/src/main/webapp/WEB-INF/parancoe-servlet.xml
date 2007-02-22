@@ -41,9 +41,7 @@
             <bean parent="genericDaoProvider"/>
         </property>
     </bean>
-    
-    <!-- bean id="daos" class="org.parancoe.basicWebApp.Daos" autowire="byType"/-->
-    
+
     <bean id="blos" class="org.parancoe.basicWebApp.Blos" autowire="byType"/>
 
     <bean name="/home/*.html" id="homeController"

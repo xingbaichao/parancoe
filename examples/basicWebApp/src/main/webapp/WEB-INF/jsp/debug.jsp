@@ -4,6 +4,11 @@
 <a href="#" onclick="Element.toggle('debug');"> debug </a>
 
 <div id="debug" style="display: none;">
+    <h2>Log Fragment</h2>
+    <code><pre>
+    <%= MemoryAppender.getLastNLines(100) %>
+    </pre></code>    
+
     <h2>Request Params</h2>
     <table>
         <% for (Enumeration e = request.getParameterNames(); e.hasMoreElements();) {
@@ -72,10 +77,4 @@
     <% }
     }
     %> </table>
-
-    <h2>Log Fragment</h2>
-    <code><pre>
-    <%= MemoryAppender.getLastNLines(100) %> 
-    </pre></code>
-
 </div>
