@@ -13,6 +13,8 @@
 // limitations under the License.
 package org.parancoe.web.test;
 
+import java.util.Map;
+import org.parancoe.persistence.dao.DaoUtils;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
@@ -34,6 +36,10 @@ public abstract class ControllerTest extends BaseTest {
         req.setMethod("GET");
         req.setContextPath("/specialitaly");
         res = new MockHttpServletResponse();
+        // Setup the daomap (done in a contextlistener out of tests)
+        Map daoMap = (Map)ctx.getBean("daoMap");
+        Map daos = DaoUtils.getDaos(ctx);
+        daoMap.putAll(daos);        
     }
 
     public void tearDown() throws Exception {
