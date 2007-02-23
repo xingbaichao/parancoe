@@ -67,7 +67,7 @@ limitations under the License.
 
     <!-- this is the default conf Object, you can override it in your parancoe-servlet.xml
          just remember to set parent="abstractConf" -->
-    <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>
+    <bean id="conf" class="org.parancoe.util.BaseConf" parent="abstractConf"/>
 
     <bean id="abstractHandlerMapping" abstract="true"
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
