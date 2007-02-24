@@ -30,8 +30,8 @@
     
     <!--  end security section -->
     
-    
-    
+    <!-- Overriding the default configuration bean -->
+    <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>    
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
