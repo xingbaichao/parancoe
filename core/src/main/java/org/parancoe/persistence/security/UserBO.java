@@ -18,58 +18,59 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
-
 /**
- * A BO for User table.
- *
+ * A BO for UserProfile table.
+ * 
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
+ * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
  * @version $Revision$
  */
 public class UserBO {
-	 static final String USER_ADMIN = "admin";
-	 static final String USER_PARANCOE = "parancoe";
-	 
-	 private static final Logger logger = Logger.getLogger(UserBO.class);	
-	 private UserDao dao;
-    
+
+    static final String USER_ADMIN = "admin";
+
+    static final String USER_PARANCOE = "parancoe";
+
+    private static final Logger logger = Logger.getLogger(UserBO.class);
+
+    private UserDao dao;
+
     /**
-     * Creates a new instance of UserBO
-     */
+         * Creates a new instance of UserBO
+         */
     public UserBO() {
     }
-    
+
     public UserDao getDao() {
-        return dao;
+	return dao;
     }
-    
+
     public void setDao(UserDao dao) {
-        this.dao = dao;
+	this.dao = dao;
     }
-    
-    
+
     @Transactional()
     public void populateTable() {
-       
-        List<User> searches = null;
-        searches = dao.findByUsernameAndPassword(USER_ADMIN, USER_ADMIN);
-        if (searches.isEmpty()) {
-            User user = new User();
-            user.setEnabled(true);
-            user.setUsername(USER_ADMIN);
-            user.setPassword(USER_ADMIN);
-            dao.create(user);
-        }
-        searches = dao.findByUsernameAndPassword(USER_PARANCOE, USER_PARANCOE);
-        if (searches.isEmpty()) {
-            User user = new User();
-            user.setEnabled(true);
-            user.setUsername(USER_PARANCOE);
-            user.setPassword(USER_PARANCOE);
-            dao.create(user);
-        }
-        logger.info("Created and populated table User");
-       
+
+	List<UserProfile> searches = null;
+	searches = dao.findByUsernameAndPassword(USER_ADMIN, USER_ADMIN);
+	if (searches.isEmpty()) {
+	    UserProfile user = new UserProfile();
+	    user.setEnabled(true);
+	    user.setUsername(USER_ADMIN);
+	    user.setPassword(USER_ADMIN);
+	    dao.create(user);
+	}
+	searches = dao.findByUsernameAndPassword(USER_PARANCOE, USER_PARANCOE);
+	if (searches.isEmpty()) {
+	    UserProfile user = new UserProfile();
+	    user.setEnabled(true);
+	    user.setUsername(USER_PARANCOE);
+	    user.setPassword(USER_PARANCOE);
+	    dao.create(user);
+	}
+	logger.info("Created and populated table User");
+
     }
-    
-  
+
 }

@@ -16,35 +16,45 @@ package org.parancoe.persistence.security;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
- * A PO for User table.
- *
+ * A PO for UserProfile table.
+ * 
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
+ * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
  * @version $Revision$
  */
 @javax.persistence.Entity()
-public class User extends EntityBase {
-	private String username = null;
-	private String password = null;
-	private boolean enabled = true;
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-	
-	
-    
+public class UserProfile extends EntityBase {
+
+    private static final long serialVersionUID = 832363948575562242L;
+
+    private String username = null;
+
+    private String password = null;
+
+    private boolean enabled = true;
+
+    public boolean isEnabled() {
+	return enabled;
+    }
+
+    public String getPassword() {
+	return password;
+    }
+
+    public void setPassword(String password) {
+	this.password = password;
+    }
+
+    public String getUsername() {
+	return username;
+    }
+
+    public void setUsername(String username) {
+	this.username = username;
+    }
+
+    public void setEnabled(boolean enabled) {
+	this.enabled = enabled;
+    }
+
 }
