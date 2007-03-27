@@ -14,5 +14,6 @@
   <url>http://parancoe.dev.java.net</url>
   <modules>
     <module>basicPersistence</module>
+    <module>basicWebApp</module>
   </modules>
 </project>
