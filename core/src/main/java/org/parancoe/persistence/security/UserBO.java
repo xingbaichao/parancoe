@@ -69,7 +69,7 @@ public class UserBO {
 	    user.setPassword(USER_PARANCOE);
 	    dao.create(user);
 	}
-	logger.info("Created and populated table User");
+	logger.info("Created and populated table UserProfile");
 
     }
 

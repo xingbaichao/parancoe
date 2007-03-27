@@ -6,7 +6,7 @@
 <hibernate-configuration>    
     <session-factory>
         <mapping class="org.parancoe.basicWebApp.po.Person"/>
-        <mapping class="org.parancoe.persistence.security.User"/>
+        <mapping class="org.parancoe.persistence.security.UserProfile"/>
         <mapping class="org.parancoe.persistence.security.Authorities"/>
     </session-factory>
 </hibernate-configuration>

@@ -138,7 +138,7 @@
 			<ref bean="dataSource" />
 		</property>
 		<property name="usersByUsernameQuery">
-			<value>Select username, password,'true' FROM user WHERE username=?</value>
+			<value>Select username, password,'true' FROM userProfile WHERE username=?</value>
 		</property>
 		<property name="authoritiesByUsernameQuery">
 			<value>SELECT username,authority  FROM authorities WHERE username = ?</value>
