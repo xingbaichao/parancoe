@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/${artifactId}" reloadable="true">
+    <Resource
+        auth="Container"
+        name="jdbc/${artifactId}DS"
+        type="javax.sql.DataSource"
+        driverClassName="org.hsqldb.jdbcDriver"
+        password=""
+        username="sa"
+        url="jdbc:hsqldb:mem:${artifactId}"
+        maxActive="1"/>
+</Context>

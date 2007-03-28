@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd
+       http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd"
+       default-lazy-init="false" >
+    
+    <parancoe:dao id="personDao" interface="${groupId}.dao.PersonDao"/>
+    
+    <bean id="personBO" class="${groupId}.blo.PersonBo">
+        <property name="dao" ref="personDao"/>
+    </bean>    
+    
+    <bean id="daos" parent="abstractDaoProvider">
+        <property name="proxyInterfaces">
+            <value>${groupId}.Daos</value>
+        </property>
+        <property name="target">
+            <bean parent="genericDaoProvider"/>
+        </property>
+    </bean>
+    
+    <bean id="blos" class="${groupId}.Blos" autowire="byType"/>
+        
+    <bean name="/home/*.html" id="homeController"
+          class="${groupId}.controllers.HomeController" parent="abstractController"/>
+    <bean name="/admin/*.html" id="adminController"
+          class="${groupId}.controllers.AdminController" parent="abstractController"/>
+    <bean name="/people/*.html" id="peopleController"
+          class="${groupId}.controllers.PeopleController" parent="abstractController"/>
+    
+    <bean name="/people/edit.form" id="peopleEditController"
+          class="${groupId}.controllers.PeopleEditController"
+          parent="abstractController">
+        <property name="commandClass" value="${groupId}.po.Person"/>
+        <property name="commandName" value="person"/>
+        <property name="formView" value="people/edit"/>
+        <property name="successView" value="redirect:list.html"/>
+    </bean>
+        
+    <!--  begin security section -->
+    <parancoe:dao id="userDao" interface="org.parancoe.persistence.security.UserDao"/>
+    
+    <bean id="userBO" class="org.parancoe.persistence.security.UserBO">
+        <property name="dao" ref="userDao"/>
+    </bean>   
+    
+    <parancoe:dao id="authoritiesDao" interface="org.parancoe.persistence.security.AuthoritiesDao"/>
+    
+    <bean id="authoritiesBO" class="org.parancoe.persistence.security.AuthoritiesBO">
+        <property name="dao" ref="authoritiesDao"/>
+    </bean>   
+    
+    <!--  end security section -->
+    
+</beans>
