@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC
+"-//Apache Software Foundation//DTD XDOC 1.0//EN"
+"http://maven.apache.org/dtd/xdoc_1_0.dtd">
+
+<document>
+    <properties>
+        <title>Parancoe</title>
+        <author email="lucio.benfante@jugpadova.it">Lucio Benfante</author>
+    </properties>
+    <!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
+    <head>
+        <meta name="description" content="Parancoe Site Home Page"/>
+        <meta name="keywords" content="parancoe, web, framework"/>    
+    </head>
+    <body>
+        <!-- The body of the document contains a number of sections -->
+        <section name="Parancoe">
+            <p><a href="http://parancoe.dev.java.net">Parancoe</a> is a project
+                aiming to simplify the release of web applications
+                promoting the convention over configuration philosophy and the
+                <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> principle.
+                This project is promoted by the <a href="http://www.jugpadova.it">JUG Padova</a>,
+                and everybody can partecipate.
+            </p>
+            
+            <p>Parancoe purpose is to give to developers a set of libraries ready
+                to build standard web applications (which in most cases are just crud
+                applications) without worrying of long and harmful configurations files.
+                Parancoe will be composed of a full MVC stack.
+            </p>
+            
+            <p>Parancoe is open source and uses
+                <a href="http://www.apache.org/licenses/LICENSE-2.0">ASL</a> as licence.
+            </p>
+            
+            <p>The <a href="http://wiki.java.net/bin/view/Projects/ParancoeGuidelines">guidelines</a> are very simple.</p>
+            
+            <p>Are you interested in the parancoe word meaning?
+                A "parancoa" is a scaffolding in the dialect of the Venice (Italy) area.
+            </p>            
+        </section>
+        <section name="Wiki">
+            <p>At present most of the Parancoe documentation is in our
+                <a href="http://wiki.java.net/bin/view/Projects/Parancoe">Wiki</a>.
+            </p>
+            <p>
+                A list of documents from the Wiki:                
+            </p>
+            <ul>
+                <li><a href="http://wiki.java.net/bin/view/Projects/ParancoeDevelopmentWithEclipseTutorial">Setting up the development environment with Eclipse</a></li>
+                <li><a href="http://wiki.java.net/bin/view/Projects/ParancoePersistenceTutorial">Persistence module tutorial</a></li>
+                <li><a href="http://wiki.java.net/bin/view/Projects/BasicWebApplicationSetup">Basic web application setup</a></li>
+            </ul>
+        </section>
+    </body>
+</document>

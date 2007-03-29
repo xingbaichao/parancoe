@@ -91,4 +91,95 @@ limitations under the License.
         <module>core</module>
         <module>examples</module>
     </modules>
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
+            <layout>default</layout>	  
+        </repository>
+    </repositories>
+    <scm>
+        <connection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</connection>
+        <developerConnection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://parancoe.dev.java.net/source/browse/parancoe/</url>
+    </scm>    
+    <issueManagement>
+        <system>CollabNet</system>
+        <url>https://parancoe.dev.java.net/servlets/ProjectIssues</url>
+    </issueManagement>    
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+    <organization>
+        <name>JUG Padova Parancoe Team</name>
+        <url>http://www.jugpadova.it</url>
+    </organization>
+    <mailingLists>
+        <mailingList>
+            <name>Developers</name>
+            <subscribe>dev-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>dev-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>dev@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+        </mailingList>
+        <mailingList>
+            <name>CVS</name>            
+            <subscribe>cvs-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>cvs-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>cvs@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=cvs</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>            
+            <subscribe>commits-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>commits-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>commits@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+        </mailingList>
+        <mailingList>
+            <name>Announce</name>            
+            <subscribe>announce-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>announce-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>announce@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=announce</archive>
+        </mailingList>
+        <mailingList>
+            <name>Issues</name>            
+            <subscribe>issues-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>issues-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>issues@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=issues</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>            
+            <subscribe>users-subscribe@parancoe.dev.java.net</subscribe>
+            <unsubscribe>users-unsubscribe@parancoe.dev.java.net</unsubscribe>
+            <post>users@parancoe.dev.java.net</post>
+            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=users</archive>
+        </mailingList>
+    </mailingLists>    
+    <developers>
+        <developer>
+            <id>benfante</id>
+            <name>Lucio Benfante</name>            
+            <email>lucio.benfante@jugpadova.it</email>
+            <url>http://benfante.blogspot.com</url>
+            <organization>Lucio Benfante Consulting</organization>
+            <organizationUrl>http://www.benfante.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl>http://farm1.static.flickr.com/35/70560671_64adac2288_o.png</picUrl>
+            </properties>
+        </developer>
+    </developers>
 </project>
