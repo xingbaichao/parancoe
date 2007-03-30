@@ -167,6 +167,21 @@ limitations under the License.
     </mailingLists>    
     <developers>
         <developer>
+            <id>agente_volpe</id>
+            <name>Michele Franzin</name>            
+            <email>michele.franzin@jugpadova.it</email>
+            <url>http://www.jugpadova.it</url>
+            <organization>SeeSaw</organization>
+            <organizationUrl>http://www.seesaw.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
             <id>benfante</id>
             <name>Lucio Benfante</name>            
             <email>lucio.benfante@jugpadova.it</email>
@@ -179,6 +194,96 @@ limitations under the License.
             <timezone>+1</timezone>
             <properties>
                 <picUrl>http://farm1.static.flickr.com/35/70560671_64adac2288_o.png</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>egesuato</id>
+            <name>Emanuele Gesuato</name>            
+            <email>emanuelegesuato@virgilio.it</email>
+            <url>http://www.jugpadova.it</url>
+            <organization>JUG Padova</organization>
+            <organizationUrl>http://www.jugpadova.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>enricogiurin</id>
+            <name>Enrico Giurin</name>            
+            <email>enrico.giurin@jugpadova.it</email>
+            <url>http://www.jugpadova.it</url>
+            <organization>JUG Padova</organization>
+            <organizationUrl>http://www.jugpadova.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>gtrev</id>
+            <name>Andrea Nasato</name>            
+            <email>andrea.nasato@jugpadova.it</email>
+            <url>http://www.gtrev.it</url>
+            <organization>JUG Padova</organization>
+            <organizationUrl>http://www.jugpadova.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>iccatiro</id>
+            <name>Jacopo Murador</name>            
+            <email>jacopo.murador@jugpadova.it</email>
+            <url>http://www.jugpadova.it</url>
+            <organization>SeeSaw</organization>
+            <organizationUrl>http://www.seesaw.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>paolodona</id>
+            <name>Paolo Don&agrave;</name>            
+            <email>paolo.dona@jugpadova.it</email>
+            <url>http://paolodona.blogspot.com</url>
+            <organization>SeeSaw</organization>
+            <organizationUrl>http://www.seesaw.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>pfoletto</id>
+            <name>Paolo Foletto</name>            
+            <email>paolo.foletto@jugpadova.it</email>
+            <url>http://www.jugpadova.it</url>
+            <organization>JUG Padova</organization>
+            <organizationUrl>http://www.jugpadova.it</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+            <properties>
+                <picUrl></picUrl>
             </properties>
         </developer>
     </developers>
