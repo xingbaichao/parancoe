@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.directwebremoting</groupId>
             <artifactId>dwr</artifactId>
-            <version>2.0.rc2</version>
+            <version>2.0.rc3</version>
         </dependency>        
         
         <!-- Only for tests of your application (if any ;) )-->
