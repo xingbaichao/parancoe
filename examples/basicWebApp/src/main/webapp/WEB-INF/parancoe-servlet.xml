@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://parancoe.dev.java.net/schema/parancoe
-       https://jugpadova.dev.java.net/schema/parancoe.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd
+       http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
        
        
     <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
 
     <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
+        <dwr:remote javascript="personBO">
+            <dwr:include method="populateArchive"/>
+            <dwr:include method="retrievePerson"/>
+            <dwr:include method="showPerson"/>
+        </dwr:remote>
     </bean>    
    
    
@@ -59,5 +64,17 @@
         <property name="formView" value="people/edit"/>
         <property name="successView" value="redirect:list.html"/>
     </bean>
-        
+
+    <!-- begin dwr section -->
+    <!-- **WARNING** In production leave commented the following definition for
+        the dwrController. It's useful only for debug. In production it's a security hole.
+        If debug="true" point your browser to /<your context>/dwr/index.html
+    -->    
+    <dwr:controller id="dwrController" debug="true"/>
+
+    <dwr:configuration>
+        <dwr:convert type="bean" class="org.parancoe.basicWebApp.po.Person" />        
+    </dwr:configuration>
+    <!-- end dwr section -->
+    
 </beans>

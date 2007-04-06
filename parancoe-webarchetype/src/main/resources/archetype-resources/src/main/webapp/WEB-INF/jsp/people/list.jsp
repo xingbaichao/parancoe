@@ -3,8 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
+        <script src="${cp}/dwr/interface/personBO.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="parancoe.util.initDWR()">
         <div id="nonFooter">    
             <jsp:include page="../header.jsp"/>
             
@@ -17,6 +18,7 @@
                     <li>${person}
                         <a href="show.html?id=${person.id}">show</a>
                         <a href="edit.form?id=${person.id}">edit</a>           
+                        <a href="javascript: personBO.showPerson(${person.id})">Ajax show</a>
                     </li>
                 </c:forEach>
             </ul>
@@ -25,6 +27,12 @@
                 <spring:message code="people_empty_db"/>
             </c:if>
             <br/>
+
+            <div id="personData" style="display: none;">
+                <b><spring:message code="first_name"/>: </b><span id="firstName"></span><br/>
+                <b><spring:message code="last_name"/>: </b><span id="lastName"></span><br/>
+                <b><spring:message code="birth_date"/>: </b><span id="birthDate"></span><br/>
+            </div>
             
             <a href="${cp}/people/edit.form"><spring:message code="people_add_new"/></a>
             

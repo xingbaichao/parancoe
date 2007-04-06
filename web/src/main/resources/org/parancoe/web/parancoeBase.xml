@@ -18,26 +18,28 @@ limitations under the License.
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator.xsd">
-
+       http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator.xsd
+http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+    
     <!-- database -->
 
     <tx:annotation-driven/>
-
+    
     <bean id="abstractSessionFactory" abstract="true"
           class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
         <property name="configLocation" value="classpath:hibernate-mappings.cfg.xml"/>
     </bean>
-
+    
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
+    
     <!-- environments configuration -->
 
     <bean id="developmentConfiguration"
@@ -52,7 +54,7 @@ limitations under the License.
           class="org.apache.commons.configuration.PropertiesConfiguration">
         <constructor-arg value="production.properties"/>
     </bean>
-
+    
     <bean id="abstractConf" abstract="true">
         <property name="developmentConfiguration">
             <ref bean="developmentConfiguration"/>
@@ -64,11 +66,11 @@ limitations under the License.
             <ref bean="productionConfiguration"/>
         </property>
     </bean>
-
+    
     <!-- this is the default conf Object, you can override it in your parancoe-servlet.xml
          just remember to set parent="abstractConf" -->
     <bean id="conf" class="org.parancoe.util.BaseConf" parent="abstractConf"/>
-
+    
     <bean id="abstractHandlerMapping" abstract="true"
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
@@ -78,17 +80,17 @@ limitations under the License.
             </list>
         </property>
     </bean>
-
+    
     <!-- this is the default handler mapping, you can override it in your parancoe-servlet.xml -->
     <bean id="handlerMapping" parent="abstractHandlerMapping"/>
-
+    
     <!-- i18n -->
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="/WEB-INF/messages"/>
         <property name="cacheSeconds" value="1"/>
     </bean>
-
+    
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
@@ -96,33 +98,33 @@ limitations under the License.
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
+    
     <!-- sends exceptions to genericError.jsp -->
     <bean id="exceptionResolver" class="org.parancoe.web.ExceptionResolver"/>
-
+    
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="1000000"/>
     </bean>
-
+    
     <!-- locale change -->
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
-
+    
     <!-- copy the locale into a request attribute for easier inspection -->
     <bean id="languageInterceptor"
           class="org.parancoe.web.LanguageInterceptor"/>
-
+    
     <bean id="localeChangeInterceptor"
           class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="language"/>
     </bean>
-
-	<!-- This is the annotation validator -->
-	<bean id="validator" class="org.springmodules.validation.bean.BeanValidator">
-		<property name="configurationLoader" ref="configurationLoader"/>
-	</bean>
-	<bean id="configurationLoader" class="org.springmodules.validation.bean.conf.loader.annotation.AnnotationBeanValidationConfigurationLoader" />
+    
+    <!-- This is the annotation validator -->
+    <bean id="validator" class="org.springmodules.validation.bean.BeanValidator">
+        <property name="configurationLoader" ref="configurationLoader"/>
+    </bean>
+    <bean id="configurationLoader" class="org.springmodules.validation.bean.conf.loader.annotation.AnnotationBeanValidationConfigurationLoader" />
     
     <!-- Abstract Controller -->
     <bean id="abstractController" abstract="true">
@@ -134,5 +136,19 @@ limitations under the License.
         </property>
         <lookup-method name="dao" bean="daos"/>
         <lookup-method name="blo" bean="blos"/>
-    </bean>	
+    </bean>
+    
+    <!-- begin dwr section -->    
+    <dwr:controller id="dwrController" debug="false"/>
+    
+    <bean id="dwrHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="alwaysUseFullPath" value="true" />  
+        <property name="urlMap">
+            <map>
+                <entry key="/dwr/**/*"><ref bean="dwrController"/></entry>                          
+            </map>
+        </property>
+    </bean>           
+    <!-- end dwr section -->
+    
 </beans>

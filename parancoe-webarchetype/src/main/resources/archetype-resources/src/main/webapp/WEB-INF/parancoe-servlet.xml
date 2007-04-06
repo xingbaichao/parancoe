@@ -12,6 +12,11 @@
     
     <bean id="personBO" class="${groupId}.blo.PersonBo">
         <property name="dao" ref="personDao"/>
+        <dwr:remote javascript="personBO">
+            <dwr:include method="populateArchive"/>
+            <dwr:include method="retrievePerson"/>
+            <dwr:include method="showPerson"/>
+        </dwr:remote>
     </bean>    
     
     <bean id="daos" parent="abstractDaoProvider">
@@ -55,5 +60,17 @@
     </bean>   
     
     <!--  end security section -->
+
+    <!-- begin dwr section -->
+    <!-- **WARNING** In production leave commented the following definition for
+        the dwrController. It's useful only for debug. In production it's a security hole.
+        If debug="true" point your browser to /<your context>/dwr/index.html
+    -->    
+    <dwr:controller id="dwrController" debug="true"/>
+
+    <dwr:configuration>
+        <dwr:convert type="bean" class="${groupId}.po.Person" />        
+    </dwr:configuration>
+    <!-- end dwr section -->
     
 </beans>

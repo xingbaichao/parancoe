@@ -67,6 +67,13 @@
             <version>1.8.0.4</version>
             <scope>runtime</scope>
         </dependency> 
+
+        <!-- AJAX framework -->
+        <dependency>
+            <groupId>org.directwebremoting</groupId>
+            <artifactId>dwr</artifactId>
+            <version>2.0.rc2</version>
+        </dependency>        
         
         <!-- Only for tests of your application (if any ;) )-->
         <dependency>

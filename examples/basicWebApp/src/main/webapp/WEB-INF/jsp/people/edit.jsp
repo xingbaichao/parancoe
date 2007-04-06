@@ -15,17 +15,17 @@
     <form:hidden path="id"/>
     <table>
     <tr>
-        <td>First Name (*)</td>
+        <td><spring:message code="first_name"/> (*)</td>
         <td><form:input path="firstName"/></td>
         <td><form:errors path="firstName" cssClass="errorBox"/></td>
     </tr>
     <tr>
-        <td>Last Name (*)</td>
+        <td><spring:message code="last_name"/> (*)</td>
         <td><form:input path="lastName"/></td>
         <td><form:errors path="lastName" cssClass="errorBox"/></td>
     </tr>
     <tr>
-        <td>Birth Date (**)</td>
+        <td><spring:message code="birth_date"/> (**)</td>
         <td><form:input path="birthDate"/></td>
         <td><form:errors path="birthDate" cssClass="errorBox"/></td>
     </tr>

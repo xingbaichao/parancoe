@@ -60,6 +60,7 @@
         <resource filtered="false">src/main/webapp/images/background.gif</resource>
         <resource filtered="false">src/main/webapp/images/powered_parancoe.png</resource>
         <resource filtered="false">src/main/webapp/javascripts/effects.js</resource>
+        <resource filtered="false">src/main/webapp/javascripts/parancoe.js</resource>
         <resource filtered="false">src/main/webapp/javascripts/prototype.js</resource>
         <resource filtered="false">src/main/webapp/javascripts/scriptaculous.js</resource>
         <resource filtered="false">src/main/webapp/stylesheets/default.css</resource>

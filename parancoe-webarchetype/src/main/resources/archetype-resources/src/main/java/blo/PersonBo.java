@@ -20,6 +20,11 @@ import ${groupId}.dao.PersonDao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import org.directwebremoting.ScriptSession;
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
+import org.directwebremoting.proxy.dwr.Util;
+import org.directwebremoting.proxy.scriptaculous.Effect;
 
 public class PersonBo {
     private PersonDao dao;
@@ -66,5 +71,20 @@ public class PersonBo {
     public Person retrievePerson(Long id) {
         return dao.read(id);
     }
+    
+    @Transactional(readOnly=true)
+    public void showPerson(Long id) {
+        WebContext wctx = WebContextFactory.get();        
+        ScriptSession session = wctx.getScriptSession();
+        Util util = new Util(session);
+        Person p = dao.read(id);
+        util.setValue("firstName", p.getFirstName());
+        util.setValue("lastName", p.getLastName());
+        util.setValue("birthDate", p.getBirthDate().toString());
+        util.setStyle("personData", "display", "block");
+        Effect effect = new Effect(session);
+        effect.highlight("personData");
+    }
+    
 }
 
