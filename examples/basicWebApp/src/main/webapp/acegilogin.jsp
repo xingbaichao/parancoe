@@ -5,10 +5,13 @@
 
 <html>
   <head>
-    <title>Parancoe Login</title>
+    <% request.setAttribute("cp", "."); %>
+	<%@ include file="WEB-INF/jsp/head.jspf" %>
   </head>
 
   <body>
+    <jsp:include page="WEB-INF/jsp/header.jsp"/>
+    
     <h1>Parancoe Login</h1>
 
 	<P>Valid users:
@@ -39,6 +42,6 @@
       </table>
 
     </form>
-
+  <jsp:include page="WEB-INF/jsp/footer.jsp"/>
   </body>
 </html>
