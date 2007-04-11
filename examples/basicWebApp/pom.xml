@@ -4,7 +4,7 @@
     <groupId>org.parancoe</groupId>
     <artifactId>basicWebApp</artifactId>
     <packaging>war</packaging>
-    <version>0.2</version>
+    <version>1.0-SNAPSHOT</version>
     <name>Parancoe Example - Basic WebApp</name>
     <url>http://parancoe.dev.java.net</url>
     <build>
