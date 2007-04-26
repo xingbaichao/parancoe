@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ include file="../head.jspf" %>
+    
     <script src="${cp}/dwr/interface/personBO.js" type="text/javascript"></script>
 </head>
 <body onload="parancoe.util.initDWR()">
@@ -36,6 +37,9 @@
 <a href="${cp}/people/edit.form">inserisci una nuova persona</a>
 
 <a href="${cp}/people/populate.html">inserisci un p&ograve; di gente nel db</a>
+<p>
+<a href="${cp}/j_acegi_logout">Logout</a>
+</p>
 <jsp:include page="../footer.jsp"/>
 
 </body>
