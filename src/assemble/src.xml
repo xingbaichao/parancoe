@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+  <id>src</id>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>org.parancoe:core</include>
+        <include>org.parancoe:web</include>
+      </includes>
+      <sources>
+        <outputDirectory>sources/${artifactId}</outputDirectory>
+      </sources>
+    </moduleSet>
+  </moduleSets>
+</assembly>
