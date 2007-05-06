@@ -15,8 +15,12 @@ package org.parancoe.xml;
 
 import org.parancoe.persistence.dao.generic.Dao;
 import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
+import org.springframework.beans.factory.xml.ParserContext;
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
@@ -26,6 +30,8 @@ import org.w3c.dom.Element;
  * @version $Revision$
  */
 public class DaoBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
+    public static final String INTERFACE_ATTRIBUTE = "interface";
+    public static final String GENERIC_DAO_ATTRIBUTE = "genericDao";
     
     /** Creates a new instance of DaoBeanDefinitionParser */
     public DaoBeanDefinitionParser() {
@@ -36,7 +42,7 @@ public class DaoBeanDefinitionParser extends AbstractSingleBeanDefinitionParser 
     }
     
     protected void doParse(Element element, BeanDefinitionBuilder bean) {
-        String daoInterface = element.getAttribute("interface");
+        String daoInterface = element.getAttribute(INTERFACE_ATTRIBUTE);
         bean.addPropertyValue("proxyInterfaces", daoInterface);
         Class entityType = null;
         try {
@@ -51,9 +57,31 @@ public class DaoBeanDefinitionParser extends AbstractSingleBeanDefinitionParser 
         } catch (ClassNotFoundException ex) {
             throw new IllegalArgumentException("Dao interface not found", ex);
         }
-        String genericDao = element.getAttribute("genericDao");
+        String genericDao = element.getAttribute(GENERIC_DAO_ATTRIBUTE);
         BeanDefinitionBuilder genericDaoBDB = bean.childBeanDefinition(genericDao);
         genericDaoBDB.addPropertyValue("type", entityType);
         bean.addPropertyValue("target", genericDaoBDB.getBeanDefinition());
     }
+    
+    protected boolean shouldGenerateIdAsFallback() {
+        return true;
+    }
+    
+    @Override
+    protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext)
+    throws BeanDefinitionStoreException {        
+        if (shouldGenerateId()) {
+            return super.resolveId(element, definition, parserContext);
+        } else {
+            String id = element.getAttribute(ID_ATTRIBUTE);
+            if (!StringUtils.hasText(id) && shouldGenerateIdAsFallback()) {
+                String daoInterface = element.getAttribute(INTERFACE_ATTRIBUTE);
+                id = StringUtils.uncapitalize(StringUtils.unqualify(daoInterface));
+            }
+            return id;
+        }
+    }
+    
+    
+    
 }

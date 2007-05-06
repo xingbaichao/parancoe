@@ -8,7 +8,7 @@
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd"
        default-lazy-init="false" >
     
-    <parancoe:dao id="personDao" interface="${groupId}.dao.PersonDao"/>
+    <parancoe:dao interface="${groupId}.dao.PersonDao"/>
     
     <bean id="personBO" class="${groupId}.blo.PersonBo">
         <property name="dao" ref="personDao"/>

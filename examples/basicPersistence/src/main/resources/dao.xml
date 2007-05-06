@@ -20,9 +20,9 @@ limitations under the License.
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://parancoe.dev.java.net/schema/parancoe
-       https://jugpadova.dev.java.net/schema/parancoe.xsd">
-
-<!-- The old way
+https://jugpadova.dev.java.net/schema/parancoe.xsd">
+    
+    <!-- The old way
     <bean id="personDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>org.parancoe.example.dao.PersonDao</value>
@@ -33,10 +33,8 @@ limitations under the License.
     </bean>
 -->
 
-    <parancoe:dao id="personDao"
-        interface="org.parancoe.example.dao.PersonDao"/>
-        
-        <parancoe:dao id="bookDao"
-        interface="org.parancoe.example.dao.BookDao"/>
+    <parancoe:dao interface="org.parancoe.example.dao.PersonDao"/>
+    
+    <parancoe:dao interface="org.parancoe.example.dao.BookDao"/>
     
 </beans>

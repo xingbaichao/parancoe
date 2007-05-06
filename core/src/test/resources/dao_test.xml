@@ -33,10 +33,8 @@ limitations under the License.
     </bean>
 -->
     
-    <parancoe:dao id="entityTCDao"
-        interface="org.parancoe.persistence.dao.generic.EntityTCDao"/>
+    <parancoe:dao interface="org.parancoe.persistence.dao.generic.EntityTCDao"/>
 
-    <parancoe:dao id="versionedEntityTCDao"
-        interface="org.parancoe.persistence.dao.generic.VersionedEntityTCDao"/>
+    <parancoe:dao interface="org.parancoe.persistence.dao.generic.VersionedEntityTCDao"/>
     
 </beans>

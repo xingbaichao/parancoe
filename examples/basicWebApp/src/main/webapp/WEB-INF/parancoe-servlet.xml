@@ -8,7 +8,7 @@
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
        
        
-    <parancoe:dao id="personDao" interface="org.parancoe.basicWebApp.dao.PersonDao"/>
+    <parancoe:dao interface="org.parancoe.basicWebApp.dao.PersonDao"/>
 
     <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
