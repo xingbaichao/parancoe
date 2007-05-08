@@ -99,7 +99,5 @@ public class ContextListener implements ServletContextListener {
          // Popoulating the database
          userBO.populateTable();
          authoritiesBO.populateTable();
-         
-        
     }
 }
