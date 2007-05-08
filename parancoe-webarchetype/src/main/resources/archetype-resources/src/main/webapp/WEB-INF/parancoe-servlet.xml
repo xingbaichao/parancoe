@@ -8,7 +8,11 @@
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd"
        default-lazy-init="false" >
     
+    <!-- ...if you need to define explicitly a DAO
     <parancoe:dao interface="${groupId}.dao.PersonDao"/>
+    -->    
+    <!-- Authomatic DAO definition from persistent classes -->
+    <parancoe:define-daos basePackage="${groupId}"/>
     
     <bean id="personBO" class="${groupId}.blo.PersonBo">
         <property name="dao" ref="personDao"/>

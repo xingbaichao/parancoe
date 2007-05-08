@@ -24,5 +24,6 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 public class ParancoeNamespaceHandler extends NamespaceHandlerSupport {
     public void init() {
         registerBeanDefinitionParser("dao", new DaoBeanDefinitionParser());
+        registerBeanDefinitionParser("define-daos", new DefineDaosBeanDefinitionParser());
     }    
 }

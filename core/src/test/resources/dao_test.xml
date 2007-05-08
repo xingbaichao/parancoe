@@ -22,7 +22,7 @@ limitations under the License.
        http://parancoe.dev.java.net/schema/parancoe
        https://jugpadova.dev.java.net/schema/parancoe.xsd">
     
-<!-- The old way           
+    <!-- The old way           
     <bean id="entityTCDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>org.parancoe.persistence.dao.generic.EntityTCDao</value>
@@ -33,8 +33,12 @@ limitations under the License.
     </bean>
 -->
     
+    <!-- ...if you need to define explicitly a DAO
     <parancoe:dao interface="org.parancoe.persistence.dao.generic.EntityTCDao"/>
 
     <parancoe:dao interface="org.parancoe.persistence.dao.generic.VersionedEntityTCDao"/>
+-->
     
+    <!-- Authomatic DAO definition from persistent classes -->
+    <parancoe:define-daos basePackage="org.parancoe.persistence"/>
 </beans>

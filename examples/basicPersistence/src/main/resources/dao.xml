@@ -20,7 +20,7 @@ limitations under the License.
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://parancoe.dev.java.net/schema/parancoe
-https://jugpadova.dev.java.net/schema/parancoe.xsd">
+       https://jugpadova.dev.java.net/schema/parancoe.xsd">
     
     <!-- The old way
     <bean id="personDao" parent="abstractDao">
@@ -33,8 +33,13 @@ https://jugpadova.dev.java.net/schema/parancoe.xsd">
     </bean>
 -->
 
+    <!-- ...if you need to define explicitly a DAO
     <parancoe:dao interface="org.parancoe.example.dao.PersonDao"/>
     
     <parancoe:dao interface="org.parancoe.example.dao.BookDao"/>
+-->
+    
+    <!-- Authomatic DAO definition from persistent classes -->
+    <parancoe:define-daos basePackage="org.parancoe.example"/>
     
 </beans>

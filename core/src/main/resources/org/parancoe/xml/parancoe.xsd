@@ -21,20 +21,28 @@ limitations under the License.
             targetNamespace="http://parancoe.dev.java.net/schema/parancoe"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
-
-   <xsd:import namespace="http://www.springframework.org/schema/beans"
-               schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
-   />
-
-   <xsd:element name="dao">
-      <xsd:complexType>
-         <xsd:complexContent>
-            <xsd:extension base="beans:identifiedType">
-               <xsd:attribute name="interface" type="xsd:string" use="required"/>
-               <xsd:attribute name="genericDao" type="xsd:string" default="hibernateGenericDao"/>
-            </xsd:extension>
-         </xsd:complexContent>
-      </xsd:complexType>
-   </xsd:element>
-
+    
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+                schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+    />
+    
+    <xsd:element name="dao">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="beans:identifiedType">
+                    <xsd:attribute name="interface" type="xsd:string" use="required"/>
+                    <xsd:attribute name="genericDao" type="xsd:string" default="hibernateGenericDao"/>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="define-daos">
+        <xsd:complexType>
+            <xsd:attribute name="basePackage" type="xsd:string" use="required" />
+            <xsd:attribute name="genericDao" type="xsd:string" default="hibernateGenericDao"/>
+            <xsd:attribute name="name-generator" type="xsd:string" />
+        </xsd:complexType>
+    </xsd:element>
+    
 </xsd:schema>
