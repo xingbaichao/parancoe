@@ -148,7 +148,19 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
                 <entry key="/dwr/**/*"><ref bean="dwrController"/></entry>                          
             </map>
         </property>
-    </bean>           
+    </bean>      
+    
+    <bean id="dwrvalidator" class="org.parancoe.web.validation.DWRAnnotationValidator">
+       	<property name="configurationLoader" ref="configurationLoader"/>
+        <dwr:remote javascript="dwrvalidator">
+        	<dwr:include method="validateDWR"/>
+        </dwr:remote>
+    </bean>
+    
+    <dwr:configuration>
+        <dwr:convert type="bean" class="org.parancoe.web.validation.DWRAnnotationValidator" />        
+    </dwr:configuration>
+    
     <!-- end dwr section -->
     
 </beans>
