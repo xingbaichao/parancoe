@@ -5,8 +5,10 @@
 
 <hibernate-configuration>    
     <session-factory>
+        <!-- no more required - see database.xml
         <mapping class="org.parancoe.persistence.security.UserProfile"/>
         <mapping class="org.parancoe.persistence.security.Authorities"/>
-        <mapping class="${groupId}.po.Person"/>        
+        <mapping class="${groupId}.po.Person"/> 
+        -->
     </session-factory>
 </hibernate-configuration>

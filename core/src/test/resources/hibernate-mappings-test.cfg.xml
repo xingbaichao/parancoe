@@ -20,8 +20,10 @@ limitations under the License.
 
 <hibernate-configuration>    
     <session-factory>
+        <!-- No more required
         <mapping class="org.parancoe.persistence.po.hibernate.EntityTC"/>
         <mapping class="org.parancoe.persistence.po.hibernate.VersionedEntityTC"/>
         <mapping class="org.parancoe.persistence.po.hibernate.VersionedEntityDataTC"/>
+        -->
     </session-factory>
 </hibernate-configuration>

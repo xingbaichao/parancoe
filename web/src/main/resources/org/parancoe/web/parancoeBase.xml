@@ -30,7 +30,7 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     <tx:annotation-driven/>
     
     <bean id="abstractSessionFactory" abstract="true"
-          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
         <property name="configLocation" value="classpath:hibernate-mappings.cfg.xml"/>

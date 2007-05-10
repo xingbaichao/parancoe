@@ -25,5 +25,6 @@ public class ParancoeNamespaceHandler extends NamespaceHandlerSupport {
     public void init() {
         registerBeanDefinitionParser("dao", new DaoBeanDefinitionParser());
         registerBeanDefinitionParser("define-daos", new DefineDaosBeanDefinitionParser());
+        registerBeanDefinitionParser("discover-persistent-classes", new DiscoverPersistentClassesBeanDefinitionParser());
     }    
 }

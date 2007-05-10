@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
-
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd">
+    
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:test"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
-
+    
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
@@ -18,5 +21,9 @@
             </props>
         </property>
     </bean>
+    
+    <!-- Authomatic discovering of persistent classes -->
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.basicWebApp"/>
+    
 </beans>
 

@@ -13,7 +13,7 @@
     -->    
     <!-- Authomatic DAO definition from persistent classes -->
     <parancoe:define-daos basePackage="org.parancoe.basicWebApp"/>
-
+    
     <bean id="personBO" class="org.parancoe.basicWebApp.blo.PersonBo">
         <property name="dao" ref="personDao"/>
         <dwr:remote javascript="personBO">

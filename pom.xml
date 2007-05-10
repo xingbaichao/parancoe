@@ -126,7 +126,6 @@
   <modules>
     <module>web</module>
     <module>core</module>
-    <module>examples</module>
   </modules>
   <build>
     <plugins>

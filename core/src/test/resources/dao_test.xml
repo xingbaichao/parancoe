@@ -41,4 +41,7 @@ limitations under the License.
     
     <!-- Authomatic DAO definition from persistent classes -->
     <parancoe:define-daos basePackage="org.parancoe.persistence"/>
+    
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.persistence" />
+    
 </beans>

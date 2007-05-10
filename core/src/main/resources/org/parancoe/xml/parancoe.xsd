@@ -41,7 +41,13 @@ limitations under the License.
         <xsd:complexType>
             <xsd:attribute name="basePackage" type="xsd:string" use="required" />
             <xsd:attribute name="genericDao" type="xsd:string" default="hibernateGenericDao"/>
-            <xsd:attribute name="name-generator" type="xsd:string" />
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="discover-persistent-classes">
+        <xsd:complexType>
+            <xsd:attribute name="basePackage" type="xsd:string" use="required" />
+            <xsd:attribute name="sessionFactoryName" type="xsd:string" default="sessionFactory" />
         </xsd:complexType>
     </xsd:element>
     
