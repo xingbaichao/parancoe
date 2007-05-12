@@ -15,6 +15,8 @@ package org.parancoe.persistence.dao.generic;
 
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
 
 
 /**
@@ -45,4 +47,11 @@ public interface GenericDao <T, PK extends Serializable> extends GenericDaoHiber
     void delete(T persistentObject);
 
     List<T> findAll();
+    
+    List<T> searchByCriteria(Criterion... criterion);
+    
+    List<T> searchByCriteria(DetachedCriteria criteria);
+    
+    List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults);
+    
 }
