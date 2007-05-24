@@ -17,9 +17,11 @@ import java.text.SimpleDateFormat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
@@ -29,6 +31,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springmodules.validation.bean.BeanValidator;
 import org.springmodules.validation.bean.conf.BeanValidationConfiguration;
 import org.springmodules.validation.bean.conf.loader.BeanValidationConfigurationLoader;
@@ -44,7 +47,8 @@ import org.springmodules.validation.bean.rule.ValidationRule;
  */
 public class DWRAnnotationValidator extends BeanValidator implements ApplicationContextAware{
     
-    private final static Log logger = LogFactory.getLog(DWRAnnotationValidator.class);
+    private final static Logger logger = Logger.getLogger(DWRAnnotationValidator.class);
+    //private final static Log logger = LogFactory.getLog(DWRAnnotationValidator.class);
     
     private BeanValidationConfigurationLoader configurationLoader;
     
@@ -73,12 +77,13 @@ public class DWRAnnotationValidator extends BeanValidator implements Application
     public String validateDWR(String controllerId, String propertyName, String propertyValue) {
         if (propertyName == null) 
             throw new IllegalArgumentException(propertyName);
-
+        
         // look up to the type of validated bean
-        Object ctrl = applicationContext.getBean(controllerId);
+        SimpleFormController ctrl = (SimpleFormController)applicationContext.getBean(controllerId);
+        
         BeanWrapper bw = new BeanWrapperImpl(ctrl);
         Class clazz = (Class)bw.getPropertyValue("commandClass");
-      
+        
         // load validation rules for the given class
         BeanValidationConfiguration configuration = configurationLoader.loadConfiguration(clazz);
 	
@@ -86,23 +91,27 @@ public class DWRAnnotationValidator extends BeanValidator implements Application
         ValidationRule[] rules = configuration.getPropertyRules(propertyName);
         
 	// creating a new instance of the type validated 
-        //TODO: handle exceptions 
-	Object obj = null;
+        Object obj = null;
 	try {
 	    obj = clazz.newInstance();
 	} catch (InstantiationException e) {
-	    //throw new Illegal;
+	    throw new RuntimeException("Can't instantiate class", e);
 	} catch (IllegalAccessException e) {
-            //throw new IllegalStateException();
+            throw new RuntimeException("Instantiation is forbidden for this class", e);
 	}
         
         BeanWrapper wrapper = new BeanWrapperImpl(obj);
-        
-        //TODO: we must find a better way to do this 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
-        wrapper.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, false));
-        
+  
+        // register all custom editors of the controller in the new bean wrapper
+        if(ctrl.getPropertyEditorRegistrars() != null){
+            for (PropertyEditorRegistrar elem : ctrl.getPropertyEditorRegistrars()) {
+                logger.info("registering custom editors");
+        	elem.registerCustomEditors(wrapper);
+            }
+        } else {
+            logger.info("no custom editor to register");
+        }
+       
         //setting propertyValue to the instance created
         PropertyValue val = new PropertyValue(propertyName, propertyValue);
         wrapper.setPropertyValue(val);
@@ -121,7 +130,7 @@ public class DWRAnnotationValidator extends BeanValidator implements Application
      * Returns a localized validation message for the given field (if any)
      */
     protected String getValidationMessage(Errors errors, String fieldName) {
-        String message = "";
+        String message = null;
         FieldError fieldError = errors.getFieldError(fieldName);
         if (fieldError != null){
             MessageSource msgSrc = (MessageSource)applicationContext.getBean("messageSource");
