@@ -67,6 +67,11 @@
         <property name="commandName" value="person"/>
         <property name="formView" value="people/edit"/>
         <property name="successView" value="redirect:list.html"/>
+        <property name="propertyEditorRegistrars">
+            <list>
+                <bean class="org.parancoe.basicWebApp.controllers.BasicPropertyEditorRegistrar" />
+            </list>
+	</property>
     </bean>
 
     <!-- begin dwr section -->

@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.parancoe.util.BaseConf;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.InThePast;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -26,9 +27,11 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
 
 @javax.persistence.Entity()
 public class Person extends EntityBase {
+   
+    private boolean test = BaseConf.isDevelopment();
     
     @NotBlank
-    @Length(min=2, max=7)
+    @Length(min=2, max=7, applyIf="test == true")
     private String firstName;
     
     @NotBlank
@@ -74,6 +77,14 @@ public class Person extends EntityBase {
         this.birthDate = birthDate;
     }
 
+    public void setTest(boolean test){
+        this.test = test;
+    }
+    
+    public boolean isTest(){
+        return test;
+    }
+    
     public String toString() {
         return firstName + " " + lastName + " nato il " +  birthDate ;
     }

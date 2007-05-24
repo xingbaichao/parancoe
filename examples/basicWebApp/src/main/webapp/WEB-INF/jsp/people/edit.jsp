@@ -19,21 +19,21 @@
     <table>
     <tr>
         <td><spring:message code="first_name"/> (*)</td>
-        <td><form:input path="firstName" /></td>
+        <td><form:input path="firstName" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','firstName',firstName.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="firstName" cssClass="errorBox"/></td>
-        <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','firstName',firstName.value, function(str) { alert(str); });"/></td>
+        <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','firstName',firstName.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
         <td><spring:message code="last_name"/> (*)</td>
-        <td><form:input path="lastName"/></td>
+        <td><form:input path="lastName" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','lastName',lastName.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="lastName" cssClass="errorBox"/></td>
-        <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','lastName',lastName.value, function(str) { alert(str); });"/></td>
+        <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','lastName',lastName.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
         <td><spring:message code="birth_date"/> (**)</td>
-        <td><form:input path="birthDate"/></td>
+        <td><form:input path="birthDate" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','birthDate',birthDate.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="birthDate" cssClass="errorBox"/></td>
-        <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','birthDate',birthDate.value, function(str) { alert(str); });"/></td>
+        <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','birthDate',birthDate.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
         <td>&nbsp;</td>
