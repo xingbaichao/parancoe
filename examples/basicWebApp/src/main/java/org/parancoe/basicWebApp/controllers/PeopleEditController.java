@@ -34,7 +34,7 @@ public abstract class PeopleEditController extends BaseFormController {
     private final static Logger logger = Logger.getLogger(PeopleEditController.class);
 
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
+        //binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
     }
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
