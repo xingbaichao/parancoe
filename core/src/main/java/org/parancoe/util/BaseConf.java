@@ -17,7 +17,7 @@ import org.apache.commons.configuration.Configuration;
 
 /**
  * This is the base class for accessing the configuration
- * 
+ *
  * @author <a href="mailto:paolo.dona@seesaw.it">Paolo Dona'</a>
  */
 public class BaseConf {
@@ -43,7 +43,7 @@ public class BaseConf {
     public String[] getSupportedLanguages() {
         return getConfiguration().getStringArray("supportedLanguages");
     }
-    
+
     // Injection
 
     public void setDevelopmentConfiguration(Configuration developmentConfiguration) {

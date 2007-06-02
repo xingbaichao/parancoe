@@ -24,19 +24,39 @@ import org.parancoe.util.Utils;
 
 
 public class UtilsTest extends TestCase {
- public void testConvertToNameValueList(){
+    public void testConvertToNameValueList() {
         Map input = new HashMap();
-       
-        input.put("A","B");
-        input.put("C","D");
-        input.put("E","F");
+
+        input.put("A", "B");
+        input.put("C", "D");
+        input.put("E", "F");
 
         List<String> expected = new ArrayList();
         //changed add order in the list
         expected.add("E=F");
         expected.add("A=B");
         expected.add("C=D");
-        
+
         assertTrue(expected.containsAll(Utils.convertToNameValueList(input)));
+    }
+
+    public void testBinaryStripUTF8preamble() {
+        byte[] stringWithPreamble = Utils.loadBinary("testdata/UTF8WithPreamble.txt");
+        byte[] stringWithoutPreamble = Utils.loadBinary("testdata/UTF8WithoutPreamble.txt");
+
+        assertTrue(Utils.hasUTF8preamble(stringWithPreamble));
+        assertFalse(Utils.hasUTF8preamble(stringWithoutPreamble));
+
+        byte[] stripped = Utils.stripUTF8preamble(stringWithPreamble);
+        assertFalse(Utils.hasUTF8preamble(stripped));
+        assertEquals(stringWithPreamble.length, stripped.length + 3);
+    }
+
+     public void testStringStripUTF8preamble() throws Exception {
+        String stringWithPreamble = Utils.loadString("testdata/UTF8WithPreamble.txt");
+        String stringWithoutPreamble = Utils.loadString("testdata/UTF8WithoutPreamble.txt");
+
+        assertFalse(Utils.hasUTF8preamble(stringWithPreamble));
+        assertFalse(Utils.hasUTF8preamble(stringWithoutPreamble));
     }
 }
