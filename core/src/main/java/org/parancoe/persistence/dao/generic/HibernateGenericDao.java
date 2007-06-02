@@ -77,6 +77,15 @@ public class HibernateGenericDao <T, PK extends Serializable>
                 findByCriteria(criteria, firstResult, maxResults);
     }    
     
+    public int deleteAll() {
+        return getHibernateTemplate().bulkUpdate("delete from "+getType().getName()+" x");
+    }
+    
+    public long count() {
+        // TODO IMPLEMENTARE IL METODO COUNT
+        throw new RuntimeException("Implementare il metodo di contaggio");
+    }
+    
     public Class getType() {
         return type;
     }
