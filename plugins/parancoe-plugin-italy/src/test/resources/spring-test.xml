@@ -3,12 +3,13 @@
        xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd">
-
-    <!-- this conf file will be automatically merged with parancoe's parancoeBase.xml -->
-
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/dataSource"/>
+                           http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd">
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
     </bean>
     
     <bean id="sessionFactory" parent="abstractSessionFactory">
@@ -16,13 +17,12 @@
             <props merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>
-    
-    <!-- Authomatic discovering of persistent classes -->
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.persistence.security"/>
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.basicWebApp.po"/>
-    
+
+   <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.italy"/>
+
 </beans>
+

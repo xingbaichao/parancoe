@@ -13,11 +13,7 @@
 // limitations under the License.
 package org.parancoe.web;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.ServletContextEvent;
 
@@ -26,6 +22,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.util.FixtureHelper;
+import org.parancoe.web.plugin.PluginHelper;
+import org.parancoe.web.plugin.Plugin;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -42,15 +40,16 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
-        Set<Class> fixtureClasses = new LinkedHashSet<Class>(getFixtureClasses());
-        if (CollectionUtils.isEmpty(fixtureClasses)) {
-            log.info("Skipping initial data population (no models)");
-            return;
-        }
         try {
             ctx = (ApplicationContext) evt.getServletContext().getAttribute(
                     WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-            Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("initialData/",
+            Set<Class> fixtureClasses = new LinkedHashSet<Class>(getFixtureClasses());
+            if (CollectionUtils.isEmpty(fixtureClasses)) {
+                log.info("Skipping initial data population (no models)");
+                return;
+            }
+
+            Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("fixtures/",
                     fixtureClasses);
             log.info("Populating initial data for models...");
             for (Class clazz : fixtures.keySet()) {
@@ -69,7 +68,16 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
     }
 
     private List<Class> getFixtureClasses() {
-        return new ArrayList<Class>();
+        Collection<Plugin> plugins = new PluginHelper(ctx).getPlugins();
+        List<Class> result = new ArrayList<Class>();
+        for (Plugin plugin : plugins) {
+            try {
+                result.addAll(plugin.getFixtureClasses());
+            } catch (Exception e) {
+                log.error("Impossibile reperire i nomi delle fixtures da caricare per il plugin " + plugin.getName());
+            }
+        }
+        return result;
     }
 
     private void populateTableForModel(Class clazz, Object[] fixtures) {

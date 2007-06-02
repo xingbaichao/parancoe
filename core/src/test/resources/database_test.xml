@@ -35,7 +35,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
-        <property name="configLocation" value="classpath:hibernate-mappings-test.cfg.xml"/>
+        <!-- <property name="configLocation" value="classpath:hibernate-mappings-test.cfg.xml"/>-->
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>

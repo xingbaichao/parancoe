@@ -37,7 +37,7 @@
     <!-- fixtures da caricare all'avvio del plugin -->
     <property name="fixtureClassNames">
       <list>
-        <value>Sample</value>
+       <!-- <value>org.parancoe.plugins.sample.Sample</value>  -->
         <!--
         <value>Sample2</value>
         <value>Sample3</value>
