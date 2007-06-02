@@ -60,7 +60,9 @@
     <bean name="/people/*.html" id="peopleController"
           class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
 
-    <bean name="/people/edit.form" id="peopleEditController"
+    <bean name="/italy/*.html" id="italyController" class="org.parancoe.basicWebApp.controllers.ItalyController" parent="abstractController"/>
+    
+  <bean name="/people/edit.form" id="peopleEditController"
           class="org.parancoe.basicWebApp.controllers.PeopleEditController"
           parent="abstractController">
         <property name="commandClass" value="org.parancoe.basicWebApp.po.Person"/>
