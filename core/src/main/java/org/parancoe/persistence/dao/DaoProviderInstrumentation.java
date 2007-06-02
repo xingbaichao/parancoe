@@ -46,15 +46,27 @@ public class DaoProviderInstrumentation {
         if (method.getName().startsWith("get")) {
             result = target.getDaoMap().get(daoNameFromMethod(method));
             if (result == null) {
-                result = pjp.proceed(args);
+                try {
+                    result = pjp.proceed(args);
+                } catch (Throwable throwable) {
+                    logger.error("No "+daoNameFromMethod(method)+ "DAO in the daoMap. " +
+                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object.");
+                    throw throwable;
+                }
             }
         } else {
             // Call an instance method
-            result = pjp.proceed(args);
+            try {
+                result = pjp.proceed(args);
+            } catch (Throwable throwable) {
+                    logger.error("Method not starting with \"get\". " +
+                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object ("+target.getClass().getName()+").");
+                throw throwable;
+            }
         }
         return result;
     }
-
+    
     private String daoNameFromMethod(Method getterMethod) {
         return StringUtils.uncapitalize(getterMethod.getName().substring(3));
     }

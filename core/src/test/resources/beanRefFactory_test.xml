@@ -21,8 +21,8 @@ limitations under the License.
             <list>
                 <value>org/parancoe/persistence/dao/generic/genericDao.xml</value>
                 <value>database_test.xml</value>
-                <value>applicationContext_test.xml</value>
                 <value>dao_test.xml</value>
+                <value>applicationContext_test.xml</value>
             </list>
         </constructor-arg>
     </bean>

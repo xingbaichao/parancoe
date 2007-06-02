@@ -71,7 +71,7 @@ public class DaoProviderTest extends TestCase {
      * Test the retrieval of the DAO map from the generic dao provider.
      */
     public void testGetDaoMapFromProvider() {
-        DaoProvider baseDaoProvider = (DaoProvider) this.beanFactory.getBean("genericDaoProvider");
+        Daos baseDaoProvider = (Daos) this.beanFactory.getBean("daos");
         assertNotNull(baseDaoProvider);
         Map daoMap = baseDaoProvider.getDaoMap();
         assertNotNull(daoMap);
@@ -82,7 +82,7 @@ public class DaoProviderTest extends TestCase {
      * Test the retrieval of a DAO from the generic dao provider.
      */
     public void testGetDaoFromProvider() {
-        DaoProvider baseDaoProvider = (DaoProvider) this.beanFactory.getBean("genericDaoProvider");
+        Daos baseDaoProvider = (Daos) this.beanFactory.getBean("daos");
         assertNotNull(baseDaoProvider);
         Object dao = baseDaoProvider.getDao("entityTCDao");
         assertNotNull(dao);
@@ -93,9 +93,20 @@ public class DaoProviderTest extends TestCase {
      * Test the retrieval of a DAO for an entity from the generic dao provider.
      */
     public void testGetDaoByEntityFromProvider() {
-        DaoProvider baseDaoProvider = (DaoProvider) this.beanFactory.getBean("genericDaoProvider");
+        Daos baseDaoProvider = (Daos) this.beanFactory.getBean("daos");
         assertNotNull(baseDaoProvider);
         Object dao = baseDaoProvider.getDao(EntityTC.class);
+        assertNotNull(dao);
+        assertTrue(DaoUtils.isDao(dao));
+    }
+
+    /**
+     * Test the retrieval of a DAO for an entity from the generic dao provider.
+     */
+    public void testGetDaoByMethodFromProvider() {
+        Daos baseDaoProvider = (Daos) (Daos) this.beanFactory.getBean("daos");
+        assertNotNull(baseDaoProvider);
+        Object dao = baseDaoProvider.getEntityTCDao();
         assertNotNull(dao);
         assertTrue(DaoUtils.isDao(dao));
     }
