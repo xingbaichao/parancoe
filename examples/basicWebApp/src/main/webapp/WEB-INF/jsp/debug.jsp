@@ -1,7 +1,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="org.parancoe.util.MemoryAppender"%>
-<a href="#" onclick="Element.toggle('debug');"> debug </a>
+<a href="#debug_pane" name="debug_pane" onclick="Element.toggle('debug');"> debug </a>
 
 <div id="debug" style="display: none;">
     <h2>Log Fragment</h2>
