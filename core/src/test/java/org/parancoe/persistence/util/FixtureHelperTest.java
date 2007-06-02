@@ -52,7 +52,7 @@ public class FixtureHelperTest extends EnhancedTestCase {
     public void testShouldNotFailIfMissingFixtureFile() throws Exception {
         Set<Class> models = new LinkedHashSet<Class>(CollectionUtils
                 .arrayToList(new Class[] { BigDecimal.class }));
-        Map<Class, Object[]> result = FixtureHelper.loadFixturesFromResource("testdata/", models);
+        Map<Class, Object[]> result = FixtureHelper.loadFixturesFromResource("fixtures/", models);
         assertTrue("Le fixture non sono vuote", result.isEmpty());
     }
 
