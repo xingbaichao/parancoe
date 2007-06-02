@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,13 +56,13 @@ public class FixtureHelper {
      *            dir relative path
      */
     public static Map<Class, Object[]> loadFixturesFromResource(final String classpathResource,
-            final Class[] models) {
+            final Set<Class> models) {
         return loadFixturesFromResource(new ClassPathResource(classpathResource), models);
     }
 
     public static Map<Class, Object[]> loadFixturesFromResource(final ClassPathResource fixtureDir,
-            final Class[] models) {
-        LinkedHashMap<Class, Object[]> fixtures = new LinkedHashMap<Class, Object[]>(models.length);
+            final Set<Class> models) {
+        LinkedHashMap<Class, Object[]> fixtures = new LinkedHashMap<Class, Object[]>(models.size());
         String fixtureFileName = null;
         StringBuffer sb = new StringBuffer("--- !java.lang.Object[]");
         sb.append(IOUtils.LINE_SEPARATOR);
@@ -101,7 +102,7 @@ public class FixtureHelper {
 
         // Se il documento è vuoto, yaml ritorna un'HashMap
         Object any = Yaml.load(sb.toString());
-        
+
         if (any instanceof Object[]) {
             Object[] fixtureObjects = (Object[]) any;
             for (Object fixtureObject : fixtureObjects) {
