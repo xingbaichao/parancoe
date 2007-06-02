@@ -43,5 +43,14 @@ limitations under the License.
     <parancoe:define-daos basePackage="org.parancoe.persistence"/>
     
     <parancoe:discover-persistent-classes basePackage="org.parancoe.persistence" />
+
+    <bean id="daos" parent="abstractDaoProvider">
+        <property name="proxyInterfaces">
+            <value>org.parancoe.persistence.dao.Daos</value>
+        </property>
+        <property name="target">
+            <bean parent="genericDaoProvider"/>
+        </property>
+    </bean>
     
 </beans>
