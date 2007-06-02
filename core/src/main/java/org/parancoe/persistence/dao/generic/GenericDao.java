@@ -53,5 +53,8 @@ public interface GenericDao <T, PK extends Serializable> extends GenericDaoHiber
     List<T> searchByCriteria(DetachedCriteria criteria);
     
     List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults);
+
+    int deleteAll();
     
+    long count();
 }
