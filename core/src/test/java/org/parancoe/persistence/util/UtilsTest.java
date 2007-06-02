@@ -22,17 +22,15 @@ import junit.framework.TestCase;
 
 import org.parancoe.util.Utils;
 
-
 public class UtilsTest extends TestCase {
-    public void testConvertToNameValueList() {
-        Map input = new HashMap();
 
+    public void testConvertToNameValueList() {
+        Map<String, String> input = new HashMap<String, String>();
         input.put("A", "B");
         input.put("C", "D");
         input.put("E", "F");
-
-        List<String> expected = new ArrayList();
-        //changed add order in the list
+        List<String> expected = new ArrayList<String>();
+        // changed add order in the list
         expected.add("E=F");
         expected.add("A=B");
         expected.add("C=D");
@@ -52,7 +50,7 @@ public class UtilsTest extends TestCase {
         assertEquals(stringWithPreamble.length, stripped.length + 3);
     }
 
-     public void testStringStripUTF8preamble() throws Exception {
+    public void testStringStripUTF8preamble() throws Exception {
         String stringWithPreamble = Utils.loadString("testdata/UTF8WithPreamble.txt");
         String stringWithoutPreamble = Utils.loadString("testdata/UTF8WithoutPreamble.txt");
 

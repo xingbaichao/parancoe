@@ -1,16 +1,18 @@
 package org.parancoe.util;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
@@ -47,12 +49,23 @@ public class Utils {
      * @return
      */
     public static byte[] loadBinary(String classpathResource) {
+        return loadBinary(new ClassPathResource(classpathResource));
+    }
+
+    public static byte[] loadBinary(Resource classpathResource) {
+        InputStream stream = null;
         try {
-            return IOUtils.toByteArray(new ClassPathResource(classpathResource).getInputStream());
+            return unsafeLoadBinary(stream = classpathResource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare la risorsa binaria '" + classpathResource
-                    + "' dal classpath.");
+            throw new RuntimeException("Impossibile caricare la risorsa binaria '"
+                    + classpathResource.getDescription() + "' dal classpath.");
+        } finally {
+            IOUtils.closeQuietly(stream);
         }
+    }
+
+    protected static byte[] unsafeLoadBinary(InputStream stream) throws IOException {
+        return IOUtils.toByteArray(stream);
     }
 
     /**
@@ -64,15 +77,24 @@ public class Utils {
      * @return textual content of resource file
      */
     public static String loadString(String classpathResource) {
+        return loadString(new ClassPathResource(classpathResource));
+    }
+
+    public static String loadString(Resource classpathResource) {
+        InputStream stream = null;
         try {
-            String result = FileUtils.readFileToString(new ClassPathResource(classpathResource).getFile(),
-                    "UTF-8");
-            ;
-            return stripUTF8preamble(result);
+            return unsafeLoadString(stream = classpathResource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare la risorsa testuale '" + classpathResource
-                    + "' dal classpath.");
+            throw new RuntimeException("Impossibile caricare la risorsa testuale '"
+                    + classpathResource.getDescription() + "' dal classpath.");
+        } finally {
+            IOUtils.closeQuietly(stream);
         }
+    }
+
+    protected static String unsafeLoadString(InputStream stream) throws IOException {
+        byte[] byteResult = IOUtils.toByteArray(new InputStreamReader(stream), "UTF-8");
+        return stripUTF8preamble(new String(byteResult, "UTF-8"));
     }
 
     /**
