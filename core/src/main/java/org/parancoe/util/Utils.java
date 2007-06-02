@@ -14,19 +14,24 @@ import org.springframework.core.io.ClassPathResource;
 
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
+ * @author Michele Franzin paolo.dona@seesaw.it
  */
 public class Utils {
     private static final Logger logger = Logger.getLogger(Utils.class);
-    private static final byte[] UTF8_PREAMBLE = new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+
+    private static final byte[] UTF8_PREAMBLE = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+
     private static final String UTF8_UNICODE_PREAMBLE = "\ufeff";
 
+    @SuppressWarnings("unchecked")
     public static List<String> convertToNameValueList(Map map) {
         List<String> result = new ArrayList<String>();
         for (String key : (Iterable<String>) map.keySet()) {
             Object tmp = map.get(key);
             if (tmp instanceof String[]) {
                 String[] values = (String[]) tmp;
-                for (String value : values) result.add(key + "=" + value);
+                for (String value : values)
+                    result.add(key + "=" + value);
             } else if (tmp instanceof String) {
                 String value = (String) tmp;
                 result.add(key + "=" + value);
@@ -37,7 +42,7 @@ public class Utils {
 
     /**
      * Carica un file binario dal classpath
-     *
+     * 
      * @param classpathResource
      * @return
      */
@@ -51,21 +56,24 @@ public class Utils {
     }
 
     /**
-     * Carica un file testuale dal classpath
-     *
+     * Carica un file testuale dal classpath.<br/> NB: UTF-8 header are
+     * removed!
+     * 
      * @param classpathResource
-     * @return
+     *            file relative path
+     * @return textual content of resource file
      */
     public static String loadString(String classpathResource) {
         try {
-            String result = FileUtils.readFileToString(new ClassPathResource(classpathResource).getFile(), "UTF-8");;
+            String result = FileUtils.readFileToString(new ClassPathResource(classpathResource).getFile(),
+                    "UTF-8");
+            ;
             return stripUTF8preamble(result);
         } catch (IOException e) {
             throw new RuntimeException("Impossibile caricare la risorsa testuale '" + classpathResource
                     + "' dal classpath.");
         }
     }
-
 
     /**
      * Rimuove il preambolo UTF se presente nella stringa<br/>NB: la convesione
