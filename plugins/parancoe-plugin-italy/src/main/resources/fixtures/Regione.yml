@@ -1,0 +1,60 @@
+- &Regione-01
+  id: 01
+  nome: "PIEMONTE"
+- &Regione-02
+  id: 02
+  nome: "VALLE D'AOSTA"
+- &Regione-03
+  id: 03
+  nome: "LOMBARDIA"
+- &Regione-04
+  id: 04
+  nome: "TRENTINO-ALTO ADIGE"
+- &Regione-05
+  id: 05
+  nome: "VENETO"
+- &Regione-06
+  id: 06
+  nome: "FRIULI-VENEZIA GIULIA"
+- &Regione-07
+  id: 07
+  nome: "LIGURIA"
+- &Regione-08
+  id: 08
+  nome: "EMILIA-ROMAGNA"
+- &Regione-09
+  id: 09
+  nome: "TOSCANA"
+- &Regione-10
+  id: 10
+  nome: "UMBRIA"
+- &Regione-11
+  id: 11
+  nome: "MARCHE"
+- &Regione-12
+  id: 12
+  nome: "LAZIO"
+- &Regione-13
+  id: 13
+  nome: "ABRUZZO"
+- &Regione-14
+  id: 14
+  nome: "MOLISE"
+- &Regione-15
+  id: 15
+  nome: "CAMPANIA"
+- &Regione-16
+  id: 16
+  nome: "PUGLIA"
+- &Regione-17
+  id: 17
+  nome: "BASILICATA"
+- &Regione-18
+  id: 18
+  nome: "CALABRIA"
+- &Regione-19
+  id: 19
+  nome: "SICILIA"
+- &Regione-20
+  id: 20
+  nome: "SARDEGNA"
