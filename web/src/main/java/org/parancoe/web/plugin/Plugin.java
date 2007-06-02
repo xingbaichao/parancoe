@@ -49,4 +49,13 @@ public class Plugin {
     public void setFixtureClassNames(List<String> fixtureClassNames) {
         this.fixtureClassNames = fixtureClassNames;
     }
+
+    public List<Class> getFixtureClasses() throws Exception {
+        List<Class> classes = new ArrayList<Class>(fixtureClassNames.size());
+        for (String className : fixtureClassNames){
+            classes.add(Class.forName(className));
+        }
+        return classes;
+    }
+
 }

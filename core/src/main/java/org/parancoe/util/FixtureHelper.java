@@ -16,6 +16,7 @@ package org.parancoe.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +49,7 @@ public class FixtureHelper {
      * Gets file name of a fixture fragment related to a model.
      */
     public static String getFixtureFileName(Class model) {
-        return model.getSimpleName() + ".yaml";
+        return model.getSimpleName() + ".yml";
     }
 
     /**
@@ -106,12 +108,12 @@ public class FixtureHelper {
         }
 
         // Debug file output
-        // try {
-        // FileUtils.writeStringToFile(new File("dump.yaml"), sb.toString(),
-        // "UTF-8");
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
+         try {
+         FileUtils.writeStringToFile(new File("c:\\dump.yml"), sb.toString(),
+         "UTF-8");
+         } catch (IOException e) {
+         e.printStackTrace();
+         }
 
         // Se il documento è vuoto, yaml ritorna un'HashMap
         Object any = Yaml.load(sb.toString());
@@ -130,7 +132,7 @@ public class FixtureHelper {
     }
 
     /**
-     * ritorna il contenuto del file <Class>.yaml
+     * ritorna il contenuto del file <Class>.yml
      */
     private static String loadFixtureStringForClass(InputStream stream, Class model) throws IOException {
         String fixtureString = Utils.unsafeLoadString(stream);

@@ -57,7 +57,7 @@ public class ContextListener implements ServletContextListener {
             PluginHelper helper = new PluginHelper(applicationContext);
             helper.initPlugins(); // deve essere DOPO loadApplicationContext()
             helper.invokePluginContextInitialized(evt);
-            log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");
+            log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");        
         } catch (Exception e) {
             log.error("Error in base ContextListener.contextInitialized", e);
         }

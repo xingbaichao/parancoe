@@ -17,7 +17,7 @@
     </sources>
     <resources>
         <resource>src/main/resources/development.properties</resource>
-        <resource>src/main/resources/hibernate-mappings.cfg.xml</resource>
+      <!--   <resource>src/main/resources/hibernate-mappings.cfg.xml</resource> -->
         <resource>src/main/resources/log4j.properties</resource>
         <resource>src/main/resources/production.properties</resource>
         <resource>src/main/resources/test.properties</resource>      

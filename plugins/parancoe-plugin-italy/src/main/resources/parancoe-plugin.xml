@@ -37,10 +37,10 @@
     <!-- fixtures da caricare all'avvio del plugin -->
     <property name="fixtureClassNames">
       <list>
-        <value>Regione</value>
-        <value>Provincia</value>
-        <value>Comune</value>
-        <value>Procura</value>
+        <value>org.parancoe.plugins.italy.Regione</value>
+        <value>org.parancoe.plugins.italy.Provincia</value>
+        <value>org.parancoe.plugins.italy.Comune</value>
+        <value>org.parancoe.plugins.italy.Procura</value>
       </list>
     </property>
   </bean>

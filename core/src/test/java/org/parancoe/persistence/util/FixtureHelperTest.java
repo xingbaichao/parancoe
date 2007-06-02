@@ -66,6 +66,7 @@ public class FixtureHelperTest extends EnhancedTestCase {
         // TODO Testare il acricamento di una risorsa nei JAR
     }
 
+    /*
     @SuppressWarnings("unchecked")
     public void testBeanLoading() throws Exception {
         Set<Class> models = new LinkedHashSet<Class>(CollectionUtils
@@ -81,5 +82,6 @@ public class FixtureHelperTest extends EnhancedTestCase {
             assertEquals("Non ha caricato correttamente il beans numero " + i, result[i], expected[i]);
         }
     }
+    */
 
 }

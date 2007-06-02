@@ -68,8 +68,15 @@
       <version>1.8.0.4</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.directwebremoting</groupId>
+      <artifactId>dwr</artifactId>
+      <version>2.0.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
- <modules>
+  <modules>
     <module>parancoe-plugin-italy</module>
     <module>parancoe-plugin-sample</module>
   </modules>
