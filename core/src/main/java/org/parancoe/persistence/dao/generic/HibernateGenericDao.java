@@ -56,10 +56,12 @@ public class HibernateGenericDao <T, PK extends Serializable>
         getHibernateTemplate().delete(o);
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         return getHibernateTemplate().find("from "+getType().getName()+" x");
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> searchByCriteria(Criterion... criterion) {
         Criteria crit = getSession().createCriteria(getType());
         for (Criterion c: criterion) {
@@ -68,10 +70,12 @@ public class HibernateGenericDao <T, PK extends Serializable>
         return crit.list();
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> searchByCriteria(DetachedCriteria criteria) {
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults) {
         return getHibernateTemplate().
                 findByCriteria(criteria, firstResult, maxResults);
