@@ -7,9 +7,11 @@ import org.parancoe.web.test.ControllerTest;
 public class PeopleEditControllerTest extends ControllerTest {  // non si riesce a iniettare dinamicamente?
     private PeopleEditController controller;
 
-    public void setUp() throws Exception {
+
+  public void setUp() throws Exception {
         super.setUp();    // non togliere questa riga
-        controller = (PeopleEditController) ctx.getBean("peopleEditController");
+
+      controller = (PeopleEditController) ctx.getBean("peopleEditController");
     }
 
     public void testNotNull() {

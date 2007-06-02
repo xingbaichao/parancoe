@@ -45,6 +45,21 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Plugins -->
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-italy</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-sample</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         
         <dependency>
             <groupId>javax.servlet</groupId>

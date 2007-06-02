@@ -20,12 +20,15 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.support.RequestContext;
 
+/**
+ * @author paolo.dona@seesaw.it
+ */
 public class LanguageInterceptor extends HandlerInterceptorAdapter {
     public static final Logger logger = Logger.getLogger(LanguageInterceptor.class);
 
 
     public LanguageInterceptor() {
-        logger.info("LanguageInterceptor set up");
+        logger.debug("LanguageInterceptor set up");
     }
 
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
@@ -33,6 +36,7 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
         RequestContext rc = new RequestContext(req);
         req.setAttribute("requestContext",rc);
         req.setAttribute("lang", rc.getLocale().getLanguage());
+        logger.info("LanguageInterceptor.preHandle()");
         return true;
     }
 }

@@ -25,6 +25,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.HandlerMapping;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * E' la classe base per tutti i test.
  * Carica all'avvio tutti i bean configurati in modo da renderli
@@ -56,23 +59,27 @@ public abstract class BaseTest extends EnhancedTestCase {
      * @return
      */
     private static WebApplicationContext getTestContext() {
-        String[] config = new String[5];
+        List<String> config = new ArrayList<String>();
         //generici
-        config[0] = "classpath:org/parancoe/persistence/dao/generic/genericDao.xml";
-        config[1] = "classpath:org/parancoe/web/parancoeBase.xml";
+        config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
+        config.add("classpath:org/parancoe/web/parancoeBase.xml");
 
         // application specific
-        config[2] = "src/main/webapp/WEB-INF/parancoe-servlet.xml";
-        config[3] = "src/main/webapp/WEB-INF/database.xml";
+        config.add("src/main/webapp/WEB-INF/parancoe-servlet.xml");
+        config.add("src/main/webapp/WEB-INF/database.xml");
 
         // test specific
-        config[4] = "src/test/resources/spring-test.xml";
+        config.add("src/test/resources/spring-test.xml");
+
+         // load plugin configurations
+        config.add("classpath*:parancoe-plugin.xml");
 
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         ServletContext servletContext = new MockServletContext(rl);
         XmlWebApplicationContext ctx = new XmlWebApplicationContext();
         ctx.setServletContext(servletContext);
-        ctx.setConfigLocations(config);
+
+        ctx.setConfigLocations(config.toArray(new String[config.size()]));
         ctx.refresh();
         return ctx;
     }

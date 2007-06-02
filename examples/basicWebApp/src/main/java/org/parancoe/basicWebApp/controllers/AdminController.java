@@ -58,6 +58,11 @@ public abstract class AdminController extends BaseMultiActionController {
         return new ModelAndView("admin/spring", null);
     }
 
+    public ModelAndView system(HttpServletRequest req, HttpServletResponse res) {
+        return new ModelAndView("admin/system", null);
+    }
+
+
     private String colourLog(String log) {
         String lines[];
         if (log == null) lines = new String[]{""};
