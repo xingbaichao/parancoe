@@ -42,11 +42,11 @@ public class MemoryAppender extends WriterAppender {
         return buffer.toString();
     }
 
-    public static String getLastNLines(int n){
-        String[] lines = StringUtils.split(getFullLog(),'\n');
-        if (lines.length<=n) return getFullLog();
-        String[] interestingLines = (String[]) ArrayUtils.subarray(lines,lines.length -n, lines.length);
-        return StringUtils.join(interestingLines,'\n');
+    public static String getLastNLines(int n) {
+        String[] lines = StringUtils.split(getFullLog(), '\n');
+        if (lines.length <= n) return getFullLog();
+        String[] interestingLines = (String[]) ArrayUtils.subarray(lines, lines.length - n, lines.length);
+        return StringUtils.join(interestingLines, '\n');
     }
 
     public static void clean() {
