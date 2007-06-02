@@ -1,23 +1,39 @@
+// Copyright 2006-2007 The Parancoe Team
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 package org.parancoe.web.plugin;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
+import java.util.Collection;
+import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collection;
-import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- *  Questa classe è solo un helper non è configurato in spring
+ * Questa classe è solo un helper non è configurato in spring
+ * 
  * @author paolo.dona@seesaw.it
  */
 public class PluginHelper {
     private ApplicationContext ctx;
+
     private Logger log = Logger.getLogger(PluginHelper.class);
 
     public PluginHelper(ApplicationContext ctx) {
@@ -32,7 +48,7 @@ public class PluginHelper {
 
     /**
      * invokes contextInitialized for every registered plugin
-     *
+     * 
      * @param evt
      */
     public void invokePluginContextInitialized(ServletContextEvent evt) {
@@ -49,7 +65,7 @@ public class PluginHelper {
 
     /**
      * invokes contextDestroyed for every registered plugin
-     *
+     * 
      * @param evt
      */
     public void invokePluginContextDestroyed(ServletContextEvent evt) {
@@ -66,7 +82,7 @@ public class PluginHelper {
 
     /**
      * invokes contextInitialized for every registered plugin
-     *
+     * 
      * @param evt
      */
     public boolean invokePluginPreHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
@@ -74,7 +90,8 @@ public class PluginHelper {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
                     boolean result = interceptor.preHandle(req, res, handler);
-                    if (result == false) return false;
+                    if (result == false)
+                        return false;
                 } catch (Exception e) {
                     log.error("error in preHandle for plugin '" + plugin.getName() + "'", e);
                 }
@@ -83,7 +100,8 @@ public class PluginHelper {
         return true;
     }
 
-    public void invokePluginPostHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+    public void invokePluginPostHandle(HttpServletRequest request, HttpServletResponse response,
+            Object handler, ModelAndView modelAndView) {
         for (Plugin plugin : getPlugins()) {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
@@ -95,7 +113,8 @@ public class PluginHelper {
         }
     }
 
-    public void invokeAfterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
+    public void invokeAfterCompletion(HttpServletRequest request, HttpServletResponse response,
+            Object handler, Exception exception) {
         for (Plugin plugin : getPlugins()) {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
@@ -114,6 +133,5 @@ public class PluginHelper {
             log.info("   - " + plugin.getName());
         }
     }
-
 
 }
