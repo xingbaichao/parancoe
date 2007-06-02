@@ -22,7 +22,9 @@ import org.springframework.mock.web.MockMultipartHttpServletRequest;
 public abstract class ControllerTest extends BaseTest {
 
     protected MockMultipartHttpServletRequest mpReq;
+
     protected MockHttpServletRequest req;
+
     protected MockHttpServletResponse res;
 
     public void setUp() throws Exception {
@@ -30,20 +32,20 @@ public abstract class ControllerTest extends BaseTest {
         // preparo la richiesta multipart
         mpReq = new MockMultipartHttpServletRequest();
         mpReq.setMethod("GET");
-        mpReq.setContextPath("/specialitaly");
         // preparo la richiesta normale
         req = new MockHttpServletRequest();
         req.setMethod("GET");
-        req.setContextPath("/specialitaly");
         res = new MockHttpServletResponse();
+        // TODO X Lucio : Spostare in BaseTest ?
         // Setup the daomap (done in a contextlistener out of tests)
-        Map daoMap = (Map)ctx.getBean("daoMap");
+        Map daoMap = (Map) ctx.getBean("daoMap");
         Map daos = DaoUtils.getDaos(ctx);
-        daoMap.putAll(daos);        
+        daoMap.putAll(daos);
     }
 
     public void tearDown() throws Exception {
         super.tearDown();
+        mpReq = null;
         req = null;
         res = null;
     }
