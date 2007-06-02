@@ -90,7 +90,7 @@ public final class ParserReader {
 
     int[] mark;
 
-    final int BUFLEN = 120000; /*
+    final int BUFLEN = 3500000; /*
                                  * this constant determines how much lookahead
                                  * we can have
                                  */
