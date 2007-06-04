@@ -50,7 +50,8 @@ public class DaoProviderInstrumentation {
                     result = pjp.proceed(args);
                 } catch (Throwable throwable) {
                     logger.error("No "+daoNameFromMethod(method)+ "DAO in the daoMap. " +
-                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object.");
+                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object."
+                            , throwable);
                     throw throwable;
                 }
             }
@@ -60,7 +61,8 @@ public class DaoProviderInstrumentation {
                 result = pjp.proceed(args);
             } catch (Throwable throwable) {
                     logger.error("Method not starting with \"get\". " +
-                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object ("+target.getClass().getName()+").");
+                            "Trying to call "+method.getName()+" method, but the method doesn't exist in the object ("+target.getClass().getName()+")."
+                            , throwable);
                 throw throwable;
             }
         }

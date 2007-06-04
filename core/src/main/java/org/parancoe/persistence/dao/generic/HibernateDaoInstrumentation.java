@@ -44,6 +44,7 @@ public class HibernateDaoInstrumentation {
         final GenericDaoHibernateSupport target = (GenericDaoHibernateSupport)pjp.getTarget();
         final Method method = ((MethodSignature)pjp.getSignature()).getMethod();
         final Object[] args = pjp.getArgs();
+        final StringBuffer errorMessages = new StringBuffer();
         logger.debug("target: "+target);
         logger.debug("method: "+method);
         logger.debug("args: "+args);
@@ -65,6 +66,9 @@ public class HibernateDaoInstrumentation {
                         namedQuery.setParameter(i, arg);
                     }
                     return namedQuery.list();
+                } else {
+                    errorMessages.append("Named query not found: ")
+                            .append(queryName).append(". ");
                 }
                 return null;
             }
@@ -86,7 +90,17 @@ public class HibernateDaoInstrumentation {
                 });
             } else {
                 // Call an instance method
-                result = pjp.proceed(args);
+                try {
+                    result = pjp.proceed(args);                    
+                } catch (Throwable throwable) {
+                    errorMessages.append("Method not starting with \"findBy\".")
+                            .append("Trying to call ")
+                            .append(method.getName())
+                            .append(" method, but the method doesn't exist in the object (")
+                            .append(target.getClass().getName())
+                            .append(").");
+                    logger.error(errorMessages.toString(), throwable);
+                }
             }
         }
         return result;
