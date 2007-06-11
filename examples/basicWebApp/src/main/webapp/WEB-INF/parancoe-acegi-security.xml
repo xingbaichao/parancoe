@@ -57,7 +57,7 @@
 		</property>
 		<property name="accessDeniedHandler">
 			<bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
-				<property name="errorPage" value="/accessDenied.jsp"/>
+				<property name="errorPage" value="/accessDenied.secure"/>
 			</bean>
 		</property>
 	</bean>
