@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ include file="common.jspf" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page session="false" %>
 <head>
     <%@ include file="head.jspf" %>
 </head>

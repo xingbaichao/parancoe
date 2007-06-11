@@ -18,8 +18,8 @@
 	<bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
 
 	<bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-	    <property name="filterProcessesUrl" value="/j_acegi_logout.secure" />
-		<constructor-arg value="/logout.jsp"/> <!-- URL redirected to after logout -->
+	    <property name="filterProcessesUrl" value="/logout.secure" />
+		<constructor-arg value="/"/> <!-- URL redirected to after logout -->
 		<constructor-arg>
 			<list>
 				<ref bean="rememberMeServices"/>
@@ -32,7 +32,7 @@
 		<property name="authenticationManager" ref="authenticationManager"/>
 		<property name="authenticationFailureUrl" value="/login.secure?login_error=1"/>
 		<property name="defaultTargetUrl" value="/"/>
-		<property name="filterProcessesUrl" value="/j_acegi_security_check.secure"/>
+		<property name="filterProcessesUrl" value="/securityCheck.secure"/>
 		<property name="rememberMeServices" ref="rememberMeServices"/>
 	</bean>
    
