@@ -11,7 +11,7 @@
 <% String cp = request.getContextPath();
     pageContext.setAttribute("cp", cp);
 
-    ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+    ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(application);
 
     Conf conf = (Conf) ctx.getBean("conf");
     pageContext.setAttribute("conf", conf);  

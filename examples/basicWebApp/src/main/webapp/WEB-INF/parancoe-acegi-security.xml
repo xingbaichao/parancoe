@@ -19,7 +19,7 @@
 
 	<bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
 	    <property name="filterProcessesUrl" value="/j_acegi_logout.secure" />
-		<constructor-arg value="/index.jsp"/> <!-- URL redirected to after logout -->
+		<constructor-arg value="/logout.jsp"/> <!-- URL redirected to after logout -->
 		<constructor-arg>
 			<list>
 				<ref bean="rememberMeServices"/>
