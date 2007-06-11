@@ -1,6 +1,6 @@
 <html>
-  <head>   
-    
+  <head>       
+    <%@ include file="common.jspf" %>
     <%@ include file="head.jspf" %>
   </head>
   <body>
