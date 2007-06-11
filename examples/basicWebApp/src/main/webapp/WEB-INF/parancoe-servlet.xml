@@ -61,6 +61,10 @@
           class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
 
     <bean name="/italy/*.html" id="italyController" class="org.parancoe.basicWebApp.controllers.ItalyController" parent="abstractController"/>
+	
+	<!-- secure porpouse -->
+	<bean name="/*.secure" id="secureController"
+          class="org.parancoe.basicWebApp.controllers.SecureController" parent="abstractController"/>
     
   <bean name="/people/edit.form" id="peopleEditController"
           class="org.parancoe.basicWebApp.controllers.PeopleEditController"
