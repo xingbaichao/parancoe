@@ -1,10 +1,6 @@
-<%@ page import="org.acegisecurity.context.SecurityContextHolder" %>
-<%@ page import="org.acegisecurity.Authentication" %>
-<%@ page import="org.acegisecurity.ui.AccessDeniedHandlerImpl" %>
-
 <html>
   <head>   
-    <% request.setAttribute("cp", ".."); %>
+    
     <%@ include file="head.jspf" %>
   </head>
   <body>
