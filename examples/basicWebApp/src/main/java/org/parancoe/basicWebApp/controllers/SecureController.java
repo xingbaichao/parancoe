@@ -43,6 +43,10 @@ public abstract class SecureController extends BaseMultiActionController {
     public ModelAndView securityCheck(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
+
+    public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
+        return null;
+    }
     
         /* (non-Javadoc)
          * @see org.parancoe.web.BaseMultiActionController#getLogger()
