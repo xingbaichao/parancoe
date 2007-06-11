@@ -44,6 +44,10 @@ public abstract class SecureController extends BaseMultiActionController {
 	 public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){	        
 	        return new ModelAndView("accessDenied");
 	    }
+	 
+	 public ModelAndView index(HttpServletRequest req, HttpServletResponse res){	        
+	        return new ModelAndView("index");
+	    }
 
 	/* (non-Javadoc)
 	 * @see org.parancoe.web.BaseMultiActionController#getLogger()
