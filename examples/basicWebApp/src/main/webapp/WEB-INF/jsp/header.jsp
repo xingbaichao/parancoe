@@ -1,5 +1,4 @@
 <%@ include file="common.jspf" %>
-<%@ taglib prefix="authz" uri="http://acegisecurity.org/authz" %>
 <div id="header">
   <span id="menu">
       <a href="${cp}">Home</a> |
