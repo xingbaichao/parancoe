@@ -5,9 +5,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd
-       http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
-       
-       
+http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+    
+    
     <!-- ...if you need to define explicitly a DAO
     <parancoe:dao interface="org.parancoe.basicWebApp.dao.PersonDao"/>
     -->    
@@ -22,17 +22,17 @@
             <dwr:include method="showPerson"/>
         </dwr:remote>
     </bean>    
-   
-   
-   <!--  begin security section -->
+    
+    
+    <!--  begin security section -->
     <parancoe:dao id="userDao" interface="org.parancoe.persistence.security.UserDao"/>
-
+    
     <bean id="userBO" class="org.parancoe.persistence.security.UserBO">
         <property name="dao" ref="userDao"/>
     </bean>   
     
     <parancoe:dao id="authoritiesDao" interface="org.parancoe.persistence.security.AuthoritiesDao"/>
-
+    
     <bean id="authoritiesBO" class="org.parancoe.persistence.security.AuthoritiesBO">
         <property name="dao" ref="authoritiesDao"/>
     </bean>   
@@ -41,7 +41,7 @@
     
     <!-- Overriding the default configuration bean -->
     <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>    
-
+    
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
             <value>org.parancoe.basicWebApp.Daos</value>
@@ -50,23 +50,23 @@
             <bean parent="genericDaoProvider"/>
         </property>
     </bean>
-
+    
     <bean id="blos" class="org.parancoe.basicWebApp.Blos" autowire="byType"/>
-
+    
     <bean name="/home/*.html" id="homeController"
           class="org.parancoe.basicWebApp.controllers.HomeController" parent="abstractController"/>
     <bean name="/admin/*.html" id="adminController"
           class="org.parancoe.basicWebApp.controllers.AdminController" parent="abstractController"/>
     <bean name="/people/*.html" id="peopleController"
           class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
-
+    
     <bean name="/italy/*.html" id="italyController" class="org.parancoe.basicWebApp.controllers.ItalyController" parent="abstractController"/>
-	
-	<!-- secure porpouse -->
-	<bean name="/*.secure" id="secureController"
+    
+    <!-- secure porpouse -->
+    <bean name="/*.secure" id="secureController"
           class="org.parancoe.basicWebApp.controllers.SecureController" parent="abstractController"/>
     
-  <bean name="/people/edit.form" id="peopleEditController"
+    <bean name="/people/edit.form" id="peopleEditController"
           class="org.parancoe.basicWebApp.controllers.PeopleEditController"
           parent="abstractController">
         <property name="commandClass" value="org.parancoe.basicWebApp.po.Person"/>
@@ -77,16 +77,16 @@
             <list>
                 <bean class="org.parancoe.basicWebApp.controllers.BasicPropertyEditorRegistrar" />
             </list>
-	</property>
+        </property>
     </bean>
-
+    
     <!-- begin dwr section -->
     <!-- **WARNING** In production leave commented the following definition for
         the dwrController. It's useful only for debug. In production it's a security hole.
         If debug="true" point your browser to /<your context>/dwr/index.html
     -->    
     <dwr:controller id="dwrController" debug="true"/>
-
+    
     <dwr:configuration>
         <dwr:convert type="bean" class="org.parancoe.basicWebApp.po.Person" />        
     </dwr:configuration>
