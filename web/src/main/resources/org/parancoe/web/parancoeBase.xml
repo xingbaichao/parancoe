@@ -75,6 +75,9 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
+			    <!--  secured interceptor  -->
+                <ref bean="secureInterceptor"/>
+				
                 <ref bean="localeChangeInterceptor"/>
                 <ref bean="languageInterceptor"/>
                 <ref bean="pluginInterceptor"/>
@@ -111,6 +114,10 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     <!-- locale change -->
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>
+		  
+		   <!--  secure interceptor (acegi) -->     
+    <bean id="secureInterceptor"
+          class="org.parancoe.web.SecureInterceptor">
     
     <bean id="pluginInterceptor" class="org.parancoe.web.plugin.PluginInterceptor"/>
 
