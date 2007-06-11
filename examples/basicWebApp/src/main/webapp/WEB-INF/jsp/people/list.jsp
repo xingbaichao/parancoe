@@ -38,7 +38,7 @@
 
 <a href="${cp}/people/populate.html">inserisci un p&ograve; di gente nel db</a>
 <p>
-<a href="${cp}/j_acegi_logout">Logout</a>
+<a href="${cp}/j_acegi_logout.secure">Logout</a>
 </p>
 <jsp:include page="../footer.jsp"/>
 
