@@ -90,13 +90,7 @@ http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/sche
             </bean>
         </property>
         <property name="objectDefinitionSource">
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /people/**=ROLE_ADMIN, ROLE_PARANCOE
-                /admin/**=ROLE_ADMIN
-                /**=IS_AUTHENTICATED_ANONYMOUSLY
-            </value>
+            <ref bean="pluginSecurityFilterDefinitions"/>
         </property>
     </bean>
     
