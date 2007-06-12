@@ -22,23 +22,7 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
             <dwr:include method="showPerson"/>
         </dwr:remote>
     </bean>    
-    
-    
-    <!--  begin security section -->
-    <parancoe:dao id="userDao" interface="org.parancoe.persistence.security.UserDao"/>
-    
-    <bean id="userBO" class="org.parancoe.persistence.security.UserBO">
-        <property name="dao" ref="userDao"/>
-    </bean>   
-    
-    <parancoe:dao id="authoritiesDao" interface="org.parancoe.persistence.security.AuthoritiesDao"/>
-    
-    <bean id="authoritiesBO" class="org.parancoe.persistence.security.AuthoritiesBO">
-        <property name="dao" ref="authoritiesDao"/>
-    </bean>   
-    
-    <!--  end security section -->
-    
+            
     <!-- Overriding the default configuration bean -->
     <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>    
     
