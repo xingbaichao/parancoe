@@ -16,7 +16,6 @@ package org.parancoe.web;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -24,14 +23,10 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 import org.parancoe.persistence.dao.DaoUtils;
-import org.parancoe.persistence.security.AuthoritiesBO;
-import org.parancoe.persistence.security.UserBO;
 import org.parancoe.util.BaseConf;
 import org.parancoe.util.MemoryAppender;
-import org.parancoe.web.plugin.Plugin;
 import org.parancoe.web.plugin.PluginHelper;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 /**
@@ -76,8 +71,6 @@ public class ContextListener implements ServletContextListener {
         // application specific
         config.add("WEB-INF/parancoe-servlet.xml");
         config.add("WEB-INF/database.xml");
-        //acegi-configuration
-        config.add("WEB-INF/parancoe-acegi-security.xml");
 
         // load all plugin configurations at once
         config.add("classpath*:parancoe-plugin.xml");
@@ -91,7 +84,7 @@ public class ContextListener implements ServletContextListener {
         applicationContext = ctx;
 
         populateDaoMap(ctx);
-        setSecurity(ctx);
+//        setSecurity(ctx);
     }
 
     public void contextDestroyed(ServletContextEvent evt) {
@@ -113,11 +106,11 @@ public class ContextListener implements ServletContextListener {
      *
      * @param ctx
      */
-    private void setSecurity(XmlWebApplicationContext ctx) {
-        UserBO userBO = (UserBO) ctx.getBean("userBO");
-        AuthoritiesBO authoritiesBO = (AuthoritiesBO) ctx.getBean("authoritiesBO");
-        // Popoulating the database
-        userBO.populateTable();
-        authoritiesBO.populateTable();
-    }
+//    private void setSecurity(XmlWebApplicationContext ctx) {
+//        UserBO userBO = (UserBO) ctx.getBean("userBO");
+//        AuthoritiesBO authoritiesBO = (AuthoritiesBO) ctx.getBean("authoritiesBO");
+//        // Popoulating the database
+//        userBO.populateTable();
+//        authoritiesBO.populateTable();
+//    }
 }
