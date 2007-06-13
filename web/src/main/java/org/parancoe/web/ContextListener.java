@@ -84,7 +84,6 @@ public class ContextListener implements ServletContextListener {
         applicationContext = ctx;
 
         populateDaoMap(ctx);
-//        setSecurity(ctx);
     }
 
     public void contextDestroyed(ServletContextEvent evt) {
@@ -101,16 +100,4 @@ public class ContextListener implements ServletContextListener {
         daoMap.putAll(daos);
     }
 
-    /**
-     * Populate and create if don't exist tables User and Authorities.
-     *
-     * @param ctx
-     */
-//    private void setSecurity(XmlWebApplicationContext ctx) {
-//        UserBO userBO = (UserBO) ctx.getBean("userBO");
-//        AuthoritiesBO authoritiesBO = (AuthoritiesBO) ctx.getBean("authoritiesBO");
-//        // Popoulating the database
-//        userBO.populateTable();
-//        authoritiesBO.populateTable();
-//    }
 }
