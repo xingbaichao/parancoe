@@ -48,7 +48,7 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     
     <!-- secure porpouse -->
     <bean name="/*.secure" id="secureController"
-          class="org.parancoe.basicWebApp.controllers.SecureController" parent="abstractController"/>
+          class="org.parancoe.plugins.security.SecureController" />
     
     <bean name="/people/edit.form" id="peopleEditController"
           class="org.parancoe.basicWebApp.controllers.PeopleEditController"
