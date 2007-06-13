@@ -14,7 +14,10 @@
         <li><a href="conf.html">App Configuration</a></li>
         <li><a href="spring.html">Spring Beans</a></li>
         <li><a href="system.html">System Properties</a></li>
-
+        
+        <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE">
+            <li><a href="${cp}/logout.secure">Logout</a></li>
+        </authz:authorize>  
     </ul>
 
 <jsp:include page="../footer.jsp"/>
