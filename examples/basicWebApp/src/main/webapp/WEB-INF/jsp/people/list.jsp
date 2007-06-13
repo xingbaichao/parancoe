@@ -38,7 +38,9 @@
 
 <a href="${cp}/people/populate.html">inserisci un p&ograve; di gente nel db</a>
 <p>
-<a href="${cp}/logout.secure">Logout</a>
+<authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE">
+            <li><a href="${cp}/logout.secure">Logout</a></li>
+        </authz:authorize>  
 </p>
 <jsp:include page="../footer.jsp"/>
 
