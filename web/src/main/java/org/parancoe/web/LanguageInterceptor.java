@@ -36,7 +36,7 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
         RequestContext rc = new RequestContext(req);
         req.setAttribute("requestContext",rc);
         req.setAttribute("lang", rc.getLocale().getLanguage());
-        logger.info("LanguageInterceptor.preHandle()");
+        logger.debug("LanguageInterceptor.preHandle()");
         return true;
     }
 }
