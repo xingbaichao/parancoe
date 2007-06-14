@@ -46,6 +46,13 @@
             <scope>compile</scope>
         </dependency>
         
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        
         <!-- Servlet/JSP APIs provided by your container -->
         <dependency>
             <groupId>javax.servlet</groupId>

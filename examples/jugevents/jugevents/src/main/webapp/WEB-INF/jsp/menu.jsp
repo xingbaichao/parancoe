@@ -6,6 +6,6 @@
     <p class="menuLevel0"><a href="${cp}/event/edit.form">New Event</a></p>
     <p class="menuLevel0"><a href="${cp}/admin/index.html"><spring:message code="menu_administration"/></a></p>
     <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE">   			
-        <p class="menuLevel0"><a href="${cp}/j_acegi_logout">Logout</a></p>
+        <p class="menuLevel0"><a href="${cp}/logout.secure">Logout</a></p>
     </authz:authorize>         
 </div>
