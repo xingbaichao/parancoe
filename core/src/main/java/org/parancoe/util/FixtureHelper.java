@@ -52,6 +52,15 @@ public class FixtureHelper {
 
     /**
      * Gets id of dao related to a model.
+     * 
+     * *WARNING*: strong condition on the DAO id (entity_name+Dao)
+     * For retriving a dao for an entity it's better something like:
+     * <code>
+     *   DaoProvider daos = (DaoProvider)ctx.getBean(DAO_PROVIDER_ID);
+     *   GenericDao dao = (GenericDao)daos.getDao(clazz);
+     * </code>
+     * 
+     * The DAO_PROVIDER_ID usually is "daos".
      */
     public static String getFixtureDaoId(Class model) {
         return StringUtils.uncapitalize(model.getSimpleName()) + "Dao";
