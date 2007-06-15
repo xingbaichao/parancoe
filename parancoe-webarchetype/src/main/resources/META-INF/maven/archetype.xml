@@ -17,7 +17,7 @@
     </sources>
     <resources>
         <resource>src/main/resources/development.properties</resource>
-      <!--   <resource>src/main/resources/hibernate-mappings.cfg.xml</resource> -->
+        <resource>src/main/resources/hibernate-mappings.cfg.xml</resource>
         <resource>src/main/resources/log4j.properties</resource>
         <resource>src/main/resources/production.properties</resource>
         <resource>src/main/resources/test.properties</resource>      
@@ -29,7 +29,6 @@
         <resource>src/main/webapp/WEB-INF/database.xml</resource>
         <resource>src/main/webapp/WEB-INF/messages_en.properties</resource>
         <resource>src/main/webapp/WEB-INF/messages_it.properties</resource>
-        <resource>src/main/webapp/WEB-INF/parancoe-acegi-security.xml</resource>
         <resource>src/main/webapp/WEB-INF/parancoe-servlet.xml</resource>
         <resource>src/main/webapp/WEB-INF/web.xml</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/404.jsp</resource>
