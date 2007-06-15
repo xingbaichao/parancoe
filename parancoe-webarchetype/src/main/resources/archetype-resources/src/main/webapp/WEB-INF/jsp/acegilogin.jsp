@@ -23,7 +23,7 @@
                                 </font>
                             </c:if>
                         </div>
-                        <form name="loginForm" action="<c:url value='/j_acegi_security_check'/>" method="POST">
+                        <form name="loginForm" action="<c:url value='/securityCheck.secure'/>" method="POST">
                             <label class="loginLabel" for="username"><spring:message code="username"/></label>
                             <input id="username" class="loginField" type='text' name='j_username' tabindex="1" <c:if test="${not empty param.login_error}">value='<%= session.getAttribute(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY) %>'</c:if>/><br/>
                             <label class="loginLabel" for="password"><spring:message code="password"/></label>
