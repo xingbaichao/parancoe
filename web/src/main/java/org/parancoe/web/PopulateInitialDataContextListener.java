@@ -20,6 +20,7 @@ import javax.servlet.ServletContextEvent;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.parancoe.persistence.dao.DaoProvider;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.util.FixtureHelper;
 import org.parancoe.web.plugin.PluginHelper;
@@ -34,6 +35,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
+    private static final String DAO_PROVIDER_ID = "daos";
+    
     private static final Logger log = Logger.getLogger(PopulateInitialDataContextListener.class);
 
     private ApplicationContext ctx;
@@ -82,7 +85,8 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
     private void populateTableForModel(Class clazz, Object[] fixtures) {
         String fixtureName = FixtureHelper.getModelName(clazz);
-        GenericDao dao = (GenericDao) ctx.getBean(FixtureHelper.getFixtureDaoId(clazz));
+        DaoProvider daos = (DaoProvider)ctx.getBean(DAO_PROVIDER_ID);
+        GenericDao dao = (GenericDao)daos.getDao(clazz);
         int count = dao.findAll().size();
         if (count == 0) {
             log.info("Populating " + fixtureName + " with " + fixtures.length + " items...");
