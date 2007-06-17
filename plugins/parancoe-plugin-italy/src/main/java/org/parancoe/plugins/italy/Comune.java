@@ -6,6 +6,7 @@ import java.io.Serializable;
 /**
  * @author Poggiani Alberto poggialb@gmail.com
  * @author Paolo Dona paolo.dona@seesaw.it
+ * @author Paolo Foletto paolo.foletto@gmail.com
  */
 @Entity
 @NamedQueries({
@@ -20,6 +21,8 @@ public class Comune implements Serializable {
 
   private String nome;
 
+  private String codiceErariale;
+ 
   private Provincia provincia;
 
   public Comune() {
@@ -45,6 +48,15 @@ public class Comune implements Serializable {
     this.nome = nome;
   }
 
+  @Column(name = "codice_erariale", length = 4)
+  public String getCodiceErariale() {
+      return codiceErariale;
+  }
+  
+  public void setCodiceErariale(String codiceErariale) {
+      this.codiceErariale = codiceErariale;
+  }
+    
   @ManyToOne
   @JoinColumn(name = "codice_provincia")
   public Provincia getProvincia() {
