@@ -53,6 +53,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
             Object handler) throws Exception {
         delegate.doFilter(req, res, new StupidFilterChain());
+        req.getSession(false);
         if(res.isCommitted())
         {
         	logger.debug("Response is committed!");
