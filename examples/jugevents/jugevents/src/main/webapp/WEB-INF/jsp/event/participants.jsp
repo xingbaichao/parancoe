@@ -3,9 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
-        <script src="${cp}/dwr/interface/personBO.js" type="text/javascript"></script>
     </head>
-    <body onload="parancoe.util.initDWR()">
+    <body>
         <div id="nonFooter">    
             <jsp:include page="../header.jsp"/>
             <div id="content"> 
