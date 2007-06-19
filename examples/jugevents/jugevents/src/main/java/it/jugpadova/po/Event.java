@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +18,10 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
  * @author Lucio Benfante
  */
 @Entity
+@NamedQuery(
+    name="Event.findCurrentEvents",
+    query="from Event e where e.startDate >= current_date()"
+)
 public class Event extends EntityBase {
     private String title;
     private Date startDate;

@@ -34,7 +34,7 @@ public class EventBo {
     
     @Transactional(readOnly=true)
     public List<Event> retrieveEvents() {
-        List<Event> events = getDaos().getEventDao().findAll();
+        List<Event> events = getDaos().getEventDao().findCurrentEvents();
         for (Event event : events) {
             event.getParticipants().size();
         }

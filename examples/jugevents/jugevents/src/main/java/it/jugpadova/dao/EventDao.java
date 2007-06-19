@@ -14,10 +14,13 @@
 package it.jugpadova.dao;
 
 import it.jugpadova.po.Event;
+import java.util.List;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 
 
 @Dao(entity=Event.class)
 public interface EventDao extends GenericDao<Event, Long> {
+    List<Event> findByLocation(String location);
+    List<Event> findCurrentEvents();
 }

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class EventController extends BaseMultiActionController {
-    private static Logger logger = Logger.getLogger(PeopleController.class);
+    private static Logger logger = Logger.getLogger(EventController.class);
     
     public ModelAndView list(HttpServletRequest req, HttpServletResponse res){
         ModelAndView mv = new ModelAndView("event/list");
@@ -36,8 +36,8 @@ public abstract class EventController extends BaseMultiActionController {
         try {
             Long id = Long.parseLong(req.getParameter("id"));
             Event event = dao().getEventDao().read(id);
-            dao().getEventDao().delete(event);
             if (event == null) throw new IllegalArgumentException("No event with id "+id);
+            dao().getEventDao().delete(event);
         } catch(Exception e){
             return genericError(e);
         }
