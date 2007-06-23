@@ -124,9 +124,9 @@
     </dependency>
   </dependencies>
   <modules>
-    <module>web</module>
-    <module>core</module>
-    <module>yaml</module>
+    <module>parancoe-web</module>
+    <module>parancoe-core</module>
+    <module>parancoe-yaml</module>
   </modules>
   <build>
     <plugins>
