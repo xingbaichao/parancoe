@@ -2,16 +2,15 @@
    <parent>
       <artifactId>parancoe</artifactId>
       <groupId>org.parancoe</groupId>
-      <version>0.3</version>
+      <version>1.0-SNAPSHOT</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.parancoe</groupId>
    <artifactId>parancoe-yaml</artifactId>
    <name>Parancoe Yaml</name>
-   <version>0.3</version>
+   <version>1.0-SNAPSHOT</version>
    <url>http://parancoe.dev.java.net</url>
    <build>
-      <finalName>parancoe-yaml</finalName>
       <plugins>
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
