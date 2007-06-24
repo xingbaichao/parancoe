@@ -1,7 +1,7 @@
 <%@ page import="org.parancoe.util.MemoryAppender" %>
 <%@ page import="org.apache.commons.configuration.Configuration" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="org.parancoe.web.PluginManager" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="org.apache.commons.lang.SystemUtils" %>
 <%@ page import="java.util.Properties" %>
