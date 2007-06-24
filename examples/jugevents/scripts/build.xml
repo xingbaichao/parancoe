@@ -24,7 +24,7 @@ For available task, run:
             <arg value="archetype:create" />
             <arg value="-DarchetypeGroupId=org.parancoe" />
             <arg value="-DarchetypeArtifactId=parancoe-webarchetype" />
-            <arg value="-DarchetypeVersion=1.0-SNAPSHOT" />
+            <arg value="-DarchetypeVersion=0.3" />
             <arg value="-DgroupId=it.jugpadova" />
             <arg value="-DartifactId=${demo.artifactId}" />
         </exec>
