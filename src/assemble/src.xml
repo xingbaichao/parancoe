@@ -8,8 +8,9 @@
   <moduleSets>
     <moduleSet>
       <includes>
-        <include>org.parancoe:core</include>
-        <include>org.parancoe:web</include>
+        <include>org.parancoe:parancoe-core</include>
+        <include>org.parancoe:parancoe-web</include>
+        <include>org.parancoe:parancoe-yaml</include>
       </includes>
       <sources>
         <outputDirectory>sources/${artifactId}</outputDirectory>
