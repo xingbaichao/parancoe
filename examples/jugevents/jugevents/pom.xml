@@ -35,13 +35,13 @@
         <!-- The Parancoe framework -->
         <dependency>
             <groupId>org.parancoe</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>parancoe-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.parancoe</groupId>
-            <artifactId>web</artifactId>
+            <artifactId>parancoe-web</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
