@@ -17,7 +17,7 @@
 
 <h1>Administration Console</h1>
 
-<h2>System Properties:%></h2>
+<h2>System Properties:</h2>
 
 <pre xml:space="preserve">
   <% Properties props = System.getProperties();
