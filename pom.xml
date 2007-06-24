@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.parancoe</groupId>
   <artifactId>parancoe</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.3</version>
   <name>Parancoe</name>
   <url>http://parancoe.dev.java.net</url>
   <dependencies>
@@ -163,9 +162,9 @@
     </repository>
   </distributionManagement>
   <scm>
-    <connection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</connection>
-    <developerConnection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</developerConnection>
-    <url>https://parancoe.dev.java.net/source/browse/parancoe/</url>
+    <connection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/tags/parancoe-0.3</connection>
+    <developerConnection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/tags/parancoe-0.3</developerConnection>
+    <url>https://parancoe.dev.java.net/source/browse/parancoe/tags/parancoe-0.3</url>
   </scm>
   <issueManagement>
     <system>CollabNet</system>
@@ -240,7 +239,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -270,7 +269,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -285,7 +284,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -300,7 +299,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -315,7 +314,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -330,7 +329,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
     <developer>
@@ -345,7 +344,7 @@
       </roles>
       <timezone>+1</timezone>
       <properties>
-        <picUrl/>
+        <picUrl />
       </properties>
     </developer>
   </developers>
