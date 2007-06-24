@@ -2,13 +2,13 @@
    <parent>
       <artifactId>parancoe-plugins</artifactId>
       <groupId>org.parancoe</groupId>
-      <version>0.3</version>
+      <version>1.0-SNAPSHOT</version>
    </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.parancoe</groupId>
   <artifactId>parancoe-plugin-italy</artifactId>
   <packaging>jar</packaging>
-  <version>0.3</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Parancoe Plugin Italy</name>
   <url>http://parancoe.dev.java.net</url>
   <build>
