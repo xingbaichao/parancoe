@@ -34,6 +34,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class SecureInterceptor extends HandlerInterceptorAdapter {
     
+	private static final String STRATEGY_CLASS_NAME = 
+		"org.parancoe.plugins.security.ParancoeSecurityContextHolderStrategy";
     private Filter delegate;
     private static final Logger logger = Logger.getLogger(SecureInterceptor.class);
 
@@ -46,16 +48,22 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     }
             
     /**
-     * Costructor
+     * Costructor. In the costructor strategy of SecurityContextHolder
+     * has set.
      *
      */
-    public SecureInterceptor() {
-        
+    public SecureInterceptor() 
+    {
+    	SecurityContextHolder.setStrategyName(STRATEGY_CLASS_NAME);
+    	
     }
-        
+    
+    /**
+     * Delegates request to filter chain.
+     */
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
             Object handler) throws Exception {
-        delegate.doFilter(req, res, new StupidFilterChain());
+        delegate.doFilter(req, res, new ParancoeFilterChain());
         req.getSession(false);
         if(res.isCommitted())
         {
@@ -65,27 +73,24 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
         return true;
         
     }
-    //to implement afterCompletion()
-    
-    private class StupidFilterChain implements FilterChain {
+
+    /**
+     * Inner class for basic implementation of FilterChain.
+     *
+     */
+    private class ParancoeFilterChain implements FilterChain {
         
-        public StupidFilterChain() {
+        public ParancoeFilterChain() {
             logger.debug("Instantiated");
         }
         
         public void doFilter(ServletRequest arg0, ServletResponse arg1) throws IOException, ServletException {
             // TODO Auto-generated method stub
         }
-    }
+    }//end of inner class
 
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
-		//this code has moved from doFilter of HttpSessionContextIntegrationFilter
-		//to here, because we had problems about TL in jsp
-		//SecurityContextHolder.clearContext();
-		
-	}
+	
     
-}//end of outermost class
+}//end of  class
 
 

@@ -29,7 +29,7 @@ http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/sche
         </property>
     </bean>    
     
-    <bean id="httpSessionContextIntegrationFilter" class="org.parancoe.plugins.security.filter.HttpSessionContextIntegrationFilter"/>
+    <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
     
     <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
         <property name="filterProcessesUrl" value="/logout.secure" />
