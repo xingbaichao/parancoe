@@ -82,7 +82,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
 		//this code has moved from doFilter of HttpSessionContextIntegrationFilter
 		//to here, because we had problems about TL in jsp
-		SecurityContextHolder.clearContext();
+		//SecurityContextHolder.clearContext();
 		
 	}
     
