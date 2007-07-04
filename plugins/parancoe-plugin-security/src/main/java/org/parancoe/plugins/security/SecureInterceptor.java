@@ -21,6 +21,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -62,7 +65,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
         return true;
         
     }
-    
+    //to implement afterCompletion()
     
     private class StupidFilterChain implements FilterChain {
         
@@ -74,6 +77,14 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
             // TODO Auto-generated method stub
         }
     }
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
+		//this code has moved from doFilter of HttpSessionContextIntegrationFilter
+		//to here, because we had problems about TL in jsp
+		SecurityContextHolder.clearContext();
+		
+	}
     
 }//end of outermost class
 
