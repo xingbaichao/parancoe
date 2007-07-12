@@ -8,13 +8,26 @@
     <!-- this conf file will be automatically merged with parancoe's parancoeBase.xml -->
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/jugeventsDS"/>
+        <!--property name="jndiName" value="java:comp/env/jdbc/jugeventsDS"/-->
+        <property name="jndiName" value="jdbc/jugeventsDS"/>
     </bean>
-    
-    <bean id="sessionFactory" parent="abstractSessionFactory">
+
+    <!-- HSQLDB session factory -->
+    <!--bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">false</prop>
+            </props>
+        </property>
+    </bean-->
+
+    <!-- Derby session factory -->
+    <bean id="sessionFactory" parent="abstractSessionFactory">
+        <property name="hibernateProperties">
+            <props merge="true">
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.show_sql">false</prop>
             </props>
