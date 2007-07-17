@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>Parancoe</name>
-    <url>http://parancoe.dev.java.net</url>
+    <url>http://www.parancoe.org</url>
     <dependencies>
         <dependency>
             <groupId>log4j</groupId>
@@ -155,13 +155,13 @@
         </repository>
     </distributionManagement>
     <scm>
-        <connection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</connection>
-        <developerConnection>scm:svn:https://parancoe.dev.java.net/svn/parancoe/trunk</developerConnection>
-        <url>https://parancoe.dev.java.net/source/browse/parancoe/trunk</url>
+        <connection>scm:svn:http://parancoe.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/trunk</developerConnection>
+        <url>http://parancoe.googlecode.com/svn/trunk</url>
     </scm>
     <issueManagement>
-        <system>CollabNet</system>
-        <url>https://parancoe.dev.java.net/servlets/ProjectIssues</url>
+        <system>Google Code Issues</system>
+        <url>http://code.google.com/p/parancoe/issues/list</url>
     </issueManagement>
     <licenses>
         <license>
