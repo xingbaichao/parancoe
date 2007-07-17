@@ -113,10 +113,25 @@ public class HibernateDaoInstrumentation {
     private String queryStringFromMethod(GenericDaoHibernateSupport target, Method finderMethod) {
         StringBuffer result = new StringBuffer();
         result.append("from ").append(target.getType().getSimpleName());
-        String[] parameters = finderMethod.getName().substring(6).split("And");
+        int orderByIdx = finderMethod.getName().indexOf("OrderBy");
+        String[] parameters = null;
+        String[] orderParameters = null;
+        if (orderByIdx == -1) {
+            // no orderBy
+            parameters = finderMethod.getName().substring(6).split("And");
+        } else {
+            parameters = finderMethod.getName().substring(6, orderByIdx - 1).split("And");
+            orderParameters = finderMethod.getName().substring(orderByIdx + 10).split("And");
+        }
         result.append(" where ").append(StringUtils.uncapitalize(parameters[0])).append(" = ?");
-        for (int i=1; i < parameters.length; i++) {
+        for (int i = 1; i < parameters.length; i++) {
             result.append(" and ").append(StringUtils.uncapitalize(parameters[i])).append(" = ?");
+        }
+        if (orderParameters != null && orderParameters.length > 0) {
+            result.append(" order by ").append(StringUtils.uncapitalize(orderParameters[0]));
+            for (int i = 1; i < orderParameters.length; i++) {
+                result.append(", ").append(StringUtils.uncapitalize(orderParameters[i]));
+            }
         }
         return result.toString();
     }
