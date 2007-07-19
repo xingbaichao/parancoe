@@ -3,7 +3,6 @@ package org.parancoe.web.test;
 import org.parancoe.util.BaseConf;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerMapping;
-
 import javax.sql.DataSource;
 import org.parancoe.test.DBTest;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +23,7 @@ public abstract class PluginTest extends DBTest {
 
     protected HandlerMapping handlerMapping;
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         conf = (BaseConf) ctx.getBean("conf");

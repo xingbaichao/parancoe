@@ -13,17 +13,10 @@
 // limitations under the License.
 package org.parancoe.web.test;
 
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.parancoe.util.BaseConf;
-import org.springframework.core.io.FileSystemResourceLoader;
-import org.springframework.mock.web.MockServletContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.HandlerMapping;
-import java.util.List;
-import java.util.ArrayList;
 import org.parancoe.test.DBTest;
 import org.springframework.context.ApplicationContext;
 
