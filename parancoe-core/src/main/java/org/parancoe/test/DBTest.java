@@ -31,7 +31,7 @@ public abstract class DBTest extends EnhancedTestCase {
     private static Map<Class, Object[]> fixtures;
 
     protected ApplicationContext ctx;
-    
+
     public DBTest() {
         this.ctx = getTestContext();
         if (fixtures == null) {
@@ -40,10 +40,10 @@ public abstract class DBTest extends EnhancedTestCase {
             if (fixtureClasses != null && fixtureClasses.size() > 0) {
                 try {
                     fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) this.ctx.getResource("classpath:/fixtures/"), fixtureClasses);
+                    logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
                 } catch (Exception e) {
                     logger.warn("Non sono riuscito predisporre tutte le fixture delle classi " + fixtureClasses.toString(), e);
                 }
-                logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
             } else {
                 logger.info("No fixtures to load");
             }
@@ -88,7 +88,7 @@ public abstract class DBTest extends EnhancedTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        
+
         // erase everything
         for (Class model : getReverseOrderFixtureClasses()) {
             GenericDao dao = (GenericDao) this.ctx.getBean(FixtureHelper.getFixtureDaoId(model));
