@@ -32,6 +32,18 @@ public class SanityTest extends PluginTest {
             assertNotNull(c.getContinent());
         }
     }
+    
+    public void testContinentSize() {
+        ContinentDao continentDao = (ContinentDao) this.ctx.getBean("continentDao");
+        List<Continent> continents = continentDao.findAll();
+        assertSize(7, continents);
+    }
+    
+    public void testCountrySize() {
+        CountryDao countryDao = (CountryDao) this.ctx.getBean("countryDao");
+        List<Country> countries = countryDao.findAll();
+        assertSize(87, countries);
+    }
 
     @Override
     public Class[] getFixtureClasses() {
