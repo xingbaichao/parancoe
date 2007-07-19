@@ -76,13 +76,13 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-core</artifactId>
-            <version>0.3.1</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-web</artifactId>
-            <version>0.3.1</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         
@@ -103,6 +103,7 @@
     </dependencies>
     <modules>
         <module>parancoe-plugin-italy</module>
+        <module>parancoe-plugin-world</module>
         <module>parancoe-plugin-security</module>
         <module>parancoe-plugin-sample</module>
     </modules>

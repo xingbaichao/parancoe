@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://parancoe.dev.java.net/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://parancoe.dev.java.net/schema/parancoe https://jugpadova.dev.java.net/schema/parancoe.xsd">
+    
+    <!-- Authomatic discovering of persistent classes -->
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.world"/>
+    <parancoe:define-daos basePackage="org.parancoe.plugins.world"/>
+    
+    <!-- Interceptor specifico per questo plugin -->
+    <bean id="pluginWorldInterceptor" class="org.parancoe.plugins.world.WorldInterceptor"/>
+    
+    <!-- ContextListener specifico per questo plugin -->
+    <bean id="pluginWorldContextListener" class="org.parancoe.plugins.world.WorldContextListener"/>
+    
+    <!--                           -->
+    <!-- Configurazione del plugin -->
+    <!--                           -->
+    <bean id="pluginWorldConfig" class="org.parancoe.web.plugin.Plugin">
+        <property name="name" value="parancoe-plugin-world"/>
+        <property name="interceptors">
+            <list>
+                <ref bean="pluginWorldInterceptor"/>
+            </list>
+        </property>
+        
+        <property name="contextLoaderListeners">
+            <list>
+                <ref bean="pluginWorldContextListener"/>
+            </list>
+        </property>
+        
+        <!-- fixtures da caricare all'avvio del plugin -->
+        <property name="fixtureClassNames">
+            <list>
+                <value>org.parancoe.plugins.world.Continent</value>
+                <value>org.parancoe.plugins.world.Country</value>
+            </list>
+        </property>
+    </bean>
+</beans>
