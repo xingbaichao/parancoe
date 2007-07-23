@@ -1,7 +1,0 @@
-TEST
-* (michele) Completare la classe base DBtest (implementazione corretta di getReverseOrderFixtureClasses)
-* (michele) Implementare caricamento delle fixture in DBtest con rollback di transazione e non con dao.deleteAll()
-
-FIXTURES
-* Estendere il PopulateInitialDataContextListener perchè carichi anche le fixture della webapp e non solo dei plugins
-* Fare in modo che le fixture della webapp sovrascrivan quelle nei plugins

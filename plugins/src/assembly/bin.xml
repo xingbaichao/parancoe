@@ -1,0 +1,21 @@
+<assembly>
+  <id>bin</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>org.parancoe:parancoe-plugin-italy</include>
+        <include>org.parancoe:parancoe-plugin-security</include>
+        <include>org.parancoe:parancoe-plugin-world</include>
+      </includes>
+      <binaries>
+        <outputDirectory>parancoe-plugins/</outputDirectory>
+        <unpack>false</unpack>
+      </binaries>
+    </moduleSet>
+  </moduleSets>
+</assembly>

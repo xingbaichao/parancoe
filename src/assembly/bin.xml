@@ -1,0 +1,21 @@
+<assembly>
+  <id>bin</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <moduleSets>
+    <moduleSet>
+      <includes>
+        <include>org.parancoe:parancoe-core</include>
+        <include>org.parancoe:parancoe-web</include>
+        <include>org.parancoe:parancoe-yaml</include>
+      </includes>
+      <binaries>
+        <outputDirectory>parancoe/</outputDirectory>
+        <unpack>false</unpack>
+      </binaries>
+    </moduleSet>
+  </moduleSets>
+</assembly>
