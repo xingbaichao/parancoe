@@ -6,7 +6,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>jugevents Web Application</name>
-    <url>http://parancoe.dev.java.net</url>
+    <url>http://www.parancoe.org</url>
     <build>
         <finalName>jugevents</finalName>
         <plugins>

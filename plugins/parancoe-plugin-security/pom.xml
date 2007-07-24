@@ -11,7 +11,7 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>Parancoe Plugin Security</name>
-  <url>http://parancoe.dev.java.net</url>
+  <url>http://www.parancoe.org</url>
   <build>
     <finalName>parancoe-plugin-security</finalName>
 <plugins>

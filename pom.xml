@@ -180,45 +180,17 @@
     <mailingLists>
         <mailingList>
             <name>Developers</name>
-            <subscribe>dev-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>dev-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>dev@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=dev</archive>
-        </mailingList>
-        <mailingList>
-            <name>CVS</name>
-            <subscribe>cvs-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>cvs-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>cvs@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=cvs</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <subscribe>commits-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>commits-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>commits@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=commits</archive>
-        </mailingList>
-        <mailingList>
-            <name>Announce</name>
-            <subscribe>announce-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>announce-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>announce@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=announce</archive>
-        </mailingList>
-        <mailingList>
-            <name>Issues</name>
-            <subscribe>issues-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>issues-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>issues@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=issues</archive>
+            <subscribe>parancoe-dev-subscribe@googlegroups.com</subscribe>
+            <unsubscribe>parancoe-dev-unsubscribe@googlegroups.com</unsubscribe>
+            <post>parancoe-dev@googlegroups.com</post>
+            <archive>http://groups.google.com/group/parancoe-dev</archive>
         </mailingList>
         <mailingList>
             <name>Users</name>
-            <subscribe>users-subscribe@parancoe.dev.java.net</subscribe>
-            <unsubscribe>users-unsubscribe@parancoe.dev.java.net</unsubscribe>
-            <post>users@parancoe.dev.java.net</post>
-            <archive>https://parancoe.dev.java.net/servlets/SummarizeList?listName=users</archive>
+            <subscribe>parancoe-users-subscribe@googlegroups.com</subscribe>
+            <unsubscribe>parancoe-users-unsubscribe@googlegroups.com</unsubscribe>
+            <post>parancoe-users@googlegroups.com</post>
+            <archive>http://groups.google.com/group/parancoe-users</archive>
         </mailingList>
     </mailingLists>
     <developers>

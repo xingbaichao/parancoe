@@ -14,11 +14,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<xsd:schema xmlns="http://parancoe.dev.java.net/schema/parancoe"
+<xsd:schema xmlns="http://www.parancoe.org/schema/parancoe"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:beans="http://www.springframework.org/schema/beans"
-            targetNamespace="http://parancoe.dev.java.net/schema/parancoe"
+            targetNamespace="http://www.parancoe.org/schema/parancoe"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">
     
