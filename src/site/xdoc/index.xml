@@ -16,7 +16,7 @@
     <body>
         <!-- The body of the document contains a number of sections -->
         <section name="Parancoe">
-            <p><a href="http://parancoe.dev.java.net">Parancoe</a> is a project
+            <p><a href="http://www.parancoe.org">Parancoe</a> is a project
                 aiming to simplify the release of web applications
                 promoting the convention over configuration philosophy and the
                 <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> principle.

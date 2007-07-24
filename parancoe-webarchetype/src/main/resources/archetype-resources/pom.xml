@@ -7,7 +7,7 @@
     <packaging>war</packaging>
     <version>${version}</version>
     <name>${artifactId} Web Application</name>
-    <url>http://parancoe.dev.java.net</url>
+    <url>http://www.parancoe.org</url>
     <build>
         <finalName>${artifactId}</finalName>
         <plugins>
