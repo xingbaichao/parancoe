@@ -14,6 +14,7 @@
 package org.parancoe.test;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
@@ -77,7 +78,7 @@ public abstract class DBTest extends EnhancedTestCase {
 
     public final Set<Class> getFixtureClassSet() {
         Class[] classes = getFixtureClasses();
-        Set<Class> result = new HashSet<Class>(classes.length);
+        Set<Class> result = new LinkedHashSet<Class>(classes.length);
         CollectionUtils.addAll(result, classes);
         return result;
     }

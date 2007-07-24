@@ -237,7 +237,8 @@ class MapState extends State {
             prop.getWriteMethod().invoke(bean, new Object[] { ret });
             return ret;
         } catch (Exception e) {
-            logger.warn("Can't set " + key + " property on " + bean + " with value " + value + "\n" + e);
+            logger.warn("Can't set " + key + " property on " + bean + " with value ("
+                    + value.getClass() + ") " + value + "\n" + e);
             return null;
         }
     }
