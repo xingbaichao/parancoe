@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/basicWebApp" reloadable="true" antiJARLocking="true">
+<Context antiJARLocking="true" path="/basicWebApp" reloadable="true">
   <Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver" maxActive="1" name="jdbc/dataSource" password="" type="javax.sql.DataSource" url="jdbc:hsqldb:mem:test" username="sa"/>
 </Context>
