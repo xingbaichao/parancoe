@@ -1,6 +1,6 @@
 <%@ include file="common.jspf"%>
 <div id="footer">
-	<a href="https://parancoe.dev.java.net">https://parancoe.dev.java.net</a> 
+	<a href="http://wwww.parancoe.org">http://wwww.parancoe.org</a> 
     <a href="http://www.jugpadova.it">http://www.jugpadova.it</a>
 
 </div>
