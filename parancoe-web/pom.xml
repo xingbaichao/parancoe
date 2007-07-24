@@ -9,7 +9,7 @@
   <artifactId>parancoe-web</artifactId>
   <name>Parancoe Web</name>
   <version>1.0-SNAPSHOT</version>
-  <url>http://parancoe.dev.java.net</url>
+  <url>http://www.parancoe.org</url>
   <build>
     <plugins>
       <plugin>
