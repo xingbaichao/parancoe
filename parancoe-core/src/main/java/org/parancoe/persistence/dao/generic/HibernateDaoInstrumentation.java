@@ -23,6 +23,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.StringUtils;
 
@@ -74,18 +77,13 @@ public class HibernateDaoInstrumentation {
         });
         if (result == null) {
             // No named query found
-if (method.getName().startsWith("findBy")) {
+            if (method.getName().startsWith("findBy")) {
                 // Query evicting condition from the method name
                 result = target.getHibernateTemplate().executeFind(new HibernateCallback() {
 
                     public Object doInHibernate(Session session) throws HibernateException {
-                        String queryString = queryStringFromMethod(target, method);
-                        Query query = session.createQuery(queryString);
-                        for (int i = 0; i < args.length; i++) {
-                            Object arg = args[i];
-                            query.setParameter(i, arg);
-                        }
-                        return query.list();
+                        DetachedCriteria criteria = criteriaFromMethod(target, method, args);
+                        return criteria.getExecutableCriteria(session).list();
                     }
                 });
             } else {
@@ -105,9 +103,8 @@ if (method.getName().startsWith("findBy")) {
         return target.getType().getSimpleName() + "." + finderMethod.getName();
     }
 
-    private String queryStringFromMethod(GenericDaoHibernateSupport target, Method finderMethod) {
-        StringBuffer result = new StringBuffer();
-        result.append("from ").append(target.getType().getSimpleName());
+    private DetachedCriteria criteriaFromMethod(GenericDaoHibernateSupport target, Method finderMethod, Object[] args) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(target.getType());
         int orderByIdx = finderMethod.getName().indexOf("OrderBy");
         String[] parameters = null;
         String[] orderParameters = null;
@@ -115,23 +112,21 @@ if (method.getName().startsWith("findBy")) {
             // no orderBy
             parameters = finderMethod.getName().substring(6).split("And");
         } else {
-            if (orderByIdx -1 > 6) {
+            if (orderByIdx - 1 > 6) {
                 parameters = finderMethod.getName().substring(6, orderByIdx - 1).split("And");
             }
             orderParameters = finderMethod.getName().substring(orderByIdx + 7).split("And");
         }
-        if (parameters != null && parameters.length > 0) {
-            result.append(" where ").append(StringUtils.uncapitalize(parameters[0])).append(" = ?");
-            for (int i = 1; i < parameters.length; i++) {
-                result.append(" and ").append(StringUtils.uncapitalize(parameters[i])).append(" = ?");
+        if (parameters != null) {
+            for (int i = 0; i < parameters.length; i++) {
+                criteria.add(Restrictions.eq(StringUtils.uncapitalize(parameters[i]), args[i]));
             }
         }
-        if (orderParameters != null && orderParameters.length > 0) {
-            result.append(" order by ").append(StringUtils.uncapitalize(orderParameters[0]));
-            for (int i = 1; i < orderParameters.length; i++) {
-                result.append(", ").append(StringUtils.uncapitalize(orderParameters[i]));
+        if (orderParameters != null) {
+            for (String oPar : orderParameters) {
+                criteria.addOrder(Order.asc(StringUtils.uncapitalize(oPar)));
             }
         }
-        return result.toString();
+        return criteria;
     }
 }
