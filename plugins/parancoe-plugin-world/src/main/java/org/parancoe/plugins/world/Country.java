@@ -21,7 +21,7 @@ public class Country extends EntityBase {
     }
 
     @ManyToOne
-    @JoinColumn(name = "continent")
+    @JoinColumn(name = "continent_id")
     public Continent getContinent() {
         return continent;
     }
