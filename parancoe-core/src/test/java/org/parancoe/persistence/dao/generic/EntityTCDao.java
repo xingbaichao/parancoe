@@ -25,7 +25,10 @@ import org.parancoe.persistence.po.hibernate.EntityTC;
  */
 @Dao(entity=EntityTC.class)
 public interface EntityTCDao extends GenericDao<EntityTC, Long> {
-    List findByFieldOne(String value);
-    List findByFieldTwo(String value);
-    List findByFieldOneAndFieldTwo(String one, String two);
+    List<EntityTC> findByFieldOne(String value);
+    List<EntityTC> findByFieldTwo(String value);
+    List<EntityTC> findByFieldOneAndFieldTwo(String one, String two);
+    List<EntityTC> findByOrderByFieldOne();
+    List<EntityTC> findByOrderByFieldTwo();
+    List<EntityTC> findByOrderByFieldOneAndFieldTwo();
 }

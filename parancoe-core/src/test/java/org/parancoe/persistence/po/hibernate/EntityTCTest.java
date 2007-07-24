@@ -13,11 +13,13 @@
 // limitations under the License.
 package org.parancoe.persistence.po.hibernate;
 
+import java.util.List;
 import org.parancoe.persistence.dao.Daos;
 import org.parancoe.persistence.util.BaseTest;
 
 /**
- *
+ * Tests on generic DAO using EntityTC.
+ * 
  * @author lucio
  */
 public class EntityTCTest extends BaseTest {
@@ -25,7 +27,6 @@ public class EntityTCTest extends BaseTest {
     protected Daos daos;
 
     public EntityTCTest() {
-        super();
         this.daos = (Daos) this.ctx.getBean("daos");
     }
 
@@ -38,4 +39,40 @@ public class EntityTCTest extends BaseTest {
         assertSize(5, this.daos.getEntityTCDao().findAll());
     }
 
+    public void testOrderByFieldOne() {
+        List<EntityTC> entities = this.daos.getEntityTCDao().findByOrderByFieldOne();
+        assertNotEmpty(entities);
+        EntityTC old = entities.get(0);
+        for (int i = 1; i < entities.size(); i++) {
+            EntityTC curr = entities.get(i);
+            assertTrue("Entities not orderd by fieldOne", old.getFieldOne().compareTo(curr.getFieldOne()) <= 0);
+            old = curr;
+        }
+    }
+
+    public void testOrderByFieldTwo() {
+        List<EntityTC> entities = this.daos.getEntityTCDao().findByOrderByFieldTwo();
+        assertNotEmpty(entities);
+        EntityTC old = entities.get(0);
+        for (int i = 1; i < entities.size(); i++) {
+            EntityTC curr = entities.get(i);
+            assertTrue("Entities not orderd by fieldTwo", old.getFieldTwo().compareTo(curr.getFieldTwo()) <= 0);
+            old = curr;
+        }
+    }
+
+    public void testOrderByFieldOneAndFieldTwo() {
+        List<EntityTC> entities = this.daos.getEntityTCDao().findByOrderByFieldOneAndFieldTwo();
+        assertNotEmpty(entities);
+        EntityTC old = entities.get(0);
+        for (int i = 1; i < entities.size(); i++) {
+            EntityTC curr = entities.get(i);
+            if (old.getFieldOne().equals(curr.getFieldOne())) {
+                assertTrue("Entities ordered by fieldOne but not orderd by fieldTwo", old.getFieldTwo().compareTo(curr.getFieldTwo()) <= 0);
+            } else {
+                assertTrue("Entities not orderd by fieldOne", old.getFieldOne().compareTo(curr.getFieldOne()) <= 0);
+            }
+            old = curr;
+        }
+    }
 }
