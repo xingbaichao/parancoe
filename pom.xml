@@ -136,7 +136,6 @@
                     <descriptors>
                         <descriptor>src/assembly/bin.xml</descriptor>
                         <descriptor>src/assembly/bin-with-dependencies.xml</descriptor>
-                        <descriptor>src/assembly/src.xml</descriptor>
                     </descriptors>
                 </configuration>
             </plugin>
