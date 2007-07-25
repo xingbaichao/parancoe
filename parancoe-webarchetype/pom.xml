@@ -16,4 +16,16 @@
     <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/trunk/</developerConnection>
     <url>http://parancoe.googlecode.com/svn/trunk/</url>
   </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>bin</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
