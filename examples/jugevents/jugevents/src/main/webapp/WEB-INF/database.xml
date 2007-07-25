@@ -8,12 +8,12 @@
     <!-- this conf file will be automatically merged with parancoe's parancoeBase.xml -->
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <!--property name="jndiName" value="java:comp/env/jdbc/jugeventsDS"/-->
-        <property name="jndiName" value="jdbc/jugeventsDS"/>
+        <property name="jndiName" value="java:comp/env/jdbc/jugeventsDS"/>
+        <!-- <property name="jndiName" value="jdbc/jugeventsDS"/>  -->
     </bean>
 
     <!-- HSQLDB session factory -->
-    <!--bean id="sessionFactory" parent="abstractSessionFactory">
+    <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
@@ -21,9 +21,10 @@
                 <prop key="hibernate.show_sql">false</prop>
             </props>
         </property>
-    </bean-->
+    </bean>
 
     <!-- Derby session factory -->
+	<!--
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
@@ -33,6 +34,7 @@
             </props>
         </property>
     </bean>
+	-->
     
     <!-- Authomatic discovering of persistent classes -->
     <parancoe:discover-persistent-classes basePackage="it.jugpadova"/>
