@@ -56,18 +56,20 @@ h3 {
   position: relative;
 }
 
+/*
 label,input {
     display: block;
     float: left;
     margin-bottom: 0.5em;
 }
+*/
 
 label {
     text-align: right;
     margin-right: 0.5em;
 }
 
-input {
+input, textarea, select {
     border: 1px solid lightgray;
 }
 
@@ -282,4 +284,19 @@ table.dataList tr.oddRow {
 
 table.dataList td.actionColumn {
    background-color: #ffcccc
+}
+
+dt {
+  clear: left;
+  float: left;
+  margin: 4px 8px 0pt 0pt;
+  padding: 0;
+  position: relative;
+  text-align: right;
+  width: 200px;
+}
+
+dd {
+  text-align: left;
+  margin: 0pt 0pt 5px 0px;
 }
