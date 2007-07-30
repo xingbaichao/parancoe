@@ -23,7 +23,7 @@
                             </tr>
                             <tr>
                                 <td>Start date (dd/MM/yyyy)</td>
-                                <td><form:input path="startDate"/></td>
+                                <td><form:input path="startDate"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></td>
                             </tr>
                             <tr>
                                 <td>Start time</td>
@@ -31,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td>Start beer date (dd/MM/yyyy)</td>
-                                <td><form:input path="endDate"/></td>
+                                <td><form:input path="endDate"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('endDate');"/></td>
                             </tr>
                             <tr>
                                 <td>Start beer time</td>

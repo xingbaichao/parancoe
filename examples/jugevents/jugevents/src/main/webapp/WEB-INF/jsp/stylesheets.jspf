@@ -1,1 +1,2 @@
 <link href="${cp}/stylesheets/default.css" rel="stylesheet" type="text/css"/>
+<link href="${cp}/stylesheets/calendar-blue.css" rel="stylesheet" type="text/css"/>
