@@ -90,4 +90,19 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>netbeans-public</id>
+            <activation>
+                <property>
+                    <name>netbeans.execution</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build />
+            <properties>
+                <netbeans.deployment.server.type>Tomcat55</netbeans.deployment.server.type>
+            </properties>
+        </profile>
+    </profiles>
 </project>
