@@ -15,13 +15,12 @@ package it.jugpadova.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
+import it.jugpadova.blo.FilterBo;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Person;
 import org.parancoe.web.BaseFormController;
@@ -32,12 +31,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 public abstract class EventEditController extends BaseFormController {
 
-    private final static Logger logger = Logger.getLogger(EventEditController.class);
+    private static final Logger logger = Logger.getLogger(EventEditController.class);
 
+    @Override
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
     }
 
+    @Override
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
         Event event = null;
         try {
@@ -53,13 +54,18 @@ public abstract class EventEditController extends BaseFormController {
     }
 
     /* If the id is passed, load the event and prepopulate the form */
+    @Override
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         try {
             Long id = Long.parseLong(req.getParameter("id"));
             Event event = dao().getEventDao().read(id);
-            if (event==null) throw new Exception();
+            if (event == null) {
+                throw new Exception();
+            }
+            req.setAttribute("directionsPreview", FilterBo.filterText(event.getDirections(), event.getFilter(), false));
+            req.setAttribute("descriptionPreview", FilterBo.filterText(event.getDescription(), event.getFilter(), false));
             return event;
-        } catch(Exception e){
+        } catch (Exception e) {
             return new Event();
         }
     }
@@ -67,6 +73,8 @@ public abstract class EventEditController extends BaseFormController {
     public Logger getLogger() {
         return logger;
     }
+
     protected abstract Daos dao();
+
     protected abstract Blos blo();
 }
