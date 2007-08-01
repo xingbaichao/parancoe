@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +30,26 @@ public class Event extends EntityBase {
     private Date endDate;
     private String endTime;
     private String location;
+    private String directions;
     private String description;
+    private String filter = "Textile";
+
+    @Column(length=1024)
+    public String getDirections() {
+        return directions;
+    }
+
+    public void setDirections(String directions) {
+        this.directions = directions;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
     private List<Participant> participants;
     
     /** Creates a new instance of Event */
@@ -86,6 +106,7 @@ public class Event extends EntityBase {
         this.location = location;
     }
 
+    @Column(length=4096)
     public String getDescription() {
         return description;
     }
@@ -105,7 +126,7 @@ public class Event extends EntityBase {
 
     public void addParticipant(Participant participant) {
         if (this.participants == null) {
-            this.participants = new LinkedList();
+            this.participants = new LinkedList<Participant>();
         }
         this.participants.add(participant);
     }

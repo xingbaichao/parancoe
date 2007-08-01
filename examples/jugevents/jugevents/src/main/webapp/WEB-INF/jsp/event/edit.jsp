@@ -19,6 +19,10 @@
                         <dl>
                             <dt><spring:message code="event.title"/></dt>
                             <dd><form:input path="title"/></dd>
+                            <dt><spring:message code="event.location"/></dt>
+                            <dd><form:input path="location"/></dd>
+                            <dt><spring:message code="event.directions"/></dt>
+                            <dd><form:textarea path="directions"/></dd>
                             <dt><spring:message code="event.startDate"/></dt>
                             <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
                             <dt><spring:message code="event.startTime"/></dt>
@@ -129,8 +133,6 @@
                                     <form:option value="11:30 PM" label="11:30 PM"/>
                                 </form:select>
                             </dd>
-                            <dt><spring:message code="event.location"/></dt>
-                            <dd><form:input path="location"/></dd>
                             <dt><spring:message code="event.description"/></dt>
                             <dd><form:textarea path="description" cols="40" rows="5"/></dd>
                             <dt>&nbsp;</dt>
