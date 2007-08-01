@@ -2,3 +2,7 @@
 <%@ include file="meta.jspf" %>
 <%@ include file="stylesheets.jspf" %>
 <%@ include file="javascripts.jspf" %>
+
+<script type="text/javascript">
+    parancoe.util.initDWR();
+</script>

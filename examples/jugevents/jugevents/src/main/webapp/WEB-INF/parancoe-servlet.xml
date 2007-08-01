@@ -23,8 +23,13 @@
         </dwr:remote>
     </bean>    
 
-    <bean id="eventBO" class="it.jugpadova.blo.EventBo" autowire="byType"/>
-    
+    <bean id="eventBO" class="it.jugpadova.blo.EventBo" autowire="byType">
+        <dwr:remote javascript="eventBo">
+            <dwr:include method="findPartialLocation"/>
+            <dwr:include method="copyDirectionsFromEvent"/>
+        </dwr:remote>
+    </bean>
+
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
             <value>it.jugpadova.Daos</value>

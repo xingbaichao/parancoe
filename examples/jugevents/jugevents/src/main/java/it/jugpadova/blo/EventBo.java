@@ -18,10 +18,20 @@ import it.jugpadova.dao.EventDao;
 import org.springframework.transaction.annotation.Transactional;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Participant;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.directwebremoting.ScriptSession;
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
+import org.directwebremoting.proxy.dwr.Util;
+import org.directwebremoting.proxy.scriptaculous.Effect;
 
 public class EventBo {
+    private static final Logger logger = Logger.getLogger(EventBo.class);
     private Daos daos;
     
     public Daos getDaos() {
@@ -56,6 +66,46 @@ public class EventBo {
         event.getParticipants().size();
         return event;
     }
+
+    @Transactional(readOnly=true)
+    public List findPartialLocation(String partialLocation) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialLocation)) {
+            try {
+                List<Event> events = getDaos().getEventDao().findEventByPartialLocation("%"+partialLocation+"%");
+                Iterator<Event> itEvents = events.iterator();
+                while (itEvents.hasNext()) {
+                    Event event = itEvents.next();
+                    result.add(event.getLocation()+
+                            "<div class=\"informal\">"+
+                            event.getDirections()+
+                            "</div>"+
+                            "<div class=\"informal hidden\">"+
+                            event.getId()+
+                            "</div>"
+                            );
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the location", e);
+            }
+        }
+        return result;
+    }
+    
+    @Transactional(readOnly=true)
+    public void copyDirectionsFromEvent(long eventId) {
+        WebContext wctx = WebContextFactory.get();
+        ScriptSession session = wctx.getScriptSession();
+        Util util = new Util(session);        
+        Event event = daos.getEventDao().read(Long.valueOf(eventId));
+        if (event != null) {
+            util.setValue("location", event.getLocation());
+            util.setValue("directions", event.getDirections());
+            Effect effect = new Effect(session);
+            effect.highlight("location");
+            effect.highlight("directions");
+        }
+    }    
     
 }
 
