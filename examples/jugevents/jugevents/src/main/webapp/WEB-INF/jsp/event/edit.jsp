@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
+        <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="nonFooter">
@@ -17,15 +18,17 @@
                     <form:form commandName="event" method="POST" action="${cp}/event/edit.form">
                         <form:hidden path="id"/>
                         <dl>
-                            <dt><spring:message code="event.title"/></dt>
+                            <dt><form:label path="title"><spring:message code="event.title"/></form:label></dt>
                             <dd><form:input path="title"/></dd>
-                            <dt><spring:message code="event.location"/></dt>
-                            <dd><form:input path="location"/></dd>
-                            <dt><spring:message code="event.directions"/></dt>
+                            <dt><form:label path="location"><spring:message code="event.location"/></form:label></dt>
+                            <dd>
+                                <form:input path="location"/><div id="locationList" class="auto_complete"></div>                                
+                            </dd>
+                            <dt><form:label path="directions"><spring:message code="event.directions"/></form:label></dt>
                             <dd><form:textarea path="directions"/></dd>
-                            <dt><spring:message code="event.startDate"/></dt>
+                            <dt><form:label path="startDate"><spring:message code="event.startDate"/></form:label></dt>
                             <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
-                            <dt><spring:message code="event.startTime"/></dt>
+                            <dt><form:label path="startTime"><spring:message code="event.startTime"/></form:label></dt>
                             <dd>
                                 <form:select path="startTime">
                                     <form:option value="00:00 AM" label="00:00 AM"/>
@@ -78,9 +81,9 @@
                                     <form:option value="11:30 PM" label="11:30 PM"/>
                                 </form:select>
                             </dd>
-                            <dt><spring:message code="event.endDate"/></dt>
+                            <dt><form:label path="endDate"><spring:message code="event.endDate"/></form:label></dt>
                             <dd><form:input path="endDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('endDate');"/></dd>
-                            <dt><spring:message code="event.endTime"/></dt>
+                            <dt><form:label path="endTime"><spring:message code="event.endTime"/></form:label></dt>
                             <dd>
                                 <form:select path="endTime">
                                     <form:option value="00:00 AM" label="00:00 AM"/>
@@ -133,7 +136,7 @@
                                     <form:option value="11:30 PM" label="11:30 PM"/>
                                 </form:select>
                             </dd>
-                            <dt><spring:message code="event.description"/></dt>
+                            <dt><form:label path="description"><spring:message code="event.description"/></form:label></dt>
                             <dd><form:textarea path="description" cols="40" rows="5"/></dd>
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='Submit'/>"/><br/><br/></dd>
@@ -145,5 +148,19 @@
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
+        
+        <script type="text/javascript">
+new Autocompleter.DWR('location', 'locationList', updateLocationList, { partialChars: 0, fullSearch: true, updateElement: populateDirections });
+
+function updateLocationList(autocompleter, token) {
+    eventBo.findPartialLocation(token, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+function populateDirections(selectedElement) {
+    eventBo.copyDirectionsFromEvent(selectedElement.childNodes[3].childNodes[0].nodeValue);
+}
+        </script>
     </body>
 </html>

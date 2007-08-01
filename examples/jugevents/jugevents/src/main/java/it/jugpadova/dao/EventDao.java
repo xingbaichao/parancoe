@@ -23,4 +23,5 @@ import org.parancoe.persistence.dao.generic.GenericDao;
 public interface EventDao extends GenericDao<Event, Long> {
     List<Event> findByLocation(String location);
     List<Event> findCurrentEvents();
+    List<Event> findEventByPartialLocation(String location);
 }
