@@ -73,9 +73,11 @@ input, textarea, select {
     border: 1px solid lightgray;
 }
 
+/*
 form br {
     clear: left;
 }
+*/
 
 .error{
   padding: 20px;
@@ -299,4 +301,8 @@ dt {
 dd {
   text-align: left;
   margin: 0pt 0pt 5px 0px;
+}
+
+.preview {
+    margin-left: 220px;
 }
