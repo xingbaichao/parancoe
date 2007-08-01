@@ -25,10 +25,13 @@
                             <dd>
                                 <form:input path="location"/><div id="locationList" class="auto_complete"></div>                                
                             </dd>
-                            <dt><form:label path="directions"><spring:message code="event.directions"/></form:label></dt>
+                            <dt>
+                                <form:label path="directions"><spring:message code="event.directions"/></form:label><br/>
+                                (<a href="http://hobix.com/textile/" target="Filter">Textile</a>)
+                            </dt>
                             <dd><form:textarea path="directions" cols="40" rows="3" onkeyup="filterBo.populatePreview($(directions).value, 'Textile', 'directionsPreview')"/></dd>
                             <dt>&nbsp;</dt>
-                            <dd><div id="directionsPreview" style="margin-left: 220px">${requestScope.directionsPreview}</div></dd>
+                            <dd><div id="directionsPreview" class="preview">${requestScope.directionsPreview}&nbsp;</div></dd>
                             <dt><form:label path="startDate"><spring:message code="event.startDate"/></form:label></dt>
                             <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
                             <dt><form:label path="startTime"><spring:message code="event.startTime"/></form:label></dt>
@@ -139,10 +142,13 @@
                                     <form:option value="11:30 PM" label="11:30 PM"/>
                                 </form:select>
                             </dd>
-                            <dt><form:label path="description"><spring:message code="event.description"/></form:label></dt>
+                            <dt>
+                                <form:label path="description"><spring:message code="event.description"/></form:label><br/>
+                                (<a href="http://hobix.com/textile/" target="Filter">Textile</a>)
+                            </dt>
                             <dd><form:textarea path="description" cols="40" rows="5" onkeyup="filterBo.populatePreview($(description).value, 'Textile', 'descriptionPreview')"/></dd>
                             <dt>&nbsp;</dt>
-                            <dd><div id="descriptionPreview" style="margin-left: 220px">${requestScope.descriptionPreview}</div></dd>
+                            <dd><div id="descriptionPreview" class="preview">${requestScope.descriptionPreview}&nbsp;</div></dd>
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='Submit'/>"/><br/><br/></dd>
                         </dl>
