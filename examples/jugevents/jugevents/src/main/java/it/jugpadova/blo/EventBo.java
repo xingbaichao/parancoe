@@ -101,9 +101,11 @@ public class EventBo {
         if (event != null) {
             util.setValue("location", event.getLocation());
             util.setValue("directions", event.getDirections());
+            util.setValue("directionsPreview", FilterBo.filterText(event.getDirections(), event.getFilter(), false));
             Effect effect = new Effect(session);
             effect.highlight("location");
             effect.highlight("directions");
+            effect.highlight("directionsPreview");
         }
     }    
     

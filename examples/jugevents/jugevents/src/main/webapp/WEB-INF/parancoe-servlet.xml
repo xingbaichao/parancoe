@@ -30,6 +30,12 @@
         </dwr:remote>
     </bean>
 
+    <bean id="filterBO" class="it.jugpadova.blo.FilterBo" autowire="byType">
+        <dwr:remote javascript="filterBo">
+            <dwr:include method="populatePreview"/>
+        </dwr:remote>
+    </bean>
+    
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
             <value>it.jugpadova.Daos</value>

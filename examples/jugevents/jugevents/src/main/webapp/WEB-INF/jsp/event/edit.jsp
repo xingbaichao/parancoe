@@ -4,6 +4,7 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
+        <script src="${cp}/dwr/interface/filterBo.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="nonFooter">
@@ -25,7 +26,9 @@
                                 <form:input path="location"/><div id="locationList" class="auto_complete"></div>                                
                             </dd>
                             <dt><form:label path="directions"><spring:message code="event.directions"/></form:label></dt>
-                            <dd><form:textarea path="directions"/></dd>
+                            <dd><form:textarea path="directions" cols="40" rows="3" onkeyup="filterBo.populatePreview($(directions).value, 'Textile', 'directionsPreview')"/></dd>
+                            <dt>&nbsp;</dt>
+                            <dd><div id="directionsPreview" style="margin-left: 220px">${requestScope.directionsPreview}</div></dd>
                             <dt><form:label path="startDate"><spring:message code="event.startDate"/></form:label></dt>
                             <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
                             <dt><form:label path="startTime"><spring:message code="event.startTime"/></form:label></dt>
@@ -137,7 +140,9 @@
                                 </form:select>
                             </dd>
                             <dt><form:label path="description"><spring:message code="event.description"/></form:label></dt>
-                            <dd><form:textarea path="description" cols="40" rows="5"/></dd>
+                            <dd><form:textarea path="description" cols="40" rows="5" onkeyup="filterBo.populatePreview($(description).value, 'Textile', 'descriptionPreview')"/></dd>
+                            <dt>&nbsp;</dt>
+                            <dd><div id="descriptionPreview" style="margin-left: 220px">${requestScope.descriptionPreview}</div></dd>
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='Submit'/>"/><br/><br/></dd>
                         </dl>
@@ -150,6 +155,8 @@
         <jsp:include page="../footer.jsp"/>
         
         <script type="text/javascript">
+dwr.util.setEscapeHtml(false);
+            
 new Autocompleter.DWR('location', 'locationList', updateLocationList, { partialChars: 0, fullSearch: true, updateElement: populateDirections });
 
 function updateLocationList(autocompleter, token) {
