@@ -17,7 +17,7 @@
         <repository>
             <id>parancoe-org-repository</id>
             <name>Parancoe Repository for Maven</name>
-            <url>http://maven2.parancoe.org/</url>
+            <url>http://maven2.parancoe.org/repo/</url>
             <layout>default</layout>
         </repository>
     </repositories>
