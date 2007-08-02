@@ -14,6 +14,7 @@
 package it.jugpadova;
 
 import it.jugpadova.dao.EventDao;
+import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.dao.PersonDao;
 import org.parancoe.persistence.dao.DaoProvider;
@@ -27,4 +28,5 @@ public interface Daos extends DaoProvider {
     public PersonDao getPersonDao();    
     public EventDao getEventDao();    
     public ParticipantDao getParticipantDao();
+    public JuggerDao getJuggerDao();
 }

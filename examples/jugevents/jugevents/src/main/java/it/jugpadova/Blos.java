@@ -14,6 +14,7 @@
 package it.jugpadova;
 
 import it.jugpadova.blo.EventBo;
+import it.jugpadova.blo.JuggerBlo;
 import it.jugpadova.blo.SampleBlo;
 import it.jugpadova.blo.PersonBo;
 
@@ -21,6 +22,7 @@ public class Blos {
     public SampleBlo sample;
     public PersonBo person;
     public EventBo eventBo;
+    public JuggerBlo juggerBlo;
     
     public SampleBlo getSample() {
         return sample;
@@ -45,5 +47,13 @@ public class Blos {
     public void setEventBo(EventBo eventBo) {
         this.eventBo = eventBo;
     }
+
+	public JuggerBlo getJuggerBO() {
+		return juggerBlo;
+	}
+
+	public void setJuggerBO(JuggerBlo juggerBlo) {
+		this.juggerBlo = juggerBlo;
+	}
         
 }
