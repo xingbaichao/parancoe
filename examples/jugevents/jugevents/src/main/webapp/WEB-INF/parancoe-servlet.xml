@@ -36,6 +36,8 @@
         </dwr:remote>
     </bean>
     
+     <bean id="juggerBlo" class="it.jugpadova.blo.JuggerBlo" autowire="byType"/>
+    
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
             <value>it.jugpadova.Daos</value>
@@ -55,6 +57,8 @@
           class="it.jugpadova.controllers.PeopleController" parent="abstractController"/>
     <bean name="/event/*.html" id="eventController"
           class="it.jugpadova.controllers.EventController" parent="abstractController"/>
+    <bean name="/jugger/*.html" id="juggerController"
+          class="it.jugpadova.controllers.JuggerController" parent="abstractController"/>
     
     <bean name="/people/edit.form" id="peopleEditController"
           class="it.jugpadova.controllers.PeopleEditController"
