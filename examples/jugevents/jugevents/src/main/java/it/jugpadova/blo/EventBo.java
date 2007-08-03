@@ -74,10 +74,10 @@ public class EventBo {
             if (juggers.size() > 0) {
                 result = juggerDao.findByUsername(name).get(0);
                 if (juggers.size() > 1) {
-                    logger.warn("MOre than a JUG with the '"+name+"' username");
+                    logger.warn("MOre than a JUG with the '" + name + "' username");
                 }
             } else {
-                logger.error("No jugger with the '"+name+"' username");
+                logger.error("No jugger with the '" + name + "' username");
             }
         }
         return result;
@@ -100,11 +100,11 @@ public class EventBo {
     }
 
     @Transactional(readOnly = true)
-    public List findPartialLocation(String partialLocation) {
+    public List findPartialLocation(String partialLocation, String username) {
         List<String> result = new ArrayList<String>();
-        if (!StringUtils.isBlank(partialLocation)) {
+        if (!StringUtils.isBlank(partialLocation) && !StringUtils.isBlank(username)) {
             try {
-                List<Event> events = getDaos().getEventDao().findEventByPartialLocation("%" + partialLocation + "%");
+                List<Event> events = getDaos().getEventDao().findEventByPartialLocationAndOwner("%" + partialLocation + "%", username);
                 Iterator<Event> itEvents = events.iterator();
                 while (itEvents.hasNext()) {
                     Event event = itEvents.next();
