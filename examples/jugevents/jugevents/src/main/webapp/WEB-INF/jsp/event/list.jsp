@@ -19,6 +19,7 @@
                             <table class="dataList">
                                 <thead>
                                     <tr>
+                                        <th>JUG</th>
                                         <th>Event</th>
                                         <th>Start date</th>
                                         <th># Participants</th>
@@ -36,14 +37,27 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <tr class="${rowStyle}">
+                                            <td>${event.owner.jugName}</td>
                                             <td>${event.title}</td>
                                             <td><fmt:formatDate value="${event.startDate}" /></td>
                                             <td>${event.numberOfParticipants}</td>
                                             <td class="actionColumn">
-                                                <a href="edit.form?id=${event.id}">edit</a>
-                                                <a href="delete.html?id=${event.id}">delete</a>
+                                                <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
+                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                        <a href="edit.form?id=${event.id}">edit</a>
+                                                    </c:if>
+                                                </authz:authorize>
+                                                <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">   			
+                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                        <a href="delete.html?id=${event.id}">delete</a>
+                                                    </c:if>
+                                                </authz:authorize>
                                                 <a href="registration.form?event.id=${event.id}">register</a>
-                                                <a href="participants.html?id=${event.id}">participants</a>
+                                                <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">   			
+                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                        <a href="participants.html?id=${event.id}">participants</a>
+                                                    </c:if>
+                                                </authz:authorize>
                                             </td>
                                         </tr>
                                     </c:forEach>
