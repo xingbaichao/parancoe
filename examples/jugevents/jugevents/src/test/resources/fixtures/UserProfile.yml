@@ -1,0 +1,16 @@
+- &UserProfile-parancoe
+  username: parancoe
+  password: parancoe
+  enabled: true
+- &UserProfile-admin
+  username: admin
+  password: admin
+  enabled: true
+- &UserProfile-lucio
+  username: lucio
+  password: lucio
+  enabled: true
+- &UserProfile-fabrizio
+  username: fabrizio
+  password: fabrizio
+  enabled: true

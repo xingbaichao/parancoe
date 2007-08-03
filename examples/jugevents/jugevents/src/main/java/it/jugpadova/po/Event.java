@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -40,6 +41,16 @@ public class Event extends EntityBase {
     private String directions;
     private String description;
     private String filter = "Textile";
+    private Jugger owner;
+
+    @ManyToOne
+    public Jugger getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Jugger owner) {
+        this.owner = owner;
+    }
 
     @Column(length=1024)
     public String getDirections() {
