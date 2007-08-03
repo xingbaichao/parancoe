@@ -1,6 +1,8 @@
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page import="org.parancoe.util.BaseConf" %>
+<%@ page import="org.acegisecurity.context.SecurityContextHolder" %>
+<%@ page import="org.acegisecurity.Authentication" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
@@ -16,6 +18,10 @@
 
     BaseConf conf = (BaseConf) ctx.getBean("conf");
     pageContext.setAttribute("conf", conf);  
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    pageContext.setAttribute("authentication", authentication);
+    
 %>
 
 
