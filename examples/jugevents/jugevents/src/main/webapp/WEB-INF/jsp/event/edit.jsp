@@ -166,7 +166,7 @@ dwr.util.setEscapeHtml(false);
 new Autocompleter.DWR('location', 'locationList', updateLocationList, { partialChars: 0, fullSearch: true, updateElement: populateDirections });
 
 function updateLocationList(autocompleter, token) {
-    eventBo.findPartialLocation(token, function(data) {
+    eventBo.findPartialLocation(token, '<authz:authentication operation="username"/>', function(data) {
         autocompleter.setChoices(data)
     });
 }

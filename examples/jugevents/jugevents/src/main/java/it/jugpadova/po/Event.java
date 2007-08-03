@@ -29,6 +29,10 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
     @NamedQuery(
         name="Event.findEventByPartialLocation",
         query="from Event e where lower(e.location) like lower(?) order by e.location"
+    ),
+    @NamedQuery(
+        name="Event.findEventByPartialLocationAndOwner",
+        query="from Event e where lower(e.location) like lower(?) and e.owner.username = ? order by e.location"
     )
 })
 public class Event extends EntityBase {
