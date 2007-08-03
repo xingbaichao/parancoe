@@ -1,10 +1,9 @@
 /**
- * 
+ *
  */
 package it.jugpadova.po;
 
 import javax.persistence.Entity;
-
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -15,61 +14,59 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  */
 @Entity
 public class Jugger extends EntityBase {
-		@NotBlank
-	    private String firstName;
-	    @NotBlank
-	    private String lastName;
-	    @NotBlank
-	    @Email
-	    private String email;
-	    @NotBlank
-	    private String username;
-	    
-	    private String jugName;
-	    
-	    public Jugger()
-	    {
-	    	
-	    }
 
-		public String getEmail() {
-			return email;
-		}
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotBlank
+    @Email
+    private String email;
+    @NotBlank
+    private String username;
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+    private String jugName;
 
-		public String getFirstName() {
-			return firstName;
-		}
+    public Jugger() {
+    }
 
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
+    public String getEmail() {
+        return email;
+    }
 
-		public String getJugName() {
-			return jugName;
-		}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-		public void setJugName(String jugName) {
-			this.jugName = jugName;
-		}
+    public String getFirstName() {
+        return firstName;
+    }
 
-		public String getLastName() {
-			return lastName;
-		}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
+    public String getJugName() {
+        return jugName;
+    }
 
-		public String getUsername() {
-			return username;
-		}
+    public void setJugName(String jugName) {
+        this.jugName = jugName;
+    }
 
-		public void setUsername(String username) {
-			this.username = username;
-		}
+    public String getLastName() {
+        return lastName;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

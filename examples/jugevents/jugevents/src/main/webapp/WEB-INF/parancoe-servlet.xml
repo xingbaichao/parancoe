@@ -98,9 +98,9 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /people/**=ROLE_ADMIN, ROLE_PARANCOE
-                /event/edit*=ROLE_ADMIN
-                /event/delete*=ROLE_ADMIN
-                /event/participants*=ROLE_ADMIN
+                /event/edit*=ROLE_ADMIN, ROLE_JUGGER
+                /event/delete*=ROLE_ADMIN, ROLE_JUGGER
+                /event/participants*=ROLE_ADMIN, ROLE_JUGGER
                 /admin/**=ROLE_ADMIN
                 /**=IS_AUTHENTICATED_ANONYMOUSLY
             </value>

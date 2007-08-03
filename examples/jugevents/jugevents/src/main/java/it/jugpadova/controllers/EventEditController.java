@@ -23,6 +23,8 @@ import it.jugpadova.Daos;
 import it.jugpadova.blo.FilterBo;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Person;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.parancoe.plugins.security.UserProfile;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
@@ -43,8 +45,7 @@ public abstract class EventEditController extends BaseFormController {
         Event event = null;
         try {
             event = (Event) command;
-            dao().getEventDao().createOrUpdate(event);
-
+            blo().getEventBo().save(event);
             return onSubmit(command, errors); // restituisce succesView
         } catch (Exception e) {
             errors.reject("error.generic");
@@ -66,7 +67,8 @@ public abstract class EventEditController extends BaseFormController {
             req.setAttribute("descriptionPreview", FilterBo.filterText(event.getDescription(), event.getFilter(), false));
             return event;
         } catch (Exception e) {
-            return new Event();
+            Event event = new Event();
+            return event;
         }
     }
 

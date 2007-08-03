@@ -1,0 +1,12 @@
+- &Authorities-parancoe
+  username: parancoe
+  authority: ROLE_PARANCOE
+- &Authorities-admin
+  username: admin
+  authority: ROLE_ADMIN
+- &Authorities-lucio
+  username: lucio
+  authority: ROLE_JUGGER
+- &Authorities-fabrizio
+  username: fabrizio
+  authority: ROLE_JUGGER
