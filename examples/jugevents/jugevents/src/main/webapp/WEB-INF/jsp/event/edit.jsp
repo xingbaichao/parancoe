@@ -17,6 +17,7 @@
                     <h2><spring:message code="NewEditEvent"/></h2>
                     
                     <form:form commandName="event" method="POST" action="${cp}/event/edit.form">
+                        <form:errors path="*" cssClass="errorBox"/>
                         <form:hidden path="id"/>
                         <dl>
                             <dt><form:label path="title"><spring:message code="event.title"/></form:label></dt>
@@ -152,7 +153,6 @@
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='Submit'/>"/><br/><br/></dd>
                         </dl>
-                        <form:errors path="*" cssClass="errorBox"/>
                     </form:form>
                 </div>
                 <jsp:include page="../menu.jsp"/>

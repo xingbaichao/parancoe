@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
 
 /**
  * An event.
@@ -36,11 +38,14 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
     )
 })
 public class Event extends EntityBase {
+    @NotBlank
     private String title;
+    @org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull
     private Date startDate;
     private String startTime;
     private Date endDate;
     private String endTime;
+    @NotBlank
     private String location;
     private String directions;
     private String description;
