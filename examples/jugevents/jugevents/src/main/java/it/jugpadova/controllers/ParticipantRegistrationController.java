@@ -13,6 +13,7 @@
 // limitations under the License.
 package it.jugpadova.controllers;
 
+import com.octo.captcha.service.CaptchaService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,7 +26,6 @@ import it.jugpadova.Daos;
 import it.jugpadova.bean.Registration;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Participant;
-import java.util.Random;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 public abstract class ParticipantRegistrationController extends BaseFormController {
     
     private final static Logger logger = Logger.getLogger(ParticipantRegistrationController.class);
+    private CaptchaService captchaService;
     
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
@@ -65,9 +66,17 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
         } else {
             result.setEvent(new Event());
         }
-        result.setA((int)(Math.random()*10));
-        result.setB((int)(Math.random()*10));
+        result.setCaptchaId(req.getSession().getId());
+        result.setCaptchaService(captchaService);
         return result;
+    }
+
+    public CaptchaService getCaptchaService() {
+        return captchaService;
+    }
+
+    public void setCaptchaService(CaptchaService captchaService) {
+        this.captchaService = captchaService;
     }
     
     public Logger getLogger() {

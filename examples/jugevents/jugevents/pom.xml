@@ -88,7 +88,7 @@
             <version>1.8.0.4</version>
             <scope>runtime</scope>
         </dependency> 
-
+        
         <!-- AJAX framework -->
         <dependency>
             <groupId>org.directwebremoting</groupId>
@@ -109,6 +109,13 @@
             <artifactId>plextile</artifactId>
             <version>1.0.5</version>
         </dependency>
+        
+        <dependency>
+            <groupId>jcaptcha</groupId>
+            <artifactId>jcaptcha-all</artifactId>
+            <version>1.0-RC6</version>
+        </dependency>                
+        
     </dependencies>
     <profiles>
         <profile>

@@ -23,8 +23,6 @@
                     <br/>
                     <form:form commandName="registration" method="POST" action="${cp}/event/registration.form">
                         <form:hidden path="event.id"/>
-                        <form:hidden path="a"/>
-                        <form:hidden path="b"/>
                         <table>
                             <tr>
                                 <td>First Name:</td>
@@ -39,8 +37,8 @@
                                 <td><form:input path="participant.email"/></td>
                             </tr>
                             <tr>
-                                <td>${registration.a} + ${registration.b} = </td>
-                                <td><form:input path="sum"/></td>
+                                <td><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></td>
+                                <td><form:input path="captchaResponse"/></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>

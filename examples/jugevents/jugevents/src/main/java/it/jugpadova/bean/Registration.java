@@ -1,62 +1,70 @@
 package it.jugpadova.bean;
 
+import com.octo.captcha.service.CaptchaService;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Participant;
+import it.jugpadova.util.JCaptchaValidable;
+import it.jugpadova.util.JCaptchaValidator;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Expression;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Validator;
 
 /**
  *
  * @author lucio
  */
-@Expression(value="a + b == sum", errorCode="wrongSum", args="a,b,sum")
-public class Registration {
+@Validator(value=JCaptchaValidator.class)
+public class Registration implements JCaptchaValidable {
+
     private Event event;
     @CascadeValidation
     private Participant participant;
-    private int a, b, sum;
-    
+    private CaptchaService captchaService;
+    @NotBlank
+    private String captchaResponse;
+    private String captchaId;
+
     public Registration() {
     }
-    
+
     public Event getEvent() {
         return event;
     }
-    
+
     public void setEvent(Event event) {
         this.event = event;
     }
-    
+
     public Participant getParticipant() {
         return participant;
     }
-    
+
     public void setParticipant(Participant participant) {
         this.participant = participant;
     }
-    
-    public int getA() {
-        return a;
+
+    public void setCaptchaId(String captchaId) {
+        this.captchaId = captchaId;
     }
-    
-    public void setA(int a) {
-        this.a = a;
+
+    public void setCaptchaResponse(String captchaResponse) {
+        this.captchaResponse = captchaResponse;
     }
-    
-    public int getB() {
-        return b;
+
+    public void setCaptchaService(CaptchaService captchaService) {
+        this.captchaService = captchaService;
     }
-    
-    public void setB(int b) {
-        this.b = b;
+
+    public String getCaptchaId() {
+        return this.captchaId;
     }
-    
-    public int getSum() {
-        return sum;
+
+    public String getCaptchaResponse() {
+        return this.captchaResponse;
     }
-    
-    public void setSum(int sum) {
-        this.sum = sum;
+
+    public CaptchaService getCaptchaService() {
+        return this.captchaService;
     }
-    
+        
 }
