@@ -23,7 +23,10 @@
         </dwr:remote>
     </bean>    
     
-    <bean id="eventBO" class="it.jugpadova.blo.EventBo" autowire="byType">
+    <bean id="eventBO" class="it.jugpadova.blo.EventBo" autowire="byType">    
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="confirmationSenderEmailAddress" value="lucio@benfante.com"/>        
         <dwr:remote javascript="eventBo">
             <dwr:include method="findPartialLocation"/>
             <dwr:include method="copyDirectionsFromEvent"/>
@@ -201,5 +204,20 @@
         <property name="captchaService" ref="captchaService"/>
     </bean>
     <!-- end jcaptcha section -->
+
+    <!-- start mail section -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!-- here your smtp server -->
+        <property name="host" value="mail.clubnet.tin.it"/>
+    </bean>
     
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>    
+    <!-- end mail section -->
 </beans>

@@ -21,8 +21,11 @@ import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import javax.mail.internet.MimeMessage;
 import org.acegisecurity.Authentication;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -31,12 +34,20 @@ import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.proxy.dwr.Util;
 import org.directwebremoting.proxy.scriptaculous.Effect;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.apache.velocity.app.VelocityEngine;
 
 public class EventBo {
 
     private static final Logger logger = Logger.getLogger(EventBo.class);
     private Daos daos;
-
+    private JavaMailSender mailSender;
+    private VelocityEngine velocityEngine;
+    private String confirmationSenderEmailAddress;
+    
     public Daos getDaos() {
         return daos;
     }
@@ -45,6 +56,30 @@ public class EventBo {
         this.daos = daos;
     }
 
+    public JavaMailSender getMailSender() {
+        return mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
+
+    public void setVelocityEngine(VelocityEngine velocityEngine) {
+        this.velocityEngine = velocityEngine;
+    }
+
+    public String getConfirmationSenderEmailAddress() {
+        return confirmationSenderEmailAddress;
+    }
+
+    public void setConfirmationSenderEmailAddress(String confirmationSenderEmailAddress) {
+        this.confirmationSenderEmailAddress = confirmationSenderEmailAddress;
+    }
+        
     @Transactional(readOnly = true)
     public List<Event> retrieveEvents() {
         List<Event> events = getDaos().getEventDao().findCurrentEvents();
@@ -87,9 +122,30 @@ public class EventBo {
     public void register(Event event, Participant participant) {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
+        participant.setConfirmed(Boolean.FALSE);
+        participant.setConfirmationCode("PROVA_DA_CAMBIARE");
         getDaos().getParticipantDao().createOrUpdate(participant);
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
+        sendConfirmationEmail(event, participant);
+    }
+
+    private void sendConfirmationEmail(final Event event, final Participant participant) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+
+            @SuppressWarnings(value = "unchecked")
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(participant.getEmail());
+                message.setFrom(confirmationSenderEmailAddress);
+                Map model = new HashMap();
+                model.put("participant", participant);
+                model.put("event", event);
+                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "it/jugpadova/registration-confirmation.vm", model);
+                message.setText(text, true);
+            }
+        };
+        this.mailSender.send(preparator);
     }
 
     @Transactional(readOnly = true)
