@@ -19,6 +19,8 @@ public class Participant extends EntityBase {
     @NotBlank
     @Email
     private String email;
+    private String confirmationCode;
+    private Boolean confirmed;
     
     /** Creates a new instance of Participant */
     public Participant() {
@@ -47,5 +49,21 @@ public class Participant extends EntityBase {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
+
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+        
 }

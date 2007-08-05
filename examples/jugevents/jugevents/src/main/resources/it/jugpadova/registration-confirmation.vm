@@ -1,0 +1,13 @@
+<html>
+<body>
+<h3>Hi ${participant.firstName} ${participant.firstName}, You are registering to ${event.title}!</h3>
+
+<div>
+   Please confirm you registration clicking on the following link:
+</div>
+<div>
+    <a href="http://localhost:8080/jugevents/confirm/registration?email=${participant.email}&code=${participant.confirmationCode}">http://localhost:8080/jugevents/confirm/registration?email=${participant.email}&code=${participant.confirmationCode}</a>
+</div>
+</body>
+
+</html>
