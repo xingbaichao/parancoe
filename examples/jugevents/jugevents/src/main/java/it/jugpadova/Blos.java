@@ -24,6 +24,7 @@ public class Blos {
     public EventBo eventBo;
     public JuggerBlo juggerBlo;
     
+    
     public SampleBlo getSample() {
         return sample;
     }

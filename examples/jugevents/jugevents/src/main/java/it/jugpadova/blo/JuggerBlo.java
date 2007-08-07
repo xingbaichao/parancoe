@@ -49,4 +49,9 @@ private Daos daos;
         return result;
     }
     
+    @Transactional
+    public void save(Jugger jugger) {
+       
+    }
+    
 }
