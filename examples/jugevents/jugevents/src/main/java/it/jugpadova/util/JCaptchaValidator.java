@@ -32,20 +32,14 @@ public class JCaptchaValidator implements Validator {
         String response = vobj.getCaptchaResponse();
         boolean isResponseCorrect = false;
         try {
-            if (response != null && !yetValidated) {
+            if (response != null) {
                 isResponseCorrect = captchaService.validateResponseForID(captchaId, response);
-                yetValidated = true;
                 if (!isResponseCorrect) {
                     errors.rejectValue("captchaResponse", "captchaerror", "Wrong control text!");
                 }
-            } else {
-                // reset yetValidated
-                if (yetValidated) {
-                    yetValidated = false;
-                }
             }
         } catch (CaptchaServiceException e) {
-            logger.error("Error validating captcha field", e);
+            // logger.error("Error validating captcha field", e);
         }
     }
 }
