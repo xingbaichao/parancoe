@@ -19,7 +19,7 @@ public class SecureUtility {
 		User user = new User();
 		user.setEnabled(false);
 		user.setUsername(username);
-		user.setPassword(username);
+		user.setPassword(username);		
 		return user;
 	}
 

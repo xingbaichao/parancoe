@@ -24,7 +24,7 @@ import org.parancoe.persistence.dao.generic.GenericDao;
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
  * @version $Revision$
  */
-@Dao(entity=Authorities.class)
-public interface AuthoritiesDao extends GenericDao<Authorities, Long> {
-	List<Authorities> findByAuthority(String authority);
+@Dao(entity=Authority.class)
+public interface AuthorityDao extends GenericDao<Authority, Long> {
+	List<Authority> findByRole(String authority);
 }

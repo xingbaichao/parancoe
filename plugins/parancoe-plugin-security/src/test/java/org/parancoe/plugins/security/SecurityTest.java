@@ -29,24 +29,46 @@ public class SecurityTest extends PluginTest {
 
 
     public void testPlugin() throws Exception {
-//        assertEquals(2, plugin.getFixtureClasses().size());
-//        assertEquals(Authorities.class, plugin.getFixtureClasses().get(0));
-//        assertEquals(User.class, plugin.getFixtureClasses().get(1));
+        assertEquals(3, getFixtureClasses().length);
+        
     }
 
     @Transactional
-    public void testUser() {
-//        AuthoritiesDao authoritiesDao = (AuthoritiesDao) this.ctx.getBean("authoritiesDao");
-//        UserDao userDao = (UserDao) this.ctx.getBean("userDao");
-//        User admin = (userDao.findByUsername("admin")).get(0);
-//        admin.setAuthorities(authoritiesDao.findAll());
-//        userDao.createOrUpdate(admin);
+    public void testInsertUser() {
+    	
+    	//retrieves all dao
+    	
+    	UserDao userDao = (UserDao) ctx.getBean("userDao");
+    	UserAuthorityDao userAuthorityDao = (UserAuthorityDao) ctx.getBean("userAuthorityDao");
+    	AuthorityDao authorityDao = (AuthorityDao) ctx.getBean("authorityDao");
+    	
+    	//creates  entities
+    	User pippo = SecureUtility.newUserToValidate("pippo");
+    	userDao.createOrUpdate(pippo); 
+    	Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN").get(0);
+    	
+    	UserAuthority ua = new UserAuthority();
+    	ua.setAuthority(parancoeAuthority);
+    	ua.setUser(pippo);
+    	
+    	userAuthorityDao.createOrUpdate(ua);
+    	assertNotNull(userDao.findByUsername("pippo").get(0));
+    	assertNotNull(userAuthorityDao.findAll().size());
+    	
+    	
+    	
     }
 
 
+	
 
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{User.class, Authorities.class};
-    }
+	@Override
+	public Class[] getFixtureClasses() {
+		// TODO Auto-generated method stub
+		return new Class[]{User.class, Authority.class, UserAuthority.class};
+	}
+
+
+
+    
 } //

@@ -15,30 +15,39 @@ package org.parancoe.plugins.security;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 
 /**
- * A PO for User-Authorities relationship.
+ * A PO for User-Authority relationship.
  *
  * @author Lucio Benfante
  */
 @javax.persistence.Entity()
-@Table(name="USER_AUTHORITIES")
+@Table(name="USER_AUTHORITY")
+/*
+@NamedQueries({
+@NamedQuery(name = "User_Authority.insertByUsernameAndRole",
+        query = "insert into user_authority (user_id, authority_id) values "+
+        "((select id from user where username=?), (select id from authority where role=?))")
+        })
+*/
 public class UserAuthority extends EntityBase {
 
     private User user;
-    private Authorities authorities;
+    private Authority authority;
 
     @ManyToOne    
-    @JoinColumn(name="authorities_id")
-    public Authorities getAuthorities() {
-        return authorities;
+    @JoinColumn(name="authority_id")
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public void setAuthorities(Authorities authorities) {
-        this.authorities = authorities;
+    public void setAuthority(Authority authority) {
+        this.authority = authority;
     }
 
     @ManyToOne
@@ -50,5 +59,11 @@ public class UserAuthority extends EntityBase {
     public void setUser(User user) {
         this.user = user;
     }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "\nUser: "+user.toString()+"\nAuthority: "+authority.toString();
+	}
         
 }

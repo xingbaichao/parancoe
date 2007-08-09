@@ -19,28 +19,46 @@ import javax.persistence.OneToMany;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
- * A PO for Authorities table.
+ * A PO for Authority table.
  *
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
  * @version $Revision$
  */
 @javax.persistence.Entity
-public class Authorities extends EntityBase {
+public class Authority extends EntityBase {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
     private String description = null;
-    private String authority = null;
+    private String role = null;
     private List<UserAuthority> userAuthority;
-
-    public String getAuthority() {
-        return authority;
+    
+    /**
+     * Empty constructor
+     *
+     */
+    public Authority()
+    {
+    	
+    }
+    /**
+     * Constructor with role.
+     * @param role
+     */
+    public Authority(String role)
+    {
+    	this.role = role;
+    	
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getDescription() {
@@ -51,7 +69,7 @@ public class Authorities extends EntityBase {
         this.description = description;
     }
 
-    @OneToMany(mappedBy="authorities")
+    @OneToMany(mappedBy="authority")
     public List<UserAuthority> getUserAuthority() {
         return userAuthority;
     }
@@ -59,5 +77,11 @@ public class Authorities extends EntityBase {
     public void setUserAuthority(List<UserAuthority> userAuthority) {
         this.userAuthority = userAuthority;
     }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "role: "+role+" - description: "+description;
+	}
     
 }
