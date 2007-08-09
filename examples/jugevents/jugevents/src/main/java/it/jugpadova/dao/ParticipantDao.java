@@ -14,10 +14,13 @@
 package it.jugpadova.dao;
 
 import it.jugpadova.po.Participant;
+import java.util.List;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 
 
-@Dao(entity=Participant.class)
+@Dao(entity = Participant.class)
 public interface ParticipantDao extends GenericDao<Participant, Long> {
+
+    public List<Participant> findByEmailAndConfirmationCodeAndConfirmed(String email, String condirmationCode, Boolean confirmed);
 }
