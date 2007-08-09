@@ -136,11 +136,11 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
             <ref bean="dataSource" />
         </property>
         <property name="usersByUsernameQuery">
-            <value>Select username, password, enabled FROM user WHERE username = ?</value>
+            <value>select username, password, enabled FROM user WHERE username = ?</value>
         </property>
         <property name="authoritiesByUsernameQuery">
-            <value>select username, authority from user u, authorities a, user_authorities ua 
-            where u.username = ? and u.id = ua.user_id and a.id = ua.AUTHORITIES_ID</value>
+            <value>select username, role from user u, authority a, user_authority ua 
+            where u.username = ? and u.id = ua.user_id and a.id = ua.authority_id</value>
         </property>
     </bean>          
     

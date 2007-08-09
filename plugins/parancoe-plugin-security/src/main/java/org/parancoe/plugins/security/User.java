@@ -13,6 +13,7 @@
 // limitations under the License.
 package org.parancoe.plugins.security;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
@@ -38,8 +39,24 @@ public class User extends EntityBase {
     private String password = null;
 
     private boolean enabled = true;
+    /**
+     * Empty constructor
+     *
+     */
+    public User()
+    {
+    	
+    }
+    /**
+     * Constructor with username.
+     * @param username
+     */
+    public User(String username)
+    {
+    	this.username = username;
+    }
 
-    private List<UserAuthority> userAuthority;
+    private List<UserAuthority> userAuthority = new ArrayList<UserAuthority>();
 
     public boolean isEnabled() {
         return enabled;
@@ -73,5 +90,11 @@ public class User extends EntityBase {
     public void setUserAuthority(List<UserAuthority> userAuthority) {
         this.userAuthority = userAuthority;
     }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "username: "+username+" - password: <XXX> - enabled: "+enabled;
+	}
     
 }
