@@ -26,5 +26,5 @@ import org.parancoe.persistence.dao.generic.GenericDao;
  */
 @Dao(entity=Authorities.class)
 public interface AuthoritiesDao extends GenericDao<Authorities, Long> {
-	List<Authorities> findByUsernameAndAuthority(String username, String authority);
+	List<Authorities> findByAuthority(String authority);
 }

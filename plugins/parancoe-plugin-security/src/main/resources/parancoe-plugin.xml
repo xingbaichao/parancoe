@@ -94,6 +94,8 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
         </property>
     </bean>
     
+    
+    
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
         <property name="userDetailsService" ref="userDetailsService"/>
         <property name="key" value="changeThis"/>
@@ -134,10 +136,11 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
             <ref bean="dataSource" />
         </property>
         <property name="usersByUsernameQuery">
-            <value>Select username, password,'true' FROM userProfile WHERE username=?</value>
+            <value>Select username, password, enabled FROM user WHERE username = ?</value>
         </property>
         <property name="authoritiesByUsernameQuery">
-            <value>SELECT username,authority  FROM authorities WHERE username = ?</value>
+            <value>select username, authority from user u, authorities a, user_authorities ua 
+            where u.username = 'admin' and u.id = ua.user_id and a.id = ua.AUTHORITIES_ID</value>
         </property>
     </bean>          
     
@@ -164,8 +167,8 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
         <!-- fixtures da caricare all'avvio del plugin -->
         <property name="fixtureClassNames">
             <list>
-                <value>org.parancoe.plugins.security.UserProfile</value>
                 <value>org.parancoe.plugins.security.Authorities</value>
+                <value>org.parancoe.plugins.security.User</value>
             </list>
         </property>
     </bean>
