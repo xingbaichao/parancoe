@@ -11,7 +11,7 @@
         <!--
           For populating the DB (not the in memory one) with test data.
         -->
-        <!-- property name="url" value="jdbc:hsqldb:hsql://localhost/jugevents"/-->
+        <!--property name="url" value="jdbc:hsqldb:hsql://localhost/jugevents"/-->
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>

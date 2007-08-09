@@ -62,6 +62,8 @@
           class="it.jugpadova.controllers.EventController" parent="abstractController"/>
     <bean name="/jugger/*.html" id="juggerController"
           class="it.jugpadova.controllers.JuggerController" parent="abstractController"/>
+    <bean name="/confirm/*.html" id="confirmController"
+          class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
     
     <bean name="/people/edit.form" id="peopleEditController"
           class="it.jugpadova.controllers.PeopleEditController"
@@ -219,7 +221,8 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-        <property name="host" value="mail.clubnet.tin.it"/>
+        <!--property name="host" value="mail.clubnet.tin.it"/-->
+        <property name="host" value="mail.posta.tim.it"/>
     </bean>
     
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

@@ -1,6 +1,7 @@
 package it.jugpadova;
 
 import it.jugpadova.blo.EventBo;
+import it.jugpadova.blo.FilterBo;
 import it.jugpadova.blo.JuggerBlo;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
@@ -8,7 +9,8 @@ import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import org.parancoe.plugins.security.Authorities;
-import org.parancoe.plugins.security.UserProfile;
+import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.web.test.BaseTest;
 
 public class SanityTest extends BaseTest {
@@ -47,6 +49,11 @@ public class SanityTest extends BaseTest {
         Object juggerBo = ctx.getBean("juggerBlo");
         assertNotNull("Can't retrieve juggerBlo bean", juggerBo);
         assertTrue("Wrong class for the juggerBlo bean ("+juggerBo.getClass().getName()+")", juggerBo instanceof JuggerBlo);        
+        
+        Object filterBo = ctx.getBean("filterBO");
+        assertNotNull("Can't retrieve filterBO bean", filterBo);
+        assertTrue("Wrong class for the filterOo bean ("+filterBo.getClass().getName()+")", filterBo instanceof FilterBo);        
+        
     }
 
     public void testDaosThroughDaos() {
@@ -66,6 +73,8 @@ public class SanityTest extends BaseTest {
         Blos blos = (Blos)oblos;
         assertNotNull(blos.getEventBo());
         assertNotNull(blos.getJuggerBO());
+        assertNotNull(blos.getJuggerBO());
+        assertNotNull(blos.getFilterBo());
     }
 
     public void testControllers() {
@@ -74,7 +83,7 @@ public class SanityTest extends BaseTest {
         checkSpringBean("eventEditController");
         checkSpringBean("juggerController");
         checkSpringBean("registrationController");
-        
+        checkSpringBean("confirmController");        
     }
 
     private void checkSpringBean(String id) {
@@ -84,6 +93,6 @@ public class SanityTest extends BaseTest {
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[] {Jugger.class, UserProfile.class, Authorities.class, Event.class};
+        return new Class[] {Jugger.class, User.class, Authorities.class, UserAuthority.class, Event.class};
     }
 }
