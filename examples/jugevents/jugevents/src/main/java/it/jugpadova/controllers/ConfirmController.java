@@ -24,37 +24,41 @@ import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.blo.EventBo;
-import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.po.Participant;
 
 /**
- * 
+ *
  */
 public abstract class ConfirmController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(ConfirmController.class);
 
     /**
-     * 
+     *
      */
     public ModelAndView registration(HttpServletRequest req, HttpServletResponse res) {
+        ModelAndView result = null;
         EventBo eventBo = blo().getEventBo();
-        String messageCode = eventBo.confirmParticipant(req.getParameter("email"), req.getParameter("code"));
-        Map params = new HashMap();
-        params.put("something", new Object());
-        return new ModelAndView("welcome", params);
+        Participant participant = eventBo.confirmParticipant(req.getParameter("email"), req.getParameter("code"));
+        if (participant != null) {
+            result = new ModelAndView("event/registration/ok");
+            result.addObject("participant", participant);
+        } else {
+            result = new ModelAndView("event/registration/failed");
+        }
+        return result;
     }
-    
+
 
     /**
-     * You don't have to implement this. 
+     * You don't have to implement this.
      *
      * @return The provider of DAOs
      */
     protected abstract Daos dao();
 
     /**
-     * You don't have to implement this. 
-     * 
+     * You don't have to implement this.
+     *
      * @return The provider of business logic objects
      */
     protected abstract Blos blo();

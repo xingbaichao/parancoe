@@ -16,16 +16,15 @@ package it.jugpadova.controllers;
 import com.octo.captcha.service.CaptchaService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.Registration;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Participant;
+import java.util.List;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
@@ -33,25 +32,29 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class ParticipantRegistrationController extends BaseFormController {
-    
-    private final static Logger logger = Logger.getLogger(ParticipantRegistrationController.class);
+
+    private static final Logger logger = Logger.getLogger(ParticipantRegistrationController.class);
     private CaptchaService captchaService;
-    
+
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
     }
-    
+
     /* questo viene chiamato solo in caso di una post a people/edit.form */
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
         Registration registration = (Registration) command;
         if (registration.getEvent().getId() == null) {
             return genericError("No valid event");
         }
-        blo().getEventBo().register(registration.getEvent(),
-                registration.getParticipant());
-        return onSubmit(command, errors); // restituisce succesView
+        List<Participant> prevParticipant = dao().getParticipantDao().findParticipantByEmailAndEventId(registration.getParticipant().getEmail(), registration.getEvent().getId());
+        if (prevParticipant != null && prevParticipant.size() == 0) {
+            blo().getEventBo().register(registration.getEvent(), registration.getParticipant());
+            return onSubmit(command, errors); // restituisce succesView
+        } else {
+            return new ModelAndView("event/registration/yet");
+        }
     }
-    
+
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         Registration result = new Registration();
         result.setParticipant(new Participant());
@@ -61,7 +64,7 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
             if (event != null) {
                 result.setEvent(event);
             } else {
-                throw new IllegalArgumentException("No event with id "+sid);
+                throw new IllegalArgumentException("No event with id " + sid);
             }
         } else {
             result.setEvent(new Event());
@@ -78,10 +81,12 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
     public void setCaptchaService(CaptchaService captchaService) {
         this.captchaService = captchaService;
     }
-    
+
     public Logger getLogger() {
         return logger;
     }
+
     protected abstract Daos dao();
+
     protected abstract Blos blo();
 }

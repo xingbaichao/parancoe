@@ -1,6 +1,9 @@
 package it.jugpadova.po;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -11,6 +14,12 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  * @author lucio
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Participant.findParticipantByEmailAndEventId",
+        query="from Participant p where p.email = ? and p.event.id = ?"),
+    @NamedQuery(name="Participant.findConfirmedParticipantsByEventId",
+        query="from Participant p where p.event.id = ? and p.confirmed = true order by p.lastName, p.firstName")
+})
 public class Participant extends EntityBase {
     @NotBlank
     private String firstName;
@@ -21,6 +30,7 @@ public class Participant extends EntityBase {
     private String email;
     private String confirmationCode;
     private Boolean confirmed;
+    private Event event;
     
     /** Creates a new instance of Participant */
     public Participant() {
@@ -65,5 +75,14 @@ public class Participant extends EntityBase {
     public void setConfirmed(Boolean confirmed) {
         this.confirmed = confirmed;
     }
+
+    @ManyToOne
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }        
         
 }

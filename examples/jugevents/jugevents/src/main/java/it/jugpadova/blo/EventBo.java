@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -132,6 +133,7 @@ public class EventBo {
                     participant.getFirstName()+
                     participant.getLastName()+
                     participant.getEmail(), event.getId()));
+        participant.setEvent(event);
         getDaos().getParticipantDao().createOrUpdate(participant);
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
@@ -150,6 +152,8 @@ public class EventBo {
                 Map model = new HashMap();
                 model.put("participant", participant);
                 model.put("event", event);
+                model.put("confirmationCode", URLEncoder.encode(participant.getConfirmationCode(), "UTF-8"));
+                model.put("email", URLEncoder.encode(participant.getEmail(), "UTF-8"));
                 String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "it/jugpadova/registration-confirmation.vm", model);
                 message.setText(text, true);
             }
@@ -200,15 +204,27 @@ public class EventBo {
     }
 
     @Transactional
-    public String confirmParticipant(String email, String confirmationCode) {
+    public Participant confirmParticipant(String email, String confirmationCode) {
         ParticipantDao dao = daos.getParticipantDao();
         List<Participant> participants = dao.findByEmailAndConfirmationCodeAndConfirmed(email, confirmationCode, Boolean.FALSE);
         if (participants != null && participants.size() > 0) {
             Participant p = participants.get(0);
             p.setConfirmed(Boolean.TRUE);
-            return "registration.confirmation.ok";
+            return p;
         }
-        return "registration.confirmation.error";
+        return null;
     }
+
+//    @Transactional(readOnly=true)
+//    public boolean checkRegistration(String email, String confirmationCode) {
+//        ParticipantDao dao = daos.getParticipantDao();
+//        List<Participant> participants = dao.findRegistrationByEventIdAndEmailAndConfirmed(email, confirmationCode, Boolean.FALSE);
+//        if (participants != null && participants.size() > 0) {
+//            Participant p = participants.get(0);
+//            p.setConfirmed(Boolean.TRUE);
+//            return true;
+//        }
+//        return false;
+//    }
     
 }
