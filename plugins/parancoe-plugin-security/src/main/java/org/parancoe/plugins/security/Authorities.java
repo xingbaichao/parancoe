@@ -27,7 +27,7 @@ public class Authorities extends EntityBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String username = null;
+	private String description = null;
 	private String authority = null;
 	public String getAuthority() {
 		return authority;
@@ -35,11 +35,12 @@ public class Authorities extends EntityBase {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public String getUsername() {
-		return username;
+	
+	public String getDescription() {
+		return description;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

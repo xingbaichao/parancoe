@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -52,9 +53,12 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
      * has set.
      *
      */
+    
     public SecureInterceptor() 
     {
-    	SecurityContextHolder.setStrategyName(STRATEGY_CLASS_NAME);
+    	 
+    	SecurityContextHolder.setStrategyName(STRATEGY_CLASS_NAME);    	 
+    	logger.info("SecureInterceptor set up");
     	
     }
     
