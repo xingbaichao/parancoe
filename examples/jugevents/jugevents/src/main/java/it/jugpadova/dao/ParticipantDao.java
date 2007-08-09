@@ -23,4 +23,7 @@ import org.parancoe.persistence.dao.generic.GenericDao;
 public interface ParticipantDao extends GenericDao<Participant, Long> {
 
     public List<Participant> findByEmailAndConfirmationCodeAndConfirmed(String email, String condirmationCode, Boolean confirmed);
+
+    public List<Participant> findConfirmedParticipantsByEventId(Long id);
+    public List<Participant> findParticipantByEmailAndEventId(String email, Long eventId);
 }

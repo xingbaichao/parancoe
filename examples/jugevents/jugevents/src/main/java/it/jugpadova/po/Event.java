@@ -15,7 +15,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotEmpty;
 
 /**
  * An event.
@@ -142,7 +141,7 @@ public class Event extends EntityBase {
         this.description = description;
     }
 
-    @OneToMany(cascade={CascadeType.ALL})
+    @OneToMany(mappedBy="event", cascade={CascadeType.ALL})
     public List<Participant> getParticipants() {
         return participants;
     }
@@ -162,7 +161,11 @@ public class Event extends EntityBase {
     public int getNumberOfParticipants() {
         int result = 0;
         if (getParticipants() != null) {
-            result = getParticipants().size();
+            for (Participant p: getParticipants()) {
+                if (p.getConfirmed().booleanValue()) {
+                    result++;
+                }
+            }
         }
         return result;
     }

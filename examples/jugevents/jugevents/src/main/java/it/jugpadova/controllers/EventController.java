@@ -17,6 +17,8 @@ import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.po.Event;
+import it.jugpadova.po.Participant;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,7 +52,9 @@ public abstract class EventController extends BaseMultiActionController {
             Long id = Long.parseLong(req.getParameter("id"));
             Event event = blo().getEventBo().retrieveEvent(id);
             if (event == null) throw new IllegalArgumentException("No event with id "+id);
+            List<Participant> participants = dao().getParticipantDao().findConfirmedParticipantsByEventId(event.getId());
             mv.addObject("event", event);
+            mv.addObject("participants", participants);
         } catch(Exception e){
             return genericError(e);
         }

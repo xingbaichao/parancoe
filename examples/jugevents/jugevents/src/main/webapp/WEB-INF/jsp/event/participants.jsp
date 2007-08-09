@@ -22,7 +22,7 @@
                     <br/>
                     
                     <c:choose>
-                        <c:when test="${not empty event.participants}">
+                        <c:when test="${not empty participants}">
                             <table class="dataList">
                                 <thead>
                                     <tr>
@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="participant" items="${event.participants}" varStatus="status">
+                                    <c:forEach var="participant" items="${participants}" varStatus="status">
                                         <c:choose>
                                             <c:when test="${status.count % 2 == 0}">
                                                 <c:set var="rowStyle" value="evenRow"/>
