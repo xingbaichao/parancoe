@@ -1,0 +1,12 @@
+- &UserAutority-parancoe-parancoe
+  user: *User-parancoe
+  authorities: *Authorities-parancoe
+- &UserAutority-admin-admin
+  user: *User-admin
+  authorities: *Authorities-admin
+- &UserAutority-lucio-jugger
+  user: *User-lucio
+  authorities: *Authorities-jugger
+- &UserAutority-fabrizio-jugger
+  user: *User-fabrizio
+  authorities: *Authorities-jugger

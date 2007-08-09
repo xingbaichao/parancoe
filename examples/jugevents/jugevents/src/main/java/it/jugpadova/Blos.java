@@ -14,17 +14,20 @@
 package it.jugpadova;
 
 import it.jugpadova.blo.EventBo;
+import it.jugpadova.blo.FilterBo;
 import it.jugpadova.blo.JuggerBlo;
 import it.jugpadova.blo.SampleBlo;
 import it.jugpadova.blo.PersonBo;
 
 public class Blos {
+
     public SampleBlo sample;
     public PersonBo person;
     public EventBo eventBo;
     public JuggerBlo juggerBlo;
-    
-    
+    public FilterBo filterBo;
+
+
     public SampleBlo getSample() {
         return sample;
     }
@@ -49,12 +52,19 @@ public class Blos {
         this.eventBo = eventBo;
     }
 
-	public JuggerBlo getJuggerBO() {
-		return juggerBlo;
-	}
+    public JuggerBlo getJuggerBO() {
+        return juggerBlo;
+    }
 
-	public void setJuggerBO(JuggerBlo juggerBlo) {
-		this.juggerBlo = juggerBlo;
-	}
-        
+    public void setJuggerBO(JuggerBlo juggerBlo) {
+        this.juggerBlo = juggerBlo;
+    }
+
+    public FilterBo getFilterBo() {
+        return filterBo;
+    }
+
+    public void setFilterBo(FilterBo filterBo) {
+        this.filterBo = filterBo;
+    }
 }

@@ -16,6 +16,7 @@ package it.jugpadova.blo;
 import it.jugpadova.Daos;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
+import it.jugpadova.dao.ParticipantDao;
 import org.springframework.transaction.annotation.Transactional;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import javax.mail.internet.MimeMessage;
 import org.acegisecurity.Authentication;
+import org.acegisecurity.providers.encoding.MessageDigestPasswordEncoder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.directwebremoting.ScriptSession;
@@ -123,7 +125,13 @@ public class EventBo {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
-        participant.setConfirmationCode("PROVA_DA_CAMBIARE");
+        participant.setConfirmationCode(
+                new MessageDigestPasswordEncoder("MD5", true)
+                .encodePassword(
+                    event.getTitle()+
+                    participant.getFirstName()+
+                    participant.getLastName()+
+                    participant.getEmail(), event.getId()));
         getDaos().getParticipantDao().createOrUpdate(participant);
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
@@ -138,6 +146,7 @@ public class EventBo {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setTo(participant.getEmail());
                 message.setFrom(confirmationSenderEmailAddress);
+                message.setSubject("Please confirm event registration");
                 Map model = new HashMap();
                 model.put("participant", participant);
                 model.put("event", event);
@@ -189,4 +198,17 @@ public class EventBo {
             effect.highlight("directionsPreview");
         }
     }
+
+    @Transactional
+    public String confirmParticipant(String email, String confirmationCode) {
+        ParticipantDao dao = daos.getParticipantDao();
+        List<Participant> participants = dao.findByEmailAndConfirmationCodeAndConfirmed(email, confirmationCode, Boolean.FALSE);
+        if (participants != null && participants.size() > 0) {
+            Participant p = participants.get(0);
+            p.setConfirmed(Boolean.TRUE);
+            return "registration.confirmation.ok";
+        }
+        return "registration.confirmation.error";
+    }
+    
 }
