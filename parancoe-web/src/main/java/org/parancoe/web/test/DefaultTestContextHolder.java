@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
+import org.apache.log4j.Logger;
 import org.parancoe.persistence.dao.DaoUtils;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
@@ -31,36 +32,41 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  */
 @SuppressWarnings("unchecked")
 public class DefaultTestContextHolder {
-    private static final WebApplicationContext context;
+    private static final Logger logger = Logger.getLogger(DefaultTestContextHolder.class);
+    private static WebApplicationContext context = null;
     
     static {
-        List<String> config = new ArrayList<String>();
-        //generici
-        config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
-        config.add("classpath:org/parancoe/web/parancoeBase.xml");
-
-        // application specific
-        config.add("src/main/webapp/WEB-INF/parancoe-servlet.xml");
-        config.add("src/main/webapp/WEB-INF/database.xml");
-
-        // test specific
-        config.add("src/test/resources/spring-test.xml");
-
-         // load plugin configurations
-        config.add("classpath*:parancoe-plugin.xml");
-
-        FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        ServletContext servletContext = new MockServletContext(rl);
-        XmlWebApplicationContext ctx = new XmlWebApplicationContext();
-        ctx.setServletContext(servletContext);
-
-        ctx.setConfigLocations(config.toArray(new String[config.size()]));
-        ctx.refresh();
-        // Setup the daomap (done in a contextlistener out of tests)
-        Map daoMap = (Map) ctx.getBean("daoMap");
-        Map daos = DaoUtils.getDaos(ctx);
-        daoMap.putAll(daos);
-        context = ctx;
+        try {
+            List<String> config = new ArrayList<String>();
+            //generici
+            config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
+            config.add("classpath:org/parancoe/web/parancoeBase.xml");
+            
+            // application specific
+            config.add("src/main/webapp/WEB-INF/parancoe-servlet.xml");
+            config.add("src/main/webapp/WEB-INF/database.xml");
+            
+            // test specific
+            config.add("src/test/resources/spring-test.xml");
+            
+            // load plugin configurations
+            config.add("classpath*:parancoe-plugin.xml");
+            
+            FileSystemResourceLoader rl = new FileSystemResourceLoader();
+            ServletContext servletContext = new MockServletContext(rl);
+            XmlWebApplicationContext ctx = new XmlWebApplicationContext();
+            ctx.setServletContext(servletContext);
+            
+            ctx.setConfigLocations(config.toArray(new String[config.size()]));
+            ctx.refresh();
+            // Setup the daomap (done in a contextlistener out of tests)
+            Map daoMap = (Map) ctx.getBean("daoMap");
+            Map daos = DaoUtils.getDaos(ctx);
+            daoMap.putAll(daos);
+            context = ctx;            
+        } catch (Throwable e) {
+            logger.error("Error building default test context", e);
+        }
     }
     
     private DefaultTestContextHolder() {
