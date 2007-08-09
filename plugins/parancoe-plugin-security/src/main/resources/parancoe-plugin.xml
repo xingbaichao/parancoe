@@ -140,7 +140,7 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
         </property>
         <property name="authoritiesByUsernameQuery">
             <value>select username, authority from user u, authorities a, user_authorities ua 
-            where u.username = 'admin' and u.id = ua.user_id and a.id = ua.AUTHORITIES_ID</value>
+            where u.username = ? and u.id = ua.user_id and a.id = ua.AUTHORITIES_ID</value>
         </property>
     </bean>          
     
