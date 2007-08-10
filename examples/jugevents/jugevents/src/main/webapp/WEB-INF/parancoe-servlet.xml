@@ -223,8 +223,17 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-        <!--property name="host" value="mail.clubnet.tin.it"/-->
-        <property name="host" value="mail.posta.tim.it"/>
+        <property name="host" value="localhost"/>
+        <!-- Parameters for SMTP AUTH -->
+        <!--
+        <property name="username" value="myusername"/>
+        <property name="password" value="mypassword"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+            </props>
+        </property>
+        -->
     </bean>
     
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

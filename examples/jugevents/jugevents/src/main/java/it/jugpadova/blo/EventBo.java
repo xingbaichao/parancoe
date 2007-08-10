@@ -23,6 +23,7 @@ import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,12 +46,13 @@ import org.apache.velocity.app.VelocityEngine;
 
 public class EventBo {
 
-    private static final Logger logger = Logger.getLogger(EventBo.class);
+    private static final Logger logger =
+            Logger.getLogger(EventBo.class);
     private Daos daos;
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
     private String confirmationSenderEmailAddress;
-    
+
     public Daos getDaos() {
         return daos;
     }
@@ -82,7 +84,7 @@ public class EventBo {
     public void setConfirmationSenderEmailAddress(String confirmationSenderEmailAddress) {
         this.confirmationSenderEmailAddress = confirmationSenderEmailAddress;
     }
-        
+
     @Transactional(readOnly = true)
     public List<Event> retrieveEvents() {
         List<Event> events = getDaos().getEventDao().findCurrentEvents();
@@ -104,7 +106,9 @@ public class EventBo {
 
     private Jugger getCurrentJugger() {
         Jugger result = null;
-        Authentication authentication = org.acegisecurity.context.SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication =
+                org.acegisecurity.context.SecurityContextHolder.getContext().
+                getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String name = authentication.getName();
             JuggerDao juggerDao = getDaos().getJuggerDao();
@@ -112,7 +116,8 @@ public class EventBo {
             if (juggers.size() > 0) {
                 result = juggerDao.findByUsername(name).get(0);
                 if (juggers.size() > 1) {
-                    logger.warn("MOre than a JUG with the '" + name + "' username");
+                    logger.warn("MOre than a JUG with the '" + name +
+                            "' username");
                 }
             } else {
                 logger.error("No jugger with the '" + name + "' username");
@@ -126,13 +131,8 @@ public class EventBo {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
-        participant.setConfirmationCode(
-                new MessageDigestPasswordEncoder("MD5", true)
-                .encodePassword(
-                    event.getTitle()+
-                    participant.getFirstName()+
-                    participant.getLastName()+
-                    participant.getEmail(), event.getId()));
+        participant.setConfirmationCode(generateConfirmationCode(event,
+                participant));
         participant.setEvent(event);
         getDaos().getParticipantDao().createOrUpdate(participant);
         event.addParticipant(participant);
@@ -140,21 +140,47 @@ public class EventBo {
         sendConfirmationEmail(event, participant);
     }
 
-    private void sendConfirmationEmail(final Event event, final Participant participant) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+    @Transactional
+    public void refreshRegistration(Event event,
+            Participant participant) {
+        participant.setConfirmed(Boolean.FALSE);
+        participant.setConfirmationCode(generateConfirmationCode(event,
+                participant));
+        participant.setEvent(event);
+        getDaos().getParticipantDao().createOrUpdate(participant);
+        sendConfirmationEmail(event, participant);
+    }
+
+    private String generateConfirmationCode(Event event,
+            Participant participant) {
+        return new MessageDigestPasswordEncoder("MD5", true).encodePassword(event.getTitle() +
+                participant.getFirstName() + participant.getLastName() +
+                participant.getEmail(), new Date());
+    }
+
+    private void sendConfirmationEmail(final Event event,
+            final Participant participant) {
+        MimeMessagePreparator preparator =
+                new MimeMessagePreparator() {
 
             @SuppressWarnings(value = "unchecked")
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                MimeMessageHelper message =
+                        new MimeMessageHelper(mimeMessage);
                 message.setTo(participant.getEmail());
                 message.setFrom(confirmationSenderEmailAddress);
                 message.setSubject("Please confirm event registration");
                 Map model = new HashMap();
                 model.put("participant", participant);
                 model.put("event", event);
-                model.put("confirmationCode", URLEncoder.encode(participant.getConfirmationCode(), "UTF-8"));
-                model.put("email", URLEncoder.encode(participant.getEmail(), "UTF-8"));
-                String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "it/jugpadova/registration-confirmation.vm", model);
+                model.put("confirmationCode",
+                        URLEncoder.encode(participant.getConfirmationCode(),
+                        "UTF-8"));
+                model.put("email",
+                        URLEncoder.encode(participant.getEmail(), "UTF-8"));
+                String text =
+                        VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                        "it/jugpadova/registration-confirmation.vm", model);
                 message.setText(text, true);
             }
         };
@@ -169,15 +195,23 @@ public class EventBo {
     }
 
     @Transactional(readOnly = true)
-    public List findPartialLocation(String partialLocation, String username) {
+    public List findPartialLocation(String partialLocation,
+            String username) {
         List<String> result = new ArrayList<String>();
-        if (!StringUtils.isBlank(partialLocation) && !StringUtils.isBlank(username)) {
+        if (!StringUtils.isBlank(partialLocation) &&
+                !StringUtils.isBlank(username)) {
             try {
-                List<Event> events = getDaos().getEventDao().findEventByPartialLocationAndOwner("%" + partialLocation + "%", username);
+                List<Event> events =
+                        getDaos().getEventDao().
+                        findEventByPartialLocationAndOwner("%" + partialLocation +
+                        "%", username);
                 Iterator<Event> itEvents = events.iterator();
                 while (itEvents.hasNext()) {
                     Event event = itEvents.next();
-                    result.add(event.getLocation() + "<div class=\"informal\">" + event.getDirections() + "</div>" + "<div class=\"informal hidden\">" + event.getId() + "</div>");
+                    result.add(event.getLocation() + "<div class=\"informal\">" +
+                            event.getDirections() + "</div>" +
+                            "<div class=\"informal hidden\">" + event.getId() +
+                            "</div>");
                 }
             } catch (Exception e) {
                 logger.error("Error completing the location", e);
@@ -195,8 +229,11 @@ public class EventBo {
         if (event != null) {
             util.setValue("location", event.getLocation());
             util.setValue("directions", event.getDirections());
-            util.setValue("directionsPreview", FilterBo.filterText(event.getDirections(), event.getFilter(), false));
-            Effect effect = new Effect(session);
+            util.setValue("directionsPreview",
+                    FilterBo.filterText(event.getDirections(), event.getFilter(),
+                    false));
+            Effect effect =
+                    new Effect(session);
             effect.highlight("location");
             effect.highlight("directions");
             effect.highlight("directionsPreview");
@@ -204,9 +241,12 @@ public class EventBo {
     }
 
     @Transactional
-    public Participant confirmParticipant(String email, String confirmationCode) {
+    public Participant confirmParticipant(String email,
+            String confirmationCode) {
         ParticipantDao dao = daos.getParticipantDao();
-        List<Participant> participants = dao.findByEmailAndConfirmationCodeAndConfirmed(email, confirmationCode, Boolean.FALSE);
+        List<Participant> participants =
+                dao.findByEmailAndConfirmationCodeAndConfirmed(email,
+                confirmationCode, Boolean.FALSE);
         if (participants != null && participants.size() > 0) {
             Participant p = participants.get(0);
             p.setConfirmed(Boolean.TRUE);
@@ -214,17 +254,4 @@ public class EventBo {
         }
         return null;
     }
-
-//    @Transactional(readOnly=true)
-//    public boolean checkRegistration(String email, String confirmationCode) {
-//        ParticipantDao dao = daos.getParticipantDao();
-//        List<Participant> participants = dao.findRegistrationByEventIdAndEmailAndConfirmed(email, confirmationCode, Boolean.FALSE);
-//        if (participants != null && participants.size() > 0) {
-//            Participant p = participants.get(0);
-//            p.setConfirmed(Boolean.TRUE);
-//            return true;
-//        }
-//        return false;
-//    }
-    
 }
