@@ -20,7 +20,7 @@
                             <br/>
                             Per maggiori informazioni visita il sito di Parancoe:<br/>
                             <br/>
-                            <a href="http://wwww.parancoe.org">http://wwww.parancoe.org</a>.<br/>
+                            <a href="http://www.parancoe.org">http://www.parancoe.org</a>.<br/>
                         </c:when>
                         <c:otherwise>
                             This is the template application of the
@@ -31,7 +31,7 @@
                             <br/>
                             For more infos, visit the Parancoe framework Web site:<br/>
                             <br/>
-                            <a href="http://wwww.parancoe.org">http://wwww.parancoe.org</a>.<br/>
+                            <a href="http://www.parancoe.org">http://www.parancoe.org</a>.<br/>
                         </c:otherwise>
                     </c:choose>
                 </div>
