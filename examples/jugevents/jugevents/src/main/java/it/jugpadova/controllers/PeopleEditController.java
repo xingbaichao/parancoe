@@ -36,6 +36,8 @@ public abstract class PeopleEditController extends BaseFormController {
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
     }
+    
+    
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {

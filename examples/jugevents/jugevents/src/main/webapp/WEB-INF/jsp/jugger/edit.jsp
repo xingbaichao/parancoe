@@ -34,18 +34,13 @@
                     
                     <tr>
                         <td>username</td>
-                        <td><form:input path="username"/></td>
-                        <td><form:errors path="username" cssClass="errorBox"/></td>
+                        <td><input type="text" name="usernameForm" value="pippo"/></td>                      
                     </tr>
                     
                     <tr>
                         <td>country</td>
-                        <td>
-                        <form:select path="country">
-                        <form:option value="prova">aa</form:option>
-                        </form:select>
-                        </td>
-                        <td><form:errors path="country" cssClass="errorBox"/></td>
+                        <td><input type="text" name="isocodeForm" value="IQ"/></td>
+                        
                     </tr>
                       <tr>
                         <td>jugName</td>

@@ -4,9 +4,13 @@
 package it.jugpadova.po;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.world.Country;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
@@ -24,13 +28,12 @@ public class Jugger extends EntityBase {
     @NotBlank
     @Email
     private String email;
-    @NotBlank
-    private String username;
-    @NotBlank
-    private String country;
-
+    
     private String jugName;
-
+    
+    @CascadeValidation
+    private Country country;   
+    @CascadeValidation
     private User user;
 
     public Jugger() {
@@ -68,28 +71,20 @@ public class Jugger extends EntityBase {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
+    @ManyToOne   
+	public Country getCountry() {
+		return country;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+	public void setCountry(Country country) {
+		this.country = country;
+	}
     @OneToOne
-    public User getUser() {
-        return user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

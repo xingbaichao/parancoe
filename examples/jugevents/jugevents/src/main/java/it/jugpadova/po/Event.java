@@ -33,7 +33,7 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
     ),
     @NamedQuery(
         name="Event.findEventByPartialLocationAndOwner",
-        query="from Event e where lower(e.location) like lower(?) and e.owner.username = ? order by e.location"
+        query="from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location"
     )
 })
 public class Event extends EntityBase {

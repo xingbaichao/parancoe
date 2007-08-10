@@ -24,7 +24,7 @@ public class PersonValidator implements Validator {
     }
 
     public void validate(Object obj, Errors e) {
-        ValidationUtils.rejectIfEmpty(e, "firstName", null ,"Il nome non può essere vuoto");
-        ValidationUtils.rejectIfEmpty(e, "lastName", null, "Il cognome non può essere vuoto");  
+        ValidationUtils.rejectIfEmpty(e, "firstName", null ,"Il nome non pu&ograve; essere vuoto");
+        ValidationUtils.rejectIfEmpty(e, "lastName", null, "Il cognome non pu&ograve; essere vuoto");  
     }
 }

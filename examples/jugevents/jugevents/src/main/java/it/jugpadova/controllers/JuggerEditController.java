@@ -30,6 +30,9 @@ import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 
 
+import org.parancoe.plugins.security.SecureUtility;
+import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.world.Country;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
@@ -50,10 +53,38 @@ public abstract class JuggerEditController extends BaseFormController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
     }
     
+    @Override
+	protected void onBind(HttpServletRequest request, Object command) throws Exception {
+		
+		super.onBind(request, command);
+		try {
+			
+		
+		String isocode = request.getParameter("isocodeForm");
+		String username = request.getParameter("usernameForm");
+		logger.debug("isocodeForm parameter value: "+isocode);
+		logger.debug("usernameForm parameter value: "+username);
+		Country countrySelected = new Country();
+		countrySelected.setIsoCode(isocode);
+		//makes new user
+		User user = SecureUtility.newUserToValidate(username);
+		
+		
+		
+		((Jugger)command).setUser(user);
+		((Jugger)command).setCountry(countrySelected);
+		logger.debug("onBind() has completed with success!");
+		} catch (Exception e) {
+			
+	         logger.error(e, e);
+	         throw e;
+		}
+	}
+    
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
         Jugger jugger = (Jugger) command;
-        dao().getJuggerDao().create(jugger);
+        dao().getJuggerDao().createOrUpdate(jugger);
         /*
         if (jugger.getEvent().getId() == null) {
             return genericError("No valid event");
@@ -66,8 +97,8 @@ public abstract class JuggerEditController extends BaseFormController {
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         //set list of countries into request
-    //	List<Country> list =  dao().getCountryDao().findAll();
-    //    req.setAttribute("countries", list);
+    	List<Country> list =  dao().getCountryDao().findAll();
+        req.setAttribute("countries", list);
     	return new Jugger();
     }
 
@@ -84,4 +115,6 @@ public abstract class JuggerEditController extends BaseFormController {
     }
     protected abstract Daos dao();
     protected abstract Blos blo();
+
+	
 }
