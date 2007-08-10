@@ -39,6 +39,13 @@ public class SanityTest extends PluginTest {
         assertSize(7, continents);
     }
     
+    
+    public void testCountryFindByIsocode() {
+    	CountryDao countryDao = (CountryDao) this.ctx.getBean("countryDao");
+    	 List<Country> countries = countryDao.findByIsoCode("IQ");
+    	
+        assertEquals(countries.get(0).getEnglishName(), "Iraq");
+    }
     public void testCountrySize() {
         CountryDao countryDao = (CountryDao) this.ctx.getBean("countryDao");
         List<Country> countries = countryDao.findAll();
