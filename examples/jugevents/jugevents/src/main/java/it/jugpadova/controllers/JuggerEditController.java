@@ -59,7 +59,10 @@ public abstract class JuggerEditController extends BaseFormController {
 		super.onBind(request, command);
 		try {
 			
-		
+			User user = SecureUtility.newUserToValidate(((Jugger)command).getUser().getUsername());
+			((Jugger)command).setUser(user);
+			
+		/*
 		String isocode = request.getParameter("isocodeForm");
 		String username = request.getParameter("usernameForm");
 		logger.debug("isocodeForm parameter value: "+isocode);
@@ -74,6 +77,7 @@ public abstract class JuggerEditController extends BaseFormController {
 		((Jugger)command).setUser(user);
 		((Jugger)command).setCountry(countrySelected);
 		logger.debug("onBind() has completed with success!");
+		*/
 		} catch (Exception e) {
 			
 	         logger.error(e, e);
@@ -84,14 +88,7 @@ public abstract class JuggerEditController extends BaseFormController {
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
         Jugger jugger = (Jugger) command;
-        dao().getJuggerDao().createOrUpdate(jugger);
-        /*
-        if (jugger.getEvent().getId() == null) {
-            return genericError("No valid event");
-        }
-        blo().getEventBo().register(registration.getEvent(),
-                registration.getParticipant());
-                */
+        blo().getJuggerBO().save(jugger);        
         return onSubmit(command, errors); // restituisce succesView
     }
     
@@ -99,7 +96,10 @@ public abstract class JuggerEditController extends BaseFormController {
         //set list of countries into request
     	List<Country> list =  dao().getCountryDao().findAll();
         req.setAttribute("countries", list);
-    	return new Jugger();
+        Jugger jugger = new Jugger();
+        jugger.setCountry(new Country());
+        jugger.setUser(new User());
+    	return jugger;
     }
 
     public CaptchaService getCaptchaService() {

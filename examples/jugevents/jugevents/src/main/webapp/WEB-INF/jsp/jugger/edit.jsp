@@ -34,12 +34,12 @@
                     
                     <tr>
                         <td>username</td>
-                        <td><input type="text" name="usernameForm" value="pippo"/></td>                      
+                        <td><form:input path="user.username"/></td>                      
                     </tr>
                     
                     <tr>
                         <td>country</td>
-                        <td><input type="text" name="isocodeForm" value="IQ"/></td>
+                        <td><form:input path="country.isoCode"/></td>
                         
                     </tr>
                       <tr>
