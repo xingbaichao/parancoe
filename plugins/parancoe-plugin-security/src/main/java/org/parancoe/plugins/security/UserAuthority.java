@@ -60,10 +60,13 @@ public class UserAuthority extends EntityBase {
         this.user = user;
     }
 
-	@Override
+	
+	/*
+    @Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "\nUser: "+user.toString()+"\nAuthority: "+authority.toString();
 	}
+	*/
         
 }
