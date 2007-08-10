@@ -33,34 +33,55 @@ import org.springframework.web.servlet.ModelAndView;
 
 public abstract class ParticipantRegistrationController extends BaseFormController {
 
-    private static final Logger logger = Logger.getLogger(ParticipantRegistrationController.class);
+    private static final Logger logger =
+            Logger.getLogger(ParticipantRegistrationController.class);
     private CaptchaService captchaService;
 
-    protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+    @Override
+    protected void initBinder(HttpServletRequest req,
+            ServletRequestDataBinder binder) throws Exception {
+        binder.registerCustomEditor(Date.class,
+                new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
     }
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
-    protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest req,
+            HttpServletResponse res, Object command,
+            BindException errors) throws Exception {
         Registration registration = (Registration) command;
         if (registration.getEvent().getId() == null) {
             return genericError("No valid event");
         }
-        List<Participant> prevParticipant = dao().getParticipantDao().findParticipantByEmailAndEventId(registration.getParticipant().getEmail(), registration.getEvent().getId());
-        if (prevParticipant != null && prevParticipant.size() == 0) {
-            blo().getEventBo().register(registration.getEvent(), registration.getParticipant());
+        List<Participant> prevParticipant =
+                dao().getParticipantDao().
+                findParticipantByEmailAndEventId(registration.getParticipant().
+                getEmail(), registration.getEvent().getId());
+        if (prevParticipant.size() == 0) {
+            blo().getEventBo().
+                    register(registration.getEvent(),
+                    registration.getParticipant());
             return onSubmit(command, errors); // restituisce succesView
         } else {
-            return new ModelAndView("event/registration/yet");
+            Participant p = prevParticipant.get(0);
+            if (p.getConfirmed().booleanValue()) {
+                return new ModelAndView("event/registration/yet");
+            } else {
+                blo().getEventBo().
+                        refreshRegistration(registration.getEvent(), p);
+                return onSubmit(command, errors); // restituisce succesView
+            }
         }
     }
 
+    @Override
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         Registration result = new Registration();
         result.setParticipant(new Participant());
         String sid = req.getParameter("event.id");
         if (sid != null) {
-            Event event = dao().getEventDao().read(Long.parseLong(sid));
+            Event event = dao().getEventDao().
+                    read(Long.parseLong(sid));
             if (event != null) {
                 result.setEvent(event);
             } else {
