@@ -5,6 +5,8 @@ package it.jugpadova.po;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.parancoe.persistence.po.hibernate.EntityBase;
@@ -19,6 +21,12 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  *
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+        name="Jugger.searchByUsername",
+        query="from Jugger j where j.user.username = ?"
+    )
+})
 public class Jugger extends EntityBase {
 
     @NotBlank
@@ -32,7 +40,7 @@ public class Jugger extends EntityBase {
     private String jugName;
     
     @CascadeValidation
-    private Country country;   
+    private Country country;
     @CascadeValidation
     private User user;
 
