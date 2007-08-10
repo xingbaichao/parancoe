@@ -30,12 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class JuggerBlo {
 	private static final Logger logger = Logger.getLogger(JuggerBlo.class);
 	
-private Daos daos;
-private CountryDao countryDao;
-private UserDao userDao;
-private AuthorityDao authorityDao;
-private UserAuthorityDao userAuthorityDao;
-private JuggerDao juggerDao;
+    private Daos daos;
     
     public Daos getDaos() {
         return daos;
@@ -56,12 +51,14 @@ private JuggerDao juggerDao;
     
     @Transactional(readOnly=true)
     public List<Jugger> retrieveJuggers() {
+    	JuggerDao juggerDao = daos.getJuggerDao();	
         List<Jugger> juggers = juggerDao.findAll();
         
         return juggers;
     }
     
     private Jugger getCurrentJugger() {
+    	JuggerDao juggerDao = daos.getJuggerDao();	
         Jugger result = null;
         Authentication authentication = org.acegisecurity.context.SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -74,12 +71,14 @@ private JuggerDao juggerDao;
     @Transactional
     public void save(Jugger jugger) throws Exception {
     	
-     this.countryDao = daos.getCountryDao();
-   	 this.userDao = daos.getUserDao();
-   	 this.authorityDao = daos.getAuthorityDao();
-   	 this.userAuthorityDao = daos.getUserAuthorityDao();
-   	 this.juggerDao = daos.getJuggerDao();	
-     String username = jugger.getUser().getUsername();
+    	
+    	
+    	CountryDao  countryDao = daos.getCountryDao();
+    	UserDao userDao = daos.getUserDao();
+    	AuthorityDao authorityDao = daos.getAuthorityDao();
+    	UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
+    	JuggerDao juggerDao = daos.getJuggerDao();	
+    	String username = jugger.getUser().getUsername();
     
       
       if(juggerDao.searchByUsername(username).size() > 0)

@@ -43,18 +43,18 @@
                                             <td>${event.numberOfParticipants}</td>
                                             <td class="actionColumn">
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
-                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                    <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
                                                         <a href="edit.form?id=${event.id}">edit</a>
                                                     </c:if>
                                                 </authz:authorize>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">   			
-                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                    <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
                                                         <a href="delete.html?id=${event.id}">delete</a>
                                                     </c:if>
                                                 </authz:authorize>
                                                 <a href="registration.form?event.id=${event.id}">register</a>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">   			
-                                                    <c:if test="${event.owner.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
+                                                    <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
                                                         <a href="participants.html?id=${event.id}">participants</a>
                                                     </c:if>
                                                 </authz:authorize>
