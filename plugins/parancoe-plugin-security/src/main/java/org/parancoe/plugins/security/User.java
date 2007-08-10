@@ -47,14 +47,7 @@ public class User extends EntityBase {
     {
     	
     }
-    /**
-     * Constructor with username.
-     * @param username
-     */
-    public User(String username)
-    {
-    	this.username = username;
-    }
+    
 
     private List<UserAuthority> userAuthority = new ArrayList<UserAuthority>();
 
