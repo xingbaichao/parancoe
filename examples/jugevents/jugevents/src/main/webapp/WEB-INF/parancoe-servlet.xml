@@ -41,6 +41,8 @@
     
     <bean id="juggerBlo" class="it.jugpadova.blo.JuggerBlo" autowire="byType"/>
     
+    <bean id="securityBo" class="it.jugpadova.blo.SecurityBo" autowire="byType"/>
+    
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
             <value>it.jugpadova.Daos</value>

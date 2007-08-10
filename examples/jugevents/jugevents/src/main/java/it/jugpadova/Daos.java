@@ -17,8 +17,11 @@ import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.dao.PersonDao;
+
 import org.parancoe.persistence.dao.DaoProvider;
+import org.parancoe.plugins.security.AuthorityDao;
 import org.parancoe.plugins.security.UserDao;
+import org.parancoe.plugins.world.CountryDao;
 
 
 /**
@@ -32,5 +35,7 @@ public interface Daos extends DaoProvider {
     public ParticipantDao getParticipantDao();
     public JuggerDao getJuggerDao();
     public UserDao getUserDao();
-  //  public CountryDao getCountryDao();
+    public AuthorityDao getAuthorityDao();
+    
+    public CountryDao getCountryDao();
 }

@@ -8,7 +8,7 @@ import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
-import org.parancoe.plugins.security.Authorities;
+import org.parancoe.plugins.security.Authority;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.web.test.BaseTest;
@@ -93,6 +93,6 @@ public class SanityTest extends BaseTest {
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[] {Jugger.class, User.class, Authorities.class, UserAuthority.class, Event.class};
+        return new Class[] {Jugger.class, User.class, Authority.class, UserAuthority.class, Event.class};
     }
 }
