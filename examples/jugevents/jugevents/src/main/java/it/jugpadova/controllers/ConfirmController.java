@@ -14,10 +14,8 @@
 package it.jugpadova.controllers;
 
 import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.BaseMultiActionController;
@@ -30,25 +28,45 @@ import it.jugpadova.po.Participant;
  *
  */
 public abstract class ConfirmController extends BaseMultiActionController {
-    private static final Logger logger = Logger.getLogger(ConfirmController.class);
+
+    private static final Logger logger =
+            Logger.getLogger(ConfirmController.class);
 
     /**
      *
      */
-    public ModelAndView registration(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView registration(HttpServletRequest req,
+            HttpServletResponse res) {
         ModelAndView result = null;
         EventBo eventBo = blo().getEventBo();
-        Participant participant = eventBo.confirmParticipant(req.getParameter("email"), req.getParameter("code"));
+        Participant participant =
+                eventBo.confirmParticipant(req.getParameter("email"),
+                req.getParameter("code"));
         if (participant != null) {
-            result = new ModelAndView("event/registration/ok");
-            result.addObject("participant", participant);
+            result =new ModelAndView("redirect:/confirm/ok.html");
+            result.addObject("participantId", participant.getId());
         } else {
-            result = new ModelAndView("event/registration/failed");
+            result =new ModelAndView("redirect:/confirm/failed.html");
         }
         return result;
     }
 
+    public ModelAndView failed(HttpServletRequest req,
+            HttpServletResponse res) {
+        return new ModelAndView("event/registration/failed");
+    }
 
+    public ModelAndView ok(HttpServletRequest req,
+            HttpServletResponse res) {
+        Long participantId =
+                new Long(req.getParameter("participantId"));
+        Participant participant = dao().getParticipantDao().read(participantId);
+        ModelAndView mv =
+                new ModelAndView("event/registration/ok");
+        mv.addObject("participant", participant);
+        return mv;
+    }
+    
     /**
      * You don't have to implement this.
      *
