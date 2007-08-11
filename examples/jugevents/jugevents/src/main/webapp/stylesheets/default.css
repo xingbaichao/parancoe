@@ -236,9 +236,9 @@ form br {
 /* Login form */
 #loginBox {
     position: relative;
-    width: 27em;
+    width: 30em;
     margin: 20px auto 20px auto;
-    padding: 20px 20px 40px 20px;
+    padding: 2em 2em 2em 2em;
 }
 
 .loginLabel {

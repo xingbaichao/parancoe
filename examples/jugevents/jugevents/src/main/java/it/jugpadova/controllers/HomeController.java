@@ -14,35 +14,53 @@
 package it.jugpadova.controllers;
 
 import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
+import it.jugpadova.po.Participant;
 
 /**
- * 
+ *
  */
 public abstract class HomeController extends BaseMultiActionController {
-    private static final Logger logger = Logger.getLogger(HomeController.class);
+
+    private static final Logger logger =
+            Logger.getLogger(HomeController.class);
 
     /**
-     * 
+     *
      */
-    public ModelAndView welcome(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView welcome(HttpServletRequest req,
+            HttpServletResponse res) {
         Map params = new HashMap();
         params.put("something", new Object());
         return new ModelAndView("welcome", params);
     }
 
     /**
+     * Message after participant registration. Called with redirect, passing
+     * participantId parameter.
+     */
+    public ModelAndView confirmParticipantRegistration(HttpServletRequest req,
+            HttpServletResponse res) {
+        Long participantId =
+                new Long(req.getParameter("participantId"));
+        Participant participant = dao().getParticipantDao().read(participantId);
+        ModelAndView mv =
+                new ModelAndView("event/registration/sentMail");
+        mv.addObject("participant", participant);
+        return mv;
+    }
+
+    /**
      * Login action
      */
-    public ModelAndView acegilogin(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView acegilogin(HttpServletRequest req,
+            HttpServletResponse res) {
         Map params = new HashMap();
         return new ModelAndView("acegilogin", params);
     }
@@ -50,16 +68,18 @@ public abstract class HomeController extends BaseMultiActionController {
     /**
      * Access denied
      */
-    public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView accessDenied(HttpServletRequest req,
+            HttpServletResponse res) {
         Map params = new HashMap();
         return new ModelAndView("accessDenied", params);
     }
-    
+
 
     /**
-     * 
+     *
      */
-    public ModelAndView pageThatRaiseAnException(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView pageThatRaiseAnException(HttpServletRequest req,
+            HttpServletResponse res) {
         try {
             throw new RuntimeException("BOOOM!!!");
         } catch (Exception e) {
@@ -68,20 +88,23 @@ public abstract class HomeController extends BaseMultiActionController {
     }
 
     /**
-     * 
+     *
      */
-    public ModelAndView pageThatRaiseAnUnHandledException(HttpServletRequest req, HttpServletResponse res){
-        if (1 == 1){
+    public ModelAndView pageThatRaiseAnUnHandledException(HttpServletRequest req,
+            HttpServletResponse res) {
+        if (1 == 1) {
             throw new RuntimeException("UNHANDLED BOOM!!!");
         }
         return null;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Logger getLogger() {return logger;}
+    public Logger getLogger() {
+        return logger;
+    }
 
     /**
      * You don't have to implement this. 
@@ -92,7 +115,7 @@ public abstract class HomeController extends BaseMultiActionController {
 
     /**
      * You don't have to implement this. 
-     * 
+     *
      * @return The provider of business logic objects
      */
     protected abstract Blos blo();
