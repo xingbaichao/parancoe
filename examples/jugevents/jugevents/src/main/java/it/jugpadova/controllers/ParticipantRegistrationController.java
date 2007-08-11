@@ -44,7 +44,6 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
                 new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
     }
 
-    /* questo viene chiamato solo in caso di una post a people/edit.form */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest req,
             HttpServletResponse res, Object command,
@@ -61,15 +60,19 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
             blo().getEventBo().
                     register(registration.getEvent(),
                     registration.getParticipant());
-            return onSubmit(command, errors); // restituisce succesView
+            ModelAndView mv = onSubmit(command, errors);
+            mv.addObject("participantId", registration.getParticipant().getId());
+            return mv;
         } else {
             Participant p = prevParticipant.get(0);
             if (p.getConfirmed().booleanValue()) {
                 return new ModelAndView("event/registration/yet");
             } else {
-                blo().getEventBo().
-                        refreshRegistration(registration.getEvent(), p);
-                return onSubmit(command, errors); // restituisce succesView
+                blo().getEventBo().refreshRegistration(registration.getEvent(),
+                        p);
+                ModelAndView mv = onSubmit(command, errors);
+                mv.addObject("participantId", p.getId());
+                return mv;
             }
         }
     }
