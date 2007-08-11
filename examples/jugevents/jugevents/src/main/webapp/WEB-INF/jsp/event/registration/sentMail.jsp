@@ -12,14 +12,14 @@
                     <c:choose>
                         <c:when test="${requestScope.lang eq 'it'}">
                             Grazie per esserti registrato all'evento &quot;${participant.event.title}&quot;.<br/>
-                            <h2>Per completare la registrazione, devi confermarla!</h2>
-                            Ti &egrave; stata spedita una mail all'indirizzo ${participant.email} con
+                            <h3>Per completare la registrazione, devi confermarla!</h3>
+                            Ti &egrave; stata spedita una mail all'indirizzo <b>${participant.email}</b> con
                             le istruzioni per confermare la registrazione.
                         </c:when>
                         <c:otherwise>
                             Thank you for registering to the event &quot;${participant.event.title}&quot;.<br/>
-                            <h2>For completing your registration, You have to confirm it.</h2>
-                            An e-mail has been sent to your address ${participant.email} with the
+                            <h3>For completing your registration, You have to confirm it.</h3>
+                            An e-mail has been sent to your address <b>${participant.email}</b> with the
                             instructions for confirming your registration.
                         </c:otherwise>
                     </c:choose>
