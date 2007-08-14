@@ -62,22 +62,7 @@ public abstract class JuggerEditController extends BaseFormController {
 			User user = SecureUtility.newUserToValidate(((Jugger)command).getUser().getUsername());
 			((Jugger)command).setUser(user);
 			
-		/*
-		String isocode = request.getParameter("isocodeForm");
-		String username = request.getParameter("usernameForm");
-		logger.debug("isocodeForm parameter value: "+isocode);
-		logger.debug("usernameForm parameter value: "+username);
-		Country countrySelected = new Country();
-		countrySelected.setIsoCode(isocode);
-		//makes new user
-		User user = SecureUtility.newUserToValidate(username);
 		
-		
-		
-		((Jugger)command).setUser(user);
-		((Jugger)command).setCountry(countrySelected);
-		logger.debug("onBind() has completed with success!");
-		*/
 		} catch (Exception e) {
 			
 	         logger.error(e, e);
@@ -94,7 +79,7 @@ public abstract class JuggerEditController extends BaseFormController {
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         //set list of countries into request
-    	List<Country> list =  dao().getCountryDao().findAll();
+    	List<Country> list =  dao().getCountryDao().findAllOrderedByEnglishNameAsc();
         req.setAttribute("countries", list);
         Jugger jugger = new Jugger();
         jugger.setCountry(new Country());
