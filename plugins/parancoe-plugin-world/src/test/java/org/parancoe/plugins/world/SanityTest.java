@@ -40,6 +40,13 @@ public class SanityTest extends PluginTest {
     }
     
     
+    public void testFindAllOrderedByEnglishNameAsc() {
+    	 CountryDao countryDao = (CountryDao) this.ctx.getBean("countryDao");
+         List<Country> countries = countryDao.findAllOrderedByEnglishNameAsc();
+         assertEquals(countries.get(0).getEnglishName(), "Albania");
+    }
+    
+    
     public void testCountryFindByIsocode() {
     	CountryDao countryDao = (CountryDao) this.ctx.getBean("countryDao");
     	 List<Country> countries = countryDao.findByIsoCode("IQ");

@@ -1,13 +1,17 @@
 package org.parancoe.plugins.world;
 
 import javax.persistence.*;
+
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
  * @author Lucio Benfante lucio.benfante@jugpadova.it
  */
 @Entity
-@NamedQueries(value = {@NamedQuery(name = "Country.findByPartialLocalName", query = "from Country c where upper(c.localName) like upper(?) order by c.localName asc")})
+@NamedQueries(value = {@NamedQuery(name = "Country.findByPartialLocalName", query = "from Country c where upper(c.localName) like upper(?) order by c.localName asc"),
+@NamedQuery(name = "Country.findAllOrderedByEnglishNameAsc", query = "from Country c order by englishname asc")})
+
+
 public class Country extends EntityBase {
 
     private String isoCode;
