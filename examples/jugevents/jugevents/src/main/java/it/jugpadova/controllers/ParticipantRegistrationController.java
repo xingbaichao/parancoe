@@ -87,6 +87,8 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
                     read(Long.parseLong(sid));
             if (event != null) {
                 result.setEvent(event);
+                // for event showing fragment
+                req.setAttribute("event", event);
             } else {
                 throw new IllegalArgumentException("No event with id " + sid);
             }

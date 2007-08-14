@@ -60,8 +60,6 @@ public abstract class EventEditController extends BaseFormController {
             if (event == null) {
                 throw new Exception();
             }
-            req.setAttribute("directionsPreview", FilterBo.filterText(event.getDirections(), event.getFilter(), false));
-            req.setAttribute("descriptionPreview", FilterBo.filterText(event.getDescription(), event.getFilter(), false));
             return event;
         } catch (Exception e) {
             Event event = new Event();

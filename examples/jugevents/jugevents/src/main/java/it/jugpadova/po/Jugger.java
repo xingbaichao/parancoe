@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.world.Country;
@@ -21,12 +20,8 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  *
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(
-        name="Jugger.searchByUsername",
-        query="from Jugger j where j.user.username = ?"
-    )
-})
+@NamedQueries(value = {@NamedQuery(name = "Jugger.searchByUsername", query =
+        "from Jugger j where j.user.username = ?")})
 public class Jugger extends EntityBase {
 
     @NotBlank
@@ -36,9 +31,9 @@ public class Jugger extends EntityBase {
     @NotBlank
     @Email
     private String email;
-    
+
     private String jugName;
-    
+
     @CascadeValidation
     private Country country;
     @CascadeValidation
@@ -79,20 +74,21 @@ public class Jugger extends EntityBase {
         this.lastName = lastName;
     }
 
-    @ManyToOne   
-	public Country getCountry() {
-		return country;
-	}
+    @ManyToOne
+    public Country getCountry() {
+        return country;
+    }
 
-	public void setCountry(Country country) {
-		this.country = country;
-	}
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     @OneToOne
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
