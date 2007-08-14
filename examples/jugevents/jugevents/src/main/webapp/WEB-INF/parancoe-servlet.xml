@@ -75,6 +75,15 @@
         <property name="formView" value="people/edit"/>
         <property name="successView" value="redirect:list.html"/>
     </bean>
+
+    <bean name="/event/search.form" id="eventSearchController"
+          class="it.jugpadova.controllers.EventSearchController"
+          parent="abstractController">
+        <property name="commandClass" value="it.jugpadova.bean.EventSearch"/>
+        <property name="commandName" value="eventSearch"/>
+        <property name="formView" value="event/list"/>
+        <property name="successView" value="event/list"/>
+    </bean>
     
     <bean name="/event/edit.form" id="eventEditController"
           class="it.jugpadova.controllers.EventEditController"

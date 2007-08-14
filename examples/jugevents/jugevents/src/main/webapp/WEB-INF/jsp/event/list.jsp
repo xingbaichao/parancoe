@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
-        <link href="${cp}/event/rss.html" rel="alternate" title="RSS" type="application/rss+xml" />
+        <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}" rel="alternate" title="RSS" type="application/rss+xml" />
     </head>
     <body>
         <div id="nonFooter">    
@@ -13,7 +13,19 @@
                     
                     <h1>Event</h1>
                     
-                    <h2>List <a href="${cp}/event/rss.html"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h2>
+                    <h2>List <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h2>
+                    
+                    <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
+                        <dl>
+                            <dt><form:label path="continent"><spring:message code="search.continent"/>:</form:label></dt>
+                            <dd><form:input path="continent"/></dd>
+                            <dt><form:label path="country"><spring:message code="search.country"/>:</form:label></dt>
+                            <dd><form:input path="country"/></dd>
+                            <dt><form:label path="jugName"><spring:message code="search.jugName"/>:</form:label></dt>
+                            <dd><form:input path="jugName"/></dd>
+                            <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Submit'/>"/></dd>
+                        </dl>
+                    </form:form>
                     
                     <c:choose>
                         <c:when test="${not empty events}">
@@ -66,7 +78,7 @@
                             </table>
                         </c:when>
                         <c:otherwise>
-                            No active events
+                            No results
                         </c:otherwise>
                     </c:choose>
                     <br/>

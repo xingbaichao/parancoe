@@ -14,6 +14,7 @@
 package it.jugpadova.blo;
 
 import it.jugpadova.Daos;
+import it.jugpadova.bean.EventSearch;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.mail.internet.MimeMessage;
@@ -43,6 +45,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.apache.velocity.app.VelocityEngine;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 public class EventBo {
 
@@ -91,6 +96,74 @@ public class EventBo {
         for (Event event : events) {
             event.getParticipants().size();
         }
+        return events;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Event> search(EventSearch eventSearch) {
+        List<Event> events = new LinkedList<Event>();
+        try {
+            DetachedCriteria eventCriteria =
+                    DetachedCriteria.forClass(Event.class);
+            if (StringUtils.isNotBlank(eventSearch.getJugName()) ||
+                    StringUtils.isNotBlank(eventSearch.getCountry()) ||
+                    StringUtils.isNotBlank(eventSearch.getContinent())) {
+                DetachedCriteria ownerCriteria =
+                        eventCriteria.createCriteria("owner");
+                if (StringUtils.isNotBlank(eventSearch.getJugName())) {
+                    ownerCriteria.add(Restrictions.ilike("jugName",
+                            eventSearch.getJugName(),
+                            MatchMode.ANYWHERE));
+                }
+                if (StringUtils.isNotBlank(eventSearch.getCountry()) ||
+                        StringUtils.isNotBlank(eventSearch.getContinent())) {
+                    DetachedCriteria countryCriteria =
+                            ownerCriteria.createCriteria("country");
+                    if (StringUtils.isNotBlank(eventSearch.getCountry())) {
+                        countryCriteria.add(Restrictions.or(Restrictions.ilike("englishName",
+                                eventSearch.getCountry(),
+                                MatchMode.ANYWHERE),
+                                Restrictions.ilike("localName",
+                                eventSearch.getCountry(),
+                                MatchMode.ANYWHERE)));
+                    }
+                    if (StringUtils.isNotBlank(eventSearch.getContinent())) {
+                        DetachedCriteria continentCriteria =
+                                countryCriteria.createCriteria("continent");
+                        continentCriteria.add(Restrictions.ilike("name",
+                                eventSearch.getContinent(),
+                                MatchMode.ANYWHERE));
+                    }
+                }
+            }
+            /**
+             * if (params.getStato() != Stato.NON_IMPOSTATO) {
+             * revisoreCriteria.add(Restrictions.eq("stato", params.getStato()));
+             * }
+             * // join con l'anagrafica
+             * if (StringUtils.isNotBlank(params.getCognome()) || StringUtils.isNotBlank(params.getNome())
+             * || StringUtils.isNotBlank(params.getCodFiscale())) {
+             * DetachedCriteria anagraficaCriteria = revisoreCriteria.createCriteria("anagrafica");
+             * if (StringUtils.isNotBlank(params.getCodFiscale())) {
+             * anagraficaCriteria.add(Restrictions.ilike("codFiscale", params.getCodFiscale(), MatchMode.ANYWHERE));
+             * }
+             * if (StringUtils.isNotBlank(params.getCognome())) {
+             * anagraficaCriteria.add(Restrictions.ilike("cognome", params.getCognome(), MatchMode.ANYWHERE));
+             * }
+             * if (StringUtils.isNotBlank(params.getNome())) {
+             * anagraficaCriteria.add(Restrictions.ilike("nome", params.getNome(), MatchMode.ANYWHERE));
+             * }
+             * }
+             */
+
+            events = daos.getEventDao().searchByCriteria(eventCriteria);
+            for (Event event : events) {
+                event.getParticipants().size();
+            }
+        } catch (Exception e) {
+            logger.error("Error searching events", e);
+        }
+
         return events;
     }
 
