@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
+        <link href="${cp}/event/rss.html" rel="alternate" title="RSS" type="application/rss+xml" />
     </head>
     <body>
         <div id="nonFooter">    
@@ -12,7 +13,7 @@
                     
                     <h1>Event</h1>
                     
-                    <h2>List</h2>
+                    <h2>List <a href="${cp}/event/rss.html"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h2>
                     
                     <c:choose>
                         <c:when test="${not empty events}">

@@ -1,5 +1,6 @@
 package it.jugpadova.po;
 
+import it.jugpadova.blo.FilterBo;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,21 +23,14 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  * @author Lucio Benfante
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(
-        name="Event.findCurrentEvents",
-        query="from Event e where e.startDate >= current_date()"
-    ),
-    @NamedQuery(
-        name="Event.findEventByPartialLocation",
-        query="from Event e where lower(e.location) like lower(?) order by e.location"
-    ),
-    @NamedQuery(
-        name="Event.findEventByPartialLocationAndOwner",
-        query="from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location"
-    )
-})
+@NamedQueries(value = {@NamedQuery(name = "Event.findCurrentEvents", query =
+        "from Event e where e.startDate >= current_date()"), @NamedQuery(name =
+        "Event.findEventByPartialLocation", query =
+        "from Event e where lower(e.location) like lower(?) order by e.location"), @NamedQuery(name =
+        "Event.findEventByPartialLocationAndOwner", query =
+        "from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location")})
 public class Event extends EntityBase {
+
     @NotBlank
     private String title;
     @org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull
@@ -60,7 +54,7 @@ public class Event extends EntityBase {
         this.owner = owner;
     }
 
-    @Column(length=1024)
+    @Column(length = 1024)
     public String getDirections() {
         return directions;
     }
@@ -77,7 +71,7 @@ public class Event extends EntityBase {
         this.filter = filter;
     }
     private List<Participant> participants;
-    
+
     /** Creates a new instance of Event */
     public Event() {
     }
@@ -132,7 +126,7 @@ public class Event extends EntityBase {
         this.location = location;
     }
 
-    @Column(length=4096)
+    @Column(length = 4096)
     public String getDescription() {
         return description;
     }
@@ -141,7 +135,8 @@ public class Event extends EntityBase {
         this.description = description;
     }
 
-    @OneToMany(mappedBy="event", cascade={CascadeType.ALL})
+    @OneToMany(mappedBy = "event", cascade =
+            {CascadeType.ALL})
     public List<Participant> getParticipants() {
         return participants;
     }
@@ -152,21 +147,34 @@ public class Event extends EntityBase {
 
     public void addParticipant(Participant participant) {
         if (this.participants == null) {
-            this.participants = new LinkedList<Participant>();
+            this.participants =
+                    new LinkedList<Participant>();
         }
         this.participants.add(participant);
     }
-    
+
     @Transient
     public int getNumberOfParticipants() {
         int result = 0;
         if (getParticipants() != null) {
-            for (Participant p: getParticipants()) {
+            for (Participant p : getParticipants()) {
                 if (p.getConfirmed().booleanValue()) {
                     result++;
                 }
             }
         }
         return result;
+    }
+
+    @Transient
+    public String getFilteredDirections() {
+        return FilterBo.filterText(this.getDirections(), this.getFilter(),
+                false);
+    }
+    
+    @Transient
+    public String getFilteredDescription() {
+        return FilterBo.filterText(this.getDescription(), this.getFilter(),
+                false);
     }
 }

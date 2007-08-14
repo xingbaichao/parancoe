@@ -11,15 +11,9 @@
                 <div id="content_main">
                     
                     <h1>Event</h1>
+                    <%@ include file="show.jspf" %>
                     
                     <h2>List of Participants</h2>
-                    <strong>Title:</strong> ${event.title}<br/>
-                    <strong>Start date:</strong> <fmt:formatDate value="${event.startDate}" />
-                    <strong>Start time:</strong> ${event.startTime}<br/>
-                    <strong>Start beer:</strong> ${event.endDate} (${event.endTime})<br/>
-                    <br/>
-                    ${event.description}<br/>
-                    <br/>
                     
                     <c:choose>
                         <c:when test="${not empty participants}">

@@ -32,7 +32,7 @@
                             </dt>
                             <dd><form:textarea path="directions" cols="40" rows="3" onkeyup="filterBo.populatePreview($(directions).value, 'Textile', 'directionsPreview')"/></dd>
                             <dt>&nbsp;</dt>
-                            <dd><div id="directionsPreview" class="preview">${requestScope.directionsPreview}&nbsp;</div></dd>
+                            <dd><div id="directionsPreview" class="preview">${requestScope.event.filteredDirections}&nbsp;</div></dd>
                             <dt><form:label path="startDate"><spring:message code="event.startDate"/></form:label></dt>
                             <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
                             <dt><form:label path="startTime"><spring:message code="event.startTime"/></form:label></dt>
@@ -149,7 +149,7 @@
                             </dt>
                             <dd><form:textarea path="description" cols="40" rows="5" onkeyup="filterBo.populatePreview($(description).value, 'Textile', 'descriptionPreview')"/></dd>
                             <dt>&nbsp;</dt>
-                            <dd><div id="descriptionPreview" class="preview">${requestScope.descriptionPreview}&nbsp;</div></dd>
+                            <dd><div id="descriptionPreview" class="preview">${requestScope.event.filteredDescription}&nbsp;</div></dd>
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='Submit'/>"/><br/><br/></dd>
                         </dl>

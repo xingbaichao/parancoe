@@ -13,14 +13,7 @@
                     <h1>Events</h1>
                     
                     <h2>Registration</h2>
-
-                    <strong>Title:</strong> ${registration.event.title}<br/>
-                    <strong>Start date:</strong> <fmt:formatDate value="${registration.event.startDate}" />
-                    <strong>Start time:</strong> ${registration.event.startTime}<br/>
-                    <strong>Start beer:</strong> ${registration.event.endDate} (${registration.event.endTime})<br/>
-                    <br/>
-                    ${registration.event.description}<br/>
-                    <br/>
+                    
                     <form:form commandName="registration" method="POST" action="${cp}/event/registration.form">
                         <form:hidden path="event.id"/>
                         <table>
@@ -47,6 +40,7 @@
                         </table>
                         <form:errors path="*" cssClass="errorBox"/>
                     </form:form>
+                    <%@ include file="show.jspf"%>
                 </div>
                 <jsp:include page="../menu.jsp"/>
             </div>

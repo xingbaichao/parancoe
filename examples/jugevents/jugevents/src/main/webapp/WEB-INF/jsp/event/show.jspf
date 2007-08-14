@@ -1,0 +1,18 @@
+<dl>
+    <dt><b><spring:message code="event.title"/>:</b></dt>
+    <dd>${event.title}</dd>
+    <dt><b><spring:message code="event.location"/>:</b></dt>
+    <dd>${event.location}</dd>
+    <dt><b><spring:message code="event.directions"/>:</b></dt>
+    <dd>${event.filteredDirections}</dd>
+    <dt><b><spring:message code="event.startDate"/>:</b></dt>
+    <dd><fmt:formatDate value="${event.startDate}" type="date" dateStyle="full" /></dd>
+    <dt><b><spring:message code="event.startTime"/>:</b></dt>
+    <dd>${event.startTime}</dd>
+    <dt><b><spring:message code="event.endDate"/>:</b></dt>
+    <dd><fmt:formatDate value="${event.endDate}" type="date" dateStyle="full" /></dd>
+    <dt><b><spring:message code="event.endTime"/>:</b></dt>
+    <dd>${event.endTime}</dd>
+    <dt><b><spring:message code="event.description"/>:</b></dt>
+    <dd>${event.filteredDescription}</dd>
+</dl>
