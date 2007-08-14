@@ -38,8 +38,15 @@
                     </tr>
                     
                     <tr>
-                        <td>country</td>
-                        <td><form:input path="country.isoCode"/></td>
+                        <td>country</td>                        
+                        <td>
+                        <select name="country.isoCode">
+                         <c:forEach var="c" items="${countries}" >
+                         <option value="${c.isoCode}">${c.englishName}</option>
+                         </c:forEach>
+                        </select>
+                        
+						</td>
                         
                     </tr>
                       <tr>
