@@ -23,6 +23,7 @@ import java.io.IOException;
 import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
+import it.jugpadova.bean.EventSearch;
 import it.jugpadova.blo.FilterBo;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
@@ -39,13 +40,6 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class EventController extends BaseMultiActionController {
 
     private static Logger logger = Logger.getLogger(EventController.class);
-
-    public ModelAndView list(HttpServletRequest req,
-            HttpServletResponse res) {
-        ModelAndView mv = new ModelAndView("event/list");
-        mv.addObject("events", blo().getEventBo().retrieveEvents());
-        return mv;
-    }
 
     public ModelAndView delete(HttpServletRequest req,
             HttpServletResponse res) {
@@ -101,7 +95,11 @@ public abstract class EventController extends BaseMultiActionController {
     public ModelAndView rss(HttpServletRequest req,
             HttpServletResponse res) throws Exception {
         try {
-            List<Event> events = blo().getEventBo().retrieveEvents();
+            EventSearch eventSearch = new EventSearch();
+            eventSearch.setContinent(req.getParameter("continent"));
+            eventSearch.setCountry(req.getParameter("country"));
+            eventSearch.setJugName(req.getParameter("jugName"));
+            List<Event> events = blo().getEventBo().search(eventSearch);
             Channel channel = new Channel("rss_2.0");
             channel.setTitle("JUG Event news");
             channel.setDescription("JUG Events news always updated");
