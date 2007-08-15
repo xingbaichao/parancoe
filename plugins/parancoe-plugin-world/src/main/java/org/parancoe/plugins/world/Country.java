@@ -9,9 +9,10 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
  */
 @Entity
 @NamedQueries(value = {@NamedQuery(name = "Country.findByPartialLocalName", query = "from Country c where upper(c.localName) like upper(?) order by c.localName asc"),
+@NamedQuery(name = "Country.findByPartialLocalNameAndContinent", query = "from Country c where upper(c.localName) like upper(?) and upper(c.continent.name) like upper(?) order by c.localName asc"),
+@NamedQuery(name = "Country.findByPartialEnglishName", query = "from Country c where upper(c.englishName) like upper(?) order by c.englishName asc"),
+@NamedQuery(name = "Country.findByPartialEnglishNameAndContinent", query = "from Country c where upper(c.englishName) like upper(?) and upper(c.continent.name) like upper(?) order by c.englishName asc"),
 @NamedQuery(name = "Country.findAllOrderedByEnglishNameAsc", query = "from Country c order by englishname asc")})
-
-
 public class Country extends EntityBase {
 
     private String isoCode;
