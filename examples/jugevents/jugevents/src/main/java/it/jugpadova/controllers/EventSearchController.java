@@ -13,7 +13,6 @@
 // limitations under the License.
 package it.jugpadova.controllers;
 
-import com.octo.captcha.service.CaptchaService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,7 @@ import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EventSearch;
-import it.jugpadova.bean.Registration;
 import it.jugpadova.po.Event;
-import it.jugpadova.po.Participant;
 import java.util.List;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -50,8 +47,11 @@ public abstract class EventSearchController extends BaseFormController {
             BindException errors) throws Exception {
         EventSearch eventSearch = (EventSearch) command;
         List<Event> events = blo().getEventBo().search(eventSearch);
-        ModelAndView mv = onSubmit(command, errors);
+        ModelAndView mv = onSubmit(command, errors);        
         mv.addObject("events", events);
+        if (events.isEmpty()) {
+            mv.addObject("showNoResultsMessage", "true");
+        }
         return mv;
     }
 

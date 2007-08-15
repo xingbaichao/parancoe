@@ -9,9 +9,12 @@ import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import java.util.List;
 import org.acegisecurity.Authentication;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import org.parancoe.plugins.security.Authority;
@@ -19,6 +22,7 @@ import org.parancoe.plugins.security.AuthorityDao;
 import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.plugins.security.UserAuthorityDao;
 import org.parancoe.plugins.security.UserDao;
+import org.parancoe.plugins.world.Continent;
 import org.parancoe.plugins.world.Country;
 import org.parancoe.plugins.world.CountryDao;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,6 +112,63 @@ public class JuggerBlo {
       juggerDao.createOrUpdate(jugger);
       logger.info("Jugger ("+username+") created with success");
     	
+    }
+
+    @Transactional(readOnly = true)
+    public List findPartialContinent(String partialContinent) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialContinent)) {
+            try {
+                List<Continent> continents =
+                        getDaos().getContinentDao().findByPartialName("%"+partialContinent+"%");
+                Iterator<Continent> itContinents = continents.iterator();
+                while (itContinents.hasNext()) {
+                    Continent continent = itContinents.next();
+                    result.add(continent.getName());
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the continent", e);
+            }
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public List findPartialCountryWithContinent(String partialCountry, String partialContinent) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialCountry)) {
+            try {
+                List<Country> countries =
+                        getDaos().getCountryDao().findByPartialLocalNameAndContinent("%"+partialCountry+"%", "%"+partialContinent+"%");
+                Iterator<Country> itCountries = countries.iterator();
+                while (itCountries.hasNext()) {
+                    Country country = itCountries.next();
+                    result.add(country.getLocalName());
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the country", e);
+            }
+        }
+        return result;
+    }
+    
+    @Transactional(readOnly = true)
+    public List findPartialJugNameWithCountryAndContinent(String partialJugName, String partialCountry, String partialContinent) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialJugName)) {
+            try {
+                List<Jugger> juggers =
+                        getDaos().getJuggerDao().findByPartialJugNameAndCountryAndContinent("%"+partialJugName+"%","%"+partialCountry+"%", "%"+partialContinent+"%");
+                Iterator<Jugger> itJuggers = juggers.iterator();
+                while (itJuggers.hasNext()) {
+                    Jugger jugger = itJuggers.next();
+                    result.add(jugger.getJugName());
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the JUG Name", e);
+            }
+        }
+        return result;
     }
     
 }

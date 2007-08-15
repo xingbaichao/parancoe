@@ -21,7 +21,9 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  */
 @Entity
 @NamedQueries(value = {@NamedQuery(name = "Jugger.searchByUsername", query =
-        "from Jugger j where j.user.username = ?")})
+        "from Jugger j where j.user.username = ?"),
+    @NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query =
+        "from Jugger j where upper(j.jugName) like upper(?) and upper(j.country.localName) like upper(?) and upper(j.country.continent.name) like upper(?) order by j.jugName asc")})
 public class Jugger extends EntityBase {
 
     @NotBlank

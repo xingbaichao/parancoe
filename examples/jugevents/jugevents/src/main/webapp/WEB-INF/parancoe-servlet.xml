@@ -39,7 +39,13 @@
         </dwr:remote>
     </bean>
     
-    <bean id="juggerBlo" class="it.jugpadova.blo.JuggerBlo" autowire="byType"/>
+    <bean id="juggerBlo" class="it.jugpadova.blo.JuggerBlo" autowire="byType">
+        <dwr:remote javascript="juggerBo">
+            <dwr:include method="findPartialContinent"/>
+            <dwr:include method="findPartialCountryWithContinent"/>
+            <dwr:include method="findPartialJugNameWithCountryAndContinent"/>
+        </dwr:remote>
+    </bean>
     
     <bean id="securityBo" class="it.jugpadova.blo.SecurityBo" autowire="byType"/>
     

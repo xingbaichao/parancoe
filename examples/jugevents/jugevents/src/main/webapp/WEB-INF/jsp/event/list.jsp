@@ -4,6 +4,7 @@
     <head>
         <%@ include file="../head.jspf" %>
         <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}" rel="alternate" title="RSS" type="application/rss+xml" />
+        <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="nonFooter">    
@@ -11,19 +12,17 @@
             <div id="content"> 
                 <div id="content_main">
                     
-                    <h1>Event</h1>
-                    
-                    <h2>List <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h2>
+                    <h1>Search Events <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h1>
                     
                     <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
                         <dl>
                             <dt><form:label path="continent"><spring:message code="search.continent"/>:</form:label></dt>
-                            <dd><form:input path="continent"/></dd>
+                            <dd><form:input path="continent"/><div id="continentList" class="auto_complete"></div></dd>
                             <dt><form:label path="country"><spring:message code="search.country"/>:</form:label></dt>
-                            <dd><form:input path="country"/></dd>
+                            <dd><form:input path="country"/><div id="countryList" class="auto_complete"></div></dd>
                             <dt><form:label path="jugName"><spring:message code="search.jugName"/>:</form:label></dt>
-                            <dd><form:input path="jugName"/></dd>
-                            <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Submit'/>"/></dd>
+                            <dd><form:input path="jugName"/><div id="jugNameList" class="auto_complete"></div></dd>
+                            <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Search'/>"/></dd>
                         </dl>
                     </form:form>
                     
@@ -78,7 +77,9 @@
                             </table>
                         </c:when>
                         <c:otherwise>
-                            No results
+                            <c:if test="${not empty requestScope.showNoResultsMessage}">
+                                <spring:message code="NoResults"/>
+                            </c:if>
                         </c:otherwise>
                     </c:choose>
                     <br/>
@@ -87,5 +88,32 @@
             </div>            
         </div>
         <jsp:include page="../footer.jsp"/>        
+        <script type="text/javascript">
+new Autocompleter.DWR('continent', 'continentList', updateContinentList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+new Autocompleter.DWR('country', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+new Autocompleter.DWR('jugName', 'jugNameList', updateJugNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+
+function updateContinentList(autocompleter, token) {
+    juggerBo.findPartialContinent(token, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+function updateCountryList(autocompleter, token) {
+    juggerBo.findPartialCountryWithContinent(token, $('continent').value, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+function updateJugNameList(autocompleter, token) {
+    juggerBo.findPartialJugNameWithCountryAndContinent(token, $('country').value, $('continent').value, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+function singleValueSelector(tag) {
+    return tag;
+}
+        </script>
     </body>
 </html>

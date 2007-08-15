@@ -1,1 +1,1 @@
-<jsp:forward page="/home/welcome.html"/>
+<jsp:forward page="/event/search.form"/>
