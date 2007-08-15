@@ -22,6 +22,7 @@ import org.parancoe.persistence.dao.DaoProvider;
 import org.parancoe.plugins.security.AuthorityDao;
 import org.parancoe.plugins.security.UserAuthorityDao;
 import org.parancoe.plugins.security.UserDao;
+import org.parancoe.plugins.world.ContinentDao;
 import org.parancoe.plugins.world.CountryDao;
 
 
@@ -31,6 +32,7 @@ import org.parancoe.plugins.world.CountryDao;
  * The convention for the methods is get<dao_bean_id>.
  */
 public interface Daos extends DaoProvider {
+
     public PersonDao getPersonDao();    
     public EventDao getEventDao();    
     public ParticipantDao getParticipantDao();
@@ -38,5 +40,6 @@ public interface Daos extends DaoProvider {
     public UserDao getUserDao();
     public AuthorityDao getAuthorityDao();    
     public CountryDao getCountryDao();
+    public ContinentDao getContinentDao();
     public UserAuthorityDao getUserAuthorityDao();
 }

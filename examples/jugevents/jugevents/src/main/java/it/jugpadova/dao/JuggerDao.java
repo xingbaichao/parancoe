@@ -15,5 +15,8 @@ import org.parancoe.persistence.dao.generic.GenericDao;
  */
 @Dao(entity=Jugger.class)
 public interface JuggerDao extends GenericDao<Jugger, Long> {
+
+    public List<Jugger> findByPartialJugNameAndCountryAndContinent(String juggerName,
+            String countryLocalName, String continent);
     List<Jugger> searchByUsername(String username);
 }
