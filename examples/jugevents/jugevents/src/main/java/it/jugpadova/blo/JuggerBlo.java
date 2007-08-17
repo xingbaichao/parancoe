@@ -6,16 +6,28 @@ package it.jugpadova.blo;
 import it.jugpadova.Daos;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
+import it.jugpadova.dao.ParticipantDao;
+import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
+
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import java.util.List;
+
+import javax.mail.internet.MimeMessage;
+
 import org.acegisecurity.Authentication;
+import org.acegisecurity.providers.encoding.MessageDigestPasswordEncoder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.velocity.app.VelocityEngine;
 
 import org.parancoe.plugins.security.Authority;
 import org.parancoe.plugins.security.AuthorityDao;
@@ -25,14 +37,23 @@ import org.parancoe.plugins.security.UserDao;
 import org.parancoe.plugins.world.Continent;
 import org.parancoe.plugins.world.Country;
 import org.parancoe.plugins.world.CountryDao;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
- * @author Admin
+ * Defines business methods for Jugger entity.
+ * @author Enrico Giurin
  *
  */
 public class JuggerBlo {
 	private static final Logger logger = Logger.getLogger(JuggerBlo.class);
+	
+	private JavaMailSender mailSender;
+    private VelocityEngine velocityEngine;
+    private String confirmationSenderEmailAddress;
 	
     private Daos daos;
     
@@ -75,7 +96,7 @@ public class JuggerBlo {
     @Transactional
     public void save(Jugger jugger) throws Exception {
     	
-    	
+    	//retrieves all dao
     	
     	CountryDao  countryDao = daos.getCountryDao();
     	UserDao userDao = daos.getUserDao();
@@ -84,20 +105,18 @@ public class JuggerBlo {
     	JuggerDao juggerDao = daos.getJuggerDao();	
     	String username = jugger.getUser().getUsername();
     
-      
-      if(juggerDao.searchByUsername(username).size() > 0)
+      //check if username is already presents  
+      if((juggerDao.searchByUsername(username).size() > 0)
+    	  || (userDao.findByUsername(username).size() > 0))
       {
-    	  //username already in use
-    	  throw new Exception("Jugger with username: "+username+ " already presents in the database!");
+    	 
+    	  throw new UserAlreadyPresentsException("Jugger with username: "+username+ " already presents in the database!");
       }
-      if(userDao.findByUsername(username).size() > 0)
-      {
-    	  //username already in use
-    	  throw new Exception("username: "+username+ " already in use!");
-      }
+    
      
       //retrive country selected
       Country country = countryDao.findByIsoCode(jugger.getCountry().getIsoCode()).get(0);
+     //set authority to jugger
       Authority authority = authorityDao.findByRole("ROLE_JUGGER").get(0);
       userDao.create(jugger.getUser());
       UserAuthority ua = new UserAuthority();
@@ -109,9 +128,48 @@ public class JuggerBlo {
       jugger.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));
       
       
+      
+      jugger.setConfirmationCode(generateConfirmationCode(jugger));
       juggerDao.createOrUpdate(jugger);
-      logger.info("Jugger ("+username+") created with success");
-    	
+      sendConfirmationEmail(jugger);
+      logger.info("Jugger ("+username+") created with success");    	
+    }
+    
+    
+    private String generateConfirmationCode(Jugger jugger) {
+        return new MessageDigestPasswordEncoder("MD5", true).encodePassword(jugger.getFirstName() +
+        		jugger.getLastName() +
+        		jugger.getEmail(), new Date());
+    }
+    
+    
+    //send mail to new jugger for application
+    private void sendConfirmationEmail(final Jugger jugger) {
+        MimeMessagePreparator preparator =
+                new MimeMessagePreparator() {
+
+            @SuppressWarnings(value = "unchecked")
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message =
+                        new MimeMessageHelper(mimeMessage);
+                message.setTo(jugger.getEmail());
+                message.setFrom(confirmationSenderEmailAddress);
+                message.setSubject("Please confirm jugger registration");
+                Map model = new HashMap();
+                model.put("jugger", jugger);
+               
+                model.put("confirmationCode",
+                        URLEncoder.encode(jugger.getConfirmationCode(),
+                        "UTF-8"));
+                model.put("email",
+                        URLEncoder.encode(jugger.getEmail(), "UTF-8"));
+                String text =
+                        VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+                        "it/jugpadova/jugger-registration-confirmation.vm", model);
+                message.setText(text, true);
+            }
+        };
+        this.mailSender.send(preparator);
     }
 
     @Transactional(readOnly = true)
@@ -170,5 +228,37 @@ public class JuggerBlo {
         }
         return result;
     }
+
+	public String getConfirmationSenderEmailAddress() {
+		return confirmationSenderEmailAddress;
+	}
+
+	public void setConfirmationSenderEmailAddress(
+			String confirmationSenderEmailAddress) {
+		this.confirmationSenderEmailAddress = confirmationSenderEmailAddress;
+	}
+
+	public JavaMailSender getMailSender() {
+		return mailSender;
+	}
+
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
+
+	public VelocityEngine getVelocityEngine() {
+		return velocityEngine;
+	}
+
+	public void setVelocityEngine(VelocityEngine velocityEngine) {
+		this.velocityEngine = velocityEngine;
+	}
+    
+    
+    
+    
+    
+    
+    
     
 }

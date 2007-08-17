@@ -40,6 +40,9 @@
     </bean>
     
     <bean id="juggerBlo" class="it.jugpadova.blo.JuggerBlo" autowire="byType">
+         <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="confirmationSenderEmailAddress" value="jugevents@jugpadova.it"/>        
         <dwr:remote javascript="juggerBo">
             <dwr:include method="findPartialContinent"/>
             <dwr:include method="findPartialCountryWithContinent"/>
@@ -72,6 +75,7 @@
           class="it.jugpadova.controllers.JuggerController" parent="abstractController"/>
     <bean name="/confirm/*.html" id="confirmController"
           class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
+   
     
     <bean name="/people/edit.form" id="peopleEditController"
           class="it.jugpadova.controllers.PeopleEditController"
@@ -107,7 +111,7 @@
         <property name="commandClass" value="it.jugpadova.po.Jugger"/>
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/edit"/>
-        <property name="successView" value="redirect:list.html"/>
+        <property name="successView" value="redirect:/home/confirmJuggerRegistration.html"/>
     </bean>
     
     
@@ -238,17 +242,17 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-        <property name="host" value="localhost"/>
+        <property name="host" value="smtp.mail.yahoo.it"/>
         <!-- Parameters for SMTP AUTH -->
-        <!--
-        <property name="username" value="myusername"/>
-        <property name="password" value="mypassword"/>
+   
+        <property name="username" value="enrico_giurin"/>
+        <property name="password" value="porcodio37"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
             </props>
         </property>
-        -->
+       
     </bean>
     
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

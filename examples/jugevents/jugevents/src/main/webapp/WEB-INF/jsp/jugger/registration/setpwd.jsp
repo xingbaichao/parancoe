@@ -11,11 +11,10 @@
                <div id="content_main">
             <h1>Jugger</h1>
             
-            <h2>Edit/Insert Jugger</h2>
+            <h2>Insert Password</h2>
             
             <form:form commandName="jugger" method="POST" action="${cp}/jugger/edit.form">
                 <form:hidden path="id"/>
-                
                 
                 <table>
                     <tr>
@@ -36,9 +35,7 @@
                     
                     <tr>
                         <td>username (*)</td>
-                        <td><form:input path="user.username"/></td>    
-						<td><form:errors path="user.username" cssClass="errorBox"/></td> 
-						 
+                        <td><form:input path="user.username"/></td>                      
                     </tr>
                     
                     <tr>
@@ -48,9 +45,9 @@
                          <c:forEach var="c" items="${countries}" >
                          <option value="${c.isoCode}">${c.englishName}</option>
                          </c:forEach>
-                        </select>                        
+                        </select>
+                        
 						</td>
-						
                         
                     </tr>
                       <tr>
