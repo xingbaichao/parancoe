@@ -242,11 +242,11 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-        <property name="host" value="smtp.mail.yahoo.it"/>
+        <property name="host" value="xxx"/>
         <!-- Parameters for SMTP AUTH -->
    
-        <property name="username" value="enrico_giurin"/>
-        <property name="password" value="porcodio37"/>
+        <property name="username" value="xxx"/>
+        <property name="password" value="xxx"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
