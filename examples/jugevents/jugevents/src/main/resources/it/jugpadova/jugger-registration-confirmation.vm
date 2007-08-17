@@ -1,0 +1,13 @@
+<html>
+<body>
+<h3>Hi ${jugger.firstName} ${jugger.lastName}, You are registering to Jugger Application</h3>
+
+<div>
+   Please confirm you registration clicking on the following link:
+</div>
+<div>
+    <a href="http://localhost:8080/jugevents/jugger/registration.html?email=${email}&code=${confirmationCode}">http://localhost:8080/jugger/registration.html?email=${email}&code=${confirmationCode}</a>
+</div>
+</body>
+
+</html>

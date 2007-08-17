@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.Registration;
+import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
@@ -73,8 +74,20 @@ public abstract class JuggerEditController extends BaseFormController {
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
         Jugger jugger = (Jugger) command;
-        blo().getJuggerBO().save(jugger);        
-        return onSubmit(command, errors); // restituisce succesView
+        try {
+        	  blo().getJuggerBO().save(jugger); 
+		} catch (UserAlreadyPresentsException e) {
+			
+			 errors.rejectValue("user.username", "useralreadypresents", e.getMessage());
+			 logger.error(e);
+	         return showForm(req, res, errors);
+			
+		}
+      
+        ModelAndView mv = onSubmit(command, errors);
+        mv.addObject("juggerId",jugger.getId());
+        return mv;
+        
     }
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {

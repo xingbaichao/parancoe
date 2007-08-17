@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
+import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 
 /**
@@ -54,6 +55,26 @@ public abstract class HomeController extends BaseMultiActionController {
                 new ModelAndView("event/registration/sentMail");
         mv.addObject("participant", participant);
         return mv;
+    }
+    
+    
+    
+    /**
+     * Message after jugger registration. Called with redirect, passing
+     * juggerId parameter. Copied by similar done by Lucio.
+     */
+    public ModelAndView confirmJuggerRegistration(HttpServletRequest req,
+            HttpServletResponse res) {
+    	
+        Long juggerId =
+                new Long(req.getParameter("juggerId"));
+        Jugger jugger = dao().getJuggerDao().read(juggerId);       
+        ModelAndView mv =
+                new ModelAndView("jugger/registration/sentMail");
+        mv.addObject("jugger", jugger);
+        return mv;
+        
+    	
     }
 
     /**
