@@ -52,6 +52,9 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
         if (registration.getEvent().getId() == null) {
             return genericError("No valid event");
         }
+        String baseUrl =
+                "http://" + req.getServerName() + ":" + req.getServerPort() +
+                req.getContextPath();
         List<Participant> prevParticipant =
                 dao().getParticipantDao().
                 findParticipantByEmailAndEventId(registration.getParticipant().
@@ -59,7 +62,7 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
         if (prevParticipant.size() == 0) {
             blo().getEventBo().
                     register(registration.getEvent(),
-                    registration.getParticipant());
+                    registration.getParticipant(), baseUrl);
             ModelAndView mv = onSubmit(command, errors);
             mv.addObject("participantId", registration.getParticipant().getId());
             return mv;
@@ -69,7 +72,7 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
                 return new ModelAndView("event/registration/yet");
             } else {
                 blo().getEventBo().refreshRegistration(registration.getEvent(),
-                        p);
+                        p, baseUrl);
                 ModelAndView mv = onSubmit(command, errors);
                 mv.addObject("participantId", p.getId());
                 return mv;
