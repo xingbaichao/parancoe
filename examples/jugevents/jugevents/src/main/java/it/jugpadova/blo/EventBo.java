@@ -136,26 +136,9 @@ public class EventBo {
                     }
                 }
             }
-            /**
-             * if (params.getStato() != Stato.NON_IMPOSTATO) {
-             * revisoreCriteria.add(Restrictions.eq("stato", params.getStato()));
-             * }
-             * // join con l'anagrafica
-             * if (StringUtils.isNotBlank(params.getCognome()) || StringUtils.isNotBlank(params.getNome())
-             * || StringUtils.isNotBlank(params.getCodFiscale())) {
-             * DetachedCriteria anagraficaCriteria = revisoreCriteria.createCriteria("anagrafica");
-             * if (StringUtils.isNotBlank(params.getCodFiscale())) {
-             * anagraficaCriteria.add(Restrictions.ilike("codFiscale", params.getCodFiscale(), MatchMode.ANYWHERE));
-             * }
-             * if (StringUtils.isNotBlank(params.getCognome())) {
-             * anagraficaCriteria.add(Restrictions.ilike("cognome", params.getCognome(), MatchMode.ANYWHERE));
-             * }
-             * if (StringUtils.isNotBlank(params.getNome())) {
-             * anagraficaCriteria.add(Restrictions.ilike("nome", params.getNome(), MatchMode.ANYWHERE));
-             * }
-             * }
-             */
-
+            if (!eventSearch.isPastEvents()) {
+                eventCriteria.add(Restrictions.ge("startDate", new Date()));
+            }
             events = daos.getEventDao().searchByCriteria(eventCriteria);
             for (Event event : events) {
                 event.getParticipants().size();

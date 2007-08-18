@@ -17,14 +17,11 @@ import com.sun.syndication.feed.rss.Channel;
 import com.sun.syndication.feed.rss.Description;
 import com.sun.syndication.feed.rss.Guid;
 import com.sun.syndication.feed.rss.Item;
-import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.WireFeedOutput;
-import java.io.IOException;
 import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.bean.EventSearch;
-import it.jugpadova.blo.FilterBo;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
@@ -53,7 +50,7 @@ public abstract class EventController extends BaseMultiActionController {
         } catch (Exception e) {
             return genericError(e);
         }
-        return new ModelAndView("redirect:list.html");
+        return new ModelAndView("redirect:search.form");
     }
 
     public ModelAndView show(HttpServletRequest req,

@@ -22,6 +22,8 @@
                             <dd><form:input path="country"/><div id="countryList" class="auto_complete"></div></dd>
                             <dt><form:label path="jugName"><spring:message code="search.jugName"/>:</form:label></dt>
                             <dd><form:input path="jugName"/><div id="jugNameList" class="auto_complete"></div></dd>
+                            <dt><form:label path="pastEvents"><spring:message code="search.pastEvents"/>:</form:label></dt>
+                            <dd><form:checkbox path="pastEvents"/></dd>
                             <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Search'/>"/></dd>
                         </dl>
                     </form:form>
