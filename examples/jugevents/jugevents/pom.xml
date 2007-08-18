@@ -22,7 +22,7 @@
         </repository>
     </repositories>
     <build>
-    <finalName>jugevents</finalName>
+        <finalName>jugevents</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +30,24 @@
                     <source>1.5</source>
                     <target>1.5</target>
                     <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <!--version>2.0</version-->
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <includes>
+                                <include>parancoe-servlet.xml</include>
+                            </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
@@ -66,7 +84,7 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-world</artifactId>
@@ -108,7 +126,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>           
-           
+            
             
         </dependency>
         
@@ -123,19 +141,19 @@
             <artifactId>jcaptcha-all</artifactId>
             <version>1.0-RC6</version>
         </dependency>                
-
+        
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
         </dependency>                
-
+        
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.5</version>
         </dependency>                
-
+        
         <!--dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-tools</artifactId>

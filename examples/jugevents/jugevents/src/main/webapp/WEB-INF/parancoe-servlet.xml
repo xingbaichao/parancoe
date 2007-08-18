@@ -250,7 +250,7 @@
        <property name="password"><value>${mail.password}</value></property>
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
             </props>
         </property>
 
@@ -267,6 +267,7 @@
     <!-- end mail section -->
 
     <!-- define some properties in an external property file -->
+    <!--
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
@@ -274,4 +275,5 @@
             </list>
         </property>
     </bean>
+    -->
 </beans>
