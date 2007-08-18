@@ -12,7 +12,7 @@
         <p class="menuLevel0"><a href="${cp}/jugger/list.html">Juggers List</a></p>
     </authz:authorize>
     <authz:authorize ifNotGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">
-        <p class="menuLevel0"><a href="${cp}/jugger/edit.form">Nuovo Jugger</a></p>
+        <p class="menuLevel0"><a href="${cp}/jugger/edit.form"><spring:message code="newjugger"/></a></p>
     </authz:authorize>
     <authz:authorize ifNotGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">
         <p class="menuLevel0"><a href="${cp}/login.secure"><spring:message code="Login"/></a></p>
