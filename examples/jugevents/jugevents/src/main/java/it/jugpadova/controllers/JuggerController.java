@@ -7,6 +7,8 @@ import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.blo.EventBo;
 import it.jugpadova.blo.JuggerBlo;
+import it.jugpadova.exception.UserAlreadyEnabledException;
+import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,22 +50,37 @@ public abstract class JuggerController extends BaseMultiActionController {
            HttpServletResponse res) {
 	   
        ModelAndView result = null;
-       JuggerBlo juggerBo = blo().getJuggerBO();
-      // Jugger jugger = juggerBo
-       /**
-       EventBo eventBo = blo().getEventBo();
-       Participant participant =
-               eventBo.confirmParticipant(req.getParameter("email"),
-               req.getParameter("code"));
-       if (participant != null) {
-           result =new ModelAndView("redirect:/confirm/ok.html");
-           result.addObject("participantId", participant.getId());
-       } else {
-           result =new ModelAndView("redirect:/confirm/failed.html");
-       }
-       **/
+       String confirmationCode = req.getParameter("code");
+       logger.info("confirmationCode: "+confirmationCode);
+       Jugger jugger = dao().getJuggerDao().findByConfirmationCode(confirmationCode).get(0);
+       result =new ModelAndView("jugger/registration/setpwd");
+       result.addObject("jugger", jugger);       
        return result;
    }
+   
+   
+   
+   /**
+   *
+   */
+  public ModelAndView enableJugger(HttpServletRequest req,
+          HttpServletResponse res) {
+	   
+      
+      String confirmationCode = req.getParameter("confirmationCode");
+      String password = req.getParameter("password");
+      logger.info("confirmationCode: "+confirmationCode);
+      try {
+    	  blo().getJuggerBO().enableJugger(confirmationCode, password);
+	} catch (Exception e) {
+		logger.error(e,e);
+		return new ModelAndView("jugger/registration/failed");
+	}
+      
+     return new ModelAndView("jugger/registration/ok");
+       
+     
+  }
 
 	
 	 	protected abstract Daos dao();

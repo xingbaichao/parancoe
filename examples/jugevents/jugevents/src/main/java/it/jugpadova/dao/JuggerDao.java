@@ -19,4 +19,5 @@ public interface JuggerDao extends GenericDao<Jugger, Long> {
     public List<Jugger> findByPartialJugNameAndCountryAndContinent(String juggerName,
             String countryLocalName, String continent);
     List<Jugger> searchByUsername(String username);
+    List<Jugger> findByConfirmationCode(String confirmationCode);
 }

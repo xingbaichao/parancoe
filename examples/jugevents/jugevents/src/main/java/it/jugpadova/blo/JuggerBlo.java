@@ -7,6 +7,7 @@ import it.jugpadova.Daos;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
+import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
@@ -112,8 +113,6 @@ public class JuggerBlo {
     	 
     	  throw new UserAlreadyPresentsException("Jugger with username: "+username+ " already presents in the database!");
       }
-    
-     
       //retrive country selected
       Country country = countryDao.findByIsoCode(jugger.getCountry().getIsoCode()).get(0);
      //set authority to jugger
@@ -140,6 +139,22 @@ public class JuggerBlo {
         return new MessageDigestPasswordEncoder("MD5", true).encodePassword(jugger.getFirstName() +
         		jugger.getLastName() +
         		jugger.getEmail(), new Date());
+    }
+    
+    @Transactional
+    public Jugger enableJugger(String confirmationCode, String password) throws UserAlreadyEnabledException
+    {
+    	 Jugger jugger = daos.getJuggerDao().findByConfirmationCode(confirmationCode).get(0);
+         if((jugger.getConfirmed()!=null)&&(jugger.getConfirmed().booleanValue()))
+         {
+        	 throw new UserAlreadyEnabledException("User "+jugger.getUser().getUsername()+" already enabled");
+         }
+    	 jugger.getUser().setEnabled(true);
+         jugger.setConfirmed(true);
+         jugger.getUser().setPassword(password);
+         daos.getJuggerDao().update(jugger);
+         logger.info("Username "+jugger.getUser().getUsername()+" enabled to jugevents");
+         return jugger;
     }
     
     

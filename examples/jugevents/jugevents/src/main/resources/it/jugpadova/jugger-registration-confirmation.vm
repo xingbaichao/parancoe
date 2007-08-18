@@ -1,6 +1,6 @@
 <html>
 <body>
-<h3>Hi ${jugger.firstName} ${jugger.lastName}, You are registering to Jugger Application</h3>
+<h3>Hi ${jugger.firstName} ${jugger.lastName}, You are registering to Jugevents Application</h3>
 
 <div>
    Please confirm you registration clicking on the following link:
