@@ -96,6 +96,7 @@ public abstract class EventController extends BaseMultiActionController {
             eventSearch.setContinent(req.getParameter("continent"));
             eventSearch.setCountry(req.getParameter("country"));
             eventSearch.setJugName(req.getParameter("jugName"));
+            eventSearch.setPastEvents(Boolean.parseBoolean(req.getParameter("pastEvents")));
             List<Event> events = blo().getEventBo().search(eventSearch);
             Channel channel = new Channel("rss_2.0");
             channel.setTitle("JUG Event news");
