@@ -12,9 +12,13 @@
    height="1052.3622047"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.44.1"
-   sodipodi:docbase="/home/lucio/MyWorks/Parancoe/parancoe/parancoe-webarchetype/src/main/resources/archetype-resources/src/main/webapp/images"
-   sodipodi:docname="applicationLogo.svg">
+   inkscape:version="0.45.1"
+   sodipodi:docbase="/home/lucio/MyWorks/Parancoe_google/parancoe/examples/jugevents/jugevents/src/main/webapp/images"
+   sodipodi:docname="applicationLogo.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/lucio/MyWorks/Parancoe_google/parancoe/examples/jugevents/jugevents/src/main/webapp/images/applicationLogo.png"
+   inkscape:export-xdpi="88"
+   inkscape:export-ydpi="88">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -32,7 +36,7 @@
      inkscape:window-width="1012"
      inkscape:window-height="691"
      inkscape:window-x="0"
-     inkscape:window-y="26" />
+     inkscape:window-y="25" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -49,12 +53,12 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#f9f9ab;fill-opacity:1;fill-rule:nonzero;stroke:#f9f9ab;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#f9f9ab;fill-opacity:1;fill-rule:nonzero;stroke:#f9f9ab;stroke-width:2.72732258;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect12106"
-       width="250"
-       height="100"
-       x="143.33344"
-       y="529.37988"
+       width="468.29907"
+       height="99.272675"
+       x="143.6971"
+       y="529.74353"
        inkscape:export-filename="applicationLogo.png"
        inkscape:export-xdpi="88.235291"
        inkscape:export-ydpi="88.235291" />
@@ -66,43 +70,16 @@
        inkscape:export-xdpi="88.235291"
        inkscape:export-ydpi="88.235291">
       <text
-         sodipodi:linespacing="100%"
-         id="text1872"
-         y="736.83472"
-         x="278.08856"
-         style="font-size:38.47460938px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:black;fill-opacity:1;stroke:#ffffd5;stroke-width:2.11762786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           style="font-size:38.47460938px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;stroke:#ffffd5;stroke-width:2.11762786;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Sans"
-           y="736.83472"
-           x="278.08856"
-           id="tspan1874"
-           sodipodi:role="line">App</tspan></text>
-      <text
          sodipodi:linespacing="125%"
          id="text1878"
          y="736.83472"
          x="172.57362"
-         style="font-size:76.94921875px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#0000d1;fill-opacity:1;stroke:#ffffd5;stroke-width:2.11762786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:URW Bookman L"
+         style="font-size:76.9492173px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;fill:#0000d1;fill-opacity:1;stroke:#ffffd5;stroke-width:2.11762786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:URW Bookman L"
          xml:space="preserve"><tspan
-           style="font-size:76.94921875px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;stroke:#ffffd5;stroke-width:2.11762786;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:URW Bookman L"
-           y="736.83472"
+           sodipodi:role="line"
+           id="tspan2165"
            x="172.57362"
-           id="tspan1880"
-           sodipodi:role="line">My</tspan></text>
+           y="736.83472">JUG Events</tspan></text>
     </g>
-    <text
-       xml:space="preserve"
-       style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:red;fill-opacity:1;stroke:none;stroke-width:1.27415085;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;font-family:Bitstream Vera Serif"
-       x="282.39807"
-       y="575.0791"
-       id="text2772"
-       sodipodi:linespacing="100%"
-       inkscape:export-filename="applicationLogo.png"
-       inkscape:export-xdpi="88.235291"
-       inkscape:export-ydpi="88.235291"><tspan
-         sodipodi:role="line"
-         id="tspan1894"
-         x="282.39807"
-         y="575.0791">with Parancoe</tspan></text>
   </g>
 </svg>

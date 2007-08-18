@@ -11,11 +11,14 @@
             <jsp:include page="../header.jsp"/>
             <div id="content">
                 <div id="content_main">
-                    
-                    <h1><spring:message code="Events"/></h1>
-                    
-                    <h2><spring:message code="NewEditEvent"/></h2>
-                    
+                    <c:choose>
+                        <c:when test="${empty event.id}">
+                            <h1><spring:message code="NewEvent"/></h1>
+                        </c:when>
+                        <c:otherwise>
+                            <h1><spring:message code="EditEvent"/></h1>                            
+                        </c:otherwise>
+                    </c:choose>
                     <form:form commandName="event" method="POST" action="${cp}/event/edit.form">
                         <form:errors path="*" cssClass="errorBox"/>
                         <form:hidden path="id"/>
