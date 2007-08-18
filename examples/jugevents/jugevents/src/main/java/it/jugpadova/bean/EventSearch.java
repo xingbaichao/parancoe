@@ -10,6 +10,7 @@ public class EventSearch {
     private String continent;
     private String country;
     private String jugName;
+    private boolean pastEvents;
     
     public EventSearch() {
     }
@@ -37,5 +38,13 @@ public class EventSearch {
     public void setJugName(String jugName) {
         this.jugName = jugName;
     }
+
+    public boolean isPastEvents() {
+        return pastEvents;
+    }
+
+    public void setPastEvents(boolean pastEvents) {
+        this.pastEvents = pastEvents;
+    }    
     
 }
