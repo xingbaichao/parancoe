@@ -183,7 +183,7 @@ public class EventBo {
     }
 
     @Transactional
-    public void register(Event event, Participant participant) {
+    public void register(Event event, Participant participant, String baseUrl) {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
@@ -193,18 +193,18 @@ public class EventBo {
         getDaos().getParticipantDao().createOrUpdate(participant);
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
-        sendConfirmationEmail(event, participant);
+        sendConfirmationEmail(event, participant, baseUrl);
     }
 
     @Transactional
     public void refreshRegistration(Event event,
-            Participant participant) {
+            Participant participant, String baseUrl) {
         participant.setConfirmed(Boolean.FALSE);
         participant.setConfirmationCode(generateConfirmationCode(event,
                 participant));
         participant.setEvent(event);
         getDaos().getParticipantDao().createOrUpdate(participant);
-        sendConfirmationEmail(event, participant);
+        sendConfirmationEmail(event, participant, baseUrl);
     }
 
     private String generateConfirmationCode(Event event,
@@ -215,7 +215,7 @@ public class EventBo {
     }
 
     private void sendConfirmationEmail(final Event event,
-            final Participant participant) {
+            final Participant participant, final String baseUrl) {
         MimeMessagePreparator preparator =
                 new MimeMessagePreparator() {
 
@@ -229,6 +229,7 @@ public class EventBo {
                 Map model = new HashMap();
                 model.put("participant", participant);
                 model.put("event", event);
+                model.put("baseUrl", baseUrl);
                 model.put("confirmationCode",
                         URLEncoder.encode(participant.getConfirmationCode(),
                         "UTF-8"));

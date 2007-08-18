@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
-import it.jugpadova.blo.FilterBo;
 import it.jugpadova.po.Event;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
