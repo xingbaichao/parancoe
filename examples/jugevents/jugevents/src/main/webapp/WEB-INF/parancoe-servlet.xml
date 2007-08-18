@@ -135,7 +135,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /jugger/list.html=ROLE_ADMIN
+				/jugger/list.html=ROLE_ADMIN
                 /people/**=ROLE_ADMIN, ROLE_PARANCOE
                 /event/edit*=ROLE_ADMIN, ROLE_JUGGER
                 /event/delete*=ROLE_ADMIN, ROLE_JUGGER
@@ -243,11 +243,11 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-        <property name="host" value="xxx"/>
+         <property name="host"><value>${mail.host}</value></property>
         <!-- Parameters for SMTP AUTH -->
    
-        <property name="username" value="xxx"/>
-        <property name="password" value="xxx"/>
+        <property name="username"><value>${mail.username}</value></property>
+       <property name="password"><value>${mail.password}</value></property>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">true</prop>
@@ -265,4 +265,15 @@
         </property>
     </bean>    
     <!-- end mail section -->
+    
+    
+    
+    	<!-- definisce alcune properties basate su un file di properties esterno -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>WEB-INF/parancoe-servlet.properties</value>      
+      </list>
+    </property>
+	</bean>   
 </beans>
