@@ -270,7 +270,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>src/main/webapp/WEB-INF/parancoe-servlet.properties</value>
+                <value>classpath:parancoe-servlet.properties</value>
             </list>
         </property>
     </bean>
