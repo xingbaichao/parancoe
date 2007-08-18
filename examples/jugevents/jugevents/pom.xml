@@ -37,6 +37,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <!--version>2.0</version-->
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <webResources>
                         <resource>
                             <filtering>true</filtering>
@@ -59,6 +60,13 @@
                     <forkMode>once</forkMode> <!-- pertest once or never -->
                     <!-- <reportFormat>plain</reportFormat> -->
                     <argLine>-Xmx512M</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
