@@ -1,11 +1,11 @@
 // Copyright 2006-2007 The Parancoe Team
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,8 +15,8 @@ package org.parancoe.persistence.dao;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.parancoe.persistence.dao.generic.Dao;
+import org.parancoe.persistence.dao.generic.GenericDao;
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.ListableBeanFactory;
 
@@ -27,11 +27,11 @@ import org.springframework.beans.factory.ListableBeanFactory;
  * @version $Revision$
  */
 public class DaoUtils {
-    
+
     /** Creates a new instance of DaoUtils */
     private DaoUtils() {
     }
-    
+
     /**
      * Return a map  of DAOs from a bean container.
      *
@@ -39,9 +39,10 @@ public class DaoUtils {
      * @return A map of daos. The key is the id of the bean in the container.
      */
     public static Map<String, Object> getDaos(ListableBeanFactory beanFactory) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result =
+                new HashMap<String, Object>();
         String[] beanNames = beanFactory.getBeanDefinitionNames();
-        for (int i=0; i < beanNames.length; i++) {
+        for (int i = 0; i < beanNames.length; i++) {
             try {
                 Object bean = beanFactory.getBean(beanNames[i]);
                 if (DaoUtils.isDao(bean)) {
@@ -59,12 +60,13 @@ public class DaoUtils {
      *
      * @return true if the object is recognized as a DAO.
      */
+    @SuppressWarnings(value = "unchecked")
     public static boolean isDao(Object o) {
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
             if (objInterfaces[i].getAnnotation(Dao.class) != null) {
                 return true;
-            }            
+            }
         }
         return false;
     }
@@ -72,13 +74,30 @@ public class DaoUtils {
     public static boolean isDaoFor(Object o, Class daoEntityType) {
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
-            Dao daoAnnotation = (Dao) objInterfaces[i].getAnnotation(Dao.class);
+            @SuppressWarnings(value = "unchecked")
+            Dao daoAnnotation =
+                    (Dao) objInterfaces[i].getAnnotation(Dao.class);
             if (daoAnnotation != null) {
-                if (daoAnnotation.entity().getName().equals(daoEntityType.getName())) {
+                if (daoAnnotation.entity().getName().
+                        equals(daoEntityType.getName())) {
                     return true;
                 }
-            }            
+            }
         }
         return false;
+    }
+
+    public static GenericDao getDaoFor(Class daoEntityType,
+            ListableBeanFactory beanFactory) {
+        GenericDao result = null;
+        Map<String, Object> daos =
+                DaoUtils.getDaos(beanFactory);
+        for (Object dao : daos.values()) {
+            if (DaoUtils.isDaoFor(dao, daoEntityType)) {
+                result = (GenericDao) dao;
+                break;
+            }
+        }
+        return result;
     }
 }

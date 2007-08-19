@@ -20,6 +20,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.util.FixtureHelper;
 import org.springframework.context.ApplicationContext;
@@ -92,12 +93,12 @@ public abstract class DBTest extends EnhancedTestCase {
 
         // erase everything
         for (Class model : getReverseOrderFixtureClasses()) {
-            GenericDao dao = (GenericDao) this.ctx.getBean(FixtureHelper.getFixtureDaoId(model));
+            GenericDao dao = DaoUtils.getDaoFor(model, this.ctx);
             FixtureHelper.eraseDbForModel(model, dao);
         }
         // repopulate
         for (Class model : getFixtureClasses()) {
-            GenericDao dao = (GenericDao) this.ctx.getBean(FixtureHelper.getFixtureDaoId(model));
+            GenericDao dao = DaoUtils.getDaoFor(model, this.ctx);
             FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
         }
     }
