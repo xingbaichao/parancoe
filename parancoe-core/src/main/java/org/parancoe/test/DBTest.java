@@ -52,7 +52,7 @@ public abstract class DBTest extends EnhancedTestCase {
     }
 
     /**
-     * Restituisce un array <strong>ordinato al contrario</strng> di model che
+     * Restituisce un array <strong>ordinato al contrario</strong> di model che
      * devono essere caricati
      *
      * @return array di classi
