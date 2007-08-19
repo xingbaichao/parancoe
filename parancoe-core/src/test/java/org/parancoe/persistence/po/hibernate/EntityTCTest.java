@@ -20,7 +20,8 @@ import org.parancoe.persistence.util.BaseTest;
 /**
  * Tests on generic DAO using EntityTC.
  * 
- * @author lucio
+ * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
+ * @version $Revision$
  */
 public class EntityTCTest extends BaseTest {
 
