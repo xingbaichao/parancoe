@@ -16,13 +16,8 @@ package org.parancoe.persistence.po.hibernate;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
-
-import junit.framework.TestCase;
-
 import org.parancoe.persistence.dao.generic.VersionedEntityTCBO;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
+import org.parancoe.persistence.util.BaseTest;
 
 /**
  * A test case for a versioned entity.
@@ -30,15 +25,12 @@ import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
  * @author href="lucio.benfante@jugpadova.it">Lucio Benfante</a>
  * @version $Revision$
  */
-public class VersionedEntityTest extends TestCase {
+public class VersionedEntityTest extends BaseTest {
 
     private VersionedEntityTCBO entityTCBO;
 
-    public VersionedEntityTest(String testName) {
-        super(testName);
-        BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance("beanRefFactory_test.xml");
-        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.persistence");
-        this.entityTCBO = (VersionedEntityTCBO) bf.getFactory().getBean("versionedEntityTCBO");
+    public VersionedEntityTest() {
+        this.entityTCBO = (VersionedEntityTCBO) this.ctx.getBean("versionedEntityTCBO");       
     }
 
     public void testStoreRetrieve() {
