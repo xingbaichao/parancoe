@@ -10,34 +10,22 @@
             <div id="content"> 
                 <div id="content_main">
                     
-                    <h1>Events</h1>
-                    
-                    <h2>Registration</h2>
+                    <h1><spring:message code="RegisterToTheEvent"/></h1>
                     
                     <form:form commandName="registration" method="POST" action="${cp}/event/registration.form">
                         <form:hidden path="event.id"/>
-                        <table>
-                            <tr>
-                                <td>First Name:</td>
-                                <td><form:input path="participant.firstName"/></td>
-                            </tr>
-                            <tr>
-                                <td>Last Name:</td>
-                                <td><form:input path="participant.lastName"/></td>
-                            </tr>
-                            <tr>
-                                <td>E-Mail:</td>
-                                <td><form:input path="participant.email"/></td>
-                            </tr>
-                            <tr>
-                                <td><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></td>
-                                <td><form:input path="captchaResponse"/></td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td><input type="submit" value="Submit"/><br/><br/></td>
-                            </tr>       
-                        </table>
+                        <dl>
+                            <dt><form:label path="participant.firstName"><spring:message code="first_name"/>:</form:label></dt>
+                            <dd><form:input path="participant.firstName"/></dd>
+                            <dt><form:label path="participant.lastName"><spring:message code="last_name"/>:</form:label></dt>
+                            <dd><form:input path="participant.lastName"/></dd>
+                            <dt><form:label path="participant.email"><spring:message code="Email"/>:</form:label></dt>
+                            <dd><form:input path="participant.email"/></dd>
+                            <dt><spring:message code="InsertCharactersInTheImage"/></dt>
+                            <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
+                            <dt>&nbsp;</dt>
+                            <dd><input type="submit" value="<spring:message code='RegisterYou'/>"/><br/><br/></dd>
+                        </dl>
                         <form:errors path="*" cssClass="errorBox"/>
                     </form:form>
                     <%@ include file="show.jspf"%>
