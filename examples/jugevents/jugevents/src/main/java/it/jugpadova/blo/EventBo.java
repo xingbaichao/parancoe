@@ -47,6 +47,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class EventBo {
@@ -139,6 +140,7 @@ public class EventBo {
             if (!eventSearch.isPastEvents()) {
                 eventCriteria.add(Restrictions.ge("startDate", new Date()));
             }
+            eventCriteria.addOrder(Order.asc("startDate"));
             events = daos.getEventDao().searchByCriteria(eventCriteria);
             for (Event event : events) {
                 event.getParticipants().size();

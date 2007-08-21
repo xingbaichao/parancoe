@@ -11,6 +11,7 @@
                 <div id="content_main">
                     
                     <h1>Event</h1>
+                    <a href="${cp}/event/registration.form?event.id=${param.id}"><spring:message code="RegisterToTheEvent"/></a>
                     <%@ include file="show.jspf" %>
                 </div>
                 <jsp:include page="../menu.jsp"/>
