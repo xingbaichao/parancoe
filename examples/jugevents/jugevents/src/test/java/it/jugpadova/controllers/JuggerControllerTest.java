@@ -38,7 +38,7 @@ public class JuggerControllerTest extends ControllerTest {
 	 * Test method for {@link it.jugpadova.controllers.JuggerController#list(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)}.
 	 */
 	public void testEdit() throws Exception  {
-			//JuggerEditController jed = (JuggerEditController) ctx.getBean("juggerEditController");
+			//JuggerRegistrationController jed = (JuggerRegistrationController) ctx.getBean("juggerEditController");
 		 	//req = new MockHttpServletRequest("POST", "/jugger/edit.form");
 	        //ModelAndView mv = jed.handleRequest(req, res);	
 	    //    assertNotNull(req.getAttribute("countries")); 

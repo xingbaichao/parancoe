@@ -9,42 +9,41 @@
             <jsp:include page="../header.jsp"/>
              <div id="content">              
                <div id="content_main">
-            <h1>Jugger</h1>
+           
             
-            <h2>Edit/Insert Jugger</h2>
+            <h2><spring:message code="juggerRegistrationTitle"/></h2>
             
-            <form:form commandName="jugger" method="POST" action="${cp}/jugger/edit.form">
-                <form:hidden path="id"/>
+            <form:form commandName="jugger" method="POST" action="${cp}/jugger/registration.form">
+                
+                <form:hidden path="jugger.id"/>
                 
                 
                 <table>
                     <tr>
-                        <td>firstName (*)</td>
-                        <td><form:input path="firstName"/></td>
-                        <td><form:errors path="firstName" cssClass="errorBox"/></td>
+                        <td><spring:message code="juggerRegistrationFirstName"/> (*)</td>
+                        <td><form:input path="jugger.firstName"/></td>
+                       
                     </tr>
                     <tr>
-                        <td>lastName (*)</td>
-                        <td><form:input path="lastName"/></td>
-                        <td><form:errors path="lastName" cssClass="errorBox"/></td>
+                        <td><spring:message code="juggerRegistrationLastName"/> (*)</td>
+                        <td><form:input path="jugger.lastName"/></td>
+                        
                     </tr>
                     <tr>
                         <td>email (*)</td>
-                        <td><form:input path="email"/></td>
-                        <td><form:errors path="email" cssClass="errorBox"/></td>
+                        <td><form:input path="jugger.email"/></td>
+                       
                     </tr>
                     
                     <tr>
-                        <td>username (*)</td>
-                        <td><form:input path="user.username"/></td>    
-						<td><form:errors path="user.username" cssClass="errorBox"/></td> 
-						 
+                       <td>username (*)</td>
+                        <td><form:input path="jugger.user.username"/></td>    						 
                     </tr>
                     
                     <tr>
-                        <td>country (*)</td>                        
+                        <td><spring:message code="juggerRegistrationCountry"/> (*)</td>                        
                         <td>
-                        <select name="country.isoCode">
+                        <select name="jugger.country.isoCode">
                          <c:forEach var="c" items="${countries}" >
                          <option value="${c.isoCode}">${c.englishName}</option>
                          </c:forEach>
@@ -54,22 +53,25 @@
                         
                     </tr>
                       <tr>
-                        <td>jugName</td>
-                        <td><form:input path="jugName"/></td>
-                        <td><form:errors path="jugName" cssClass="errorBox"/></td>
+                        <td><spring:message code="juggerRegistrationJUGName"/> (*)</td>
+                        <td><form:input path="jugger.jugName"/></td>
+                        
                     </tr>
-                    
+                     <tr>
+                                <td><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></td>
+                                <td><form:input path="captchaResponse"/></td>
+                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td><input type="submit" value="Submit"/><br/><br/>
                         </td>
                     </tr>       
                     <tr>
-                        <td>(*): required</td>                        
+                        <td><spring:message code="juggerRegistrationRequired"/> (*)</td>                        
                     </tr>       
                     
                 </table>
-                <!-- <form:errors path="*" cssClass="errorBox"/> -->
+                <form:errors path="*" cssClass="errorBox"/>
             </form:form>
         </div>
         <jsp:include page="../menu.jsp"/>
