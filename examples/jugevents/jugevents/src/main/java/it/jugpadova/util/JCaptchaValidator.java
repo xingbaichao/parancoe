@@ -39,7 +39,7 @@ public class JCaptchaValidator implements Validator {
                 }
             }
         } catch (CaptchaServiceException e) {
-            // logger.error("Error validating captcha field", e);
+             logger.debug("Error validating captcha field", e);
         }
     }
 }

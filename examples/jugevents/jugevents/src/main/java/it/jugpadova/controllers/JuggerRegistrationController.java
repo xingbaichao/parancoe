@@ -13,7 +13,12 @@
 // limitations under the License.
 package it.jugpadova.controllers;
 
-import com.octo.captcha.service.CaptchaService;
+import it.jugpadova.Blos;
+import it.jugpadova.Daos;
+import it.jugpadova.bean.JuggerCaptcha;
+import it.jugpadova.exception.UserAlreadyPresentsException;
+import it.jugpadova.po.Jugger;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,15 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import it.jugpadova.Blos;
-import it.jugpadova.Daos;
-import it.jugpadova.bean.Registration;
-import it.jugpadova.exception.UserAlreadyPresentsException;
-import it.jugpadova.po.Event;
-import it.jugpadova.po.Jugger;
-import it.jugpadova.po.Participant;
-
-
 import org.parancoe.plugins.security.SecureUtility;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.world.Country;
@@ -40,15 +36,19 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.octo.captcha.service.CaptchaService;
+
 /**
  * 
  * @author Enrico Giurin
  *
  */
-public abstract class JuggerEditController extends BaseFormController {
+public abstract class JuggerRegistrationController extends BaseFormController {
     
-    private final static Logger logger = Logger.getLogger(JuggerEditController.class);
+    private final static Logger logger = Logger.getLogger(JuggerRegistrationController.class);
+    //captcha
     private CaptchaService captchaService;
+
     
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
@@ -56,7 +56,7 @@ public abstract class JuggerEditController extends BaseFormController {
     
     @Override
 	protected void onBind(HttpServletRequest request, Object command) throws Exception {
-		
+		/*
 		super.onBind(request, command);
 		try {
 			
@@ -69,50 +69,57 @@ public abstract class JuggerEditController extends BaseFormController {
 	         logger.error(e, e);
 	         throw e;
 		}
+		*/
 	}
     
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
+   
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
-        Jugger jugger = (Jugger) command;
+        
+    	JuggerCaptcha jc = (JuggerCaptcha) command;
         try {
-        	  blo().getJuggerBO().save(jugger); 
+        	  blo().getJuggerBO().save(jc.getJugger()); 
 		} catch (UserAlreadyPresentsException e) {
 			
-			 errors.rejectValue("user.username", "useralreadypresents", e.getMessage());
+			 errors.rejectValue("jugger.user.username", "useralreadypresents", e.getMessage());
 			 logger.error(e);
 	         return showForm(req, res, errors);
 			
 		}
       
         ModelAndView mv = onSubmit(command, errors);
-        mv.addObject("juggerId",jugger.getId());
+        mv.addObject("juggerId",jc.getJugger().getId());
         return mv;
         
+        
     }
+    
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         //set list of countries into request
     	List<Country> list =  dao().getCountryDao().findAllOrderedByEnglishNameAsc();
         req.setAttribute("countries", list);
-        Jugger jugger = new Jugger();
-        jugger.setCountry(new Country());
-        jugger.setUser(new User());
-    	return jugger;
+        JuggerCaptcha jc = new JuggerCaptcha();
+        jc.getJugger().setCountry(new Country());
+        jc.getJugger().setUser(new User());       
+        jc.setCaptchaId(req.getSession().getId());
+        jc.setCaptchaService(captchaService);
+    	return jc;
     }
 
-    public CaptchaService getCaptchaService() {
-        return captchaService;
-    }
-
-    public void setCaptchaService(CaptchaService captchaService) {
-        this.captchaService = captchaService;
-    }
-    
     public Logger getLogger() {
         return logger;
     }
     protected abstract Daos dao();
     protected abstract Blos blo();
+
+	public CaptchaService getCaptchaService() {
+		return captchaService;
+	}
+
+	public void setCaptchaService(CaptchaService captchaService) {
+		this.captchaService = captchaService;
+	}
 
 	
 }
