@@ -6,7 +6,7 @@
    Please confirm you registration clicking on the following link:
 </div>
 <div>
-    <a href="http://localhost:8080/jugevents/jugger/registration.html?email=${email}&code=${confirmationCode}">http://localhost:8080/jugger/registration.html?email=${email}&code=${confirmationCode}</a>
+    <a href="${baseUrl}/jugger/sendToFormPWD.html?email=${email}&code=${confirmationCode}">${baseUrl}/jugger/sendToFormPWD.html?email=${email}&code=${confirmationCode}</a>
 </div>
 </body>
 
