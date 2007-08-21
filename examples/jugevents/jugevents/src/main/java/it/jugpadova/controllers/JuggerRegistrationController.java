@@ -75,10 +75,12 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
    
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
-        
+    	String baseUrl =
+            "http://" + req.getServerName() + ":" + req.getServerPort() +
+            req.getContextPath();
     	JuggerCaptcha jc = (JuggerCaptcha) command;
         try {
-        	  blo().getJuggerBO().save(jc.getJugger()); 
+        	  blo().getJuggerBO().save(jc.getJugger(), baseUrl); 
 		} catch (UserAlreadyPresentsException e) {
 			
 			 errors.rejectValue("jugger.user.username", "useralreadypresents", e.getMessage());

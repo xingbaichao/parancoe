@@ -59,23 +59,11 @@ public abstract class HomeController extends BaseMultiActionController {
     
     
     
-    /**
-     * Message after jugger registration. Called with redirect, passing
-     * juggerId parameter. Copied by similar done by Lucio.
-     */
-    public ModelAndView confirmJuggerRegistration(HttpServletRequest req,
-            HttpServletResponse res) {
-    	
-        Long juggerId =
-                new Long(req.getParameter("juggerId"));
-        Jugger jugger = dao().getJuggerDao().read(juggerId);       
-        ModelAndView mv =
-                new ModelAndView("jugger/registration/sentMail");
-        mv.addObject("jugger", jugger);
-        return mv;
-        
-    	
-    }
+    
+    
+    
+   
+    
 
     /**
      * Login action

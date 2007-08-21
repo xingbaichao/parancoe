@@ -111,7 +111,7 @@
         <property name="commandClass" value="it.jugpadova.bean.JuggerCaptcha"/>
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/registration"/>
-        <property name="successView" value="redirect:/home/confirmJuggerRegistration.html"/>
+        <property name="successView" value="redirect:/jugger/sendMail.html"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>
 
