@@ -31,10 +31,15 @@ public abstract class JuggerController extends BaseMultiActionController {
 	@Override
 	public Logger getLogger() {
 		// TODO Auto-generated method stub
-		return null;
+		return logger;
 	}
 	
-	
+	/**
+	 * List all juggers.
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res){
         ModelAndView mv = new ModelAndView("jugger/list");
         mv.addObject("juggers", blo().getJuggerBO().retrieveJuggers());
@@ -42,11 +47,30 @@ public abstract class JuggerController extends BaseMultiActionController {
     }
 	
 	
+		/**
+	    * Message after jugger registration. Called with redirect, passing
+	    * juggerId parameter. Copied by similar done by Lucio.
+	    */
+	   public ModelAndView sendMail(HttpServletRequest req,
+	           HttpServletResponse res) {
+	   	
+	       Long juggerId =
+	               new Long(req.getParameter("juggerId"));
+	       Jugger jugger = dao().getJuggerDao().read(juggerId);       
+	       ModelAndView mv =
+	               new ModelAndView("jugger/registration/sentMail");
+	       mv.addObject("jugger", jugger);
+	       return mv;    	
+	   }
+	
 	
 	/**
-    *
-    */
-   public ModelAndView registration(HttpServletRequest req,
+	 * Sends to form for setting password
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+   public ModelAndView sendToFormPWD(HttpServletRequest req,
            HttpServletResponse res) {
 	   
        ModelAndView result = null;
@@ -59,10 +83,12 @@ public abstract class JuggerController extends BaseMultiActionController {
    }
    
    
-   
-   /**
-   *
-   */
+ /**
+  * Rerieves password and enable jugger.
+  * @param req
+  * @param res
+  * @return
+  */
   public ModelAndView enableJugger(HttpServletRequest req,
           HttpServletResponse res) {
 	   
@@ -74,13 +100,32 @@ public abstract class JuggerController extends BaseMultiActionController {
     	  blo().getJuggerBO().enableJugger(confirmationCode, password);
 	} catch (Exception e) {
 		logger.error(e,e);
-		return new ModelAndView("jugger/registration/failed");
+		return new ModelAndView("redirect:/jugger/failed.html");
 	}
       
-     return new ModelAndView("jugger/registration/ok");
-       
+     return new ModelAndView("redirect:/jugger/OK.html");      
      
   }
+  
+  
+  public ModelAndView OK(HttpServletRequest req,
+          HttpServletResponse res) {
+	  return new ModelAndView("jugger/registration/ok");
+  }
+  
+  public ModelAndView failed(HttpServletRequest req,
+          HttpServletResponse res) {
+	  return new ModelAndView("jugger/registration/failed");
+  }
+   
+   
+   
+   
+   
+   
+   
+   
+  
 
 	
 	 	protected abstract Daos dao();

@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../../head.jspf" %>
+       
     </head>
     <body>
         <div id="nonFooter">    
@@ -13,7 +14,7 @@
             
             <h4>Insert Password to enable <bold>${jugger.user.username}</bold> to jugevents</h4>
             
-            <form:form commandName="jugger" method="POST" action="${cp}/jugger/enableJugger.html">
+            <form  name="pwdform" method="post" action="${cp}/jugger/enableJugger.html">
                  <table>                     
                     <tr>
                         <td>Password</td>
@@ -30,7 +31,7 @@
                     </tr>       
                    </table>
                  <input type="hidden" name="confirmationCode" value="${jugger.confirmationCode}"/>
-            </form:form>
+            </form>
         </div>
         <jsp:include page="../../menu.jsp"/>
             </div>

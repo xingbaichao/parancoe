@@ -95,7 +95,7 @@ public class JuggerBlo {
     }
     
     @Transactional
-    public void save(Jugger jugger) throws Exception {
+    public void save(Jugger jugger, String baseUrl) throws Exception {
     	
     	//retrieves all dao
     	
@@ -130,7 +130,7 @@ public class JuggerBlo {
       
       jugger.setConfirmationCode(generateConfirmationCode(jugger));
       juggerDao.createOrUpdate(jugger);
-      sendConfirmationEmail(jugger);
+      sendConfirmationEmail(jugger, baseUrl);
       logger.info("Jugger ("+username+") created with success");    	
     }
     
@@ -159,7 +159,7 @@ public class JuggerBlo {
     
     
     //send mail to new jugger for application
-    private void sendConfirmationEmail(final Jugger jugger) {
+    private void sendConfirmationEmail(final Jugger jugger, final String baseUrl) {
         MimeMessagePreparator preparator =
                 new MimeMessagePreparator() {
 
@@ -172,7 +172,7 @@ public class JuggerBlo {
                 message.setSubject("Please confirm jugger registration");
                 Map model = new HashMap();
                 model.put("jugger", jugger);
-               
+                model.put("baseUrl", baseUrl);
                 model.put("confirmationCode",
                         URLEncoder.encode(jugger.getConfirmationCode(),
                         "UTF-8"));
