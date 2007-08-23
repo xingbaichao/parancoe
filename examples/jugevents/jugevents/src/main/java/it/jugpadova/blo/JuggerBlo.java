@@ -32,6 +32,7 @@ import org.apache.velocity.app.VelocityEngine;
 
 import org.parancoe.plugins.security.Authority;
 import org.parancoe.plugins.security.AuthorityDao;
+import org.parancoe.plugins.security.SecureUtility;
 import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.plugins.security.UserAuthorityDao;
 import org.parancoe.plugins.security.UserDao;
@@ -97,8 +98,7 @@ public class JuggerBlo {
     @Transactional
     public void save(Jugger jugger, String baseUrl) throws Exception {
     	
-    	//retrieves all dao
-    	
+    	//retrieves all dao    	
     	CountryDao  countryDao = daos.getCountryDao();
     	UserDao userDao = daos.getUserDao();
     	AuthorityDao authorityDao = daos.getAuthorityDao();
@@ -117,7 +117,7 @@ public class JuggerBlo {
       Country country = countryDao.findByIsoCode(jugger.getCountry().getIsoCode()).get(0);
      //set authority to jugger
       Authority authority = authorityDao.findByRole("ROLE_JUGGER").get(0);
-      userDao.create(jugger.getUser());
+      userDao.create(SecureUtility.newUserToValidate(username));
       UserAuthority ua = new UserAuthority();
       ua.setAuthority(authority);
       ua.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));

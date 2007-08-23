@@ -77,6 +77,7 @@ public abstract class JuggerController extends BaseMultiActionController {
        String confirmationCode = req.getParameter("code");
        logger.info("confirmationCode: "+confirmationCode);
        Jugger jugger = dao().getJuggerDao().findByConfirmationCode(confirmationCode).get(0);
+       //if(jugger ==)
        result =new ModelAndView("jugger/registration/setpwd");
        result.addObject("jugger", jugger);       
        return result;
@@ -116,6 +117,11 @@ public abstract class JuggerController extends BaseMultiActionController {
   public ModelAndView failed(HttpServletRequest req,
           HttpServletResponse res) {
 	  return new ModelAndView("jugger/registration/failed");
+  }
+  
+  public ModelAndView already(HttpServletRequest req,
+          HttpServletResponse res) {
+	  return new ModelAndView("jugger/registration/alreadyRegistered");
   }
    
    

@@ -12,17 +12,17 @@
                <div id="content_main">
            
             
-            <h4>Insert Password to enable <bold>${jugger.user.username}</bold> to jugevents</h4>
+            <h4>Insert Password to enable ${jugger.user.username} to jugevents</h4>
             
-            <form  name="pwdform" method="post" action="${cp}/jugger/enableJugger.html">
+            <form:form  commandName="enablejugger"  method="post" action="${cp}/jugger/enable.form">
                  <table>                     
                     <tr>
                         <td>Password</td>
-                        <td><input type="password" name="password"/></td>                    
+                        <td><form:password   path="password"/></td>                    
                     </tr>
                     <tr>
                         <td>Confirm Password</td>
-                        <td><input type="password" name="confpassword"/></td>                    
+                        <td><form:password  path="confirmPassword"/></td>                    
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -30,8 +30,9 @@
                         </td>
                     </tr>       
                    </table>
-                 <input type="hidden" name="confirmationCode" value="${jugger.confirmationCode}"/>
-            </form>
+                   <form:errors path="*" cssClass="errorBox"/>
+                 <input type="hidden" name="code" value="${jugger.confirmationCode}"/>
+            </form:form>
         </div>
         <jsp:include page="../../menu.jsp"/>
             </div>
