@@ -13,10 +13,10 @@
 // limitations under the License.
 package org.parancoe.test;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -41,10 +41,12 @@ public abstract class DBTest extends EnhancedTestCase {
             Set<Class> fixtureClasses = getFixtureClassSet();
             if (fixtureClasses != null && fixtureClasses.size() > 0) {
                 try {
-                    fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) this.ctx.getResource("classpath:/fixtures/"), fixtureClasses);
+                    fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) this.ctx
+                            .getResource("classpath:/fixtures/"), fixtureClasses);
                     logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
                 } catch (Exception e) {
-                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi " + fixtureClasses.toString(), e);
+                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi "
+                            + fixtureClasses.toString(), e);
                 }
             } else {
                 logger.info("No fixtures to load");
@@ -55,7 +57,7 @@ public abstract class DBTest extends EnhancedTestCase {
     /**
      * Restituisce un array <strong>ordinato al contrario</strong> di model che
      * devono essere caricati
-     *
+     * 
      * @return array di classi
      */
     public final Class[] getReverseOrderFixtureClasses() {
@@ -67,14 +69,14 @@ public abstract class DBTest extends EnhancedTestCase {
     /**
      * Restituisce un array <strong>ordinato</strng> di model che devono essere
      * caricati
-     *
+     * 
      * NB: Deve sepre ritornare un nuovo oggetto, e non riferimenti a istanze
      * statiche o simili
-     *
+     * 
      * @return array di classi
      */
     public Class[] getFixtureClasses() {
-        return new Class[]{};
+        return new Class[] {};
     }
 
     public final Set<Class> getFixtureClassSet() {
@@ -105,7 +107,7 @@ public abstract class DBTest extends EnhancedTestCase {
 
     /**
      * Return the application context.
-     *
+     * 
      * @return The application context
      */
     protected abstract ApplicationContext getTestContext();
