@@ -20,7 +20,6 @@ import java.util.Set;
 
 import org.parancoe.test.EnhancedTestCase;
 import org.parancoe.util.FixtureHelper;
-import org.parancoe.util.Utils;
 import org.springframework.util.CollectionUtils;
 
 /**

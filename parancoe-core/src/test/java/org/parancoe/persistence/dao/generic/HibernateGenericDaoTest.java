@@ -18,13 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import org.parancoe.persistence.dao.DaoUtils;
 
+import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
 import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
 
 /**
