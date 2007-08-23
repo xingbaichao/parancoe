@@ -103,6 +103,18 @@
         <property name="formView" value="event/edit"/>
         <property name="successView" value="redirect:search.form"/>
     </bean>
+    
+    
+     <!-- Form to enable jugger -->
+	<bean name="/jugger/enable.form" id="juggerEnableController"
+		class="it.jugpadova.controllers.JuggerEnableController"
+		parent="abstractController">
+		<property name="commandClass"
+			value="it.jugpadova.bean.EnableJugger" />
+		<property name="commandName" value="enablejugger" />
+		<property name="formView" value="jugger/registration/setpwd" />
+		<property name="successView" value="redirect:/jugger/OK.html" />
+	</bean>
 
 
     <bean name="/jugger/registration.form" id="juggerRegistrationController"
@@ -110,7 +122,7 @@
           parent="abstractController">
         <property name="commandClass" value="it.jugpadova.bean.JuggerCaptcha"/>
         <property name="commandName" value="jugger"/>
-        <property name="formView" value="jugger/registration"/>
+        <property name="formView" value="jugger/newJugger"/>
         <property name="successView" value="redirect:/jugger/sendMail.html"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>

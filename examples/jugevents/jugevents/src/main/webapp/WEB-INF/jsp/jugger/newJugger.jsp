@@ -43,11 +43,11 @@
                     <tr>
                         <td><spring:message code="juggerRegistrationCountry"/> (*)</td>                        
                         <td>
-                        <select name="jugger.country.isoCode">
-                         <c:forEach var="c" items="${countries}" >
-                         <option value="${c.isoCode}">${c.englishName}</option>
-                         </c:forEach>
-                        </select>                        
+                         <form:select path="jugger.country.isoCode">
+				            <form:option value="" label="--Please Select"/>
+				            <form:options items="${countries}" itemValue="isoCode" itemLabel="englishName"/>
+        				</form:select>
+                                             
 						</td>
 						
                         

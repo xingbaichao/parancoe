@@ -56,7 +56,8 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     
     @Override
 	protected void onBind(HttpServletRequest request, Object command) throws Exception {
-		/*
+		
+    	/*
 		super.onBind(request, command);
 		try {
 			

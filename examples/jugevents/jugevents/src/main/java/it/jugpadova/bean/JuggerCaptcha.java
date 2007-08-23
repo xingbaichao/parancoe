@@ -28,7 +28,7 @@ public class JuggerCaptcha implements JCaptchaValidable {
     
     //fields for captcha porpouse
     private CaptchaService captchaService;
-    @NotBlank
+    
     private String captchaResponse;
     private String captchaId;
 
