@@ -30,6 +30,7 @@
         <dwr:remote javascript="eventBo">
             <dwr:include method="findPartialLocation"/>
             <dwr:include method="copyDirectionsFromEvent"/>
+            <dwr:include method="updateBadgePanel"/>
         </dwr:remote>
     </bean>
 

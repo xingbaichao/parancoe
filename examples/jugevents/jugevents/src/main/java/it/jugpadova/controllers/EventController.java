@@ -22,6 +22,7 @@ import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.bean.EventSearch;
+import it.jugpadova.blo.EventBo;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
@@ -158,39 +159,28 @@ public abstract class EventController extends BaseMultiActionController {
 
     public ModelAndView badge(HttpServletRequest req,
             HttpServletResponse res) throws Exception {
-        DateFormat dateFormat =
-                DateFormat.getDateInstance(DateFormat.DEFAULT,
-                Locale.ITALY);
-        String baseUrl =
-                "http://" + req.getServerName() + ":" + req.getServerPort() +
-                req.getContextPath();
         try {
-            EventSearch eventSearch = new EventSearch();
+            java.text.DateFormat dateFormat =
+                    java.text.DateFormat.getDateInstance(java.text.DateFormat.DEFAULT,
+                    java.util.Locale.ITALY);
+            java.lang.String baseUrl =
+                    "http://" + req.getServerName() + ":" + req.getServerPort() +
+                    req.getContextPath();
+            it.jugpadova.bean.EventSearch eventSearch =
+                    new it.jugpadova.bean.EventSearch();
             eventSearch.setContinent(req.getParameter("continent"));
             eventSearch.setCountry(req.getParameter("country"));
             eventSearch.setJugName(req.getParameter("jugName"));
-            eventSearch.setPastEvents(Boolean.parseBoolean(req.getParameter("pastEvents")));
+            eventSearch.setPastEvents(java.lang.Boolean.parseBoolean(req.getParameter("pastEvents")));
+            java.util.List<it.jugpadova.po.Event> events =
+                    blo().getEventBo().search(eventSearch);
             boolean showDescription =
-                    Boolean.parseBoolean(req.getParameter("jeb_showDescription"));
-            List<Event> events = blo().getEventBo().search(eventSearch);
-            StringBuffer result = new StringBuffer();
-            result.append("var badge='';\n");
-            for (Event event : events) {
-                result.append("badge += '<div class=\"jeb_date\"><span class=\"jeb_text\">").
-                        append(dateFormat.format(event.getStartDate())).
-                        append("</span></div>';\n");
-                result.append("badge += '<div class=\"jeb_title\"><span class=\"jeb_text\"><a href=\"").
-                        append(baseUrl).append("/event/show.html?id=").
-                        append(event.getId()).append("\">").
-                        append(javascriptize(event.getTitle())).
-                        append("</a></span></div>';\n");
-                if (showDescription) {
-                    result.append("badge += '<div class=\"jeb_description\"><span class=\"jeb_text\">").
-                            append(javascriptize(event.getFilteredDescription())).
-                            append("</span></div>';\n");
-                }
-            }
-            result.append("document.write(badge);");
+                    java.lang.Boolean.parseBoolean(req.getParameter("jeb_showDescription"));
+            String badgeStyle = req.getParameter("jeb_style");
+            EventBo eventBo = blo().getEventBo();
+            String result =
+                    eventBo.getBadgeCode(eventBo.getBadgeHtmlCode(events,
+                    dateFormat, baseUrl, showDescription, badgeStyle));
             // flush it in the res
             res.setHeader("Cache-Control", "no-store");
             res.setHeader("Pragma", "no-cache");
@@ -199,7 +189,7 @@ public abstract class EventController extends BaseMultiActionController {
             ServletOutputStream resOutputStream = res.getOutputStream();
             Writer writer =
                     new OutputStreamWriter(resOutputStream, "UTF-8");
-            writer.write(result.toString());
+            writer.write(result);
             writer.flush();
             writer.close();
         } catch (Exception exception) {
@@ -207,10 +197,6 @@ public abstract class EventController extends BaseMultiActionController {
             throw exception;
         }
         return null;
-    }
-
-    private String javascriptize(String s) {
-        return s.replaceAll("\'", "\'").replaceAll("\n", "");
     }
 
     public Logger getLogger() {
