@@ -22,15 +22,19 @@ import org.springframework.transaction.annotation.Transactional;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.providers.encoding.MessageDigestPasswordEncoder;
 import org.apache.commons.lang.StringUtils;
@@ -138,7 +142,8 @@ public class EventBo {
                 }
             }
             if (!eventSearch.isPastEvents()) {
-                eventCriteria.add(Restrictions.ge("startDate", new Date()));
+                eventCriteria.add(Restrictions.ge("startDate",
+                        new Date()));
             }
             eventCriteria.addOrder(Order.asc("startDate"));
             events = daos.getEventDao().searchByCriteria(eventCriteria);
@@ -185,7 +190,8 @@ public class EventBo {
     }
 
     @Transactional
-    public void register(Event event, Participant participant, String baseUrl) {
+    public void register(Event event, Participant participant,
+            String baseUrl) {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
@@ -312,5 +318,156 @@ public class EventBo {
             return p;
         }
         return null;
-    }        
+    }
+
+    @Transactional(readOnly = true)
+    public void updateBadgePanel(String continent, String country,
+            String jugName, String pastEvents,
+            String jebShowDescription, String badgeStyle, String locale) {
+        WebContext wctx = WebContextFactory.get();
+        HttpServletRequest req = wctx.getHttpServletRequest();
+        ScriptSession session = wctx.getScriptSession();
+        Util util = new Util(session);
+        java.text.DateFormat dateFormat =
+                java.text.DateFormat.getDateInstance(java.text.DateFormat.DEFAULT,
+                new Locale(locale));
+        java.lang.String baseUrl =
+                "http://" + req.getServerName() + ":" + req.getServerPort() +
+                req.getContextPath();
+        it.jugpadova.bean.EventSearch eventSearch =
+                new it.jugpadova.bean.EventSearch();
+        eventSearch.setContinent(continent);
+        eventSearch.setCountry(country);
+        eventSearch.setJugName(jugName);
+        eventSearch.setPastEvents(java.lang.Boolean.parseBoolean(pastEvents));
+        java.util.List<it.jugpadova.po.Event> events = this.search(eventSearch);
+        boolean showDescription =
+                java.lang.Boolean.parseBoolean(jebShowDescription);
+        util.setValue("badgeCode",
+                this.getBadgePageCode(baseUrl, continent, country, jugName,
+                pastEvents, jebShowDescription, badgeStyle));
+        util.setValue("badgePreview",
+                this.getBadgeHtmlCode(events, dateFormat, baseUrl,
+                showDescription, badgeStyle));
+    }
+
+    public String getBadgeCode(String badgeHtmlCode) {
+        java.lang.StringBuffer result = new java.lang.StringBuffer();
+        result.append("var badge=\'\';\n");
+        result.append("badge += '").append(javascriptize(badgeHtmlCode)).
+                append("';\n");
+        result.append("document.write(badge);");
+        return result.toString();
+    }
+
+    public String getBadgePageCode(String baseUrl, String continent,
+            String country, String jugName, String pastEvents,
+            String jebShowDescription, String badgeStyle) {
+        StringBuffer result = new StringBuffer();
+        result.append("<script type=\"text/javascript\" src=\"").append(baseUrl).
+                append("/event/badge.html");
+        try {
+            if (StringUtils.isNotBlank(continent) ||
+                    StringUtils.isNotBlank(country) ||
+                    StringUtils.isNotBlank(jugName) ||
+                    StringUtils.isNotBlank(pastEvents) ||
+                    StringUtils.isNotBlank(jebShowDescription) ||
+                    StringUtils.isNotBlank(badgeStyle)) {
+                result.append('?');
+                boolean first = true;
+                if (StringUtils.isNotBlank(continent)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("continent=").
+                            append(URLEncoder.encode(continent, "UTF-8"));
+                    first = false;
+                }
+                if (StringUtils.isNotBlank(country)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("country=").
+                            append(URLEncoder.encode(country, "UTF-8"));
+                    first = false;
+                }
+                if (StringUtils.isNotBlank(jugName)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("jugName=").
+                            append(URLEncoder.encode(jugName, "UTF-8"));
+                    first = false;
+                }
+                if (StringUtils.isNotBlank(pastEvents)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("pastEvents=").
+                            append(URLEncoder.encode(pastEvents, "UTF-8"));
+                    first = false;
+                }
+                if (StringUtils.isNotBlank(jebShowDescription)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("jeb_showDescription=").
+                            append(URLEncoder.encode(jebShowDescription, "UTF-8"));
+                    first = false;
+                }
+                if (StringUtils.isNotBlank(badgeStyle)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("jeb_style=").
+                            append(URLEncoder.encode(badgeStyle, "UTF-8"));
+                    first = false;
+                }
+            }
+        } catch (UnsupportedEncodingException unsupportedEncodingException) {
+            logger.error("Error encoding URL parameters",
+                    unsupportedEncodingException);
+        }
+        result.append("\"><!--\n");
+        result.append("// --></script>");
+        return result.toString();
+    }
+
+    public String getBadgeHtmlCode(List<Event> events,
+            DateFormat dateFormat, String baseUrl, boolean showDescription, String badgeStyle) {
+        StringBuffer result = new StringBuffer();
+        if ("simple".equals(badgeStyle)) {
+            result.append("<style type=\"text/css\"><!--\n");
+            result.append(".jeb_event_odd {background-color: rgb(90%, 90%, 90%); padding: 4px;}\n");
+            result.append(".jeb_event_even {background-color: white; padding: 4px;}\n");
+            result.append(".jeb_date {font-weight: bold;}\n");
+            result.append(".jeb_title {margin-left: 15px;}\n");
+            result.append(".jeb_description {margin-left: 15px;}\n");
+            result.append("--></style>\n");
+        }
+        boolean isOdd = false;
+        for (it.jugpadova.po.Event event : events) {
+            result.append("<div class=\"jeb_event_").
+                    append(isOdd ? "odd" : "even").append("\">");
+            result.append("<div class=\"jeb_date\"><span class=\"jeb_text\">").
+                    append(dateFormat.format(event.getStartDate())).
+                    append("</span></div>");
+            result.append("<div class=\"jeb_title\"><span class=\"jeb_text\"><a href=\"").
+                    append(baseUrl).append("/event/show.html?id=").
+                    append(event.getId()).append("\">").append(event.getTitle()).
+                    append("</a></span></div>");
+            if (showDescription) {
+                result.append("<div class=\"jeb_description\"><span class=\"jeb_text\">").
+                        append(event.getFilteredDescription()).
+                        append("</span></div>");
+            }
+            result.append("</div>");
+            isOdd = !isOdd;
+        }
+        return result.toString();
+    }
+
+    private String javascriptize(String s) {
+        return s.replaceAll("\'", "\'").replaceAll("\n", "\n");
+    }
 }
