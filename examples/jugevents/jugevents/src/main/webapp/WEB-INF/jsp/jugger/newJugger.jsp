@@ -5,79 +5,51 @@
         <%@ include file="../head.jspf" %>
     </head>
     <body>
-        <div id="nonFooter">    
+        <div id="nonFooter">
             <jsp:include page="../header.jsp"/>
-             <div id="content">              
-               <div id="content_main">
-           
-            
-            <h2><spring:message code="juggerRegistrationTitle"/></h2>
-            
-            <form:form commandName="jugger" method="POST" action="${cp}/jugger/registration.form">
-                
-                <form:hidden path="jugger.id"/>
-                
-                
-                <table>
-                    <tr>
-                        <td><spring:message code="juggerRegistrationFirstName"/> (*)</td>
-                        <td><form:input path="jugger.firstName"/></td>
-                       
-                    </tr>
-                    <tr>
-                        <td><spring:message code="juggerRegistrationLastName"/> (*)</td>
-                        <td><form:input path="jugger.lastName"/></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>email (*)</td>
-                        <td><form:input path="jugger.email"/></td>
-                       
-                    </tr>
-                    
-                    <tr>
-                       <td>username (*)</td>
-                        <td><form:input path="jugger.user.username"/></td>    						 
-                    </tr>
-                    
-                    <tr>
-                        <td><spring:message code="juggerRegistrationCountry"/> (*)</td>                        
-                        <td>
-                         <form:select path="jugger.country.isoCode">
-				            <form:option value="" label="--Please Select"/>
-				            <form:options items="${countries}" itemValue="isoCode" itemLabel="englishName"/>
-        				</form:select>
-                                             
-						</td>
-						
-                        
-                    </tr>
-                      <tr>
-                        <td><spring:message code="juggerRegistrationJUGName"/> (*)</td>
-                        <td><form:input path="jugger.jugName"/></td>
-                        
-                    </tr>
-                     <tr>
-                                <td><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></td>
-                                <td><form:input path="captchaResponse"/></td>
-                     </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><input type="submit" value="Submit"/><br/><br/>
-                        </td>
-                    </tr>       
-                    <tr>
-                        <td><spring:message code="juggerRegistrationRequired"/> (*)</td>                        
-                    </tr>       
-                    
-                </table>
-                <form:errors path="*" cssClass="errorBox"/>
-            </form:form>
-        </div>
-        <jsp:include page="../menu.jsp"/>
+            <div id="content">
+                <div id="content_main">
+
+
+                    <h2><spring:message code="juggerRegistrationTitle"/></h2>
+
+                    <form:form commandName="jugger" method="POST" action="${cp}/jugger/registration.form">
+
+                        <form:hidden path="jugger.id"/>
+
+                        <dl>
+                            <dt><form:label path="jugger.firstName"><spring:message code="juggerRegistrationFirstName"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.firstName"/></dd>
+                            <dt><form:label path="jugger.lastName"><spring:message code="juggerRegistrationLastName"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.lastName"/></dd>
+                            <dt><form:label path="jugger.email"><spring:message code="Email"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.email"/></dd>
+                            <dt><form:label path="jugger.user.username"><spring:message code="username"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.user.username"/></dd>
+                            <dt><form:label path="jugger.country.isoCode"><spring:message code="juggerRegistrationCountry"/> (*)</form:label></dt>
+                            <dd>
+                                <form:select path="jugger.country.isoCode">
+                                    <form:option value="" label="--Please Select"/>
+                                    <form:options items="${countries}" itemValue="isoCode" itemLabel="englishName"/>
+                                </form:select>
+
+                            </dd>
+                            <dt><form:label path="jugger.jugName"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.jugName"/></dd>
+                            <dt><form:label path="captchaResponse"><spring:message code="InsertCharactersInTheImage"/></form:label></dt>
+                            <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
+                            <dt>&nbsp;</dt>
+                            <dd><input type="submit" value="Submit"/><br/><br/></dd>
+                            <dt><spring:message code="juggerRegistrationRequired"/> (*)</dt>
+                            <dd>&nbsp;</dd>
+                        </dl>
+                        <form:errors path="*" cssClass="errorBox"/>
+                    </form:form>
+                </div>
+                <jsp:include page="../menu.jsp"/>
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
-        
+
     </body>
 </html>
