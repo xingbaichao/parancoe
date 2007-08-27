@@ -243,6 +243,27 @@ public class JuggerBlo {
         }
         return result;
     }
+    
+    @Transactional
+    public void disableJugger(String username)
+    {
+    	JuggerDao juggerDao = daos.getJuggerDao();   	
+    	Jugger jugger = juggerDao.searchByUsername(username).get(0);
+    	jugger.getUser().setEnabled(false);
+    	logger.info("User: "+username+" has been disabled");
+    	
+    }
+    
+    
+    @Transactional
+    public void enableJugger(String username)
+    {
+    	JuggerDao juggerDao = daos.getJuggerDao();   	
+    	Jugger jugger = juggerDao.searchByUsername(username).get(0);
+    	jugger.getUser().setEnabled(true);
+    	logger.info("User: "+username+" has been enabled");
+    	
+    }
 
 	public String getConfirmationSenderEmailAddress() {
 		return confirmationSenderEmailAddress;

@@ -74,6 +74,8 @@
           class="it.jugpadova.controllers.EventController" parent="abstractController"/>
     <bean name="/jugger/*.html" id="juggerController"
           class="it.jugpadova.controllers.JuggerController" parent="abstractController"/>
+    <bean name="/adminjugger/*.html" id="juggerAdminController"
+          class="it.jugpadova.controllers.JuggerAdminController" parent="abstractController"/>
     <bean name="/confirm/*.html" id="confirmController"
           class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
 
@@ -149,7 +151,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-				/jugger/list.html=ROLE_ADMIN
+				/jugger/admin/**=ROLE_ADMIN
                 /people/**=ROLE_ADMIN, ROLE_PARANCOE
                 /event/edit*=ROLE_ADMIN, ROLE_JUGGER
                 /event/delete*=ROLE_ADMIN, ROLE_JUGGER

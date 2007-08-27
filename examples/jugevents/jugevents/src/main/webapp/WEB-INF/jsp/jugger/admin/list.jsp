@@ -1,8 +1,8 @@
-<%@ include file="../common.jspf" %>
+<%@ include file="../../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <%@ include file="../head.jspf" %>
+        <%@ include file="../../head.jspf" %>
     </head>
     <body>
         <div id="nonFooter">    
@@ -10,19 +10,18 @@
             <div id="content"> 
                 <div id="content_main">
                     
-                    <h1>Jugger</h1>
-                    
-                    <h2>List</h2>
+                    <h1>Juggers List</h1>     
+                   
                     
                     <c:choose>
                         <c:when test="${not empty juggers}">
                             <table class="dataList">
                                 <thead>
                                     <tr>
-                                        <th>firstName</th>
-                                        <th>lastName</th>
-                                        <th>email</th>
+                                        <th>username</th>                                        
+                                        <th>country</th>
                                         <th>jugName</th>
+                                        <th>enabled/disabled</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,10 +35,19 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <tr class="${rowStyle}">
-                                            <td>${jugger.firstName}</td>
-                                             <td>${jugger.lastName}</td>
-                                             <td>${jugger.email}</td>
-                                             <td>${jugger.jugName}</td>             
+                                            <td><a href="${cp}/adminjugger/viewJugger.html?username=${jugger.user.username}">${jugger.user.username}</a></td>
+                                            <td>${jugger.country.englishName}</td>
+                                            <td>${jugger.jugName}</td>
+                                            <td>
+                                            <c:choose>
+                                             <c:when test="${jugger.user.enabled}">
+                                             <a href="${cp}/adminjugger/disableJugger.html?username=${jugger.user.username}">disable</a>
+                                             </c:when>
+                                             <c:otherwise>
+                                              <a href="${cp}/adminjugger/enableJugger.html?username=${jugger.user.username}">enable</a>
+                                             </c:otherwise>     
+                                             </c:choose>      
+                                            </td>             
                                          </tr>
                                     </c:forEach>
                                 </tbody>
@@ -51,9 +59,9 @@
                     </c:choose>
                     <br/>
                 </div>
-                <jsp:include page="../menu.jsp"/>
+                <jsp:include page="../../menu.jsp"/>
             </div>            
         </div>
-        <jsp:include page="../footer.jsp"/>        
+        <jsp:include page="../../footer.jsp"/>        
     </body>
 </html>

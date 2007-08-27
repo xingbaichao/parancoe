@@ -34,17 +34,7 @@ public abstract class JuggerController extends BaseMultiActionController {
 		return logger;
 	}
 	
-	/**
-	 * List all juggers.
-	 * @param req
-	 * @param res
-	 * @return
-	 */
-	public ModelAndView list(HttpServletRequest req, HttpServletResponse res){
-        ModelAndView mv = new ModelAndView("jugger/list");
-        mv.addObject("juggers", blo().getJuggerBO().retrieveJuggers());
-        return mv;
-    }
+	
 	
 	
 		/**
