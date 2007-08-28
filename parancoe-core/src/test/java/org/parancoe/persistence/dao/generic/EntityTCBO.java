@@ -33,7 +33,7 @@ public class EntityTCBO {
     
     @Transactional()
     public Long createEntity(EntityTC entity) {
-        return (Long)daos.getEntityTCDao().create(entity);
+        return daos.getEntityTCDao().create(entity);
     }
     
     @Transactional(readOnly=true)
@@ -43,17 +43,17 @@ public class EntityTCBO {
     }
 
     @Transactional(readOnly=true)    
-    List retrieveEntityByFieldOne(String value) {
+    List<EntityTC> retrieveEntityByFieldOne(String value) {
         return daos.getEntityTCDao().findByFieldOne(value);
     }
 
     @Transactional(readOnly=true)    
-    List retrieveEntityByFieldTwo(String value) {
+    List<EntityTC> retrieveEntityByFieldTwo(String value) {
         return daos.getEntityTCDao().findByFieldTwo(value);
     }
     
     @Transactional(readOnly=true)    
-    List retrieveEntityByFieldOneAndFieldTwo(String one, String two) {
+    List<EntityTC> retrieveEntityByFieldOneAndFieldTwo(String one, String two) {
         return daos.getEntityTCDao().findByFieldOneAndFieldTwo(one, two);
     }
 
