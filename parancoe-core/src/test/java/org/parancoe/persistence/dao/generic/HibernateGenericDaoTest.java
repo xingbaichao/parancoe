@@ -15,16 +15,9 @@ package org.parancoe.persistence.dao.generic;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import junit.framework.TestCase;
-
 import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.po.hibernate.EntityTC;
-import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
+import org.parancoe.persistence.util.BaseTest;
 
 /**
  * Test case for the generic DAO.
@@ -32,26 +25,13 @@ import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
  * @version $Revision$
  */
-public class HibernateGenericDaoTest extends TestCase {
+public class HibernateGenericDaoTest extends BaseTest {
     private EntityTCBO entityTCBO;
     
-    public HibernateGenericDaoTest(String testName) {
-        super(testName);
+    public HibernateGenericDaoTest() {
+        this.entityTCBO = (EntityTCBO)this.ctx.getBean("entityTCBO");        
     }
-    
-    protected void setUp() throws Exception {
-        super.setUp();
-        BeanFactoryLocator bfl = ContextSingletonBeanFactoryLocator.getInstance("beanRefFactory_test.xml");
-        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.persistence");
-        this.entityTCBO = (EntityTCBO)bf.getFactory().getBean("entityTCBO");
-        Map daoMap = (Map) bf.getFactory().getBean("daoMap");
-        Map daos = DaoUtils.getDaos((ListableBeanFactory) bf.getFactory());
-        daoMap.putAll(daos);
-    }
-    
-    protected void tearDown() throws Exception {
-    }
-    
+        
     public void testStoreRetrieve() {
         EntityTC entity = new EntityTC();
         Long id = this.entityTCBO.createEntity(entity);

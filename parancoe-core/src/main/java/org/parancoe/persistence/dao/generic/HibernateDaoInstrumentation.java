@@ -14,6 +14,7 @@
 package org.parancoe.persistence.dao.generic;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -96,6 +97,16 @@ public class HibernateDaoInstrumentation {
                 }
             }
         }
+        if (result != null && List.class.isAssignableFrom(result.getClass()) && !List.class.isAssignableFrom(method.getReturnType())) {
+            // The return type is not a List, so I return the first result
+            // of the list, or null if the list is empty
+            List listResult = (List) result;
+            if (!listResult.isEmpty()) {
+                result = listResult.get(0);
+            } else {
+                result = null;
+            }
+        }
         return result;
     }
 
@@ -113,7 +124,7 @@ public class HibernateDaoInstrumentation {
             parameters = finderMethod.getName().substring(6).split("And");
         } else {
             if (orderByIdx - 1 > 6) {
-                parameters = finderMethod.getName().substring(6, orderByIdx - 1).split("And");
+                parameters = finderMethod.getName().substring(6, orderByIdx).split("And");
             }
             orderParameters = finderMethod.getName().substring(orderByIdx + 7).split("And");
         }
