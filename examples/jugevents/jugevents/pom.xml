@@ -9,12 +9,6 @@
     <url>http://www.parancoe.org</url>
     <repositories>
         <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
             <id>parancoe-org-repository</id>
             <name>Parancoe Repository for Maven</name>
             <url>http://maven2.parancoe.org/repo/</url>
@@ -67,6 +61,24 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <container>
+                        <containerId>tomcat5x</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.tomcat.manager.url>${tomcat.remote.manager.url}</cargo.tomcat.manager.url>
+                            <cargo.remote.username>${tomcat.remote.username}</cargo.remote.username>
+                            <cargo.remote.password>${tomcat.remote.password}</cargo.remote.password>
+                        </properties>
+                    </configuration>
                 </configuration>
             </plugin>
         </plugins>
