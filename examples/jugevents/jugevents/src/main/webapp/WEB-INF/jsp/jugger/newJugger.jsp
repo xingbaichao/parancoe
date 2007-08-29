@@ -34,8 +34,8 @@
                                 </form:select>
 
                             </dd>
-                            <dt><form:label path="jugger.jugName"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.jugName"/></dd>
+                            <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>
+                            <dd><form:input path="jugger.jug.name"/></dd>
                             <dt><form:label path="captchaResponse"><spring:message code="InsertCharactersInTheImage"/></form:label></dt>
                             <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
                             <dt>&nbsp;</dt>

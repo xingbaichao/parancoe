@@ -55,7 +55,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <tr class="${rowStyle}">
-                                            <td>${event.owner.jugName}</td>
+                                            <td>${event.owner.jug.name}</td>
                                             <td><a href="${cp}/event/show.html?id=${event.id}">${event.title}</a></td>
                                             <td><fmt:formatDate value="${event.startDate}" /></td>
                                             <td>${event.numberOfParticipants}</td>

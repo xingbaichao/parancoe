@@ -5,6 +5,7 @@ package it.jugpadova.blo;
 
 import it.jugpadova.Daos;
 import it.jugpadova.dao.EventDao;
+import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
@@ -50,8 +51,8 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * @author Enrico Giurin
  *
  */
-public class JuggerBlo {
-	private static final Logger logger = Logger.getLogger(JuggerBlo.class);
+public class JuggerBo {
+	private static final Logger logger = Logger.getLogger(JuggerBo.class);
 	
 	private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
@@ -71,7 +72,7 @@ public class JuggerBlo {
      * Constructor. Retrieves all daos
      *
      */
-    public JuggerBlo()
+    public JuggerBo()
     {
     	 
     }
@@ -104,6 +105,8 @@ public class JuggerBlo {
     	AuthorityDao authorityDao = daos.getAuthorityDao();
     	UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
     	JuggerDao juggerDao = daos.getJuggerDao();	
+    	JUGDao jugDao = daos.getJUGDao();
+    	
     	String username = jugger.getUser().getUsername();
     
       //check if username is already presents  
@@ -124,6 +127,8 @@ public class JuggerBlo {
       userAuthorityDao.create(ua);
       
       jugger.setCountry(country);
+      jugger.getJug().setCountry(jugger.getCountry());
+      jugDao.create(jugger.getJug());
       jugger.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));
       
       
@@ -235,7 +240,7 @@ public class JuggerBlo {
                 Iterator<Jugger> itJuggers = juggers.iterator();
                 while (itJuggers.hasNext()) {
                     Jugger jugger = itJuggers.next();
-                    result.add(jugger.getJugName());
+                    result.add(jugger.getJug().getName());
                 }
             } catch (Exception e) {
                 logger.error("Error completing the JUG Name", e);

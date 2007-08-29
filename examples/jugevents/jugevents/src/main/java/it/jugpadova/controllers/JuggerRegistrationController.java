@@ -17,6 +17,7 @@ import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.JuggerCaptcha;
 import it.jugpadova.exception.UserAlreadyPresentsException;
+import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
 
 import java.text.SimpleDateFormat;
@@ -104,7 +105,9 @@ public abstract class JuggerRegistrationController extends BaseFormController {
         req.setAttribute("countries", list);
         JuggerCaptcha jc = new JuggerCaptcha();
         jc.getJugger().setCountry(new Country());
-        jc.getJugger().setUser(new User());       
+        jc.getJugger().setUser(new User());    
+        jc.getJugger().setJug(new JUG());
+        
         jc.setCaptchaId(req.getSession().getId());
         jc.setCaptchaService(captchaService);
     	return jc;

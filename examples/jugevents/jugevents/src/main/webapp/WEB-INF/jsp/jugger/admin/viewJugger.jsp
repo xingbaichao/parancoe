@@ -42,7 +42,7 @@
 	               </tr>
                    <tr>
                      <td><spring:message code="juggerRegistrationJUGName"/></td>
-                     <td>${jugger.jugName}</td>                        
+                     <td>${jugger.jug.name}</td>                        
                   </tr>     
                   <tr>
                      <td>enabled</td>
