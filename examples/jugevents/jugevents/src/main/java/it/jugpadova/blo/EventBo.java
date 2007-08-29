@@ -114,9 +114,9 @@ public class EventBo {
                     StringUtils.isNotBlank(eventSearch.getCountry()) ||
                     StringUtils.isNotBlank(eventSearch.getContinent())) {
                 DetachedCriteria ownerCriteria =
-                        eventCriteria.createCriteria("owner");
+                        eventCriteria.createCriteria("owner.jug");
                 if (StringUtils.isNotBlank(eventSearch.getJugName())) {
-                    ownerCriteria.add(Restrictions.ilike("jugName",
+                    ownerCriteria.add(Restrictions.ilike("name",
                             eventSearch.getJugName(),
                             MatchMode.ANYWHERE));
                 }
