@@ -23,7 +23,7 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
 @NamedQueries(value = {@NamedQuery(name = "Jugger.searchByUsername", query =
         "from Jugger j where j.user.username = ?"),
     @NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query =
-        "from Jugger j where upper(j.jugName) like upper(?) and upper(j.country.localName) like upper(?) and upper(j.country.continent.name) like upper(?) order by j.jugName asc")})
+        "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.country.localName) like upper(?) and upper(j.country.continent.name) like upper(?) order by j.jug.name asc")})
 public class Jugger extends EntityBase {
 
     @NotBlank
@@ -34,7 +34,7 @@ public class Jugger extends EntityBase {
     @Email
     private String email;
 
-    private String jugName;
+    private JUG jug;
 
     @CascadeValidation
     private Country country;
@@ -64,13 +64,7 @@ public class Jugger extends EntityBase {
         this.firstName = firstName;
     }
 
-    public String getJugName() {
-        return jugName;
-    }
-
-    public void setJugName(String jugName) {
-        this.jugName = jugName;
-    }
+   
 
     public String getLastName() {
         return lastName;
@@ -112,5 +106,13 @@ public class Jugger extends EntityBase {
 
 	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
+	}
+	@ManyToOne
+	public JUG getJug() {
+		return jug;
+	}
+
+	public void setJug(JUG jug) {
+		this.jug = jug;
 	}
 }

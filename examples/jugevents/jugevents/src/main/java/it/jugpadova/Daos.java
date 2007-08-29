@@ -14,6 +14,7 @@
 package it.jugpadova;
 
 import it.jugpadova.dao.EventDao;
+import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.dao.PersonDao;
@@ -42,4 +43,5 @@ public interface Daos extends DaoProvider {
     public CountryDao getCountryDao();
     public ContinentDao getContinentDao();
     public UserAuthorityDao getUserAuthorityDao();
+    public JUGDao getJUGDao();
 }

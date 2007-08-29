@@ -2,7 +2,7 @@ package it.jugpadova;
 
 import it.jugpadova.blo.EventBo;
 import it.jugpadova.blo.FilterBo;
-import it.jugpadova.blo.JuggerBlo;
+import it.jugpadova.blo.JuggerBo;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
@@ -56,11 +56,11 @@ public class SanityTest extends JugEventsBaseTest {
                 eventBo.getClass().getName() + ")",
                 eventBo instanceof EventBo);
 
-        Object juggerBo = ctx.getBean("juggerBlo");
-        assertNotNull("Can't retrieve juggerBlo bean", juggerBo);
+        Object juggerBo = ctx.getBean("juggerBo");
+        assertNotNull("Can't retrieve juggerBo bean", juggerBo);
         assertTrue("Wrong class for the juggerBlo bean (" +
                 juggerBo.getClass().getName() + ")",
-                juggerBo instanceof JuggerBlo);
+                juggerBo instanceof JuggerBo);
 
         Object filterBo = ctx.getBean("filterBO");
         assertNotNull("Can't retrieve filterBO bean", filterBo);

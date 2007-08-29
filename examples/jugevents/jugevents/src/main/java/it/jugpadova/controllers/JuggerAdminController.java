@@ -6,7 +6,7 @@ package it.jugpadova.controllers;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.blo.EventBo;
-import it.jugpadova.blo.JuggerBlo;
+import it.jugpadova.blo.JuggerBo;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;

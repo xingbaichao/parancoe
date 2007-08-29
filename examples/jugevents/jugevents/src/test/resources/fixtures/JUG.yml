@@ -1,0 +1,6 @@
+- &JUG-Padova
+  name: JUG Padova
+  country: *Country-IT
+- &JUG-Sardegna
+  name: JUG Sardegna
+  country: *Country-IT
