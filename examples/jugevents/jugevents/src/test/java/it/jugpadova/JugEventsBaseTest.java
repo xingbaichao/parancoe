@@ -20,6 +20,6 @@ public abstract class JugEventsBaseTest extends BaseTest {
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[]{Continent.class, Country.class, User.class, Authority.class, UserAuthority.class, JUG.class, Jugger.class };
+        return new Class[]{Continent.class, Country.class, User.class, Authority.class, UserAuthority.class, JUG.class, Jugger.class, Event.class };
     }
 }
