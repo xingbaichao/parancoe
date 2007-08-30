@@ -1,0 +1,6 @@
+- &Book-WarPeace
+  title: War and Peace
+- &Book-Bean
+  title: Mr. Bean
+- &Book-Java
+  title: Java manual
