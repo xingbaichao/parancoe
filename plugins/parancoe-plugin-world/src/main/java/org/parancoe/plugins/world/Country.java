@@ -3,6 +3,7 @@ package org.parancoe.plugins.world;
 import javax.persistence.*;
 
 import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
 /**
  * @author Lucio Benfante lucio.benfante@jugpadova.it
@@ -14,7 +15,7 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
 @NamedQuery(name = "Country.findByPartialEnglishNameAndContinent", query = "from Country c where upper(c.englishName) like upper(?) and upper(c.continent.name) like upper(?) order by c.englishName asc"),
 @NamedQuery(name = "Country.findAllOrderedByEnglishNameAsc", query = "from Country c order by englishname asc")})
 public class Country extends EntityBase {
-
+    @NotBlank
     private String isoCode;
     private String languageIsoCode;
     private String languageVariant;
