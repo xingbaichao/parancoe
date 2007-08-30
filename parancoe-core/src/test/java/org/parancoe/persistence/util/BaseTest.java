@@ -14,7 +14,10 @@
 package org.parancoe.persistence.util;
 
 import java.util.Map;
+
 import org.parancoe.persistence.dao.DaoUtils;
+import org.parancoe.persistence.po.hibernate.AuthorTC;
+import org.parancoe.persistence.po.hibernate.BookTC;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.parancoe.test.DBTest;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
@@ -40,9 +43,8 @@ public abstract class BaseTest extends DBTest {
         return lctx;
     }
 
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{EntityTC.class};
-    }    
-
+	@Override
+	public Class[] getFixtureClasses() {
+		return new Class[] { EntityTC.class, BookTC.class, AuthorTC.class };
+	}
 }
