@@ -6,7 +6,7 @@ function Open_Credits(xxx){
 </script>
 <div id="footer">
     <div id="validators">&nbsp;</div>
-    <div id="copyright">&#169; 2007, <a href="javascript:Open_Credits('${cp}/credits.jsp')">JUG Events Team</a> <br/><a href="mailto:info@jugpadova.it">info@jugpadova.it</a></div>
+    <div id="copyright">&#169; 2007, <a href="javascript:Open_Credits('${cp}/credits.jsp')">JUG Events Team</a> <br/><a href="mailto:info@jugevents.org">info@jugevents.org</a></div>
     <div id="references"><a href="http://www.parancoe.org"><img src="${cp}/images/powered_parancoe.png" alt="Parancoe powered" border="0"/></a></div>
 </div>
 

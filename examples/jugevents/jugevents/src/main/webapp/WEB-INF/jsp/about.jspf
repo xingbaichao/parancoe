@@ -1,0 +1,27 @@
+<div id="content_about">
+    <p class="menuTitle"><spring:message code="About"/></p>
+    <c:choose>
+        <c:when test="${requestScope.lang eq 'it'}">
+            <p>JUGEvents permette di ricercare e iscriversi gli eventi
+            organizzati da un JUG. Il responsabile di un JUG pu&ograve;
+            liberamente registrarsi ed iniziare ad inserire gli
+            eventi organizzati dal proprio JUG.</p>
+            <p>JUGEvents &egrave; ancora in sviluppo. Se incontri problemi
+            o vuoi suggerire nuove funzionlit&agrave;, scrivi a
+            <a href="mailto:info@jugevents.org">info@jugevents.org</a>.</p>
+            <p>JUGEvents &egrave; un progetto del
+            <a href="http://www.jugpadova.it">JUG Padova</a>. Chiunque pu&ograve;
+            partecipare.</p>
+        </c:when>
+        <c:otherwise>
+            <p>With JUGEvents You can search for events organized by JUGs,
+            and register to them. A JUG representative can freely obtain an
+            account and start to manage the events of his JUG.</p>
+            <p>JUGEvents is still in development. If You find any problem with it,
+            or if You want to suggest any new feature, please write to
+            <a href="mailto:info@jugevents.org">info@jugevents.org</a>.</p>
+            <p>JUGEvents is a <a href="http://www.jugpadova.it">JUG Padova</a>
+            project. Anyone can partecipate.</p>
+        </c:otherwise>
+    </c:choose>
+</div>

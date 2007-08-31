@@ -107,6 +107,7 @@
                     </div>
                 </div>
                 <jsp:include page="../menu.jsp"/>
+                <%@ include file="../about.jspf" %>
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
