@@ -18,7 +18,7 @@ public class ItalyInterceptor extends HandlerInterceptorAdapter {
 
   public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
                            Object object) throws Exception {
-    logger.info("ItalyInterceptor preHandle");
+    logger.debug("ItalyInterceptor preHandle");
     return true;
   }
 }
