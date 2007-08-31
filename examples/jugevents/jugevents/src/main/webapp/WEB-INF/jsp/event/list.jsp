@@ -38,13 +38,14 @@
                                 <thead>
                                     <tr>
                                         <th>JUG</th>
-                                        <th>Event</th>
-                                        <th>Start date</th>
+                                        <th><spring:message code="Event"/></th>
+                                        <th><spring:message code="Date"/></th>
                                         <th>#</th>
                                         <th style="width: 30px;">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <jsp:useBean id="today" class="java.util.Date"/>
                                     <c:forEach var="event" items="${events}" varStatus="status">
                                         <c:choose>
                                             <c:when test="${status.count % 2 == 0}">
@@ -57,7 +58,7 @@
                                         <tr class="${rowStyle}">
                                             <td>${event.owner.jug.name}</td>
                                             <td><a href="${cp}/event/show.html?id=${event.id}">${event.title}</a></td>
-                                            <td><fmt:formatDate value="${event.startDate}" /></td>
+                                            <td nowrap="true"><fmt:formatDate value="${event.startDate}" /></td>
                                             <td>${event.numberOfParticipants}</td>
                                             <td class="actionColumn">
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
@@ -70,7 +71,9 @@
                                                         <a href="delete.html?id=${event.id}">delete</a>
                                                     </c:if>
                                                 </authz:authorize>
-                                                <a href="registration.form?event.id=${event.id}">register</a>
+                                                <c:if test="${today lt event.startDate}">
+                                                    <a href="registration.form?event.id=${event.id}">register</a>
+                                                </c:if>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
                                                     <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
                                                         <a href="participants.html?id=${event.id}">participants</a>

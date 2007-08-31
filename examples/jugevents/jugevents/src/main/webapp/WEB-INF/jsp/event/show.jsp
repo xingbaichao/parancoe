@@ -11,7 +11,10 @@
                 <div id="content_main">
                     
                     <h1>Event</h1>
+                    <jsp:useBean id="today" class="java.util.Date"/>
+                    <c:if test="${today lt event.startDate}">
                     <a href="${cp}/event/registration.form?event.id=${param.id}"><spring:message code="RegisterToTheEvent"/></a>
+                    </c:if>
                     <%@ include file="show.jspf" %>
                 </div>
                 <jsp:include page="../menu.jsp"/>
