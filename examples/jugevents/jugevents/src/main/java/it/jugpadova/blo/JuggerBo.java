@@ -11,6 +11,7 @@ import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.Event;
+import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 
@@ -116,23 +117,37 @@ public class JuggerBo {
     	 
     	  throw new UserAlreadyPresentsException("Jugger with username: "+username+ " already presents in the database!");
       }
-      //retrive country selected
-      Country country = countryDao.findByIsoCode(jugger.getCountry().getIsoCode()).get(0);
+      
      //set authority to jugger
       Authority authority = authorityDao.findByRole("ROLE_JUGGER").get(0);
+      //create the user
       userDao.create(SecureUtility.newUserToValidate(username));
       UserAuthority ua = new UserAuthority();
       ua.setAuthority(authority);
       ua.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));
       userAuthorityDao.create(ua);
       
-      jugger.setCountry(country);
-      jugger.getJug().setCountry(jugger.getCountry());
-      jugDao.create(jugger.getJug());
-      jugger.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));
+      //create or find JUG
+      JUG jug = null;
+      List<JUG> jugs = jugDao.findByNameAndCountryEN(jugger.getJug().getName(), 
+    		  jugger.getJug().getCountry().getEnglishName());
+      if(jugs.size() ==  0)
+      {
+    	  //create the JUG instance
+    	  jug = new JUG();
+    	  jug.setName(jugger.getJug().getName());    	 
+    	  jug.setCountry(countryDao.findByEnglishName(jugger.getJug().getCountry().getEnglishName()));
+    	  jugDao.create(jug);
+      }
+      else
+      {
+    	  //get the value selected
+    	  jug = jugs.get(0);
+      }
       
-      
-      
+      //assign values to jugger
+      jugger.setJug(jug);      
+      jugger.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));      
       jugger.setConfirmationCode(generateConfirmationCode(jugger));
       juggerDao.createOrUpdate(jugger);
       sendConfirmationEmail(jugger, baseUrl);
@@ -229,6 +244,47 @@ public class JuggerBo {
         }
         return result;
     }
+    
+    
+    @Transactional(readOnly = true)
+    public List findPartialCountry(String partialCountry) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialCountry)) {
+            try {
+                List<Country> countries =
+                        getDaos().getCountryDao().findByPartialEnglishName(partialCountry+"%");
+                Iterator<Country> itCountries = countries.iterator();
+                while (itCountries.hasNext()) {
+                    Country country = itCountries.next();
+                    result.add(country.getEnglishName());
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the country", e);
+            }
+        }
+        return result;
+    }
+    
+    
+    @Transactional(readOnly = true)
+    public List findPartialJugNameWithCountry(String partialJugName, String partialCountry) {
+        List<String> result = new ArrayList<String>();
+        if (!StringUtils.isBlank(partialJugName)) {
+            try {
+                List<JUG> jugs =
+                        getDaos().getJUGDao().findByPartialJugNameAndCountry(partialJugName+"%",partialCountry+"%");
+                Iterator<JUG> itJugs = jugs.iterator();
+                while (itJugs.hasNext()) {
+                	JUG jug = itJugs.next();
+                    result.add(jug.getName());
+                }
+            } catch (Exception e) {
+                logger.error("Error completing the JUG Name", e);
+            }
+        }
+        return result;
+    }
+    
     
     @Transactional(readOnly = true)
     public List findPartialJugNameWithCountryAndContinent(String partialJugName, String partialCountry, String partialContinent) {

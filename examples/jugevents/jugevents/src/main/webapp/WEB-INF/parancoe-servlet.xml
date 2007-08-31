@@ -48,6 +48,11 @@
             <dwr:include method="findPartialContinent"/>
             <dwr:include method="findPartialCountryWithContinent"/>
             <dwr:include method="findPartialJugNameWithCountryAndContinent"/>
+            <dwr:include method="findPartialCountry"/>
+            <dwr:include method="findPartialJugNameWithCountry"/>
+            
+            
+           
         </dwr:remote>
     </bean>
 

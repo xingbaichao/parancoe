@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
+        <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
+        <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="nonFooter">
@@ -26,16 +28,10 @@
                             <dd><form:input path="jugger.email"/></dd>
                             <dt><form:label path="jugger.user.username"><spring:message code="username"/> (*)</form:label></dt>
                             <dd><form:input path="jugger.user.username"/></dd>
-                            <dt><form:label path="jugger.country.isoCode"><spring:message code="juggerRegistrationCountry"/> (*)</form:label></dt>
-                            <dd>
-                                <form:select path="jugger.country.isoCode">
-                                    <form:option value="" label="--Please Select"/>
-                                    <form:options items="${countries}" itemValue="isoCode" itemLabel="englishName"/>
-                                </form:select>
-
-                            </dd>
-                            <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.jug.name"/></dd>
+                            <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/> (*)</form:label></dt>                            
+                            <dd><form:input path="jugger.jug.country.englishName"/><div id="countryList" class="auto_complete"></div></dd>
+                            <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>                            
+                            <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
                             <dt><form:label path="captchaResponse"><spring:message code="InsertCharactersInTheImage"/></form:label></dt>
                             <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
                             <dt>&nbsp;</dt>
@@ -50,6 +46,30 @@
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
+    
+<script type="text/javascript">
+            
+dwr.util.setEscapeHtml(false);
 
+new Autocompleter.DWR('jugger.jug.country.englishName', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+new Autocompleter.DWR('jugger.jug.name', 'jugList', updateJUGNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+
+function updateCountryList(autocompleter, token) {
+    juggerBo.findPartialCountry(token, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+function updateJUGNameList(autocompleter, token) {
+    juggerBo.findPartialJugNameWithCountry(token, $('jugger.jug.country.englishName').value, function(data) {
+        autocompleter.setChoices(data)
+    });
+}
+
+    
+ function singleValueSelector(tag) {
+    return tag;
+}
+ </script>
     </body>
 </html>
