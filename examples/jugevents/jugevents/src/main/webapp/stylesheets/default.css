@@ -271,6 +271,7 @@ form br {
 table.dataList {
     border: 1px solid gray;
     margin: 10px;
+    font-size: 12px;
 }
 
 table.dataList thead tr {

@@ -40,8 +40,8 @@
                                         <th>JUG</th>
                                         <th>Event</th>
                                         <th>Start date</th>
-                                        <th># Participants</th>
-                                        <th>Actions</th>
+                                        <th>#</th>
+                                        <th style="width: 30px;">&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody>

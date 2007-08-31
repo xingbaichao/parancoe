@@ -13,3 +13,7 @@ function Open_Credits(xxx){
 <% if (!BaseConf.isProduction()) { %>
 <jsp:include page="debug.jsp" />
 <% } %>
+
+<% if (BaseConf.isProduction()) { %>
+<%@ include file="analytics.jspf"%>
+<% } %>
