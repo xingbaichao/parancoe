@@ -18,7 +18,7 @@ public class WorldInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object object) throws Exception {
-        logger.info("WorldPlugin interceptor preHandle");
+        logger.debug("WorldPlugin interceptor preHandle");
         return true;
     }
 }
