@@ -282,14 +282,5 @@
     </bean>
     <!-- end mail section -->
 
-    <!-- define some properties in an external property file -->
-    <!--
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:parancoe-servlet.properties</value>
-            </list>
-        </property>
-    </bean>
-    -->
+    <bean id="conf" class="it.jugpadova.Conf" parent="abstractConf" name="conf"/>
 </beans>

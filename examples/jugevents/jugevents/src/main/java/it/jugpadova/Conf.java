@@ -23,4 +23,8 @@ public class Conf extends BaseConf  {
     public String getMyParam() {
         return getConfiguration().getString("myparam");
     }
+    
+    public String getAnalyticsKey() {
+        return getConfiguration().getString("analyticsKey");
+    }
 }
