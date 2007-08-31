@@ -36,7 +36,7 @@
                                         </c:choose>
                                         <tr class="${rowStyle}">
                                             <td><a href="${cp}/adminjugger/viewJugger.html?username=${jugger.user.username}">${jugger.user.username}</a></td>
-                                            <td>${jugger.country.englishName}</td>
+                                            <td>${jugger.jug.country.englishName}</td>
                                             <td>${jugger.jug.name}</td>
                                             <td>
                                             <c:choose>

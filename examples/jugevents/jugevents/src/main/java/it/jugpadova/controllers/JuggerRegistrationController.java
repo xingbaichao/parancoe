@@ -104,9 +104,11 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     	List<Country> list =  dao().getCountryDao().findAllOrderedByEnglishNameAsc();
         req.setAttribute("countries", list);
         JuggerCaptcha jc = new JuggerCaptcha();
-        jc.getJugger().setCountry(new Country());
+       
         jc.getJugger().setUser(new User());    
         jc.getJugger().setJug(new JUG());
+        jc.getJugger().getJug().setCountry(new Country());
+        
         
         jc.setCaptchaId(req.getSession().getId());
         jc.setCaptchaService(captchaService);

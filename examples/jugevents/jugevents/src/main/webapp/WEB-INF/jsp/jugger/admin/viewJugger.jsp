@@ -38,7 +38,7 @@
                     
                     <tr>
                         <td><spring:message code="juggerRegistrationCountry"/></td>                        
-                        <td>${jugger.country.englishName}</td>    
+                        <td>${jugger.jug.country.englishName}</td>    
 	               </tr>
                    <tr>
                      <td><spring:message code="juggerRegistrationJUGName"/></td>
