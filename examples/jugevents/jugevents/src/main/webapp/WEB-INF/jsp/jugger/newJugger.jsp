@@ -11,27 +11,38 @@
             <jsp:include page="../header.jsp"/>
             <div id="content">
                 <div id="content_main">
-
-
+                    
+                    
                     <h2><spring:message code="juggerRegistrationTitle"/></h2>
-
+                    
                     <form:form commandName="jugger" method="POST" action="${cp}/jugger/registration.form">
-
+                        <form:errors path="*" cssClass="errorBox"/>
+                        
                         <form:hidden path="jugger.id"/>
-
+                        
+                        <fieldset>
+                            <legend>Jugger</legend>                        
+                            <dl>
+                                <dt><form:label path="jugger.firstName"><spring:message code="juggerRegistrationFirstName"/> (*)</form:label></dt>
+                                <dd><form:input path="jugger.firstName"/></dd>
+                                <dt><form:label path="jugger.lastName"><spring:message code="juggerRegistrationLastName"/> (*)</form:label></dt>
+                                <dd><form:input path="jugger.lastName"/></dd>
+                                <dt><form:label path="jugger.email"><spring:message code="Email"/> (*)</form:label></dt>
+                                <dd><form:input path="jugger.email"/></dd>
+                                <dt><form:label path="jugger.user.username"><spring:message code="username"/> (*)</form:label></dt>
+                                <dd><form:input path="jugger.user.username"/></dd>
+                            </dl>
+                        </fieldset>
+                        <fieldset>
+                            <legend>JUG</legend>                        
+                            <dl>
+                                <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>                            
+                                <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
+                                <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/></form:label></dt>                            
+                                <dd><form:input path="jugger.jug.country.englishName"/><div id="countryList" class="auto_complete"></div></dd>
+                            </dl>
+                        </fieldset>
                         <dl>
-                            <dt><form:label path="jugger.firstName"><spring:message code="juggerRegistrationFirstName"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.firstName"/></dd>
-                            <dt><form:label path="jugger.lastName"><spring:message code="juggerRegistrationLastName"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.lastName"/></dd>
-                            <dt><form:label path="jugger.email"><spring:message code="Email"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.email"/></dd>
-                            <dt><form:label path="jugger.user.username"><spring:message code="username"/> (*)</form:label></dt>
-                            <dd><form:input path="jugger.user.username"/></dd>
-                            <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/> (*)</form:label></dt>                            
-                            <dd><form:input path="jugger.jug.country.englishName"/><div id="countryList" class="auto_complete"></div></dd>
-                            <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>                            
-                            <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
                             <dt><form:label path="captchaResponse"><spring:message code="InsertCharactersInTheImage"/></form:label></dt>
                             <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
                             <dt>&nbsp;</dt>
@@ -39,15 +50,14 @@
                             <dt><spring:message code="juggerRegistrationRequired"/> (*)</dt>
                             <dd>&nbsp;</dd>
                         </dl>
-                        <form:errors path="*" cssClass="errorBox"/>
                     </form:form>
                 </div>
                 <jsp:include page="../menu.jsp"/>
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
-    
-<script type="text/javascript">
+        
+        <script type="text/javascript">
             
 dwr.util.setEscapeHtml(false);
 
@@ -70,6 +80,6 @@ function updateJUGNameList(autocompleter, token) {
  function singleValueSelector(tag) {
     return tag;
 }
- </script>
+        </script>
     </body>
 </html>
