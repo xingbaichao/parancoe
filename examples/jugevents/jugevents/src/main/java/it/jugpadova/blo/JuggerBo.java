@@ -4,16 +4,12 @@
 package it.jugpadova.blo;
 
 import it.jugpadova.Daos;
-import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
-import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
-import it.jugpadova.po.Event;
 import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
-import it.jugpadova.po.Participant;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -129,8 +125,7 @@ public class JuggerBo {
       
       //create or find JUG
       JUG jug = null;
-      List<JUG> jugs = jugDao.findByNameAndCountryEN(jugger.getJug().getName(), 
-    		  jugger.getJug().getCountry().getEnglishName());
+      List<JUG> jugs = jugDao.findByName(jugger.getJug().getName());
       if(jugs.size() ==  0)
       {
     	  //create the JUG instance
@@ -143,6 +138,8 @@ public class JuggerBo {
       {
     	  //get the value selected
     	  jug = jugs.get(0);
+    	  jug.setCountry(countryDao.findByEnglishName(jugger.getJug().getCountry().getEnglishName()));
+          jugDao.createOrUpdate(jug);
       }
       
       //assign values to jugger

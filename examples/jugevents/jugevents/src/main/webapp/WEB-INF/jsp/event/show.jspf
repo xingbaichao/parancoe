@@ -4,7 +4,7 @@
     <dt><b><spring:message code="event.location"/>:</b></dt>
     <dd>${event.location}</dd>
     <dt><b><spring:message code="event.directions"/>:</b></dt>
-    <dd>${event.filteredDirections}</dd>
+    <dd><div class="preview">${event.filteredDirections}</div></dd>
     <dt><b><spring:message code="event.startDate"/>:</b></dt>
     <dd><fmt:formatDate value="${event.startDate}" type="date" dateStyle="full" /></dd>
     <dt><b><spring:message code="event.startTime"/>:</b></dt>
@@ -14,5 +14,5 @@
     <dt><b><spring:message code="event.endTime"/>:</b></dt>
     <dd>${event.endTime}</dd>
     <dt><b><spring:message code="event.description"/>:</b></dt>
-    <dd>${event.filteredDescription}</dd>
+    <dd><div class="preview">${event.filteredDescription}</div></dd>
 </dl>

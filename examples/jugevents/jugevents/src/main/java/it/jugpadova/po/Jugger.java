@@ -10,7 +10,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
-import org.parancoe.plugins.world.Country;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -34,6 +33,7 @@ public class Jugger extends EntityBase {
     @Email
     private String email;
 
+    @CascadeValidation
     private JUG jug;
 
     
