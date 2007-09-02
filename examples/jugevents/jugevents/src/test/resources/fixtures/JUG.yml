@@ -1,6 +1,12 @@
 - &JUG-Padova
   name: JUG Padova
   country: *Country-IT
+  webSite: http://www.jugpadova.it
+  latitude: 11.89364
+  longitude: 45.40945
 - &JUG-Sardegna
   name: JUG Sardegna
   country: *Country-IT
+  webSite: http://www.jugsardegna.org
+  latitude: 0
+  longitude: 0
