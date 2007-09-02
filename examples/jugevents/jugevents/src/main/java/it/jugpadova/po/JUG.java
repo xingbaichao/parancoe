@@ -39,6 +39,12 @@ public class JUG extends EntityBase {
 
     @CascadeValidation
     private Country country;
+    
+    private String webSite;
+    
+    Double latitude;
+    
+    Double longitude;
 
     public String getName() {
         return name;
@@ -56,4 +62,29 @@ public class JUG extends EntityBase {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getWebSite() {
+        return webSite;
+    }
+
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+        
 }
