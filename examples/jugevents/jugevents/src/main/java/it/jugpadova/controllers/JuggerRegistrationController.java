@@ -15,6 +15,7 @@ package it.jugpadova.controllers;
 
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
+import it.jugpadova.bean.EnableJugger;
 import it.jugpadova.bean.JuggerCaptcha;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.JUG;
@@ -57,21 +58,10 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     
     @Override
 	protected void onBind(HttpServletRequest request, Object command) throws Exception {
+		JuggerCaptcha jc = (JuggerCaptcha)command;
+		jc.getJugger().getUser().setPassword("xxx");
 		
-    	/*
-		super.onBind(request, command);
-		try {
-			
-			User user = SecureUtility.newUserToValidate(((Jugger)command).getUser().getUsername());
-			((Jugger)command).setUser(user);
-			
-		
-		} catch (Exception e) {
-			
-	         logger.error(e, e);
-	         throw e;
-		}
-		*/
+    	
 	}
     
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
