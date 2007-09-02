@@ -6,7 +6,7 @@
     </head>
     <body>
         <div id="nonFooter">    
-            <jsp:include page="../header.jsp"/>
+            <jsp:include page="../../header.jsp"/>
             <div id="content"> 
                 <div id="content_main">
                     

@@ -4,7 +4,6 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
-        <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="nonFooter">
@@ -62,7 +61,7 @@
 dwr.util.setEscapeHtml(false);
 
 new Autocompleter.DWR('jugger.jug.country.englishName', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
-new Autocompleter.DWR('jugger.jug.name', 'jugList', updateJUGNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+new Autocompleter.DWR('jugger.jug.name', 'jugList', updateJUGNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true, afterUpdateElement: populateJugFields });
 
 function updateCountryList(autocompleter, token) {
     juggerBo.findPartialCountry(token, function(data) {
@@ -76,6 +75,9 @@ function updateJUGNameList(autocompleter, token) {
     });
 }
 
+function populateJugFields(jugName, selectedElement) {
+    juggerBo.populateJugFields(jugName.value);
+}
     
  function singleValueSelector(tag) {
     return tag;
