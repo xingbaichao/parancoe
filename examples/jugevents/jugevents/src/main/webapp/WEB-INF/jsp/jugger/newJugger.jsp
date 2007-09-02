@@ -39,6 +39,12 @@
                                 <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
                                 <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/></form:label></dt>                            
                                 <dd><form:input path="jugger.jug.country.englishName"/><div id="countryList" class="auto_complete"></div></dd>
+                                <dt><form:label path="jugger.jug.webSite"><spring:message code="juggerRegistrationWebSite"/></form:label></dt>                            
+                                <dd><form:input path="jugger.jug.webSite"/></dd>
+                                <dt><form:label path="jugger.jug.longitude"><spring:message code="juggerRegistrationLongitude"/></form:label></dt>                            
+                                <dd><form:input path="jugger.jug.longitude"/></dd>
+                                <dt><form:label path="jugger.jug.latitude"><spring:message code="juggerRegistrationLatitude"/></form:label></dt>                            
+                                <dd><form:input path="jugger.jug.latitude"/></dd>
                             </dl>
                         </fieldset>
                         <dl>

@@ -12,7 +12,7 @@
             <jsp:include page="../header.jsp"/>
             <div id="content">
                 <div id="content_main">
-                    
+
                     <h1>Search Events <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h1>
                     <a href="#" onclick="updateBadge(); $('webBadge').show(); new Effect.ScrollTo('webBadge', {offset: -24}); return false;"><spring:message code="GetBadgeLink"/></a>
                     <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
@@ -31,7 +31,7 @@
                             </dl>
                         </fieldset>
                     </form:form>
-                    
+
                     <c:choose>
                         <c:when test="${not empty events}">
                             <table class="dataList">
@@ -56,7 +56,14 @@
                                             </c:otherwise>
                                         </c:choose>
                                         <tr class="${rowStyle}">
-                                            <td>${event.owner.jug.name}</td>
+                                            <c:choose>
+                                                <c:when test="${!empty event.owner.jug.webSite}">
+                                                    <td><a href="${event.owner.jug.webSite}" target="JUGSite">${event.owner.jug.name}</a></td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>${event.owner.jug.name}</td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td><a href="${cp}/event/show.html?id=${event.id}">${event.title}</a></td>
                                             <td nowrap="true"><fmt:formatDate value="${event.startDate}" /></td>
                                             <td>${event.numberOfParticipants}</td>
@@ -115,7 +122,7 @@
         </div>
         <jsp:include page="../footer.jsp"/>
         <script type="text/javascript">
-            
+
 dwr.util.setEscapeHtml(false);
 
 new Autocompleter.DWR('continent', 'continentList', updateContinentList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });

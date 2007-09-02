@@ -136,12 +136,18 @@ public class JuggerBo {
             jug.setName(jugger.getJug().getName());
             jug.setCountry(countryDao.findByEnglishName(jugger.getJug().
                     getCountry().getEnglishName()));
+            jug.setWebSite(jugger.getJug().getWebSite());
+            jug.setLongitude(jugger.getJug().getLongitude());
+            jug.setLatitude(jugger.getJug().getLatitude());
             jugDao.create(jug);
         } else {
             //get the value selected
             jug = jugs.get(0);
             jug.setCountry(countryDao.findByEnglishName(jugger.getJug().
                     getCountry().getEnglishName()));
+            jug.setWebSite(jugger.getJug().getWebSite());
+            jug.setLongitude(jugger.getJug().getLongitude());
+            jug.setLatitude(jugger.getJug().getLatitude());
             jugDao.createOrUpdate(jug);
         }
 
@@ -379,6 +385,12 @@ public class JuggerBo {
                         country.getEnglishName());
                 effect.highlight("jugger.jug.country.englishName");
             }
+            util.setValue("jugger.jug.webSite", jug.getWebSite());
+            effect.highlight("jugger.jug.webSite");
+            util.setValue("jugger.jug.longitude", jug.getLongitude().toString());
+            effect.highlight("jugger.jug.longitude");
+            util.setValue("jugger.jug.latitude", jug.getLatitude().toString());
+            effect.highlight("jugger.jug.latitude");
         }
     }
 }
