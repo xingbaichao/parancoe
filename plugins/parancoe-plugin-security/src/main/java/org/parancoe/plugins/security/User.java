@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
 
 /**
@@ -34,9 +35,9 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
 public class User extends EntityBase {
 
     private static final long serialVersionUID = 832363948575562242L;
-
+    @NotBlank
     private String username = null;
-
+    @NotBlank
     private String password = null;
 
     private boolean enabled = true;
