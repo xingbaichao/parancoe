@@ -387,10 +387,16 @@ public class JuggerBo {
             }
             util.setValue("jugger.jug.webSite", jug.getWebSite());
             effect.highlight("jugger.jug.webSite");
+            if(jug.getLongitude()!=null)
+            {
             util.setValue("jugger.jug.longitude", jug.getLongitude().toString());
             effect.highlight("jugger.jug.longitude");
+            }//end of if
+            if(jug.getLatitude()!=null)
+            {
             util.setValue("jugger.jug.latitude", jug.getLatitude().toString());
             effect.highlight("jugger.jug.latitude");
+            }//end of if
         }
     }
 }
