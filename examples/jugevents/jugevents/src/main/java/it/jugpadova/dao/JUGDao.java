@@ -30,5 +30,5 @@ public interface JUGDao extends GenericDao<JUG, Long> {
 	 List<JUG> findByPartialName(String s);
 	 List<JUG> findByPartialJugNameAndCountry(String partialName, String partialCountryEnglishName);
 	 List<JUG> findByNameAndCountryEN(String name, String countryEnglishName);
-
+	 List<JUG> findByPartialJugNameAndCountryAndContinent(String partialName, String partialCountry, String partialContinent);
 }

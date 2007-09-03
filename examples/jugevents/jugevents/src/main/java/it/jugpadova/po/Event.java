@@ -168,13 +168,15 @@ public class Event extends EntityBase {
 
     @Transient
     public String getFilteredDirections() {
-        return FilterBo.filterText(this.getDirections(), this.getFilter(),
-                false);
+        String filteredDirections =
+                FilterBo.filterText(this.getDirections(), this.getFilter(), false);
+        return filteredDirections;
     }
-    
+
     @Transient
     public String getFilteredDescription() {
-        return FilterBo.filterText(this.getDescription(), this.getFilter(),
-                false);
+        String filteredDescription =
+                FilterBo.filterText(this.getDescription(), this.getFilter(), false);
+        return filteredDescription;
     }
 }
