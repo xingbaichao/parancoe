@@ -159,12 +159,25 @@ public class EventBo {
 
     @Transactional
     public void save(Event event) {
+        boolean isNew = false;
+        if (event.getId() == null) {
+            isNew = true;
+        }
+        String loggedUser = "Unknown user";
         if (event.getOwner() == null) {
             Jugger jugger = getCurrentJugger();
             event.setOwner(jugger);
+            if (jugger != null) {
+                loggedUser = jugger.getUser().getUsername();
+            }
         }
         EventDao eventDao = getDaos().getEventDao();
         eventDao.createOrUpdate(event);
+        if (isNew) {
+            logger.info(loggedUser+" created a new event with id="+event.getId());
+        } else {
+            logger.info(loggedUser+" updated the event with id="+event.getId());
+        }
     }
 
     private Jugger getCurrentJugger() {
@@ -202,6 +215,7 @@ public class EventBo {
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
         sendConfirmationEmail(event, participant, baseUrl);
+        logger.info(participant.getEmail()+" ("+participant.getId()+") registered to the event with id="+event.getId());
     }
 
     @Transactional
