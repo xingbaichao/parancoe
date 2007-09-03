@@ -12,20 +12,25 @@ import org.directwebremoting.proxy.dwr.Util;
  */
 public class FilterBo {
 
+    private static TextParser textParser = new TextParser();
+
     public FilterBo() {
     }
 
-    public void populatePreview(String text, String filter, String previewDivId) {
-        String result = FilterBo.filterText(text, filter, false);
+    public void populatePreview(String text, String filter,
+            String previewDivId) {
+        String result =
+                FilterBo.filterText(text, filter, false);
         WebContext wctx = WebContextFactory.get();
         ScriptSession session = wctx.getScriptSession();
         Util util = new Util(session);
         util.setValue(previewDivId, result, false);
     }
-    
-    public static String filterText(String text, String filter, boolean escapeXml) {
+
+    public static String filterText(String text, String filter,
+            boolean escapeXml) {
         // Only Textile for now
-        TextParser textParser = new TextParser();
-        return textParser.parseTextile(text, !escapeXml);        
+        String result = textParser.parseTextile(text, !escapeXml);
+        return result;
     }
 }

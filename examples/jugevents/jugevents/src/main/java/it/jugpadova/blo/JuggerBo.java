@@ -290,8 +290,8 @@ public class JuggerBo {
             try {
                 List<JUG> jugs =
                         getDaos().getJUGDao().
-                        findByPartialJugNameAndCountry(partialJugName + "%",
-                        partialCountry + "%");
+                        findByPartialJugNameAndCountry("%" + partialJugName + "%",
+                        "%" + partialCountry + "%");
                 Iterator<JUG> itJugs = jugs.iterator();
                 while (itJugs.hasNext()) {
                     JUG jug = itJugs.next();
@@ -311,15 +311,13 @@ public class JuggerBo {
         List<String> result = new ArrayList<String>();
         if (!StringUtils.isBlank(partialJugName)) {
             try {
-                List<Jugger> juggers =
-                        getDaos().getJuggerDao().
+                List<JUG> jugs =
+                        getDaos().getJUGDao().
                         findByPartialJugNameAndCountryAndContinent("%" +
                         partialJugName + "%", "%" + partialCountry + "%",
                         "%" + partialContinent + "%");
-                Iterator<Jugger> itJuggers = juggers.iterator();
-                while (itJuggers.hasNext()) {
-                    Jugger jugger = itJuggers.next();
-                    result.add(jugger.getJug().getName());
+                for (JUG jug : jugs) {
+                    result.add(jug.getName());
                 }
             } catch (Exception e) {
                 logger.error("Error completing the JUG Name", e);
@@ -387,16 +385,16 @@ public class JuggerBo {
             }
             util.setValue("jugger.jug.webSite", jug.getWebSite());
             effect.highlight("jugger.jug.webSite");
-            if(jug.getLongitude()!=null)
-            {
-            util.setValue("jugger.jug.longitude", jug.getLongitude().toString());
-            effect.highlight("jugger.jug.longitude");
-            }//end of if
-            if(jug.getLatitude()!=null)
-            {
-            util.setValue("jugger.jug.latitude", jug.getLatitude().toString());
-            effect.highlight("jugger.jug.latitude");
-            }//end of if
+            if (jug.getLongitude() != null) {
+                util.setValue("jugger.jug.longitude",
+                        jug.getLongitude().toString());
+                effect.highlight("jugger.jug.longitude");
+            } //end of if
+            if (jug.getLatitude() != null) {
+                util.setValue("jugger.jug.latitude",
+                        jug.getLatitude().toString());
+                effect.highlight("jugger.jug.latitude");
+            } //end of if
         }
     }
 }
