@@ -170,6 +170,8 @@ public class EventBo {
             if (jugger != null) {
                 loggedUser = jugger.getUser().getUsername();
             }
+        } else {
+            loggedUser = event.getOwner().getUser().getUsername();
         }
         EventDao eventDao = getDaos().getEventDao();
         eventDao.createOrUpdate(event);
