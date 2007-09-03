@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -115,6 +116,9 @@ public abstract class EventController extends BaseMultiActionController {
             }
             channel.setLink(channelLink.toString());
             channel.setEncoding("UTF-8");
+            Date now = new Date();
+            channel.setLastBuildDate(now);
+            channel.setPubDate(now);
             List<Item> items =
                     new LinkedList<Item>();
             for (Event event : events) {
