@@ -23,6 +23,7 @@ import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.bean.EventSearch;
 import it.jugpadova.blo.EventBo;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
@@ -53,7 +54,18 @@ public abstract class EventController extends BaseMultiActionController {
             if (event == null) {
                 throw new IllegalArgumentException("No event with id " + id);
             }
-            dao().getEventDao().delete(event);
+            //check authorization
+            if(event.getOwner().getUser().getUsername().equals(
+            		blo().getEventBo().getCurrentJugger().getUser().getUsername()))
+            		{
+            			dao().getEventDao().delete(event);
+            		}
+            else	{
+            			throw new ParancoeAccessDeniedException("You are not owner of this event");   
+            		}       
+            
+        }catch(ParancoeAccessDeniedException pade) {
+        	throw pade; 
         } catch (Exception e) {
             return genericError(e);
         }

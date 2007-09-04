@@ -54,7 +54,7 @@
         </dwr:remote>
     </bean>
 
-    <bean id="securityBo" class="it.jugpadova.blo.SecurityBo" autowire="byType"/>
+    
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
@@ -81,7 +81,10 @@
           class="it.jugpadova.controllers.JuggerAdminController" parent="abstractController"/>
     <bean name="/confirm/*.html" id="confirmController"
           class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
-
+    
+    <!--  override bean definition in parancoe-servlet.xml  -->
+    <!-- sends exceptions to genericError.jsp -->
+    <bean id="exceptionResolver" class="it.jugpadova.util.JUGEventsExceptionResolver"/>
 
     <bean name="/people/edit.form" id="peopleEditController"
           class="it.jugpadova.controllers.PeopleEditController"
