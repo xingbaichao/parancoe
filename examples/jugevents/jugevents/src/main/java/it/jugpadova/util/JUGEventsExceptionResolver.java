@@ -22,7 +22,7 @@ public class JUGEventsExceptionResolver extends ExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res, Object object, Exception e) {
 		if(e instanceof ParancoeAccessDeniedException)
-			throw (ParancoeAccessDeniedException)e;
+			 return new ModelAndView("accessDenied", null);
 		return super.resolveException(req, res, object, e);
 	}
 
