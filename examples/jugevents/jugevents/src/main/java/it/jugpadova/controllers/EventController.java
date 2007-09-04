@@ -29,12 +29,9 @@ import it.jugpadova.po.Jugger;
 import it.jugpadova.po.Participant;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,18 +51,10 @@ public abstract class EventController extends BaseMultiActionController {
             if (event == null) {
                 throw new IllegalArgumentException("No event with id " + id);
             }
-            //check authorization
-            if(event.getOwner().getUser().getUsername().equals(
-            		blo().getEventBo().getCurrentJugger().getUser().getUsername()))
-            		{
-            			dao().getEventDao().delete(event);
-            		}
-            else	{
-            			throw new ParancoeAccessDeniedException("You are not owner of this event");   
-            		}       
-            
-        }catch(ParancoeAccessDeniedException pade) {
-        	throw pade; 
+            blo().getEventBo().checkUserAuthorization(event);
+            dao().getEventDao().delete(event);
+        } catch (ParancoeAccessDeniedException pade) {
+            throw pade;
         } catch (Exception e) {
             return genericError(e);
         }
@@ -99,11 +88,14 @@ public abstract class EventController extends BaseMultiActionController {
             if (event == null) {
                 throw new IllegalArgumentException("No event with id " + id);
             }
+            blo().getEventBo().checkUserAuthorization(event);
             List<Participant> participants =
                     dao().getParticipantDao().
                     findConfirmedParticipantsByEventId(event.getId());
             mv.addObject("event", event);
             mv.addObject("participants", participants);
+        } catch (ParancoeAccessDeniedException pade) {
+            throw pade;
         } catch (Exception e) {
             return genericError(e);
         }
