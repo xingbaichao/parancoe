@@ -18,6 +18,7 @@ import it.jugpadova.bean.EventSearch;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import org.springframework.transaction.annotation.Transactional;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
@@ -53,11 +54,12 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.security.UserAuthority;
 
 public class EventBo {
 
-    private static final Logger logger =
-            Logger.getLogger(EventBo.class);
+    private static final Logger logger = Logger.getLogger(EventBo.class);
     private Daos daos;
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
@@ -106,7 +108,8 @@ public class EventBo {
 
     @Transactional(readOnly = true)
     public List<Event> search(EventSearch eventSearch) {
-        List<Event> events = new LinkedList<Event>();
+        List<Event> events =
+                new LinkedList<Event>();
         try {
             DetachedCriteria eventCriteria =
                     DetachedCriteria.forClass(Event.class);
@@ -117,8 +120,7 @@ public class EventBo {
                         eventCriteria.createCriteria("owner.jug");
                 if (StringUtils.isNotBlank(eventSearch.getJugName())) {
                     ownerCriteria.add(Restrictions.ilike("name",
-                            eventSearch.getJugName(),
-                            MatchMode.ANYWHERE));
+                            eventSearch.getJugName(), MatchMode.ANYWHERE));
                 }
                 if (StringUtils.isNotBlank(eventSearch.getCountry()) ||
                         StringUtils.isNotBlank(eventSearch.getContinent())) {
@@ -126,24 +128,20 @@ public class EventBo {
                             ownerCriteria.createCriteria("country");
                     if (StringUtils.isNotBlank(eventSearch.getCountry())) {
                         countryCriteria.add(Restrictions.or(Restrictions.ilike("englishName",
-                                eventSearch.getCountry(),
-                                MatchMode.ANYWHERE),
+                                eventSearch.getCountry(), MatchMode.ANYWHERE),
                                 Restrictions.ilike("localName",
-                                eventSearch.getCountry(),
-                                MatchMode.ANYWHERE)));
+                                eventSearch.getCountry(), MatchMode.ANYWHERE)));
                     }
                     if (StringUtils.isNotBlank(eventSearch.getContinent())) {
                         DetachedCriteria continentCriteria =
                                 countryCriteria.createCriteria("continent");
                         continentCriteria.add(Restrictions.ilike("name",
-                                eventSearch.getContinent(),
-                                MatchMode.ANYWHERE));
+                                eventSearch.getContinent(), MatchMode.ANYWHERE));
                     }
                 }
             }
             if (!eventSearch.isPastEvents()) {
-                eventCriteria.add(Restrictions.ge("startDate",
-                        new Date()));
+                eventCriteria.add(Restrictions.ge("startDate", new Date()));
             }
             eventCriteria.addOrder(Order.asc("startDate"));
             events = daos.getEventDao().searchByCriteria(eventCriteria);
@@ -173,16 +171,21 @@ public class EventBo {
         } else {
             loggedUser = event.getOwner().getUser().getUsername();
         }
+        if (isNew) {
+            event.setCreationDate(new Date());
+        }
         EventDao eventDao = getDaos().getEventDao();
         eventDao.createOrUpdate(event);
         if (isNew) {
-            logger.info(loggedUser+" created a new event with id="+event.getId());
+            logger.info(loggedUser + " created a new event with id=" +
+                    event.getId());
         } else {
-            logger.info(loggedUser+" updated the event with id="+event.getId());
+            logger.info(loggedUser + " updated the event with id=" +
+                    event.getId());
         }
     }
 
-    public Jugger getCurrentJugger() {
+    private Jugger getCurrentJugger() {
         Jugger result = null;
         Authentication authentication =
                 org.acegisecurity.context.SecurityContextHolder.getContext().
@@ -194,7 +197,7 @@ public class EventBo {
             if (juggers.size() > 0) {
                 result = juggerDao.searchByUsername(name).get(0);
                 if (juggers.size() > 1) {
-                    logger.warn("MOre than a JUG with the '" + name +
+                    logger.warn("More than a jugger with the '" + name +
                             "' username");
                 }
             } else {
@@ -205,8 +208,7 @@ public class EventBo {
     }
 
     @Transactional
-    public void register(Event event, Participant participant,
-            String baseUrl) {
+    public void register(Event event, Participant participant, String baseUrl) {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
@@ -217,12 +219,13 @@ public class EventBo {
         event.addParticipant(participant);
         eventDao.createOrUpdate(event);
         sendConfirmationEmail(event, participant, baseUrl);
-        logger.info(participant.getEmail()+" ("+participant.getId()+") registered to the event with id="+event.getId());
+        logger.info(participant.getEmail() + " (" + participant.getId() +
+                ") registered to the event with id=" + event.getId());
     }
 
     @Transactional
-    public void refreshRegistration(Event event,
-            Participant participant, String baseUrl) {
+    public void refreshRegistration(Event event, Participant participant,
+            String baseUrl) {
         participant.setConfirmed(Boolean.FALSE);
         participant.setConfirmationCode(generateConfirmationCode(event,
                 participant));
@@ -231,8 +234,7 @@ public class EventBo {
         sendConfirmationEmail(event, participant, baseUrl);
     }
 
-    private String generateConfirmationCode(Event event,
-            Participant participant) {
+    private String generateConfirmationCode(Event event, Participant participant) {
         return new MessageDigestPasswordEncoder("MD5", true).encodePassword(event.getTitle() +
                 participant.getFirstName() + participant.getLastName() +
                 participant.getEmail(), new Date());
@@ -240,13 +242,11 @@ public class EventBo {
 
     private void sendConfirmationEmail(final Event event,
             final Participant participant, final String baseUrl) {
-        MimeMessagePreparator preparator =
-                new MimeMessagePreparator() {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
             @SuppressWarnings(value = "unchecked")
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message =
-                        new MimeMessageHelper(mimeMessage);
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                 message.setTo(participant.getEmail());
                 message.setFrom(confirmationSenderEmailAddress);
                 message.setSubject("Please confirm event registration");
@@ -276,9 +276,9 @@ public class EventBo {
     }
 
     @Transactional(readOnly = true)
-    public List findPartialLocation(String partialLocation,
-            String username) {
-        List<String> result = new ArrayList<String>();
+    public List findPartialLocation(String partialLocation, String username) {
+        List<String> result =
+                new ArrayList<String>();
         if (!StringUtils.isBlank(partialLocation) &&
                 !StringUtils.isBlank(username)) {
             try {
@@ -313,8 +313,7 @@ public class EventBo {
             util.setValue("directionsPreview",
                     FilterBo.filterText(event.getDirections(), event.getFilter(),
                     false));
-            Effect effect =
-                    new Effect(session);
+            Effect effect = new Effect(session);
             effect.highlight("location");
             effect.highlight("directions");
             effect.highlight("directionsPreview");
@@ -322,8 +321,7 @@ public class EventBo {
     }
 
     @Transactional
-    public Participant confirmParticipant(String email,
-            String confirmationCode) {
+    public Participant confirmParticipant(String email, String confirmationCode) {
         ParticipantDao dao = daos.getParticipantDao();
         List<Participant> participants =
                 dao.findByEmailAndConfirmationCodeAndConfirmed(email,
@@ -338,8 +336,8 @@ public class EventBo {
 
     @Transactional(readOnly = true)
     public void updateBadgePanel(String continent, String country,
-            String jugName, String pastEvents,
-            String jebShowDescription, String badgeStyle, String locale) {
+            String jugName, String pastEvents, String jebShowDescription,
+            String badgeStyle, String locale) {
         WebContext wctx = WebContextFactory.get();
         HttpServletRequest req = wctx.getHttpServletRequest();
         ScriptSession session = wctx.getScriptSession();
@@ -449,8 +447,8 @@ public class EventBo {
         return result.toString();
     }
 
-    public String getBadgeHtmlCode(List<Event> events,
-            DateFormat dateFormat, String baseUrl, boolean showDescription, String badgeStyle) {
+    public String getBadgeHtmlCode(List<Event> events, DateFormat dateFormat,
+            String baseUrl, boolean showDescription, String badgeStyle) {
         StringBuffer result = new StringBuffer();
         if ("simple".equals(badgeStyle)) {
             result.append("<style type=\"text/css\"><!--\n");
@@ -485,5 +483,31 @@ public class EventBo {
 
     private String javascriptize(String s) {
         return s.replaceAll("\'", "\'").replaceAll("\n", "\n");
+    }
+
+    private boolean isCurrentUserAuthorized(Event event) {
+        boolean result = false;
+        User currentUser = getCurrentJugger().getUser();
+        // it's the owner
+        if (event.getOwner().getUser().getUsername().
+                equals(currentUser.getUsername())) {
+            return true;
+        }
+        // it's and admin
+        List<UserAuthority> userAuthorities = currentUser.getUserAuthority();
+        for (UserAuthority userAuthority : userAuthorities) {
+            if ("ROLE_ADMIN".equals(userAuthority.getAuthority().getRole())) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Transactional(readOnly = true)
+    public void checkUserAuthorization(Event event) throws ParancoeAccessDeniedException {
+        if (!isCurrentUserAuthorized(event)) {
+            throw new ParancoeAccessDeniedException("You are not authorized on this event.");
+        }
     }
 }

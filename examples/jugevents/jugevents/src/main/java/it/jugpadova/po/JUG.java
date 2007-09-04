@@ -3,6 +3,7 @@
  */
 package it.jugpadova.po;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -41,9 +42,11 @@ public class JUG extends EntityBase {
 
     private String webSite;
 
-    Double latitude;
+    private Double latitude;
 
-    Double longitude;
+    private Double longitude;
+    
+    private String infos;
 
     public String getName() {
         return name;
@@ -85,4 +88,14 @@ public class JUG extends EntityBase {
     public void setWebSite(String webSite) {
         this.webSite = webSite;
     }
+    
+    @Column(length = 1024)
+    public String getInfos() {
+        return infos;
+    }
+
+    public void setInfos(String infos) {
+        this.infos = infos;
+    }
+        
 }

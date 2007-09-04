@@ -44,7 +44,8 @@ public class Event extends EntityBase {
     private String description;
     private String filter = "Textile";
     private Jugger owner;
-
+    private Date creationDate;
+    
     @ManyToOne
     public Jugger getOwner() {
         return owner;
@@ -153,6 +154,15 @@ public class Event extends EntityBase {
         this.participants.add(participant);
     }
 
+    @Temporal(value = TemporalType.TIMESTAMP)
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
     @Transient
     public int getNumberOfParticipants() {
         int result = 0;

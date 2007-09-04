@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.ui.AccessDeniedHandlerImpl;
 import org.apache.log4j.Logger;
@@ -33,15 +32,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 public abstract class EventEditController extends BaseFormController {
 
-    private static final Logger logger = Logger.getLogger(EventEditController.class);
+    private static final Logger logger =
+            Logger.getLogger(EventEditController.class);
 
     @Override
-    protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+    protected void initBinder(HttpServletRequest req,
+            ServletRequestDataBinder binder) throws Exception {
+        binder.registerCustomEditor(Date.class,
+                new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
     }
 
     @Override
-    protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
+    protected ModelAndView onSubmit(HttpServletRequest req,
+            HttpServletResponse res, Object command,
+            BindException errors) throws Exception {
         Event event = null;
         try {
             event = (Event) command;
@@ -63,17 +67,10 @@ public abstract class EventEditController extends BaseFormController {
             if (event == null) {
                 throw new Exception();
             }
-           
-            
-            if(event.getOwner().getUser().getUsername().equals(
-            		blo().getEventBo().getCurrentJugger().getUser().getUsername()))
-            		{
-            			return event;
-            		}
-            else
-            	throw new ParancoeAccessDeniedException("You are not owner of this event");   
-        }catch(ParancoeAccessDeniedException pade) {
-        	throw pade;            
+            blo().getEventBo().checkUserAuthorization(event);
+            return event;
+        } catch (ParancoeAccessDeniedException pade) {
+            throw pade;
         } catch (Exception e) {
             Event event = new Event();
             return event;
