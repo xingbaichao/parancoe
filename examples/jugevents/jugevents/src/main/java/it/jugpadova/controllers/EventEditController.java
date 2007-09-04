@@ -17,9 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.ui.AccessDeniedHandlerImpl;
 import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.Event;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -59,7 +63,17 @@ public abstract class EventEditController extends BaseFormController {
             if (event == null) {
                 throw new Exception();
             }
-            return event;
+           
+            
+            if(event.getOwner().getUser().getUsername().equals(
+            		blo().getEventBo().getCurrentJugger().getUser().getUsername()))
+            		{
+            			return event;
+            		}
+            else
+            	throw new ParancoeAccessDeniedException("You are not owner of this event");   
+        }catch(ParancoeAccessDeniedException pade) {
+        	throw pade;            
         } catch (Exception e) {
             Event event = new Event();
             return event;

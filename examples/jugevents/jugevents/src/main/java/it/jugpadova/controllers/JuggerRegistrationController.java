@@ -20,6 +20,7 @@ import it.jugpadova.bean.JuggerCaptcha;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
+import it.jugpadova.util.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -93,13 +94,7 @@ public abstract class JuggerRegistrationController extends BaseFormController {
         //set list of countries into request
     	List<Country> list =  dao().getCountryDao().findAllOrderedByEnglishNameAsc();
         req.setAttribute("countries", list);
-        JuggerCaptcha jc = new JuggerCaptcha();
-       
-        jc.getJugger().setUser(new User());    
-        jc.getJugger().setJug(new JUG());
-        jc.getJugger().getJug().setCountry(new Country());
-        
-        
+        JuggerCaptcha jc = Utilities.newJuggerCaptcha();        
         jc.setCaptchaId(req.getSession().getId());
         jc.setCaptchaService(captchaService);
     	return jc;

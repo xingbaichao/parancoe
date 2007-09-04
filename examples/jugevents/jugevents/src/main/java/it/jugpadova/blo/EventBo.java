@@ -182,7 +182,7 @@ public class EventBo {
         }
     }
 
-    private Jugger getCurrentJugger() {
+    public Jugger getCurrentJugger() {
         Jugger result = null;
         Authentication authentication =
                 org.acegisecurity.context.SecurityContextHolder.getContext().
