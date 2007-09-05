@@ -60,7 +60,8 @@ import org.parancoe.plugins.security.UserDao;
 
 public class EventBo {
 
-    private static final Logger logger = Logger.getLogger(EventBo.class);
+    private static final Logger logger =
+            Logger.getLogger(EventBo.class);
     private Daos daos;
     private JavaMailSender mailSender;
     private VelocityEngine velocityEngine;
@@ -109,8 +110,7 @@ public class EventBo {
 
     @Transactional(readOnly = true)
     public List<Event> search(EventSearch eventSearch) {
-        List<Event> events =
-                new LinkedList<Event>();
+        List<Event> events = new LinkedList<Event>();
         try {
             DetachedCriteria eventCriteria =
                     DetachedCriteria.forClass(Event.class);
@@ -121,7 +121,8 @@ public class EventBo {
                         eventCriteria.createCriteria("owner.jug");
                 if (StringUtils.isNotBlank(eventSearch.getJugName())) {
                     ownerCriteria.add(Restrictions.ilike("name",
-                            eventSearch.getJugName(), MatchMode.ANYWHERE));
+                            eventSearch.getJugName(),
+                            MatchMode.ANYWHERE));
                 }
                 if (StringUtils.isNotBlank(eventSearch.getCountry()) ||
                         StringUtils.isNotBlank(eventSearch.getContinent())) {
@@ -129,22 +130,32 @@ public class EventBo {
                             ownerCriteria.createCriteria("country");
                     if (StringUtils.isNotBlank(eventSearch.getCountry())) {
                         countryCriteria.add(Restrictions.or(Restrictions.ilike("englishName",
-                                eventSearch.getCountry(), MatchMode.ANYWHERE),
+                                eventSearch.getCountry(),
+                                MatchMode.ANYWHERE),
                                 Restrictions.ilike("localName",
-                                eventSearch.getCountry(), MatchMode.ANYWHERE)));
+                                eventSearch.getCountry(),
+                                MatchMode.ANYWHERE)));
                     }
                     if (StringUtils.isNotBlank(eventSearch.getContinent())) {
                         DetachedCriteria continentCriteria =
                                 countryCriteria.createCriteria("continent");
                         continentCriteria.add(Restrictions.ilike("name",
-                                eventSearch.getContinent(), MatchMode.ANYWHERE));
+                                eventSearch.getContinent(),
+                                MatchMode.ANYWHERE));
                     }
                 }
             }
             if (!eventSearch.isPastEvents()) {
-                eventCriteria.add(Restrictions.ge("startDate", new Date()));
+                eventCriteria.add(Restrictions.ge("startDate",
+                        new Date()));
             }
-            eventCriteria.addOrder(Order.asc("startDate"));
+            if ("desc".equals(eventSearch.getOrderByDate())) {
+                eventCriteria.addOrder(Order.desc("startDate"));
+                eventCriteria.addOrder(Order.desc("creationDate"));
+            } else {
+                eventCriteria.addOrder(Order.asc("startDate"));
+                eventCriteria.addOrder(Order.asc("creationDate"));
+            }
             events = daos.getEventDao().searchByCriteria(eventCriteria);
             for (Event event : events) {
                 event.getParticipants().size();
@@ -209,7 +220,8 @@ public class EventBo {
     }
 
     @Transactional
-    public void register(Event event, Participant participant, String baseUrl) {
+    public void register(Event event, Participant participant,
+            String baseUrl) {
         EventDao eventDao = getDaos().getEventDao();
         event = eventDao.read(event.getId());
         participant.setConfirmed(Boolean.FALSE);
@@ -225,8 +237,8 @@ public class EventBo {
     }
 
     @Transactional
-    public void refreshRegistration(Event event, Participant participant,
-            String baseUrl) {
+    public void refreshRegistration(Event event,
+            Participant participant, String baseUrl) {
         participant.setConfirmed(Boolean.FALSE);
         participant.setConfirmationCode(generateConfirmationCode(event,
                 participant));
@@ -235,7 +247,8 @@ public class EventBo {
         sendConfirmationEmail(event, participant, baseUrl);
     }
 
-    private String generateConfirmationCode(Event event, Participant participant) {
+    private String generateConfirmationCode(Event event,
+            Participant participant) {
         return new MessageDigestPasswordEncoder("MD5", true).encodePassword(event.getTitle() +
                 participant.getFirstName() + participant.getLastName() +
                 participant.getEmail(), new Date());
@@ -243,11 +256,13 @@ public class EventBo {
 
     private void sendConfirmationEmail(final Event event,
             final Participant participant, final String baseUrl) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+        MimeMessagePreparator preparator =
+                new MimeMessagePreparator() {
 
             @SuppressWarnings(value = "unchecked")
             public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                MimeMessageHelper message =
+                        new MimeMessageHelper(mimeMessage);
                 message.setTo(participant.getEmail());
                 message.setFrom(confirmationSenderEmailAddress);
                 message.setSubject("Please confirm event registration");
@@ -277,9 +292,9 @@ public class EventBo {
     }
 
     @Transactional(readOnly = true)
-    public List findPartialLocation(String partialLocation, String username) {
-        List<String> result =
-                new ArrayList<String>();
+    public List findPartialLocation(String partialLocation,
+            String username) {
+        List<String> result = new ArrayList<String>();
         if (!StringUtils.isBlank(partialLocation) &&
                 !StringUtils.isBlank(username)) {
             try {
@@ -314,7 +329,8 @@ public class EventBo {
             util.setValue("directionsPreview",
                     FilterBo.filterText(event.getDirections(), event.getFilter(),
                     false));
-            Effect effect = new Effect(session);
+            Effect effect =
+                    new Effect(session);
             effect.highlight("location");
             effect.highlight("directions");
             effect.highlight("directionsPreview");
@@ -322,7 +338,8 @@ public class EventBo {
     }
 
     @Transactional
-    public Participant confirmParticipant(String email, String confirmationCode) {
+    public Participant confirmParticipant(String email,
+            String confirmationCode) {
         ParticipantDao dao = daos.getParticipantDao();
         List<Participant> participants =
                 dao.findByEmailAndConfirmationCodeAndConfirmed(email,
@@ -337,8 +354,9 @@ public class EventBo {
 
     @Transactional(readOnly = true)
     public void updateBadgePanel(String continent, String country,
-            String jugName, String pastEvents, String jebShowDescription,
-            String badgeStyle, String locale) {
+            String jugName, String pastEvents, String orderByDate,
+            String jebShowDescription, String badgeStyle,
+            String locale) {
         WebContext wctx = WebContextFactory.get();
         HttpServletRequest req = wctx.getHttpServletRequest();
         ScriptSession session = wctx.getScriptSession();
@@ -355,12 +373,13 @@ public class EventBo {
         eventSearch.setCountry(country);
         eventSearch.setJugName(jugName);
         eventSearch.setPastEvents(java.lang.Boolean.parseBoolean(pastEvents));
+        eventSearch.setOrderByDate(orderByDate);
         java.util.List<it.jugpadova.po.Event> events = this.search(eventSearch);
         boolean showDescription =
                 java.lang.Boolean.parseBoolean(jebShowDescription);
         util.setValue("badgeCode",
                 this.getBadgePageCode(baseUrl, continent, country, jugName,
-                pastEvents, jebShowDescription, badgeStyle));
+                pastEvents, orderByDate, jebShowDescription, badgeStyle, locale));
         util.setValue("badgePreview",
                 this.getBadgeHtmlCode(events, dateFormat, baseUrl,
                 showDescription, badgeStyle));
@@ -377,7 +396,8 @@ public class EventBo {
 
     public String getBadgePageCode(String baseUrl, String continent,
             String country, String jugName, String pastEvents,
-            String jebShowDescription, String badgeStyle) {
+            String orderByDate, String jebShowDescription,
+            String badgeStyle, String lang) {
         StringBuffer result = new StringBuffer();
         result.append("<script type=\"text/javascript\" src=\"").append(baseUrl).
                 append("/event/badge.html");
@@ -386,8 +406,10 @@ public class EventBo {
                     StringUtils.isNotBlank(country) ||
                     StringUtils.isNotBlank(jugName) ||
                     StringUtils.isNotBlank(pastEvents) ||
+                    StringUtils.isNotBlank(orderByDate) ||
                     StringUtils.isNotBlank(jebShowDescription) ||
-                    StringUtils.isNotBlank(badgeStyle)) {
+                    StringUtils.isNotBlank(badgeStyle) ||
+                    StringUtils.isNotBlank(lang)) {
                 result.append('?');
                 boolean first = true;
                 if (StringUtils.isNotBlank(continent)) {
@@ -422,6 +444,14 @@ public class EventBo {
                             append(URLEncoder.encode(pastEvents, "UTF-8"));
                     first = false;
                 }
+                if (StringUtils.isNotBlank(orderByDate)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("order=").
+                            append(URLEncoder.encode(orderByDate, "UTF-8"));
+                    first = false;
+                }
                 if (StringUtils.isNotBlank(jebShowDescription)) {
                     if (!first) {
                         result.append('&');
@@ -438,6 +468,14 @@ public class EventBo {
                             append(URLEncoder.encode(badgeStyle, "UTF-8"));
                     first = false;
                 }
+                if (StringUtils.isNotBlank(lang)) {
+                    if (!first) {
+                        result.append('&');
+                    }
+                    result.append("lang=").
+                            append(URLEncoder.encode(lang, "UTF-8"));
+                    first = false;
+                }
             }
         } catch (UnsupportedEncodingException unsupportedEncodingException) {
             logger.error("Error encoding URL parameters",
@@ -448,8 +486,9 @@ public class EventBo {
         return result.toString();
     }
 
-    public String getBadgeHtmlCode(List<Event> events, DateFormat dateFormat,
-            String baseUrl, boolean showDescription, String badgeStyle) {
+    public String getBadgeHtmlCode(List<Event> events,
+            DateFormat dateFormat, String baseUrl, boolean showDescription,
+            String badgeStyle) {
         StringBuffer result = new StringBuffer();
         if ("simple".equals(badgeStyle)) {
             result.append("<style type=\"text/css\"><!--\n");
@@ -507,7 +546,7 @@ public class EventBo {
         }
         return result;
     }
-    
+
     private boolean isCurrentUserAuthorized(Event event) {
         boolean result = false;
         User currentUser = getCurrentUser();

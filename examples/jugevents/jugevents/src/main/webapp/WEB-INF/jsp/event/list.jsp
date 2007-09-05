@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
-        <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}" rel="alternate" title="RSS" type="application/rss+xml" />
+        <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}" rel="alternate" title="RSS" type="application/rss+xml" />
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
         <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
     </head>
@@ -13,7 +13,7 @@
             <div id="content">
                 <div id="content_main">
 
-                    <h1>Search Events <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h1>
+                    <h1>Search Events <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h1>
                     <a href="#" onclick="updateBadge(); $('webBadge').show(); new Effect.ScrollTo('webBadge', {offset: -24}); return false;"><spring:message code="GetBadgeLink"/></a>
                     <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
                         <fieldset>
@@ -27,6 +27,8 @@
                                 <dd><form:input path="jugName"/><div id="jugNameList" class="auto_complete"></div></dd>
                                 <dt><form:label path="pastEvents"><spring:message code="search.pastEvents"/>:</form:label></dt>
                                 <dd><form:checkbox path="pastEvents" id="pastEvents"/></dd>
+                                <dt><form:label path="orderByDate"><spring:message code="search.orderByDate"/>:</form:label></dt>
+                                <dd><form:radiobutton path="orderByDate" value="asc"/>ascending&nbsp;<form:radiobutton path="orderByDate" value="desc"/>descending</dd>
                                 <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Search'/>"/></dd>
                             </dl>
                         </fieldset>
@@ -109,7 +111,7 @@
                                 <dt><label><spring:message code="Style"/>:</label></dt>
                                 <dd><input type="radio" name="badgeStyle" value="none" checked="true" onchange="updateBadge()"/><spring:message code='None'/>&nbsp;<input type="radio" name="badgeStyle" value="simple" onchange="updateBadge()"/><spring:message code='Simple'/></dd>
                                 <dt><label><spring:message code="badgeCopyThisCode"/></label></dt>
-                                <dd><textarea name="badgeCode" cols="40" rows="4" readonly="true">${badgeCode}</textarea></dd>
+                                <dd><textarea name="badgeCode" cols="35" rows="4" readonly="true">${badgeCode}</textarea></dd>
                                 <dt><label><spring:message code="BadgePreview"/>:</label></dt>
                                 <dd><div id="badgePreview" style="margin-left: 220px; width: 200px; border: 1px solid gray; padding: 4px;">${badgePreview}</div></dd>
                             </dl>
@@ -152,7 +154,7 @@ function singleValueSelector(tag) {
 }
 
 function updateBadge() {
-    eventBo.updateBadgePanel($('continent').value, $('country').value, $('jugName').value, $('pastEvents').checked, $('badgeIncludeTheDescription').checked, $$('input[type=radio][name=badgeStyle]').find(function(el) { return el.checked }).value, '${requestScope.lang}');
+    eventBo.updateBadgePanel($('continent').value, $('country').value, $('jugName').value, $('pastEvents').checked, $$('input[type=radio][name=orderByDate]').find(function(el) { return el.checked }).value, $('badgeIncludeTheDescription').checked, $$('input[type=radio][name=badgeStyle]').find(function(el) { return el.checked }).value, '${requestScope.lang}');
 }
 
         </script>

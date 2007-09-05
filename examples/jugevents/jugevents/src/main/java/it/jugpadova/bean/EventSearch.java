@@ -11,6 +11,7 @@ public class EventSearch {
     private String country;
     private String jugName;
     private boolean pastEvents;
+    private String orderByDate="asc";
     
     public EventSearch() {
     }
@@ -45,6 +46,14 @@ public class EventSearch {
 
     public void setPastEvents(boolean pastEvents) {
         this.pastEvents = pastEvents;
-    }    
-    
+    }
+
+    public String getOrderByDate() {
+        return orderByDate;
+    }
+
+    public void setOrderByDate(String orderByDate) {
+        this.orderByDate = orderByDate;
+    }
+            
 }

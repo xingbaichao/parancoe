@@ -112,6 +112,7 @@ public abstract class EventController extends BaseMultiActionController {
             eventSearch.setCountry(req.getParameter("country"));
             eventSearch.setJugName(req.getParameter("jugName"));
             eventSearch.setPastEvents(Boolean.parseBoolean(req.getParameter("pastEvents")));
+            eventSearch.setOrderByDate(req.getParameter("order"));
             List<Event> events = blo().getEventBo().search(eventSearch);
             Channel channel = new Channel("rss_2.0");
             channel.setTitle("JUG Event news");
@@ -189,6 +190,7 @@ public abstract class EventController extends BaseMultiActionController {
             eventSearch.setCountry(req.getParameter("country"));
             eventSearch.setJugName(req.getParameter("jugName"));
             eventSearch.setPastEvents(java.lang.Boolean.parseBoolean(req.getParameter("pastEvents")));
+            eventSearch.setOrderByDate(req.getParameter("order"));
             java.util.List<it.jugpadova.po.Event> events =
                     blo().getEventBo().search(eventSearch);
             boolean showDescription =
