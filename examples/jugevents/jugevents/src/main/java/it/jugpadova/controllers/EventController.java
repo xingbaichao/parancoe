@@ -32,11 +32,13 @@ import java.io.Writer;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.StringUtils;
 
 public abstract class EventController extends BaseMultiActionController {
 
@@ -168,9 +170,16 @@ public abstract class EventController extends BaseMultiActionController {
     public ModelAndView badge(HttpServletRequest req,
             HttpServletResponse res) throws Exception {
         try {
+            String locale = req.getParameter("lang");
+            if (StringUtils.isBlank(locale)) {
+                locale = (String) req.getAttribute("lang");
+            }
+            if (StringUtils.isBlank(locale)) {
+                locale = "en";
+            }
             java.text.DateFormat dateFormat =
                     java.text.DateFormat.getDateInstance(java.text.DateFormat.DEFAULT,
-                    java.util.Locale.ITALY);
+                    new Locale(locale));
             java.lang.String baseUrl =
                     "http://" + req.getServerName() + ":" + req.getServerPort() +
                     req.getContextPath();
