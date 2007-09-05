@@ -54,7 +54,11 @@
         </dwr:remote>
     </bean>
 
-    
+    <bean id="jugBo" class="it.jugpadova.blo.JugBo" autowire="byType">
+        <property name="defaultKmlUrl">
+            <value>https://sv-web-jug.dev.java.net/kml/jug-leaders.kml</value>
+        </property>
+    </bean>    
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
