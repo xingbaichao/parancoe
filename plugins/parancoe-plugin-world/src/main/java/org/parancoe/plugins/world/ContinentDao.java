@@ -8,4 +8,5 @@ import java.util.List;
 @Dao(entity = Continent.class)
 public interface ContinentDao extends GenericDao<Continent, String> {
   List<Continent> findByPartialName(String partialName);
+  Continent findByName(String name);
 }

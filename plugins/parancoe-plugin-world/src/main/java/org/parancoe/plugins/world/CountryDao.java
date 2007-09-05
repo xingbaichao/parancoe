@@ -17,9 +17,9 @@ public interface CountryDao extends GenericDao<Country, String> {
    * @param isocode
    * @return
    */
-  List<Country> findByIsoCode(String isocode);
+  Country findByIsoCode(String isocode);
   
   Country findByEnglishName(String englishName);
   
-  List<Country> findAllOrderedByEnglishNameAsc();
+  List<Country> findByOrderByEnglishName();
 }
