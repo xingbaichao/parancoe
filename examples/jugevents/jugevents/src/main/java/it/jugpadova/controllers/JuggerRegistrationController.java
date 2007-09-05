@@ -92,7 +92,7 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
         //set list of countries into request
-    	List<Country> list =  dao().getCountryDao().findAllOrderedByEnglishNameAsc();
+    	List<Country> list =  dao().getCountryDao().findByOrderByEnglishName();
         req.setAttribute("countries", list);
         JuggerCaptcha jc = Utilities.newJuggerCaptcha();        
         jc.setCaptchaId(req.getSession().getId());
