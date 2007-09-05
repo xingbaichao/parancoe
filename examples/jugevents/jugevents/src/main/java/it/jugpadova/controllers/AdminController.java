@@ -15,10 +15,8 @@ package it.jugpadova.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import it.jugpadova.Blos;
@@ -28,20 +26,27 @@ import org.parancoe.web.BaseMultiActionController;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class AdminController extends BaseMultiActionController {
-    private static final Logger logger = Logger.getLogger(AdminController.class);
 
-    public ModelAndView index(HttpServletRequest req, HttpServletResponse res) {
+    private static final Logger logger =
+            Logger.getLogger(AdminController.class);
+
+    public ModelAndView index(HttpServletRequest req,
+            HttpServletResponse res) {
         return new ModelAndView("admin/index", null);
     }
 
-    public ModelAndView logs(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView logs(HttpServletRequest req,
+            HttpServletResponse res) {
         if ("true".equals(req.getParameter("clean"))) {
             MemoryAppender.clean();
         }
 
-        if ("error".equals(req.getParameter("test"))) logger.error("sample error message");
-        if ("warn".equals(req.getParameter("test"))) logger.warn("sample warn message");
-
+        if ("error".equals(req.getParameter("test"))) {
+            logger.error("sample error message");
+        }
+        if ("warn".equals(req.getParameter("test"))) {
+            logger.warn("sample warn message");
+        }
         String log = MemoryAppender.getFullLog();
         log = colourLog(log);
 
@@ -50,30 +55,48 @@ public abstract class AdminController extends BaseMultiActionController {
         return new ModelAndView("admin/logs", params);
     }
 
-    public ModelAndView conf(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView conf(HttpServletRequest req,
+            HttpServletResponse res) {
         return new ModelAndView("admin/conf", null);
     }
 
-    public ModelAndView spring(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView spring(HttpServletRequest req,
+            HttpServletResponse res) {
         return new ModelAndView("admin/spring", null);
     }
 
     private String colourLog(String log) {
-        String lines[];
-        if (log == null) lines = new String[]{""};
-        else lines = log.split("[\\n\\r]");
+        String[] lines;
+        if (log == null) {
+            lines = new String[]{""};
+        } else {
+            lines = log.split("[\\n\\r]");
+        }
         for (int i = 0; i < lines.length; i++) {
-            if (lines[i].indexOf("[ERROR]") != -1) lines[i] = "<span class=\"log_error\">" + lines[i] + "</span>";
-            if (lines[i].indexOf("[WARN]") != -1) lines[i] = "<span class=\"log_warn\">" + lines[i] + "</span>";
-            if (StringUtils.isNotBlank(lines[i])) lines[i] += "<br/>";
+            if (lines[i].indexOf("[ERROR]") != -1) {
+                lines[i] = "<span class=\"log_error\">" + lines[i] + "</span>";
+            }
+            if (lines[i].indexOf("[WARN]") != -1) {
+                lines[i] = "<span class=\"log_warn\">" + lines[i] + "</span>";
+            }
+            if (StringUtils.isNotBlank(lines[i])) {
+                lines[i] += "<br/>";
+            }
         }
         return StringUtils.join(lines);
     }
 
+    public ModelAndView updateJugList(HttpServletRequest req,
+            HttpServletResponse res) throws Exception {
+        blo().getJugBo().updateJugList(null);
+        return new ModelAndView("redirect:/admin/logs.html");
+    }
 
     public Logger getLogger() {
         return logger;
     }
+
     protected abstract Daos dao();
+
     protected abstract Blos blo();
 }

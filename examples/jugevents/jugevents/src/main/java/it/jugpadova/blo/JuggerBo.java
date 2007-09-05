@@ -8,7 +8,6 @@ import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
-import it.jugpadova.po.Event;
 import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
 import java.net.URLEncoder;
@@ -128,9 +127,8 @@ public class JuggerBo {
         userAuthorityDao.create(ua);
 
         //create or find JUG
-        JUG jug = null;
-        List<JUG> jugs = jugDao.findByName(jugger.getJug().getName());
-        if (jugs.size() == 0) {
+        JUG jug = jugDao.findByName(jugger.getJug().getName());
+        if (jug == null) {
             //create the JUG instance
             jug = new JUG();
             jug.setName(jugger.getJug().getName());
@@ -141,8 +139,7 @@ public class JuggerBo {
             jug.setLatitude(jugger.getJug().getLatitude());
             jugDao.create(jug);
         } else {
-            //get the value selected
-            jug = jugs.get(0);
+            // update the JUG selected
             jug.setCountry(countryDao.findByEnglishName(jugger.getJug().
                     getCountry().getEnglishName()));
             jug.setWebSite(jugger.getJug().getWebSite());
@@ -369,14 +366,13 @@ public class JuggerBo {
 
     @Transactional(readOnly = true)
     public void populateJugFields(String jugName) {
-        List<JUG> jugs = daos.getJUGDao().findByName(jugName);
-        if (jugs != null && !jugs.isEmpty()) {
+        JUG jug = daos.getJUGDao().findByName(jugName);
+        if (jug != null) {
             WebContext wctx = WebContextFactory.get();
             ScriptSession session = wctx.getScriptSession();
             Util util = new Util(session);
             Effect effect =
                     new Effect(session);
-            JUG jug = jugs.get(0);
             Country country = jug.getCountry();
             if (country != null) {
                 util.setValue("jugger.jug.country.englishName",
