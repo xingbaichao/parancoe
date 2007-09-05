@@ -56,6 +56,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.security.UserAuthority;
+import org.parancoe.plugins.security.UserDao;
 
 public class EventBo {
 
@@ -195,7 +196,7 @@ public class EventBo {
             JuggerDao juggerDao = getDaos().getJuggerDao();
             List<Jugger> juggers = juggerDao.searchByUsername(name);
             if (juggers.size() > 0) {
-                result = juggerDao.searchByUsername(name).get(0);
+                result = juggers.get(0);
                 if (juggers.size() > 1) {
                     logger.warn("More than a jugger with the '" + name +
                             "' username");
@@ -485,9 +486,31 @@ public class EventBo {
         return s.replaceAll("\'", "\'").replaceAll("\n", "\n");
     }
 
+    private User getCurrentUser() {
+        User result = null;
+        Authentication authentication =
+                org.acegisecurity.context.SecurityContextHolder.getContext().
+                getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String name = authentication.getName();
+            UserDao userDao = getDaos().getUserDao();
+            List<User> users = userDao.findByUsername(name);
+            if (users.size() > 0) {
+                result = users.get(0);
+                if (users.size() > 1) {
+                    logger.warn("More than an user with the '" + name +
+                            "' username");
+                }
+            } else {
+                logger.error("No user with the '" + name + "' username");
+            }
+        }
+        return result;
+    }
+    
     private boolean isCurrentUserAuthorized(Event event) {
         boolean result = false;
-        User currentUser = getCurrentJugger().getUser();
+        User currentUser = getCurrentUser();
         // it's the owner
         if (event.getOwner().getUser().getUsername().
                 equals(currentUser.getUsername())) {
