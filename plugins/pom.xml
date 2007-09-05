@@ -86,7 +86,7 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-core</artifactId>
-            <version>0.3.2</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
