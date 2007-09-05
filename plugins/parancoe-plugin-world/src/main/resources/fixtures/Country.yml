@@ -257,6 +257,13 @@
   localName: Magyarország
   englishName: Hungary
   continent: *Continent-Europe
+- &Country-ID
+  isoCode: ID
+  languageIsoCode: id
+  languageVariant: null 
+  localName: Indonesia
+  englishName: Indonesia
+  continent: *Continent-Australia
 - &Country-IE
   isoCode: IE
   languageIsoCode: en
@@ -509,6 +516,13 @@
   localName: Slovenija
   englishName: Slovenia
   continent: *Continent-Europe
+- &Country-SN
+  isoCode: SN
+  languageIsoCode: fr
+  languageVariant: null 
+  localName: Sénégal
+  englishName: Senegal
+  continent: *Continent-Africa
 - &Country-SK
   isoCode: SK
   languageIsoCode: sk
