@@ -147,4 +147,36 @@ public class JugBo {
         }
         logger.info("Update JUG List completed...");
     }
-}
+    
+    @Transactional
+    public JUG save(JUG newJUG)
+    {   
+    	JUGDao jugDao = daos.getJUGDao();
+    	CountryDao countryDao = daos.getCountryDao();
+//    	create or find JUG
+        JUG jug = jugDao.findByName(newJUG.getName());
+        if (jug == null) 
+        	{
+            //create the JUG instance
+            jug = new JUG();                     
+        	}
+            jug.setName(newJUG.getName());
+            jug.setCountry(countryDao.findByEnglishName(newJUG.getCountry().getEnglishName()));
+            jug.setWebSite(newJUG.getWebSite());
+            jug.setLongitude(newJUG.getLongitude());
+            jug.setLatitude(newJUG.getLatitude());
+            Long id = jug.getId(); 
+            if(id == null)
+            {     id = jugDao.create(jug);
+                  jug.setId(id);
+            	  logger.info("JUG with name "+jug.getName()+" has been created");
+            }
+            else
+            {   jugDao.update(jug);
+            	logger.info("JUG with name "+jug.getName()+" has been updated");
+            }
+            return jug;
+          
+    		}//end of method
+    
+}//end of class

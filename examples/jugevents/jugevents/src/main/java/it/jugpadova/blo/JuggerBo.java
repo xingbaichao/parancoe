@@ -32,6 +32,7 @@ import org.directwebremoting.proxy.scriptaculous.Effect;
 import org.parancoe.plugins.security.Authority;
 import org.parancoe.plugins.security.AuthorityDao;
 import org.parancoe.plugins.security.SecureUtility;
+import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.plugins.security.UserAuthorityDao;
 import org.parancoe.plugins.security.UserDao;
@@ -59,6 +60,7 @@ public class JuggerBo {
     private String confirmationSenderEmailAddress;
 
     private Daos daos;
+    private JugBo jugBo;
 
     public Daos getDaos() {
         return daos;
@@ -67,13 +69,16 @@ public class JuggerBo {
     public void setDaos(Daos daos) {
         this.daos = daos;
     }
+    
+    public JugBo getJugBo() {
+		return jugBo;
+	}
 
-    /**
-     * Constructor. Retrieves all daos
-     *
-     */
-    public JuggerBo() {
-    }
+	public void setJugBo(JugBo jugBo) {
+		this.jugBo = jugBo;
+	}
+
+    
 
     @Transactional(readOnly = true)
     public List<Jugger> retrieveJuggers() {
@@ -96,66 +101,25 @@ public class JuggerBo {
         return result;
     }
 
+    /**
+     * Creates and persists new Jugger.
+     * @param jugger
+     * @param baseUrl for confirmation mail
+     * @throws Exception
+     */
     @Transactional
-    public void save(Jugger jugger, String baseUrl) throws Exception {
-
-        //retrieves all dao
-        CountryDao countryDao = daos.getCountryDao();
-        UserDao userDao = daos.getUserDao();
-        AuthorityDao authorityDao = daos.getAuthorityDao();
-        UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
+    public void newJugger(Jugger jugger, String baseUrl) throws Exception {
+        //retrieves dao               
         JuggerDao juggerDao = daos.getJuggerDao();
-        JUGDao jugDao = daos.getJUGDao();
-
-        String username = jugger.getUser().getUsername();
-
-        //check if username is already presents
-        if ((juggerDao.searchByUsername(username).size() > 0) ||
-                (userDao.findByUsername(username).size() > 0)) {
-
-            throw new UserAlreadyPresentsException("Jugger with username: " +
-                    username + " already presents in the database!");
-        }
-
-        //set authority to jugger
-        Authority authority = authorityDao.findByRole("ROLE_JUGGER").get(0);
-        //create the user
-        userDao.create(SecureUtility.newUserToValidate(username));
-        UserAuthority ua = new UserAuthority();
-        ua.setAuthority(authority);
-        ua.setUser(userDao.findByUsername(jugger.getUser().getUsername()).get(0));
-        userAuthorityDao.create(ua);
-
-        //create or find JUG
-        JUG jug = jugDao.findByName(jugger.getJug().getName());
-        if (jug == null) {
-            //create the JUG instance
-            jug = new JUG();
-            jug.setName(jugger.getJug().getName());
-            jug.setCountry(countryDao.findByEnglishName(jugger.getJug().
-                    getCountry().getEnglishName()));
-            jug.setWebSite(jugger.getJug().getWebSite());
-            jug.setLongitude(jugger.getJug().getLongitude());
-            jug.setLatitude(jugger.getJug().getLatitude());
-            jugDao.create(jug);
-        } else {
-            // update the JUG selected
-            jug.setCountry(countryDao.findByEnglishName(jugger.getJug().
-                    getCountry().getEnglishName()));
-            jug.setWebSite(jugger.getJug().getWebSite());
-            jug.setLongitude(jugger.getJug().getLongitude());
-            jug.setLatitude(jugger.getJug().getLatitude());
-            jugDao.createOrUpdate(jug);
-        }
-
+        //creates or updated jug associated to jugger
+        JUG jug = jugBo.save(jugger.getJug());
         //assign values to jugger
         jugger.setJug(jug);
-        jugger.setUser(userDao.findByUsername(jugger.getUser().getUsername()).
-                get(0));
+        jugger.setUser(newUser(jugger.getUser().getUsername()));
         jugger.setConfirmationCode(generateConfirmationCode(jugger));
-        juggerDao.createOrUpdate(jugger);
+        juggerDao.create(jugger);
         sendConfirmationEmail(jugger, baseUrl);
-        logger.info("Jugger (" + username + ") created with success");
+        logger.info("Jugger (" + jugger.getUser().getUsername() + ") has been created with success");
     }
 
 
@@ -393,4 +357,77 @@ public class JuggerBo {
             } //end of if
         }
     }
-}
+    /**
+     * Updates Jugger and its childs.
+     * @param jugger
+     */
+    @Transactional
+    public void update(Jugger jugger) 
+    {   	
+    	
+    	JuggerDao juggerDao = daos.getJuggerDao();   
+    	
+    	User newUser = updateUser(jugger.getUser());   
+    	//TODO al momento è disabilitato update JUG
+    	//JUG newJUG = jugBo.save(jugger.getJug());
+    	//jugger.setJug(newJUG);
+    	jugger.setUser(newUser);    	
+    	juggerDao.update(jugger);
+    	logger.info("Updated Jugger with id "+jugger.getId());
+    			
+    	}
+
+	
+	
+	
+	@Transactional
+	public User newUser(String username) throws UserAlreadyPresentsException
+	{
+		 UserDao userDao = daos.getUserDao();
+	     AuthorityDao authorityDao = daos.getAuthorityDao();
+	     UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
+	    
+	     Authority authority = authorityDao.findByRole("ROLE_JUGGER");
+	     User userToValidate = null;
+	     Long id = null;
+	     UserAuthority ua = new UserAuthority();
+
+        //check if username is already presents
+        if (userDao.findByUsername(username).size() > 0) {
+
+            throw new UserAlreadyPresentsException("User with username: " +
+                    username + " already presents in the database!");
+        }
+
+        //set authority to jugger       
+        userToValidate = SecureUtility.newUserToValidate(username);
+        //create the user
+        id = userDao.create(userToValidate);   
+        userToValidate.setId(id);
+        ua.setAuthority(authority);
+        ua.setUser(userToValidate);
+        userAuthorityDao.create(ua); 
+        
+        return userToValidate;		
+	}
+	
+	
+	@Transactional
+	public User updateUser(User newUser)
+	{   
+		UserDao userDao = daos.getUserDao();
+
+		User user = userDao.findByUsername(newUser.getUsername()).get(0);
+		if(user.getPassword().equals(newUser.getPassword()))
+		{   //we only update the password
+			return user;
+		}
+		user.setPassword(newUser.getPassword());
+		userDao.update(user);
+		logger.info("User "+user.getUsername()+" has been updated");
+		return user;
+	}//end of method
+    	
+    	
+    }//end of class
+
