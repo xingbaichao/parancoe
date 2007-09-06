@@ -51,8 +51,8 @@ public class SecurityTest extends PluginTest {
 		// creates entities
 		User pippo = SecureUtility.newUserToValidate("pippo");
 		userDao.createOrUpdate(pippo);
-		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN")
-				.get(0);
+		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
+				
 
 		UserAuthority ua = new UserAuthority();
 		ua.setAuthority(parancoeAuthority);
