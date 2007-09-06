@@ -13,8 +13,6 @@
 // limitations under the License.
 package org.parancoe.plugins.security;
 
-import java.util.List;
-
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 
@@ -26,5 +24,5 @@ import org.parancoe.persistence.dao.generic.GenericDao;
  */
 @Dao(entity=Authority.class)
 public interface AuthorityDao extends GenericDao<Authority, Long> {
-	List<Authority> findByRole(String authority);
+	Authority findByRole(String authority);
 }
