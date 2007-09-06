@@ -17,21 +17,26 @@ import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EnableJugger;
 import it.jugpadova.bean.JuggerCaptcha;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
+import it.jugpadova.po.Event;
 import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.util.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.acegisecurity.Authentication;
 import org.apache.log4j.Logger;
 import org.parancoe.plugins.security.SecureUtility;
 import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.plugins.world.Country;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -42,15 +47,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.octo.captcha.service.CaptchaService;
 
 /**
- * 
+ * Controller for editing Jugger informations.
  * @author Enrico Giurin
  *
  */
-public abstract class JuggerRegistrationController extends BaseFormController {
+public abstract class JuggerEditController extends BaseFormController {
     
-    private final static Logger logger = Logger.getLogger(JuggerRegistrationController.class);
-    //captcha
-    private CaptchaService captchaService;
+    private final static Logger logger = Logger.getLogger(JuggerEditController.class);
+   
 
     
     protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
@@ -59,45 +63,27 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     
     @Override
 	protected void onBind(HttpServletRequest request, Object command) throws Exception {
-		JuggerCaptcha jc = (JuggerCaptcha)command;
-		jc.getJugger().getUser().setPassword("xxx");
-		
-    	
+		 	
 	}
     
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
    
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
-    	String baseUrl =
-            "http://" + req.getServerName() + ":" + req.getServerPort() +
-            req.getContextPath();
-    	JuggerCaptcha jc = (JuggerCaptcha) command;
-        try {
-        	  blo().getJuggerBO().newJugger(jc.getJugger(), baseUrl); 
-		} catch (UserAlreadyPresentsException e) {
-			
-			 errors.rejectValue("jugger.user.username", "useralreadypresents", e.getMessage());
-			 logger.error(e);
-	         return showForm(req, res, errors);
-			
-		}
-      
-        ModelAndView mv = onSubmit(command, errors);
-        mv.addObject("juggerId",jc.getJugger().getId());
-        return mv;
+
+    	Jugger jugger = (Jugger) command;
+    	blo().getJuggerBO().update(jugger); 
+    	ModelAndView mv = onSubmit(command, errors);
+    	mv.addObject("jugger", jugger);
+    	return mv;
         
         
     }
     
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
-        //set list of countries into request
-    	List<Country> list =  dao().getCountryDao().findByOrderByEnglishName();
-        req.setAttribute("countries", list);
-        JuggerCaptcha jc = Utilities.newJuggerCaptcha();        
-        jc.setCaptchaId(req.getSession().getId());
-        jc.setCaptchaService(captchaService);
-    	return jc;
+    	String username = req.getParameter("user.username");
+    	checkAuthorization(username);
+    	return dao().getJuggerDao().searchByUsername(username).get(0);    	
     }
 
     public Logger getLogger() {
@@ -105,14 +91,28 @@ public abstract class JuggerRegistrationController extends BaseFormController {
     }
     protected abstract Daos dao();
     protected abstract Blos blo();
+    
+    /**
+     * Check if username corrisponds to authenticated user.
+     * @param username
+     * @return
+     */
+    private void checkAuthorization(String username) {
 
-	public CaptchaService getCaptchaService() {
-		return captchaService;
-	}
+    	Authentication authentication =
+    		org.acegisecurity.context.SecurityContextHolder.getContext().
+    		getAuthentication();
+    	if (authentication != null && authentication.isAuthenticated()) 
+    	{
+    		String name = authentication.getName();
+    		if(username.equals(name))
+    		{
+    			return;
+    		}
+    	}
+    	throw new ParancoeAccessDeniedException("You are not authorized on this Jugger."); 	
+    }
 
-	public void setCaptchaService(CaptchaService captchaService) {
-		this.captchaService = captchaService;
-	}
 
 	
-}
+}//end of class

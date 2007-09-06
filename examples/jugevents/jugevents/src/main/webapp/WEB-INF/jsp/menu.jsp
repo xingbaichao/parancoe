@@ -14,11 +14,14 @@
     <authz:authorize ifNotGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">
         <p class="menuLevel0"><a href="${cp}/jugger/registration.form"><spring:message code="newjugger"/></a></p>
     </authz:authorize>
+    <authz:authorize ifAnyGranted="ROLE_JUGGER">    
+        <p class="menuLevel0"><a href="${cp}/jugger/edit.form?user.username=<authz:authentication operation="username"/>"><spring:message code="Edit-Jugger"/></a></p>
+    </authz:authorize>
     <authz:authorize ifNotGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">
         <p class="menuLevel0"><a href="${cp}/login.secure"><spring:message code="Login"/></a></p>
     </authz:authorize>
     <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">   			
-        <p class="menuLevel0"><a href="${cp}/logout.secure">Logout</a></p>
+        <p class="menuLevel0"><a href="${cp}/logout.secure"><spring:message code="Logout"/></a></p>
         <br/>
         <spring:message code="Welcome"/> <b><authz:authentication operation="username"/></b>
     </authz:authorize>         

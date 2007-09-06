@@ -113,6 +113,11 @@ public abstract class JuggerController extends BaseMultiActionController {
           HttpServletResponse res) {
 	  return new ModelAndView("jugger/registration/alreadyRegistered");
   }
+  
+  public ModelAndView confirmUpdateJugger(HttpServletRequest req,
+          HttpServletResponse res) {
+	  return new ModelAndView("jugger/confirmUpdateJugger");
+  }
    
    
    
