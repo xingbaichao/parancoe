@@ -11,10 +11,10 @@
                 <div id="content_main">
                     <c:choose>
                         <c:when test="${requestScope.lang eq 'it'}">
-                            I tuoi dati personali sono stati modificati con successo
+                            Il tuo profilo &egrave; stato aggiornato con successo
                         </c:when>
                         <c:otherwise>
-                            Your personal data has been updated with success
+                            Your profile has been successfully updated
                         </c:otherwise>
                     </c:choose>
                 </div>

@@ -1,10 +1,6 @@
-/**
- *
- */
 package it.jugpadova.blo;
 
 import it.jugpadova.Daos;
-import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
@@ -38,7 +34,6 @@ import org.parancoe.plugins.security.UserAuthorityDao;
 import org.parancoe.plugins.security.UserDao;
 import org.parancoe.plugins.world.Continent;
 import org.parancoe.plugins.world.Country;
-import org.parancoe.plugins.world.CountryDao;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -69,16 +64,16 @@ public class JuggerBo {
     public void setDaos(Daos daos) {
         this.daos = daos;
     }
-    
+
     public JugBo getJugBo() {
-		return jugBo;
-	}
+        return jugBo;
+    }
 
-	public void setJugBo(JugBo jugBo) {
-		this.jugBo = jugBo;
-	}
+    public void setJugBo(JugBo jugBo) {
+        this.jugBo = jugBo;
+    }
 
-    
+
 
     @Transactional(readOnly = true)
     public List<Jugger> retrieveJuggers() {
@@ -109,7 +104,7 @@ public class JuggerBo {
      */
     @Transactional
     public void newJugger(Jugger jugger, String baseUrl) throws Exception {
-        //retrieves dao               
+        //retrieves dao
         JuggerDao juggerDao = daos.getJuggerDao();
         //creates or updated jug associated to jugger
         JUG jug = jugBo.save(jugger.getJug());
@@ -119,7 +114,8 @@ public class JuggerBo {
         jugger.setConfirmationCode(generateConfirmationCode(jugger));
         juggerDao.create(jugger);
         sendConfirmationEmail(jugger, baseUrl);
-        logger.info("Jugger (" + jugger.getUser().getUsername() + ") has been created with success");
+        logger.info("Jugger (" + jugger.getUser().getUsername() +
+                ") has been created with success");
     }
 
 
@@ -357,40 +353,38 @@ public class JuggerBo {
             } //end of if
         }
     }
+
     /**
      * Updates Jugger and its childs.
      * @param jugger
      */
     @Transactional
-    public void update(Jugger jugger) 
-    {   	
-    	
-    	JuggerDao juggerDao = daos.getJuggerDao();   
-    	
-    	User newUser = updateUser(jugger.getUser());   
-    	//TODO al momento è disabilitato update JUG
-    	//JUG newJUG = jugBo.save(jugger.getJug());
-    	//jugger.setJug(newJUG);
-    	jugger.setUser(newUser);    	
-    	juggerDao.update(jugger);
-    	logger.info("Updated Jugger with id "+jugger.getId());
-    			
-    	}
+    public void update(Jugger jugger) {
 
-	
-	
-	
-	@Transactional
-	public User newUser(String username) throws UserAlreadyPresentsException
-	{
-		 UserDao userDao = daos.getUserDao();
-	     AuthorityDao authorityDao = daos.getAuthorityDao();
-	     UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
-	    
-	     Authority authority = authorityDao.findByRole("ROLE_JUGGER");
-	     User userToValidate = null;
-	     Long id = null;
-	     UserAuthority ua = new UserAuthority();
+        JuggerDao juggerDao = daos.getJuggerDao();
+
+        User newUser = updateUser(jugger.getUser());
+        //TODO al momento ï¿½ disabilitato update JUG
+        //JUG newJUG = jugBo.save(jugger.getJug());
+        //jugger.setJug(newJUG);
+        jugger.setUser(newUser);
+        juggerDao.update(jugger);
+        logger.info("Updated Jugger with id " + jugger.getId());
+    }
+
+
+
+
+    @Transactional
+    public User newUser(String username) throws UserAlreadyPresentsException {
+        UserDao userDao = daos.getUserDao();
+        AuthorityDao authorityDao = daos.getAuthorityDao();
+        UserAuthorityDao userAuthorityDao = daos.getUserAuthorityDao();
+
+        Authority authority = authorityDao.findByRole("ROLE_JUGGER");
+        User userToValidate = null;
+        Long id = null;
+        UserAuthority ua = new UserAuthority();
 
         //check if username is already presents
         if (userDao.findByUsername(username).size() > 0) {
@@ -399,35 +393,32 @@ public class JuggerBo {
                     username + " already presents in the database!");
         }
 
-        //set authority to jugger       
-        userToValidate = SecureUtility.newUserToValidate(username);
+        //set authority to jugger
+        userToValidate =
+                SecureUtility.newUserToValidate(username);
         //create the user
-        id = userDao.create(userToValidate);   
+        id = userDao.create(userToValidate);
         userToValidate.setId(id);
         ua.setAuthority(authority);
         ua.setUser(userToValidate);
-        userAuthorityDao.create(ua); 
-        
-        return userToValidate;		
-	}
-	
-	
-	@Transactional
-	public User updateUser(User newUser)
-	{   
-		UserDao userDao = daos.getUserDao();
+        userAuthorityDao.create(ua);
 
-		User user = userDao.findByUsername(newUser.getUsername()).get(0);
-		if(user.getPassword().equals(newUser.getPassword()))
-		{   //we only update the password
-			return user;
-		}
-		user.setPassword(newUser.getPassword());
-		userDao.update(user);
-		logger.info("User "+user.getUsername()+" has been updated");
-		return user;
-	}//end of method
-    	
-    	
-    }//end of class
+        return userToValidate;
+    }
 
+
+    @Transactional
+    public User updateUser(User newUser) {
+        UserDao userDao = daos.getUserDao();
+
+        User user = userDao.findByUsername(newUser.getUsername()).get(0);
+        if (user.getPassword().equals(newUser.getPassword())) {
+            //we only update the password
+            return user;
+        }
+        user.setPassword(newUser.getPassword());
+        userDao.update(user);
+        logger.info("User " + user.getUsername() + " has been updated");
+        return user;
+    } //end of method
+} //end of class

@@ -86,6 +86,8 @@
           class="it.jugpadova.controllers.JuggerAdminController" parent="abstractController"/>
     <bean name="/confirm/*.html" id="confirmController"
           class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
+    <bean name="/service/*.html" id="serviceController"
+          class="it.jugpadova.controllers.ServiceController" parent="abstractController"/>
     
     <!--  override bean definition in parancoe-servlet.xml  -->
     <!-- sends exceptions to genericError.jsp -->

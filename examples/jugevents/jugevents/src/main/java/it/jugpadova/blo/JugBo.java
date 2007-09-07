@@ -3,7 +3,6 @@ package it.jugpadova.blo;
 import it.jugpadova.Daos;
 import it.jugpadova.dao.JUGDao;
 import it.jugpadova.po.JUG;
-import java.util.ArrayList;
 import java.util.List;
 import nu.xom.Builder;
 import nu.xom.Document;
@@ -24,6 +23,8 @@ public class JugBo {
 
     private static final Logger logger =
             Logger.getLogger(JugBo.class);
+    private static final String EARTH_NAMESPACE =
+            "http://earth.google.com/kml/2.1";
     private Daos daos;
     private String defaultKmlUrl;
 
@@ -64,20 +65,17 @@ public class JugBo {
         CountryDao countryDao = getDaos().getCountryDao();
         JUGDao jugDao = getDaos().getJUGDao();
         Builder parser = new Builder();
-        Document doc =
-                parser.build(kmlUrl);
+        Document doc = parser.build(kmlUrl);
         Element kml = doc.getRootElement();
         Element document =
-                kml.getFirstChildElement("Document",
-                "http://earth.google.com/kml/2.1");
+                kml.getFirstChildElement("Document", EARTH_NAMESPACE);
         Elements continents =
-                document.getChildElements("Folder",
-                "http://earth.google.com/kml/2.1");
+                document.getChildElements("Folder", EARTH_NAMESPACE);
         for (int i = 0; i < continents.size(); i++) {
             Element continent = continents.get(i);
             String continentName =
-                    continent.getFirstChildElement("name",
-                    "http://earth.google.com/kml/2.1").getValue();
+                    continent.getFirstChildElement("name", EARTH_NAMESPACE).
+                    getValue();
             if ("Oceania".equals(continentName)) {
                 continentName = "Australia";
                 logger.info("Substituted continent name: Oceania with Australia");
@@ -86,36 +84,32 @@ public class JugBo {
             if (continentPo != null) {
                 logger.info("Loading " + continentName + " countries.");
                 Elements countries =
-                        continent.getChildElements("Folder",
-                        "http://earth.google.com/kml/2.1");
+                        continent.getChildElements("Folder", EARTH_NAMESPACE);
                 for (int j = 0; j < countries.size(); j++) {
                     Element country = countries.get(j);
                     String countryName =
-                            country.getFirstChildElement("name",
-                            "http://earth.google.com/kml/2.1").getValue();
+                            country.getFirstChildElement("name", EARTH_NAMESPACE).
+                            getValue();
                     Country countryPo = countryDao.findByEnglishName(countryName);
                     if (countryPo != null) {
                         logger.info("Loading " + countryName + " JUGs.");
                         Elements placemarks =
                                 country.getChildElements("Placemark",
-                                "http://earth.google.com/kml/2.1");
+                                EARTH_NAMESPACE);
                         for (int k = 0; k < placemarks.size(); k++) {
                             Element placemark = placemarks.get(k);
                             String jugName =
                                     placemark.getFirstChildElement("name",
-                                    "http://earth.google.com/kml/2.1").
-                                    getValue();
+                                    EARTH_NAMESPACE).getValue();
                             String description =
                                     placemark.getFirstChildElement("description",
-                                    "http://earth.google.com/kml/2.1").
-                                    getValue();
+                                    EARTH_NAMESPACE).getValue();
                             Element point =
                                     placemark.getFirstChildElement("Point",
-                                    "http://earth.google.com/kml/2.1");
+                                    EARTH_NAMESPACE);
                             String coordinatesStr =
                                     point.getFirstChildElement("coordinates",
-                                    "http://earth.google.com/kml/2.1").
-                                    getValue();
+                                    EARTH_NAMESPACE).getValue();
                             String[] coordinatesArr = coordinatesStr.split(",");
                             Double longitude =
                                     Double.parseDouble(coordinatesArr[0]);
@@ -147,36 +141,117 @@ public class JugBo {
         }
         logger.info("Update JUG List completed...");
     }
-    
+
     @Transactional
-    public JUG save(JUG newJUG)
-    {   
-    	JUGDao jugDao = daos.getJUGDao();
-    	CountryDao countryDao = daos.getCountryDao();
-//    	create or find JUG
+    public Document buildKml() {
+        Element kml = new Element("kml", EARTH_NAMESPACE);
+        Element document = new Element("Document", EARTH_NAMESPACE);
+        kml.appendChild(document);
+        Element documentName = new Element("name", EARTH_NAMESPACE);
+        documentName.appendChild("Java User Group International");
+        Element documentDescription =
+                new Element("description", EARTH_NAMESPACE);
+        documentDescription.appendChild("\nGeographic location, leaders and web site information for JUGs from\n" +
+                "around the world. For convenience, they are grouped by continent." +
+                "Instructions for submitting new JUG entries can be found" +
+                "<a href=\"http://wiki.java.net/bin/view/JUGs/JUG-MAP\">here</a>." +
+                "<br/>&nbsp;<br/><img src=\"http://sv-web-jug.dev.java.net/images/jug_leaders_large.gif\"><br/>&nbsp;");
+        document.appendChild(documentName);
+        document.appendChild(documentDescription);
+        List<Continent> continents =
+                getDaos().getContinentDao().findByPartialName("%");
+        for (Continent continent : continents) {
+            Element continentFolder = null;
+            List<Country> countries = continent.getCountries();
+            for (Country country : countries) {
+                Element countryFolder = null;
+                List<JUG> jugs =
+                        daos.getJUGDao().
+                        findByPartialJugNameAndCountry("%",
+                        country.getEnglishName());
+                for (JUG jug : jugs) {
+                    if (jug.getLongitude() != null && jug.getLatitude() != null) {
+                        if (continentFolder == null) {
+                            continentFolder =
+                                    new Element("Folder", EARTH_NAMESPACE);
+                            Element continentName =
+                                    new Element("name", EARTH_NAMESPACE);
+                            String continentNameText = continent.getName();
+                            if ("Australia".equals(continentNameText)) {
+                                continentNameText = "Oceania";
+                            }
+                            continentName.appendChild(continentNameText);
+                            Element continentOpen =
+                                    new Element("open", EARTH_NAMESPACE);
+                            continentOpen.appendChild("1");
+                            continentFolder.appendChild(continentName);
+                            continentFolder.appendChild(continentOpen);
+                            document.appendChild(continentFolder);
+                        }
+                        if (countryFolder == null) {
+                            countryFolder =
+                                    new Element("Folder", EARTH_NAMESPACE);
+                            Element countryName =
+                                    new Element("name", EARTH_NAMESPACE);
+                            countryName.appendChild(country.getEnglishName());
+                            Element countryOpen =
+                                    new Element("open", EARTH_NAMESPACE);
+                            countryOpen.appendChild("0");
+                            countryFolder.appendChild(countryName);
+                            countryFolder.appendChild(countryOpen);
+                            continentFolder.appendChild(countryFolder);
+                        }
+                        Element placemark =
+                                new Element("Placemark", EARTH_NAMESPACE);
+                        Element jugName =
+                                new Element("name", EARTH_NAMESPACE);
+                        jugName.appendChild(jug.getName());
+                        Element jugDescription =
+                                new Element("description", EARTH_NAMESPACE);
+                        jugDescription.appendChild("\n"+jug.getInfos()+"\n");
+                        Element point =
+                                new Element("Point", EARTH_NAMESPACE);
+                        Element coordinates =
+                                new Element("coordinates", EARTH_NAMESPACE);
+                        coordinates.appendChild(jug.getLongitude() + "," +
+                                jug.getLatitude() + ",0");
+                        point.appendChild(coordinates);
+                        placemark.appendChild(jugName);
+                        placemark.appendChild(jugDescription);
+                        placemark.appendChild(point);
+                        countryFolder.appendChild(placemark);
+                    }
+                }
+            }
+        }
+        return new Document(kml);
+    }
+
+    @Transactional
+    public JUG save(JUG newJUG) {
+        JUGDao jugDao = daos.getJUGDao();
+        CountryDao countryDao = daos.getCountryDao();
+        // create or find JUG
         JUG jug = jugDao.findByName(newJUG.getName());
-        if (jug == null) 
-        	{
+        if (jug == null) {
             //create the JUG instance
-            jug = new JUG();                     
-        	}
-            jug.setName(newJUG.getName());
-            jug.setCountry(countryDao.findByEnglishName(newJUG.getCountry().getEnglishName()));
-            jug.setWebSite(newJUG.getWebSite());
-            jug.setLongitude(newJUG.getLongitude());
-            jug.setLatitude(newJUG.getLatitude());
-            Long id = jug.getId(); 
-            if(id == null)
-            {     id = jugDao.create(jug);
-                  jug.setId(id);
-            	  logger.info("JUG with name "+jug.getName()+" has been created");
-            }
-            else
-            {   jugDao.update(jug);
-            	logger.info("JUG with name "+jug.getName()+" has been updated");
-            }
-            return jug;
-          
-    		}//end of method
-    
-}//end of class
+            jug = new JUG();
+        }
+        jug.setName(newJUG.getName());
+        jug.setCountry(countryDao.findByEnglishName(newJUG.getCountry().
+                getEnglishName()));
+        jug.setWebSite(newJUG.getWebSite());
+        jug.setLongitude(newJUG.getLongitude());
+        jug.setLatitude(newJUG.getLatitude());
+        Long id = jug.getId();
+        if (id == null) {
+            id = jugDao.create(jug);
+            jug.setId(id);
+            logger.info("JUG with name " + jug.getName() + " has been created");
+        } else {
+            jugDao.update(jug);
+            logger.info("JUG with name " + jug.getName() + " has been updated");
+        }
+        return jug;
+    }
+}
