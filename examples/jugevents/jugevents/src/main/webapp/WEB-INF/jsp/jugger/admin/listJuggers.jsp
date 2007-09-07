@@ -18,14 +18,16 @@
                             <table class="dataList">
                                 <thead>
                                     <tr>
-                                        <th>username</th>                                        
-                                        <th>country</th>
-                                        <th>jugName</th>
-                                        <th>enabled/disabled</th>
+                                        <th width='20%'>username</th>                                        
+                                        <th width='20%'>country</th>
+                                        <th width='20%'>jugName</th>                                        
+                                        <th width='20%'>edit</th>
+                                        <th width='20%'>enabled/disabled</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="jugger" items="${juggers}" varStatus="status">
+                                        
                                         <c:choose>
                                             <c:when test="${status.count % 2 == 0}">
                                                 <c:set var="rowStyle" value="evenRow"/>
@@ -37,7 +39,10 @@
                                         <tr class="${rowStyle}">
                                             <td><a href="${cp}/adminjugger/viewJugger.html?username=${jugger.user.username}">${jugger.user.username}</a></td>
                                             <td>${jugger.jug.country.englishName}</td>
-                                            <td>${jugger.jug.name}</td>
+                                            <td>${jugger.jug.name}</td>    
+                                            <td>                                        
+                                            <a href="${cp}/jugger/edit.form?jugger.user.username=${jugger.user.username}">edit</a>
+                                            </td>
                                             <td>
                                             <c:choose>
                                              <c:when test="${jugger.user.enabled}">
@@ -47,7 +52,8 @@
                                               <a href="${cp}/adminjugger/enableJugger.html?username=${jugger.user.username}">enable</a>
                                              </c:otherwise>     
                                              </c:choose>      
-                                            </td>             
+                                            </td>       
+                                            
                                          </tr>
                                     </c:forEach>
                                 </tbody>
