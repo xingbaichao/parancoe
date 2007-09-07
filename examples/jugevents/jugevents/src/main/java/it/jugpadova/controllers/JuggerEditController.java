@@ -69,6 +69,10 @@ public abstract class JuggerEditController extends BaseFormController {
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
 
     	EditJugger ej = (EditJugger) command;
+    	if((ej.getPassword()!=null)&&(ej.getPassword().length()>0))
+    	{
+    		ej.getJugger().getUser().setPassword(ej.getPassword());
+    	}
     	blo().getJuggerBO().update(ej.getJugger()); 
     	ModelAndView mv = onSubmit(command, errors);
     	mv.addObject("jugger", ej.getJugger());
@@ -84,7 +88,7 @@ public abstract class JuggerEditController extends BaseFormController {
     	EditJugger ej = new EditJugger();
     	Jugger jugger = dao().getJuggerDao().searchByUsername(username).get(0);
     	ej.setJugger(jugger);
-    	ej.setConfirmPassword(jugger.getUser().getPassword());
+    	
     	return ej;    	
     }
 

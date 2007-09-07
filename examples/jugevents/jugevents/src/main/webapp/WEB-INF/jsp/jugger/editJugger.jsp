@@ -28,8 +28,8 @@
                                 <dd><form:input path="jugger.lastName"/></dd>
                                 <dt><form:label path="jugger.email"><spring:message code="Email"/> (*)</form:label></dt>
                                 <dd><form:input path="jugger.email" size="35"/></dd>
-                                <dt><form:label path="jugger.user.password"><spring:message code="password"/> (*)</form:label></dt>
-                                <dd><form:password path="jugger.user.password" /></dd>
+                                <dt><form:label path="password"><spring:message code="password"/> (*)</form:label></dt>
+                                <dd><form:password path="password" /></dd>
                                 <dt><form:label path="confirmPassword"><spring:message code="confirmPassword"/> (*)</form:label></dt>
                                 <dd><form:password path="confirmPassword" /></dd>
                                 <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Update'/>"/><br/><br/></dd>

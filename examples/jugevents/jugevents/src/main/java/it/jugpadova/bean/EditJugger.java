@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Expression;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
 /**
  * Bean for editing jugger.
@@ -18,7 +19,9 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.Expressi
 public class EditJugger implements Serializable {
 	@CascadeValidation
 	private Jugger jugger;
-	@Expression("confirmPassword == jugger.user.password")
+	
+	private String password;
+	@Expression("confirmPassword == password")
 	private String confirmPassword;
 	public String getConfirmPassword() {
 		return confirmPassword;
@@ -31,6 +34,12 @@ public class EditJugger implements Serializable {
 	}
 	public void setJugger(Jugger jugger) {
 		this.jugger = jugger;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
