@@ -144,7 +144,7 @@
     <bean name="/jugger/edit.form" id="juggerEditController"
           class="it.jugpadova.controllers.JuggerEditController"
           parent="abstractController">
-        <property name="commandClass" value="it.jugpadova.po.Jugger"/>
+        <property name="commandClass" value="it.jugpadova.bean.EditJugger"/>
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/editJugger"/>
         <property name="successView" value="redirect:/jugger/confirmUpdateJugger.html"/>
