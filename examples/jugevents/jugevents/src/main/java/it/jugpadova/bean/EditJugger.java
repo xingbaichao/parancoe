@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Expression;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
 /**
  * Bean for editing jugger.

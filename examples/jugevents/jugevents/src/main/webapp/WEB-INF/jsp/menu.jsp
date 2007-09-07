@@ -5,6 +5,7 @@
     <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">   			
         <p class="menuLevel0"><a href="${cp}/event/edit.form"><spring:message code="NewEvent"/></a></p>
     </authz:authorize>
+    <p class="menuLevel0"><a href="${cp}/service/services.html"><spring:message code="Services"/></a></p>
     <authz:authorize ifAnyGranted="ROLE_ADMIN">   			
         <p class="menuLevel0"><a href="${cp}/admin/index.html"><spring:message code="menu_administration"/></a></p>
     </authz:authorize>         
