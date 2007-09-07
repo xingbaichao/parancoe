@@ -15,6 +15,7 @@ package it.jugpadova.controllers;
 
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
+import it.jugpadova.bean.EditJugger;
 import it.jugpadova.bean.EnableJugger;
 import it.jugpadova.bean.JuggerCaptcha;
 import it.jugpadova.exception.ParancoeAccessDeniedException;
@@ -61,19 +62,16 @@ public abstract class JuggerEditController extends BaseFormController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
     }
     
-    @Override
-	protected void onBind(HttpServletRequest request, Object command) throws Exception {
-		 	
-	}
+    
     
     /* questo viene chiamato solo in caso di una post a jugger/edit.form */
    
     protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
 
-    	Jugger jugger = (Jugger) command;
-    	blo().getJuggerBO().update(jugger); 
+    	EditJugger ej = (EditJugger) command;
+    	blo().getJuggerBO().update(ej.getJugger()); 
     	ModelAndView mv = onSubmit(command, errors);
-    	mv.addObject("jugger", jugger);
+    	mv.addObject("jugger", ej.getJugger());
     	return mv;
         
         
@@ -81,9 +79,13 @@ public abstract class JuggerEditController extends BaseFormController {
     
     
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
-    	String username = req.getParameter("user.username");
+    	String username = req.getParameter("jugger.user.username");
     	checkAuthorization(username);
-    	return dao().getJuggerDao().searchByUsername(username).get(0);    	
+    	EditJugger ej = new EditJugger();
+    	Jugger jugger = dao().getJuggerDao().searchByUsername(username).get(0);
+    	ej.setJugger(jugger);
+    	ej.setConfirmPassword(jugger.getUser().getPassword());
+    	return ej;    	
     }
 
     public Logger getLogger() {
@@ -91,6 +93,9 @@ public abstract class JuggerEditController extends BaseFormController {
     }
     protected abstract Daos dao();
     protected abstract Blos blo();
+   
+    
+    
     
     /**
      * Check if username corrisponds to authenticated user.
@@ -98,10 +103,11 @@ public abstract class JuggerEditController extends BaseFormController {
      * @return
      */
     private void checkAuthorization(String username) {
-
+    	// TODO add admin
     	Authentication authentication =
     		org.acegisecurity.context.SecurityContextHolder.getContext().
     		getAuthentication();
+    	
     	if (authentication != null && authentication.isAuthenticated()) 
     	{
     		String name = authentication.getName();
@@ -113,6 +119,7 @@ public abstract class JuggerEditController extends BaseFormController {
     	throw new ParancoeAccessDeniedException("You are not authorized on this Jugger."); 	
     }
 
+	
 
 	
 }//end of class
