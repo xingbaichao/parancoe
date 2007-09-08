@@ -18,11 +18,10 @@
                             <table class="dataList">
                                 <thead>
                                     <tr>
-                                        <th width='20%'>username</th>                                        
-                                        <th width='20%'>country</th>
-                                        <th width='20%'>jugName</th>                                        
-                                        <th width='20%'>edit</th>
-                                        <th width='20%'>enabled/disabled</th>
+                                        <th>username</th>                                        
+                                        <th>country</th>
+                                        <th>jugName</th>                                        
+                                        <th>actions</th>                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,8 +41,6 @@
                                             <td>${jugger.jug.name}</td>    
                                             <td>                                        
                                             <a href="${cp}/jugger/edit.form?jugger.user.username=${jugger.user.username}">edit</a>
-                                            </td>
-                                            <td>
                                             <c:choose>
                                              <c:when test="${jugger.user.enabled}">
                                              <a href="${cp}/adminjugger/disableJugger.html?username=${jugger.user.username}">disable</a>
@@ -51,8 +48,10 @@
                                              <c:otherwise>
                                               <a href="${cp}/adminjugger/enableJugger.html?username=${jugger.user.username}">enable</a>
                                              </c:otherwise>     
-                                             </c:choose>      
-                                            </td>       
+                                             </c:choose>
+                                              <a href="${cp}/adminjugger/delete.html?username=${jugger.user.username}">delete</a>  
+                                            </td>
+                                                
                                             
                                          </tr>
                                     </c:forEach>

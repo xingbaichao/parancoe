@@ -82,14 +82,6 @@ public class JuggerBo {
 		this.jugBo = jugBo;
 	}
 
-	@Transactional(readOnly = true)
-	public List<Jugger> retrieveJuggers() {
-		JuggerDao juggerDao = daos.getJuggerDao();
-		List<Jugger> juggers = juggerDao.findAll();
-
-		return juggers;
-	}
-
 	private Jugger getCurrentJugger() {
 		JuggerDao juggerDao = daos.getJuggerDao();
 		Jugger result = null;
@@ -97,7 +89,7 @@ public class JuggerBo {
 				.getContext().getAuthentication();
 		if (authentication != null && authentication.isAuthenticated()) {
 			String name = authentication.getName();
-			result = juggerDao.searchByUsername(name).get(0);
+			result = juggerDao.searchByUsername(name);
 		}
 		return result;
 	}
@@ -136,7 +128,7 @@ public class JuggerBo {
 	public Jugger enableJugger(String confirmationCode, String password)
 			throws UserAlreadyEnabledException {
 		Jugger jugger = daos.getJuggerDao().findByConfirmationCode(
-				confirmationCode).get(0);
+				confirmationCode);
 		if ((jugger.getConfirmed() != null)
 				&& (jugger.getConfirmed().booleanValue())) {
 			throw new UserAlreadyEnabledException("User "
@@ -285,7 +277,7 @@ public class JuggerBo {
 	@Transactional
 	public void disableJugger(String username) {
 		JuggerDao juggerDao = daos.getJuggerDao();
-		Jugger jugger = juggerDao.searchByUsername(username).get(0);
+		Jugger jugger = juggerDao.searchByUsername(username);
 		jugger.getUser().setEnabled(false);
 		logger.info("User: " + username + " has been disabled");
 	}
@@ -293,7 +285,7 @@ public class JuggerBo {
 	@Transactional
 	public void enableJugger(String username) {
 		JuggerDao juggerDao = daos.getJuggerDao();
-		Jugger jugger = juggerDao.searchByUsername(username).get(0);
+		Jugger jugger = juggerDao.searchByUsername(username);
 		jugger.getUser().setEnabled(true);
 		logger.info("User: " + username + " has been enabled");
 	}
@@ -408,8 +400,8 @@ public class JuggerBo {
 
 		User user = userDao.findByUsername(newUser.getUsername()).get(0);
 		if (user.getPassword().equals(newUser.getPassword())) { // we only
-																// update the
-																// password
+			// update the
+			// password
 			return user;
 		}
 		user.setPassword(newUser.getPassword());
@@ -448,6 +440,34 @@ public class JuggerBo {
 		}// end of if
 
 	}// end of method
+
+	@Transactional
+	public void delete(String username) {
+		Jugger jugger = daos.getJuggerDao().searchByUsername(username);
+
+		if (jugger == null) {
+			throw new IllegalArgumentException("No jugger with username "
+					+ username);
+		}
+		User user = jugger.getUser();
+		// remove user and all user authority
+		List<UserAuthority> list = user.getUserAuthority();
+		for (UserAuthority ua : list) {
+			daos.getUserAuthorityDao().delete(ua);
+		}
+		daos.getUserDao().delete(user);
+		daos.getJuggerDao().delete(jugger);
+		// verify if jugger has been deleted
+		jugger = daos.getJuggerDao().searchByUsername(username);
+		if (jugger == null) {
+			logger.info("Jugger with username: " + username
+					+ " has been deleted");
+			return;
+		}
+		throw new RuntimeException("There were some problems deleting jugger: "
+				+ username);
+
+	}
 
 }// end of class
 

@@ -13,9 +13,6 @@
 // limitations under the License.
 package it.jugpadova.controllers;
 
-import java.util.List;
-import java.util.Set;
-
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EnableJugger;
@@ -62,14 +59,14 @@ public abstract class JuggerEnableController extends BaseFormController {
 		if ((confirmationCode = req.getParameter("code")) == null) {
 			throw new Exception("No code found in the request!");
 		}
-		List<Jugger> juggers = dao().getJuggerDao().findByConfirmationCode(
+		Jugger jugger = dao().getJuggerDao().findByConfirmationCode(
 				confirmationCode);
-		if (juggers.size() == 0) {
+		if (jugger == null) {
 			throw new Exception(
 					"There is no code associated with this confirmationCode: "
 							+ confirmationCode);
 		}
-		req.setAttribute("jugger", juggers.get(0));
+		req.setAttribute("jugger", jugger);
 		return new EnableJugger();
 	}
 

@@ -69,7 +69,7 @@ public abstract class JuggerEditController extends BaseFormController {
 		String username = req.getParameter("jugger.user.username");
 
 		EditJugger ej = new EditJugger();
-		Jugger jugger = dao().getJuggerDao().searchByUsername(username).get(0);
+		Jugger jugger = dao().getJuggerDao().searchByUsername(username);
 		blo().getJuggerBO().checkAuthorization(username);
 		ej.setJugger(jugger);
 		return ej;
