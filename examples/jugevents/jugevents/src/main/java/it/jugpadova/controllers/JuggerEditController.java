@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.parancoe.plugins.world.Country;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
@@ -72,6 +73,9 @@ public abstract class JuggerEditController extends BaseFormController {
 		Jugger jugger = dao().getJuggerDao().searchByUsername(username);
 		blo().getJuggerBO().checkAuthorization(username);
 		ej.setJugger(jugger);
+                if (jugger.getJug().getCountry() == null) {
+                    jugger.getJug().setCountry(new Country());
+                }
 		return ej;
 	}
 

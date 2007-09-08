@@ -4,8 +4,8 @@
         <c:when test="${requestScope.lang eq 'it'}">
             <p>JUGEvents permette di ricercare e iscriversi gli eventi
             organizzati da un JUG. Il responsabile di un JUG pu&ograve;
-            liberamente registrarsi ed iniziare ad inserire gli
-            eventi organizzati dal proprio JUG.</p>
+            <a href="${cp}/jugger/registration.form">liberamente registrarsi</a>
+            ed iniziare ad inserire gli eventi organizzati dal proprio JUG.</p>
             <p>JUGEvents &egrave; ancora in sviluppo. Se incontri problemi
             o vuoi suggerire nuove funzionlit&agrave;, scrivi a
             <a href="mailto:info@jugevents.org">info@jugevents.org</a>.</p>
@@ -15,8 +15,9 @@
         </c:when>
         <c:otherwise>
             <p>With JUGEvents You can search for events organized by JUGs,
-            and register to them. A JUG representative can freely obtain an
-            account and start to manage the events of his JUG.</p>
+            and register to them. A JUG representative can
+            <a href="${cp}/jugger/registration.form">freely obtain an account</a>
+            and start to manage the events of his JUG.</p>
             <p>JUGEvents is still in development. If You find any problem with it,
             or if You want to suggest any new feature, please write to
             <a href="mailto:info@jugevents.org">info@jugevents.org</a>.</p>

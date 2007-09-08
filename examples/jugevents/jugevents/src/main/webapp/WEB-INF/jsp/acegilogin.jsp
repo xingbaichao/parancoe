@@ -18,8 +18,7 @@
                         <div id="loginMessageBox">
                             <c:if test="${not empty param.login_error}">
                                 <font color="red">
-                                    Your login attempt was not successful, try again.<br/>
-                                    Bad username or password.
+                                    <spring:message code="login.error"/>
                                 </font>
                             </c:if>
                         </div>
@@ -35,6 +34,9 @@
                                 <dd><input id="submit" name="submit" type="submit" value="<spring:message code='sign_in'/>" tabindex="4"/></dd>
                             </dl>
                         </form>
+                        <div id="registerMessage">
+                            <spring:message code="dontHaveAccount"/> <a href="${cp}/jugger/registration.form"><spring:message code="registerYou"/></a>
+                        </div>
                     </div>
                 </div>
             </div>
