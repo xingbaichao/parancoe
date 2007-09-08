@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
@@ -16,71 +17,70 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
 
 /**
  * @author Admin
- *
+ * 
  */
 @Entity
-@NamedQueries(value = {@NamedQuery(name = "Jugger.searchByUsername", query =
-        "from Jugger j where j.user.username = ?"),
-    @NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query =
-        "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.jug.country.localName) like upper(?) and upper(j.jug.country.continent.name) like upper(?) order by j.jug.name asc")})
+@NamedQueries(value = {
+		@NamedQuery(name = "Jugger.searchByUsername", query = "from Jugger j where j.user.username = ?"),
+		@NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query = "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.jug.country.localName) like upper(?) and upper(j.jug.country.continent.name) like upper(?) order by j.jug.name asc"),
+		@NamedQuery(name = "Jugger.findAllOrderByUsername", query = "from Jugger j order by j.user.username asc") })
 public class Jugger extends EntityBase {
 
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
-    @Email
-    private String email;
+	@NotBlank
+	private String firstName;
 
-    @CascadeValidation
-    private JUG jug;
+	@NotBlank
+	private String lastName;
 
-    
-    @CascadeValidation
-    private User user;
-    
-    
-    private String confirmationCode;
-    private Boolean confirmed;
+	@NotBlank
+	@Email
+	private String email;
 
-    public Jugger() {
-    }
+	@CascadeValidation
+	private JUG jug;
 
-    public String getEmail() {
-        return email;
-    }
+	@CascadeValidation
+	private User user;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	private String confirmationCode;
 
-    public String getFirstName() {
-        return firstName;
-    }
+	private Boolean confirmed;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public Jugger() {
+	}
 
-   
+	public String getEmail() {
+		return email;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    @OneToOne
-    public User getUser() {
-        return user;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	@OneToOne
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getConfirmationCode() {
 		return confirmationCode;
@@ -97,6 +97,7 @@ public class Jugger extends EntityBase {
 	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
+
 	@ManyToOne
 	public JUG getJug() {
 		return jug;

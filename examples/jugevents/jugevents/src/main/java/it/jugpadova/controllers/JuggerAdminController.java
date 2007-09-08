@@ -43,8 +43,23 @@ public abstract class JuggerAdminController extends BaseMultiActionController {
 	 */
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView mv = new ModelAndView("jugger/admin/listJuggers");
-		mv.addObject("juggers", blo().getJuggerBO().retrieveJuggers());
+		mv.addObject("juggers", dao().getJuggerDao().findAllOrderByUsername());
 		return mv;
+	}
+
+	/**
+	 * Delete jugger.
+	 * 
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+	public ModelAndView delete(HttpServletRequest req, HttpServletResponse res) {
+
+		String username = req.getParameter("username");
+		blo().getJuggerBO().delete(username);
+		return new ModelAndView("redirect:/adminjugger/list.html");
+
 	}
 
 	/**
@@ -58,27 +73,38 @@ public abstract class JuggerAdminController extends BaseMultiActionController {
 			HttpServletResponse res) {
 		String username = req.getParameter("username");
 		ModelAndView mv = new ModelAndView("jugger/admin/viewJugger");
-		mv.addObject("jugger", dao().getJuggerDao().searchByUsername(username)
-				.get(0));
+		mv.addObject("jugger", dao().getJuggerDao().searchByUsername(username));
 		return mv;
 	}
 
+	/**
+	 * Enable Jugger
+	 * 
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public ModelAndView enableJugger(HttpServletRequest req,
 			HttpServletResponse res) {
 		String username = req.getParameter("username");
 		blo().getJuggerBO().enableJugger(username);
-		ModelAndView mv = new ModelAndView("jugger/admin/list");
-		mv.addObject("juggers", blo().getJuggerBO().retrieveJuggers());
-		return mv;
+		return new ModelAndView("redirect:/adminjugger/list.html");
+
 	}
 
+	/**
+	 * Disable jugger.
+	 * 
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public ModelAndView disableJugger(HttpServletRequest req,
 			HttpServletResponse res) {
 		String username = req.getParameter("username");
 		blo().getJuggerBO().disableJugger(username);
-		ModelAndView mv = new ModelAndView("jugger/admin/list");
-		mv.addObject("juggers", blo().getJuggerBO().retrieveJuggers());
-		return mv;
+		return new ModelAndView("redirect:/adminjugger/list.html");
+
 	}
 
 	protected abstract Daos dao();

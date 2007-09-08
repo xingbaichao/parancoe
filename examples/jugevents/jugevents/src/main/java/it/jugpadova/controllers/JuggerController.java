@@ -59,7 +59,7 @@ public abstract class JuggerController extends BaseMultiActionController {
 		String confirmationCode = req.getParameter("code");
 		logger.info("confirmationCode: " + confirmationCode);
 		Jugger jugger = dao().getJuggerDao().findByConfirmationCode(
-				confirmationCode).get(0);
+				confirmationCode);
 		// if(jugger ==)
 		result = new ModelAndView("jugger/registration/setpwd");
 		result.addObject("jugger", jugger);
