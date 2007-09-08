@@ -17,13 +17,11 @@ import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EditJugger;
 import it.jugpadova.po.Jugger;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.parancoe.plugins.world.Country;
 import org.parancoe.web.BaseFormController;
@@ -34,57 +32,58 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Controller for editing Jugger informations.
- * 
+ *
  * @author Enrico Giurin
- * 
+ *
  */
 public abstract class JuggerEditController extends BaseFormController {
 
-	private final static Logger logger = Logger
-			.getLogger(JuggerEditController.class);
+    private static final Logger logger =
+            Logger.getLogger(JuggerEditController.class);
 
-	protected void initBinder(HttpServletRequest req,
-			ServletRequestDataBinder binder) throws Exception {
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				new SimpleDateFormat("dd/MM/yyyy"), true));
-	}
+    @Override
+    protected void initBinder(HttpServletRequest req,
+            ServletRequestDataBinder binder) throws Exception {
+        binder.registerCustomEditor(Date.class,
+                new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+    }
 
-	/* questo viene chiamato solo in caso di una post a jugger/edit.form */
+    /* questo viene chiamato solo in caso di una post a jugger/edit.form */
 
-	protected ModelAndView onSubmit(HttpServletRequest req,
-			HttpServletResponse res, Object command, BindException errors)
-			throws Exception {
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest req,
+            HttpServletResponse res, Object command,
+            BindException errors) throws Exception {
 
-		EditJugger ej = (EditJugger) command;
-		if ((ej.getPassword() != null) && (ej.getPassword().length() > 0)) {
-			ej.getJugger().getUser().setPassword(ej.getPassword());
-		}
-		blo().getJuggerBO().update(ej.getJugger());
-		ModelAndView mv = onSubmit(command, errors);
-		mv.addObject("id", ej.getJugger().getId());
-		return mv;
+        EditJugger ej = (EditJugger) command;
+        if (StringUtils.isNotBlank(ej.getPassword())) {
+            ej.getJugger().getUser().setPassword(ej.getPassword());
+        }
+        blo().getJuggerBO().update(ej.getJugger());
+        ModelAndView mv = onSubmit(command, errors);
+        mv.addObject("id", ej.getJugger().getId());
+        return mv;
+    }
 
-	}
+    @Override
+    protected Object formBackingObject(HttpServletRequest req) throws Exception {
+        String username = req.getParameter("jugger.user.username");
 
-	protected Object formBackingObject(HttpServletRequest req) throws Exception {
-		String username = req.getParameter("jugger.user.username");
+        EditJugger ej = new EditJugger();
+        Jugger jugger = dao().getJuggerDao().searchByUsername(username);
+        blo().getJuggerBO().checkAuthorization(username);
+        ej.setJugger(jugger);
+        if (jugger.getJug().getCountry() == null) {
+            jugger.getJug().setCountry(new Country());
+        }
+        return ej;
+    }
 
-		EditJugger ej = new EditJugger();
-		Jugger jugger = dao().getJuggerDao().searchByUsername(username);
-		blo().getJuggerBO().checkAuthorization(username);
-		ej.setJugger(jugger);
-                if (jugger.getJug().getCountry() == null) {
-                    jugger.getJug().setCountry(new Country());
-                }
-		return ej;
-	}
+    public Logger getLogger() {
+        return logger;
+    }
 
-	public Logger getLogger() {
-		return logger;
-	}
+    protected abstract Daos dao();
 
-	protected abstract Daos dao();
-
-	protected abstract Blos blo();
-
-}// end of class
+    protected abstract Blos blo();
+} // end of class
