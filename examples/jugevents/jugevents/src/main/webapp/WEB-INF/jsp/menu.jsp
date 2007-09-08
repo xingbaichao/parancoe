@@ -12,9 +12,6 @@
     <authz:authorize ifAnyGranted="ROLE_ADMIN">   			
         <p class="menuLevel0"><a href="${cp}/adminjugger/list.html">Juggers List</a></p>
     </authz:authorize>
-    <authz:authorize ifNotGranted="ROLE_ADMIN,ROLE_PARANCOE,ROLE_JUGGER">
-        <p class="menuLevel0"><a href="${cp}/jugger/registration.form"><spring:message code="newjugger"/></a></p>
-    </authz:authorize>
     <authz:authorize ifAnyGranted="ROLE_JUGGER">    
         <p class="menuLevel0"><a href="${cp}/jugger/edit.form?jugger.user.username=<authz:authentication operation="username"/>"><spring:message code="Edit-Jugger"/></a></p>
     </authz:authorize>
