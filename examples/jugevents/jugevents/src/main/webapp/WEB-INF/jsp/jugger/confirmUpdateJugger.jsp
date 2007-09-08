@@ -10,11 +10,11 @@
             <div id="content"> 
                 <div id="content_main">
                     <c:choose>
-                        <c:when test="${requestScope.lang eq 'it'}">                        
-                            Profilo di <em>${jugger.user.username}</em> modificato con successo.                            
+                        <c:when test="${requestScope.lang eq 'it'}">
+                            Il tuo profilo &egrave; stato aggiornato con successo
                         </c:when>
                         <c:otherwise>
-                            Profile of <em>${jugger.user.username}</em> updated with success.                            
+                            Your profile has been successfully updated
                         </c:otherwise>
                     </c:choose>
                 </div>
