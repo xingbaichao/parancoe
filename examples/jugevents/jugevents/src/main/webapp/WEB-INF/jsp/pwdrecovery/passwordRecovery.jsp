@@ -9,27 +9,29 @@
         <div id="nonFooter">
             <jsp:include page="../header.jsp"/>
             <div id="content">
-                <div id="content_main">                
+                <div id="content_main">    
+                <h4> <spring:message code='passwordRecoveryMessage'/></h4>   
+                <br>
+                <br>         
                     
                         <form:form commandName="passwordRecovery" method="POST" action="${cp}/passwordRecovery.form">
                         <form:errors path="*" cssClass="errorBox"/>   
                         
                         <fieldset>
-                            <legend>Password Recovery</legend>                        
-                            <dl>
-                                
+                            <legend><spring:message code='passwordRecovery'/></legend>                        
+                            <dl>                              
                                 <dt>e-mail</dt>
-                                <dd><form:input path="email"/></dd>
-                                
+                                <dd><form:input path="email"/></dd>                               
                             </dl>
                         </fieldset>
                        
                         <dl>                            
-                            <dd><input type="submit" value="<spring:message code='Recover'/>"/><br/><br/></dd>                            
+                            <dt>&nbsp;</dt><dd><input type="submit" value="<spring:message code='Recover'/>"/><br/><br/></dd>                            
                             <dd>&nbsp;</dd>
                         </dl>
                     </form:form>
                 </div>
+               
                 <jsp:include page="../menu.jsp"/>
             </div>
         </div>
