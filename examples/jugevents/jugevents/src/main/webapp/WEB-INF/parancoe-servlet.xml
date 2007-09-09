@@ -89,6 +89,7 @@
     <bean name="/service/*.html" id="serviceController"
           class="it.jugpadova.controllers.ServiceController" parent="abstractController"/>
     
+    
     <!--  override bean definition in parancoe-servlet.xml  -->
     <!-- sends exceptions to genericError.jsp -->
     <bean id="exceptionResolver" class="it.jugpadova.util.JUGEventsExceptionResolver"/>
@@ -162,6 +163,16 @@
         <property name="formView" value="event/registration"/>
         <property name="successView" value="redirect:/home/confirmParticipantRegistration.html"/>
         <property name="captchaService" ref="captchaService"/>
+    </bean>
+    
+    <!-- controller for password recovery -->
+    <bean name="/passwordRecovery.form" id="passwordRecoveryController"
+          class="it.jugpadova.controllers.PasswordRecoveryController"
+          parent="abstractController">
+        <property name="commandClass" value="it.jugpadova.bean.PasswordRecovery"/>
+        <property name="commandName" value="passwordRecovery"/>
+        <property name="formView" value="pwdrecovery/passwordRecovery"/>
+        <property name="successView" value="redirect:/home/passwordRecoverySendMail.html"/>       
     </bean>
 
     <!--  begin security section -->

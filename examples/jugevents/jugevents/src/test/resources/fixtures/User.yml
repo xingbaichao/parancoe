@@ -14,3 +14,7 @@
   username: fabrizio
   password: fabrizio
   enabled: true
+- &User-enrico
+  username: enrico
+  password: enrico
+  enabled: true

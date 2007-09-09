@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
 
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
@@ -16,10 +17,11 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
 /**
- * @author Admin
+ * @author Enrico Giurin & Lucio benfante.
  * 
  */
 @Entity
+@UniqueConstraint(columnNames = { "email" })
 @NamedQueries(value = {
 		@NamedQuery(name = "Jugger.searchByUsername", query = "from Jugger j where j.user.username = ?"),
 		@NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query = "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.jug.country.localName) like upper(?) and upper(j.jug.country.continent.name) like upper(?) order by j.jug.name asc"),

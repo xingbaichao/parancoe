@@ -24,5 +24,7 @@ public interface JuggerDao extends GenericDao<Jugger, Long> {
 
 	Jugger findByConfirmationCode(String confirmationCode);
 
+	Jugger findByEmail(String email);
+
 	List<Jugger> findAllOrderByUsername();
 }
