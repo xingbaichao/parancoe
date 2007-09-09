@@ -10,17 +10,16 @@
             <div id="content"> 
                 <div id="content_main">
                     <c:choose>
-                        <c:when test="${requestScope.lang eq 'it'}">
-                            
+                        <c:when test="${requestScope.lang eq 'it'}">     
                            
                             Ti &egrave; stata spedita una mail all'indirizzo <b>${jugger.email}</b> con
-                            le istruzioni per confermare la registrazione.
+                            le istruzioni per inserire la nuova password.
                         </c:when>
                         <c:otherwise>
                             
                             
                             An e-mail has been sent to your address <b>${jugger.email}</b> with the
-                            instructions for confirming your registration.
+                            instructions to insert the new password.
                         </c:otherwise>
                     </c:choose>
                 </div>

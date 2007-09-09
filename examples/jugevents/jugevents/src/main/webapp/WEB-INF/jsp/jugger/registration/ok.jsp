@@ -12,11 +12,11 @@
                     <c:choose>
                         <c:when test="${requestScope.lang eq 'it'}">
                             Congratulazioni <b>${jugger.firstName}</b>!<br>
-                            La tua iscrizione a jugevents &egrave; stata confermata.
+                            Sei abilitato a jugevents.
                         </c:when>
                         <c:otherwise>
                             Congratulations <b>${jugger.firstName}</b>!<br>
-                            Your participation to jugevents has been confirmed.
+                            Your are enabled to jugevents.
                         </c:otherwise>
                     </c:choose>
                 </div>

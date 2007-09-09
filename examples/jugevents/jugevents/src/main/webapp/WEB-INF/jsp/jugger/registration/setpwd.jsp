@@ -12,7 +12,7 @@
                <div id="content_main">
            
             
-            <h4>Insert Password to enable ${jugger.user.username} to jugevents</h4>
+            <h4><spring:message code='passwordInsert'/></h4>
             
             <form:form  commandName="enablejugger"  method="post" action="${cp}/jugger/enable.form">
                  <table>                     
@@ -21,7 +21,7 @@
                         <td><form:password   path="password"/></td>                    
                     </tr>
                     <tr>
-                        <td>Confirm Password</td>
+                        <td><spring:message code='confirmPassword'/></td>
                         <td><form:password  path="confirmPassword"/></td>                    
                     </tr>
                     <tr>
