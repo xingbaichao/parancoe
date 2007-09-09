@@ -25,7 +25,7 @@
                         </fieldset>
                        
                         <dl>                            
-                            <dd><input type="submit" value="Recovery"/><br/><br/></dd>                            
+                            <dd><input type="submit" value="<spring:message code='Recover'/>"/><br/><br/></dd>                            
                             <dd>&nbsp;</dd>
                         </dl>
                     </form:form>
