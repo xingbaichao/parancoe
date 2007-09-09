@@ -1,18 +1,18 @@
 <dl>
-    <dt><b><spring:message code="event.title"/>:</b></dt>
-    <dd>${event.title}</dd>
-    <dt><b><spring:message code="event.location"/>:</b></dt>
-    <dd>${event.location}</dd>
-    <dt><b><spring:message code="event.directions"/>:</b></dt>
-    <dd><div class="preview">${event.filteredDirections}</div></dd>
-    <dt><b><spring:message code="event.startDate"/>:</b></dt>
-    <dd><fmt:formatDate value="${event.startDate}" type="date" dateStyle="full" /></dd>
-    <dt><b><spring:message code="event.startTime"/>:</b></dt>
-    <dd>${event.startTime}</dd>
-    <dt><b><spring:message code="event.endDate"/>:</b></dt>
-    <dd><fmt:formatDate value="${event.endDate}" type="date" dateStyle="full" /></dd>
-    <dt><b><spring:message code="event.endTime"/>:</b></dt>
-    <dd>${event.endTime}</dd>
-    <dt><b><spring:message code="event.description"/>:</b></dt>
-    <dd><div class="preview">${event.filteredDescription}</div></dd>
+    <dt><spring:message code="event.title"/>:</dt>
+    <dd>${event.title}&nbsp;</dd>
+    <dt><spring:message code="event.location"/>:</dt>
+    <dd>${event.location}&nbsp;</dd>
+    <dt><spring:message code="event.directions"/>:</dt>
+    <dd><div class="preview">${event.filteredDirections}</div>&nbsp;</dd>
+    <dt><spring:message code="event.startDate"/>:</dt>
+    <dd><fmt:formatDate value="${event.startDate}" type="date" dateStyle="full" />&nbsp;</dd>
+    <dt><spring:message code="event.startTime"/>:</dt>
+    <dd>${event.startTime}&nbsp;</dd>
+    <dt><spring:message code="event.endDate"/>:</dt>
+    <dd><fmt:formatDate value="${event.endDate}" type="date" dateStyle="full" />&nbsp;</dd>
+    <dt><spring:message code="event.endTime"/>:</dt>
+    <dd>${event.endTime}&nbsp;</dd>
+    <dt><spring:message code="event.description"/>:</dt>
+    <dd><div class="preview">${event.filteredDescription}</div>&nbsp;</dd>
 </dl>

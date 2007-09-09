@@ -113,7 +113,7 @@
                                 <dt><label><spring:message code="badgeCopyThisCode"/></label></dt>
                                 <dd><textarea name="badgeCode" cols="35" rows="4" readonly="true">${badgeCode}</textarea></dd>
                                 <dt><label><spring:message code="BadgePreview"/>:</label></dt>
-                                <dd><div id="badgePreview" style="margin-left: 220px; width: 200px; border: 1px solid gray; padding: 4px;">${badgePreview}</div></dd>
+                                <dd><div id="badgePreview" style="margin-left: 10px; width: 200px; border: 1px solid gray; padding: 4px;">${badgePreview}</div></dd>
                             </dl>
                         </fieldset>
                     </div>

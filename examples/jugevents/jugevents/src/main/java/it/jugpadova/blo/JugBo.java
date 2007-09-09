@@ -116,18 +116,24 @@ public class JugBo {
                             Double latitude =
                                     Double.parseDouble(coordinatesArr[1]);
                             JUG jug = jugDao.findByName(jugName);
-                            if (jug == null) {
-                                logger.info("Creating a new JUG: " + jugName);
-                                jug = new JUG();
-                                jug.setName(jugName);
+                            if (jug != null && jug.isModifiedKmlData() != null &&
+                                    jug.isModifiedKmlData().booleanValue()) {
+                                logger.info("Skipping updating of "+jugName+" kml data, because yet modified through JUG Events.");
                             } else {
-                                logger.info("Updating a JUG: " + jugName);
+                                if (jug == null) {
+                                    logger.info("Creating a new JUG: " + jugName);
+                                    jug = new JUG();
+                                    jug.setName(jugName);
+                                } else {
+                                    logger.info("Updating a JUG: " + jugName);
+                                }
+                                jug.setCountry(countryPo);
+                                jug.setLongitude(longitude);
+                                jug.setLatitude(latitude);
+                                jug.setInfos(description);
+                                jug.setModifiedKmlData(Boolean.FALSE);
+                                jugDao.createOrUpdate(jug);
                             }
-                            jug.setCountry(countryPo);
-                            jug.setLongitude(longitude);
-                            jug.setLatitude(latitude);
-                            jug.setInfos(description);
-                            jugDao.createOrUpdate(jug);
                         }
                     } else {
                         logger.warn("Country " + countryName +
@@ -208,7 +214,7 @@ public class JugBo {
                         jugName.appendChild(jug.getName());
                         Element jugDescription =
                                 new Element("description", EARTH_NAMESPACE);
-                        jugDescription.appendChild("\n"+jug.getInfos()+"\n");
+                        jugDescription.appendChild("\n" + jug.getInfos() + "\n");
                         Element point =
                                 new Element("Point", EARTH_NAMESPACE);
                         Element coordinates =
@@ -237,12 +243,14 @@ public class JugBo {
             //create the JUG instance
             jug = new JUG();
         }
+        jug.setModifiedKmlData(evaluateModifiedKmlDate(newJUG, jug));
         jug.setName(newJUG.getName());
         jug.setCountry(countryDao.findByEnglishName(newJUG.getCountry().
                 getEnglishName()));
         jug.setWebSite(newJUG.getWebSite());
         jug.setLongitude(newJUG.getLongitude());
         jug.setLatitude(newJUG.getLatitude());
+        jug.setInfos(newJUG.getInfos());
         Long id = jug.getId();
         if (id == null) {
             id = jugDao.create(jug);
@@ -253,5 +261,15 @@ public class JugBo {
             logger.info("JUG with name " + jug.getName() + " has been updated");
         }
         return jug;
+    }
+
+    private Boolean evaluateModifiedKmlDate(JUG newJUG,
+            JUG oldJUG) {
+        return (newJUG.getLongitude() != null &&
+                !newJUG.getLongitude().equals(oldJUG.getLongitude())) ||
+                (newJUG.getLatitude() != null &&
+                !newJUG.getLatitude().equals(oldJUG.getLatitude())) ||
+                (newJUG.getInfos() != null &&
+                !newJUG.getInfos().equals(oldJUG.getInfos()));
     }
 }
