@@ -48,6 +48,8 @@ public class JUG extends EntityBase {
     
     private String infos;
 
+    private Boolean modifiedKmlData;
+    
     public String getName() {
         return name;
     }
@@ -97,5 +99,13 @@ public class JUG extends EntityBase {
     public void setInfos(String infos) {
         this.infos = infos;
     }
-        
+
+    public Boolean isModifiedKmlData() {
+        return modifiedKmlData;
+    }
+
+    public void setModifiedKmlData(Boolean modifiedKmlData) {
+        this.modifiedKmlData = modifiedKmlData;
+    }
+    
 }

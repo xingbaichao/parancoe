@@ -301,18 +301,18 @@ table.dataList td.actionColumn {
 dt {
   clear: left;
   float: left;
-  margin: 4px 8px 0pt 0pt;
+  margin: 0px 4px 0pt 0pt;
   padding: 0;
   position: relative;
   text-align: right;
-  width: 200px;
+  width: 180px;
 }
 
 dd {
   text-align: left;
-  margin: 0pt 0pt 5px 0px;
+  margin: 0pt 0pt 5px 180px;
 }
 
 .preview {
-    margin-left: 220px;
+    margin-left: 10px;
 }

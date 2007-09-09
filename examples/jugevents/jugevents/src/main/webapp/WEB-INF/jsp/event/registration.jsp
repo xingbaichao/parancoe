@@ -22,7 +22,7 @@
                             <dt><form:label path="participant.email"><spring:message code="Email"/>:</form:label></dt>
                             <dd><form:input path="participant.email"/></dd>
                             <dt><spring:message code="InsertCharactersInTheImage"/></dt>
-                            <dd style="margin-left: 210px;"><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
+                            <dd><form:input path="captchaResponse"/><br/><img src="${cp}/jcaptcha/image.html" alt="Captcha Image"/></dd>
                             <dt>&nbsp;</dt>
                             <dd><input type="submit" value="<spring:message code='RegisterYou'/>"/><br/><br/></dd>
                         </dl>
