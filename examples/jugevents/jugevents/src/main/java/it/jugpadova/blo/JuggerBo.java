@@ -113,9 +113,32 @@ public class JuggerBo {
 		jugger.setUser(newUser(jugger.getUser().getUsername()));
 		jugger.setConfirmationCode(generateConfirmationCode(jugger));
 		juggerDao.create(jugger);
-		sendConfirmationEmail(jugger, baseUrl);
+		sendConfirmationEmail(jugger, baseUrl,
+				"Please Confirm your Jugger registration",
+				"jugger-registration-confirmation.vm");
 		logger.info("Jugger (" + jugger.getUser().getUsername()
 				+ ") has been created with success");
+	}
+
+	/**
+	 * Disable jugger and send mail to the user.
+	 * 
+	 * @param jugger
+	 * @param baseUrl
+	 * @throws Exception
+	 */
+	@Transactional
+	public void passwordRecovery(Jugger jugger, String baseUrl)
+			throws Exception { // disable jugger
+		jugger.getUser().setEnabled(false);
+		daos.getUserDao().update(jugger.getUser());
+		// set confirmed to false
+		jugger.setConfirmed(false);
+		jugger.setConfirmationCode(generateConfirmationCode(jugger));
+		daos.getJuggerDao().update(jugger);
+		// send mail to user
+		sendConfirmationEmail(jugger, baseUrl, "Password Recovery",
+				"password-recovery.vm");
 	}
 
 	private String generateConfirmationCode(Jugger jugger) {
@@ -141,33 +164,6 @@ public class JuggerBo {
 		logger.info("Username " + jugger.getUser().getUsername()
 				+ " enabled to jugevents");
 		return jugger;
-	}
-
-	// send mail to new jugger for application
-	private void sendConfirmationEmail(final Jugger jugger, final String baseUrl) {
-		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-
-			@SuppressWarnings(value = "unchecked")
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-				message.setTo(jugger.getEmail());
-				message.setFrom(confirmationSenderEmailAddress);
-				message.setSubject("Please confirm jugger registration");
-				Map model = new HashMap();
-				model.put("jugger", jugger);
-				model.put("baseUrl", baseUrl);
-				model.put("confirmationCode", URLEncoder.encode(jugger
-						.getConfirmationCode(), "UTF-8"));
-				model.put("email", URLEncoder
-						.encode(jugger.getEmail(), "UTF-8"));
-				String text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine,
-						"it/jugpadova/jugger-registration-confirmation.vm",
-						model);
-				message.setText(text, true);
-			}
-		};
-		this.mailSender.send(preparator);
 	}
 
 	@Transactional(readOnly = true)
@@ -466,7 +462,39 @@ public class JuggerBo {
 		}
 		throw new RuntimeException("There were some problems deleting jugger: "
 				+ username);
+	}
 
+	/**
+	 * General jugger mail sender
+	 * 
+	 * @param jugger
+	 * @param baseUrl
+	 * @param subject
+	 * @param mv
+	 */
+	private void sendConfirmationEmail(final Jugger jugger,
+			final String baseUrl, final String subject, final String mv) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+
+			@SuppressWarnings(value = "unchecked")
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo(jugger.getEmail());
+				message.setFrom(confirmationSenderEmailAddress);
+				message.setSubject(subject);
+				Map model = new HashMap();
+				model.put("jugger", jugger);
+				model.put("baseUrl", baseUrl);
+				model.put("confirmationCode", URLEncoder.encode(jugger
+						.getConfirmationCode(), "UTF-8"));
+				model.put("email", URLEncoder
+						.encode(jugger.getEmail(), "UTF-8"));
+				String text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "it/jugpadova/" + mv, model);
+				message.setText(text, true);
+			}
+		};
+		this.mailSender.send(preparator);
 	}
 
 }// end of class

@@ -63,7 +63,7 @@ public abstract class JuggerEnableController extends BaseFormController {
 				confirmationCode);
 		if (jugger == null) {
 			throw new Exception(
-					"There is no code associated with this confirmationCode: "
+					"There is no Jugger associated with this confirmationCode: "
 							+ confirmationCode);
 		}
 		req.setAttribute("jugger", jugger);

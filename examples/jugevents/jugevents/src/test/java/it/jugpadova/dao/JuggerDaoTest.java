@@ -20,11 +20,11 @@ public class JuggerDaoTest extends JugEventsBaseTest {
 
     public void testFindByPartialJugNameAndCountryAndContinent() {
         List<Jugger> juggers = juggerDao.findByPartialJugNameAndCountryAndContinent("%J%", "%Ital%", "%Eur%");
-        assertSize(2, juggers);
+        assertSize(3, juggers);
     }
 
     public void testFindAll() {
         List<Jugger> juggers = juggerDao.findAll();
-        assertSize(2, juggers);
+        assertSize(3, juggers);
     }
 }

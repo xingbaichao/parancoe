@@ -37,6 +37,11 @@
                         <div id="registerMessage">
                             <spring:message code="dontHaveAccount"/> <a href="${cp}/jugger/registration.form"><spring:message code="registerYou"/></a>
                         </div>
+	                        <br>
+							<br>
+                         <div id="forgotPassword">
+                            <spring:message code="forgotPassword"/> <a href="${cp}/passwordRecovery.form"><spring:message code="Recover"/></a>
+                        </div>
                     </div>
                 </div>
             </div>
