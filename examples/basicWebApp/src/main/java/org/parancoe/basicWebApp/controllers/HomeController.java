@@ -23,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.BaseMultiActionController;
 import org.parancoe.basicWebApp.Daos;
 import org.parancoe.basicWebApp.Blos;
+import org.parancoe.web.controller.annotation.UrlMapping;
 
+@UrlMapping("/home/*.html")
 public abstract class HomeController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(HomeController.class);
 

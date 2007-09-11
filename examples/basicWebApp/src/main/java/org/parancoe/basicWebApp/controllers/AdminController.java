@@ -25,8 +25,10 @@ import org.parancoe.basicWebApp.Blos;
 import org.parancoe.basicWebApp.Daos;
 import org.parancoe.util.MemoryAppender;
 import org.parancoe.web.BaseMultiActionController;
+import org.parancoe.web.controller.annotation.UrlMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@UrlMapping("/admin/*.html")
 public abstract class AdminController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(AdminController.class);
 

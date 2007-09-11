@@ -25,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
+import org.parancoe.web.controller.annotation.UrlMapping;
 
+@UrlMapping("/people/*.html")
 public abstract class PeopleController extends BaseMultiActionController {
     private static Logger logger = Logger.getLogger(PeopleController.class);
 
