@@ -45,6 +45,10 @@
                                 <dd><form:input path="jugger.jug.longitude"/></dd>
                                 <dt><form:label path="jugger.jug.latitude"><spring:message code="juggerRegistrationLatitude"/></form:label></dt>                            
                                 <dd><form:input path="jugger.jug.latitude"/></dd>
+                                <dt>
+                                    <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
+                                </dt>
+                                <dd><form:textarea path="jugger.jug.infos" cols="40" rows="5" /></dd>
                             </dl>
                         </fieldset>
                         <dl>
