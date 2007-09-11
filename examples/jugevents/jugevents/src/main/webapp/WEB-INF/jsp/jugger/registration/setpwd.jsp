@@ -32,6 +32,7 @@
                    </table>
                    <form:errors path="*" cssClass="errorBox"/>
                  <input type="hidden" name="code" value="${jugger.confirmationCode}"/>
+                 <input type="hidden" name="username" value="${jugger.user.username}"/>
             </form:form>
         </div>
         <jsp:include page="../../menu.jsp"/>

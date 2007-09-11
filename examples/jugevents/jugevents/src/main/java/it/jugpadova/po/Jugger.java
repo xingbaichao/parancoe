@@ -3,13 +3,14 @@
  */
 package it.jugpadova.po;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.plugins.security.User;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
@@ -18,94 +19,99 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
 
 /**
  * @author Enrico Giurin & Lucio benfante.
- * 
+ *
  */
 @Entity
-@UniqueConstraint(columnNames = { "email" })
-@NamedQueries(value = {
-		@NamedQuery(name = "Jugger.searchByUsername", query = "from Jugger j where j.user.username = ?"),
-		@NamedQuery(name = "Jugger.findByPartialJugNameAndCountryAndContinent", query = "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.jug.country.localName) like upper(?) and upper(j.jug.country.continent.name) like upper(?) order by j.jug.name asc"),
-		@NamedQuery(name = "Jugger.findAllOrderByUsername", query = "from Jugger j order by j.user.username asc") })
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"email"})})
+@NamedQueries(value = {@NamedQuery(name = "Jugger.searchByUsername", query =
+        "from Jugger j where j.user.username = ?"), @NamedQuery(name =
+        "Jugger.findByUsernameAndConfirmationCode", query =
+        "from Jugger j where j.user.username = ? and j.confirmationCode = ?"), @NamedQuery(name =
+        "Jugger.findByUsernameAndChangePasswordCode", query =
+        "from Jugger j where j.user.username = ? and j.changePasswordCode = ?"), @NamedQuery(name =
+        "Jugger.findByPartialJugNameAndCountryAndContinent", query =
+        "from Jugger j where upper(j.jug.name) like upper(?) and upper(j.jug.country.localName) like upper(?) and upper(j.jug.country.continent.name) like upper(?) order by j.jug.name asc"), @NamedQuery(name =
+        "Jugger.findAllOrderByUsername", query =
+        "from Jugger j order by j.user.username asc")})
 public class Jugger extends EntityBase {
 
-	@NotBlank
-	private String firstName;
+    @NotBlank
+    private String firstName;
 
-	@NotBlank
-	private String lastName;
+    @NotBlank
+    private String lastName;
 
-	@NotBlank
-	@Email
-	private String email;
+    @NotBlank
+    @Email
+    private String email;
 
-	@CascadeValidation
-	private JUG jug;
+    @CascadeValidation
+    private JUG jug;
 
-	@CascadeValidation
-	private User user;
+    @CascadeValidation
+    private User user;
 
-	private String confirmationCode;
+    private String confirmationCode;
+    private String changePasswordCode;
 
-	private Boolean confirmed;
+    public Jugger() {
+    }
 
-	public Jugger() {
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    public User getUser() {
+        return user;
+    }
 
-	@OneToOne
-	public User getUser() {
-		return user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public String getConfirmationCode() {
+        return confirmationCode;
+    }
 
-	public String getConfirmationCode() {
-		return confirmationCode;
-	}
+    public void setConfirmationCode(String confirmationCode) {
+        this.confirmationCode = confirmationCode;
+    }
 
-	public void setConfirmationCode(String confirmationCode) {
-		this.confirmationCode = confirmationCode;
-	}
+    public String getChangePasswordCode() {
+        return changePasswordCode;
+    }
 
-	public Boolean getConfirmed() {
-		return confirmed;
-	}
+    public void setChangePasswordCode(String changePasswordCode) {
+        this.changePasswordCode = changePasswordCode;
+    }
 
-	public void setConfirmed(Boolean confirmed) {
-		this.confirmed = confirmed;
-	}
+    @ManyToOne
+    public JUG getJug() {
+        return jug;
+    }
 
-	@ManyToOne
-	public JUG getJug() {
-		return jug;
-	}
-
-	public void setJug(JUG jug) {
-		this.jug = jug;
-	}
+    public void setJug(JUG jug) {
+        this.jug = jug;
+    }
 }

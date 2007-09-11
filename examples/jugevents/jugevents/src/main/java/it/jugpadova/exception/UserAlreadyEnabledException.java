@@ -7,7 +7,7 @@ package it.jugpadova.exception;
  * @author Enrico Giurin
  *
  */
-public class UserAlreadyEnabledException extends Exception {
+public class UserAlreadyEnabledException extends RuntimeException {
 
 	/**
 	 * 
