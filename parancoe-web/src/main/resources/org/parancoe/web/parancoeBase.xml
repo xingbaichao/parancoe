@@ -72,7 +72,9 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     <bean id="conf" class="org.parancoe.util.BaseConf" parent="abstractConf"/>
     
     <bean id="abstractHandlerMapping" abstract="true"
-          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+       class="org.parancoe.web.controller.AnnotationHandlerMapping">
+          <!--class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">-->
+               
         <property name="interceptors">
             <list>
                 <!--  secured interceptor  -->
