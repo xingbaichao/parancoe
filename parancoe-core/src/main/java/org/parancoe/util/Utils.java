@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -19,24 +20,55 @@ import org.springframework.core.io.Resource;
  * @author Michele Franzin paolo.dona@seesaw.it
  */
 public class Utils {
-    private static final Logger logger = Logger.getLogger(Utils.class);
 
-    private static final byte[] UTF8_PREAMBLE = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+    private static final Logger logger =
+            Logger.getLogger(Utils.class);
 
-    private static final String UTF8_UNICODE_PREAMBLE = "\ufeff";
+    private static final byte[] UTF8_PREAMBLE =
+            new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
 
-    @SuppressWarnings("unchecked")
+    private static final String UTF8_UNICODE_PREAMBLE = "﻿";
+
+    @SuppressWarnings(value = "unchecked")
     public static List<String> convertToNameValueList(Map map) {
+        return convertToNameValueList(map, false);
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    public static List<String> convertToNameValueList(Map map, boolean urlEncode) {
         List<String> result = new ArrayList<String>();
         for (String key : (Iterable<String>) map.keySet()) {
             Object tmp = map.get(key);
             if (tmp instanceof String[]) {
                 String[] values = (String[]) tmp;
-                for (String value : values)
-                    result.add(key + "=" + value);
+                for (String value : values) {
+                    if (urlEncode) {
+                        try {
+                            result.add(key + "=" +
+                                    java.net.URLEncoder.encode(value, "UTF-8"));
+                        } catch (UnsupportedEncodingException ex) {
+                            logger.warn("Your OS doesn't support UTF-8, so we can encode",
+                                    ex);
+                            result.add(key + "=" + value);
+                        }
+                    } else {
+                        result.add(key + "=" + value);
+                    }
+                }
             } else if (tmp instanceof String) {
                 String value = (String) tmp;
-                result.add(key + "=" + value);
+                if (urlEncode) {
+                    try {
+                        result.add(key + "=" +
+                                java.net.URLEncoder.encode(value, "UTF-8"));
+                    } catch (UnsupportedEncodingException ex) {
+                        logger.warn("Your OS doesn't support UTF-8, so we can encode",
+                                ex);
+                        result.add(key + "=" + value);
+                    }
+                } else {
+                    result.add(key + "=" + value);
+                }
             }
         }
         return result;
@@ -44,7 +76,7 @@ public class Utils {
 
     /**
      * Carica un file binario dal classpath
-     * 
+     *
      * @param classpathResource
      * @return
      */
@@ -57,8 +89,8 @@ public class Utils {
         try {
             return unsafeLoadBinary(stream = classpathResource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare la risorsa binaria '"
-                    + classpathResource.getDescription() + "' dal classpath.");
+            throw new RuntimeException("Impossibile caricare la risorsa binaria '" +
+                    classpathResource.getDescription() + "' dal classpath.");
         } finally {
             IOUtils.closeQuietly(stream);
         }
@@ -71,7 +103,7 @@ public class Utils {
     /**
      * Carica un file testuale dal classpath.<br/> NB: UTF-8 header are
      * removed!
-     * 
+     *
      * @param classpathResource
      *            file relative path
      * @return textual content of resource file
@@ -85,15 +117,16 @@ public class Utils {
         try {
             return unsafeLoadString(stream = classpathResource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare la risorsa testuale '"
-                    + classpathResource.getDescription() + "' dal classpath.");
+            throw new RuntimeException("Impossibile caricare la risorsa testuale '" +
+                    classpathResource.getDescription() + "' dal classpath.");
         } finally {
             IOUtils.closeQuietly(stream);
         }
     }
 
     protected static String unsafeLoadString(InputStream stream) throws IOException {
-        byte[] byteResult = IOUtils.toByteArray(new InputStreamReader(stream), "UTF-8");
+        byte[] byteResult =
+                IOUtils.toByteArray(new InputStreamReader(stream), "UTF-8");
         return stripUTF8preamble(new String(byteResult, "UTF-8"));
     }
 
@@ -125,7 +158,8 @@ public class Utils {
     }
 
     public static boolean hasUTF8preamble(byte[] b) {
-        return b[0] == UTF8_PREAMBLE[0] && b[1] == UTF8_PREAMBLE[1] && b[2] == UTF8_PREAMBLE[2];
+        return b[0] == UTF8_PREAMBLE[0] && b[1] == UTF8_PREAMBLE[1] &&
+                b[2] == UTF8_PREAMBLE[2];
     }
 
     public static boolean hasUTF8preamble(String s) {
