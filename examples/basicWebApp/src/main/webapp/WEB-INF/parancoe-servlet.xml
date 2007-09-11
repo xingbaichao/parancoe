@@ -36,7 +36,7 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     </bean>
     
     <bean id="blos" class="org.parancoe.basicWebApp.Blos" autowire="byType"/>
-    
+   <!-- 
     <bean name="/home/*.html" id="homeController"
           class="org.parancoe.basicWebApp.controllers.HomeController" parent="abstractController"/>
     <bean name="/admin/*.html" id="adminController"
@@ -45,8 +45,9 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
           class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
     
     <bean name="/italy/*.html" id="italyController" class="org.parancoe.basicWebApp.controllers.ItalyController" parent="abstractController"/>
-    
+    -->
     <!-- secure porpouse -->
+   <!--
     <bean name="/*.secure" id="secureController"
           class="org.parancoe.plugins.security.SecureController" />
     
@@ -63,8 +64,38 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
             </list>
         </property>
     </bean>
+   -->
+   
+    <bean id="homeController"
+          class="org.parancoe.basicWebApp.controllers.HomeController" parent="abstractController"/>
+    <bean id="adminController"
+          class="org.parancoe.basicWebApp.controllers.AdminController" parent="abstractController"/>
+    <bean id="peopleController"
+          class="org.parancoe.basicWebApp.controllers.PeopleController" parent="abstractController"/>
     
+    <bean id="italyController" class="org.parancoe.basicWebApp.controllers.ItalyController" parent="abstractController"/>
+    
+    
+   
+    <bean name="/*.secure" id="secureController"
+          class="org.parancoe.plugins.security.SecureController"/>
+   
+    <bean id="peopleEditController"
+          class="org.parancoe.basicWebApp.controllers.PeopleEditController"
+          parent="abstractController">
+        <property name="commandClass" value="org.parancoe.basicWebApp.po.Person"/>
+        <property name="commandName" value="person"/>
+        <property name="formView" value="people/edit"/>
+        <property name="successView" value="redirect:list.html"/>
+        <property name="propertyEditorRegistrars">
+            <list>
+                <bean class="org.parancoe.basicWebApp.controllers.BasicPropertyEditorRegistrar" />
+            </list>
+        </property>
+    </bean>
+   
     <!-- begin security section -->
+    
     <bean name="pluginSecurityFilterDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
@@ -75,7 +106,8 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
                 /**=IS_AUTHENTICATED_ANONYMOUSLY
             </value>
         </constructor-arg>
-    </bean>    
+    </bean>
+    
     <!-- end security section -->
     
     <!-- begin dwr section -->

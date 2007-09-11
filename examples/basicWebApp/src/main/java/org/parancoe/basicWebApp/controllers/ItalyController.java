@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
+import org.parancoe.web.controller.annotation.UrlMapping;
 
+@UrlMapping("/italy/*.html")
 public abstract class ItalyController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(ItalyController.class);
 

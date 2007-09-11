@@ -24,11 +24,13 @@ import org.parancoe.basicWebApp.Blos;
 import org.parancoe.basicWebApp.Daos;
 import org.parancoe.basicWebApp.po.Person;
 import org.parancoe.web.BaseFormController;
+import org.parancoe.web.controller.annotation.UrlMapping;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
+@UrlMapping("/people/edit.form")
 public abstract class PeopleEditController extends BaseFormController {
 
     private final static Logger logger = Logger.getLogger(PeopleEditController.class);
