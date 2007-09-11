@@ -1,117 +1,58 @@
 /**
- * 
+ *
  */
 package it.jugpadova.controllers;
 
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.po.Jugger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.parancoe.web.BaseMultiActionController;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Admin
- * 
+ *
  */
 public abstract class JuggerController extends BaseMultiActionController {
-	private static Logger logger = Logger.getLogger(JuggerController.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.parancoe.web.BaseMultiActionController#getLogger()
-	 */
-	@Override
-	public Logger getLogger() {
-		// TODO Auto-generated method stub
-		return logger;
-	}
+    private static Logger logger =
+            Logger.getLogger(JuggerController.class);
 
-	/**
-	 * Message after jugger registration. Called with redirect, passing juggerId
-	 * parameter. Copied by similar done by Lucio.
-	 */
-	public ModelAndView sendMail(HttpServletRequest req, HttpServletResponse res) {
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.parancoe.web.BaseMultiActionController#getLogger()
+     */
+    @Override
+    public Logger getLogger() {
+        // TODO Auto-generated method stub
+        return logger;
+    }
 
-		Long juggerId = new Long(req.getParameter("juggerId"));
-		Jugger jugger = dao().getJuggerDao().read(juggerId);
-		ModelAndView mv = new ModelAndView("jugger/registration/sentMail");
-		mv.addObject("jugger", jugger);
-		return mv;
-	}
+    public ModelAndView failed(HttpServletRequest req,
+            HttpServletResponse res) {
+        return new ModelAndView("jugger/registration/failed");
+    }
 
-	/**
-	 * Sends to form for setting password
-	 * 
-	 * @param req
-	 * @param res
-	 * @return
-	 */
-	public ModelAndView sendToFormPWD(HttpServletRequest req,
-			HttpServletResponse res) {
+    public ModelAndView already(HttpServletRequest req,
+            HttpServletResponse res) {
+        return new ModelAndView("jugger/registration/alreadyRegistered");
+    }
 
-		ModelAndView result = null;
-		String confirmationCode = req.getParameter("code");
-		logger.info("confirmationCode: " + confirmationCode);
-		Jugger jugger = dao().getJuggerDao().findByConfirmationCode(
-				confirmationCode);
-		// if(jugger ==)
-		result = new ModelAndView("jugger/registration/setpwd");
-		result.addObject("jugger", jugger);
-		return result;
-	}
+    public ModelAndView confirmUpdateJugger(HttpServletRequest req,
+            HttpServletResponse res) {
+        Long Id = new Long(req.getParameter("id"));
+        Jugger jugger = dao().getJuggerDao().read(Id);
+        ModelAndView mv =
+                new ModelAndView("jugger/confirmUpdateJugger");
+        mv.addObject("jugger", jugger);
+        return mv;
+    }
 
-	/**
-	 * Rerieves password and enable jugger.
-	 * 
-	 * @param req
-	 * @param res
-	 * @return
-	 */
-	public ModelAndView enableJugger(HttpServletRequest req,
-			HttpServletResponse res) {
+    protected abstract Daos dao();
 
-		String confirmationCode = req.getParameter("confirmationCode");
-		String password = req.getParameter("password");
-		logger.info("confirmationCode: " + confirmationCode);
-		try {
-			blo().getJuggerBO().enableJugger(confirmationCode, password);
-		} catch (Exception e) {
-			logger.error(e, e);
-			return new ModelAndView("redirect:/jugger/failed.html");
-		}
-
-		return new ModelAndView("redirect:/jugger/OK.html");
-
-	}
-
-	public ModelAndView OK(HttpServletRequest req, HttpServletResponse res) {
-		return new ModelAndView("jugger/registration/ok");
-	}
-
-	public ModelAndView failed(HttpServletRequest req, HttpServletResponse res) {
-		return new ModelAndView("jugger/registration/failed");
-	}
-
-	public ModelAndView already(HttpServletRequest req, HttpServletResponse res) {
-		return new ModelAndView("jugger/registration/alreadyRegistered");
-	}
-
-	public ModelAndView confirmUpdateJugger(HttpServletRequest req,
-			HttpServletResponse res) {
-		Long Id = new Long(req.getParameter("id"));
-		Jugger jugger = dao().getJuggerDao().read(Id);
-		ModelAndView mv = new ModelAndView("jugger/confirmUpdateJugger");
-		mv.addObject("jugger", jugger);
-		return mv;
-	}
-
-	protected abstract Daos dao();
-
-	protected abstract Blos blo();
+    protected abstract Blos blo();
 }

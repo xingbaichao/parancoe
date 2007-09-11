@@ -45,32 +45,6 @@ public abstract class HomeController extends BaseMultiActionController {
 	}
 
 	/**
-	 * Message after participant registration. Called with redirect, passing
-	 * participantId parameter.
-	 */
-	public ModelAndView confirmParticipantRegistration(HttpServletRequest req,
-			HttpServletResponse res) {
-		Long participantId = new Long(req.getParameter("participantId"));
-		Participant participant = dao().getParticipantDao().read(participantId);
-		ModelAndView mv = new ModelAndView("event/registration/sentMail");
-		mv.addObject("participant", participant);
-		return mv;
-	}
-
-	/**
-	 * Message after password recovery inserting data.
-	 * 
-	 */
-	public ModelAndView passwordRecoverySendMail(HttpServletRequest req,
-			HttpServletResponse res) {
-		Long id = new Long(req.getParameter("Id"));
-		Jugger jugger = dao().getJuggerDao().read(id);
-		ModelAndView mv = new ModelAndView("pwdrecovery/sentMail");
-		mv.addObject("jugger", jugger);
-		return mv;
-	}
-
-	/**
 	 * Login action
 	 */
 	public ModelAndView acegilogin(HttpServletRequest req,
@@ -88,6 +62,14 @@ public abstract class HomeController extends BaseMultiActionController {
 		return new ModelAndView("accessDenied", params);
 	}
 
+	public ModelAndView message(HttpServletRequest req,
+			HttpServletResponse res) {
+            ModelAndView mv = new ModelAndView("message");
+            mv.addObject("messageCode", req.getParameter("messageCode"));
+            mv.addObject("messageArguments", req.getParameter("messageArguments"));
+            return mv;
+        }
+        
 	/**
 	 * 
 	 */

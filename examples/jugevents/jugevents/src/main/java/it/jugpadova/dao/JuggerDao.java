@@ -22,7 +22,9 @@ public interface JuggerDao extends GenericDao<Jugger, Long> {
 
 	Jugger searchByUsername(String username);
 
-	Jugger findByConfirmationCode(String confirmationCode);
+	Jugger findByUsernameAndConfirmationCode(String username, String confirmationCode);
+
+        Jugger findByUsernameAndChangePasswordCode(String username, String changePasswordCode);
 
 	Jugger findByEmail(String email);
 

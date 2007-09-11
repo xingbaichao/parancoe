@@ -59,7 +59,7 @@
         <property name="defaultKmlUrl">
             <value>https://sv-web-jug.dev.java.net/kml/jug-leaders.kml</value>
         </property>
-    </bean>    
+    </bean>
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
@@ -88,8 +88,8 @@
           class="it.jugpadova.controllers.ConfirmController" parent="abstractController"/>
     <bean name="/service/*.html" id="serviceController"
           class="it.jugpadova.controllers.ServiceController" parent="abstractController"/>
-    
-    
+
+
     <!--  override bean definition in parancoe-servlet.xml  -->
     <!-- sends exceptions to genericError.jsp -->
     <bean id="exceptionResolver" class="it.jugpadova.util.JUGEventsExceptionResolver"/>
@@ -120,19 +120,29 @@
         <property name="formView" value="event/edit"/>
         <property name="successView" value="redirect:search.form"/>
     </bean>
-    
-    
-     <!-- Form to enable jugger -->
-	<bean name="/jugger/enable.form" id="juggerEnableController"
-		class="it.jugpadova.controllers.JuggerEnableController"
-		parent="abstractController">
-		<property name="commandClass"
-			value="it.jugpadova.bean.EnableJugger" />
-		<property name="commandName" value="enablejugger" />
-		<property name="formView" value="jugger/registration/setpwd" />
-		<property name="successView" value="redirect:/jugger/OK.html" />
-	</bean>
 
+
+    <!-- Form to enable jugger -->
+    <bean name="/jugger/enable.form" id="juggerEnableController"
+          class="it.jugpadova.controllers.JuggerEnableController"
+          parent="abstractController">
+        <property name="commandClass"
+                  value="it.jugpadova.bean.EnableJugger" />
+        <property name="commandName" value="enablejugger" />
+        <property name="formView" value="jugger/registration/setpwd" />
+        <property name="successView" value="redirect:/home/message.html?messageCode=jugger.registration.success" />
+    </bean>
+
+    <!-- Form to change password -->
+    <bean name="/jugger/changePassword.form" id="juggerChangePasswordController"
+          class="it.jugpadova.controllers.JuggerChangePasswordController"
+          parent="abstractController">
+        <property name="commandClass"
+                  value="it.jugpadova.bean.EnableJugger" />
+        <property name="commandName" value="enablejugger" />
+        <property name="formView" value="pwdrecovery/setpwd" />
+        <property name="successView" value="redirect:/home/message.html?messageCode=jugger.pwdchng.success" />
+    </bean>
 
     <bean name="/jugger/registration.form" id="juggerRegistrationController"
           class="it.jugpadova.controllers.JuggerRegistrationController"
@@ -140,10 +150,10 @@
         <property name="commandClass" value="it.jugpadova.bean.JuggerCaptcha"/>
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/newJugger"/>
-        <property name="successView" value="redirect:/jugger/sendMail.html"/>
+        <property name="successView" value="redirect:/home/message.html?messageCode=jugger.registration.sentMail"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>
-    
+
     <bean name="/jugger/edit.form" id="juggerEditController"
           class="it.jugpadova.controllers.JuggerEditController"
           parent="abstractController">
@@ -151,7 +161,7 @@
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/editJugger"/>
         <property name="successView" value="redirect:/jugger/confirmUpdateJugger.html"/>
-        
+
     </bean>
 
 
@@ -164,7 +174,7 @@
         <property name="successView" value="redirect:/home/confirmParticipantRegistration.html"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>
-    
+
     <!-- controller for password recovery -->
     <bean name="/passwordRecovery.form" id="passwordRecoveryController"
           class="it.jugpadova.controllers.PasswordRecoveryController"
@@ -172,7 +182,7 @@
         <property name="commandClass" value="it.jugpadova.bean.PasswordRecovery"/>
         <property name="commandName" value="passwordRecovery"/>
         <property name="formView" value="pwdrecovery/passwordRecovery"/>
-        <property name="successView" value="redirect:/home/passwordRecoverySendMail.html"/>       
+        <property name="successView" value="redirect:/home/message.html?messageCode=jugger.pwdchng.sentMail"/>
     </bean>
 
     <!--  begin security section -->
@@ -185,7 +195,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-				/adminjugger/**=ROLE_ADMIN
+                /adminjugger/**=ROLE_ADMIN
                 /people/**=ROLE_ADMIN, ROLE_PARANCOE
                 /event/edit*=ROLE_ADMIN, ROLE_JUGGER
                 /event/delete*=ROLE_ADMIN, ROLE_JUGGER
@@ -289,7 +299,7 @@
         <constructor-arg index="1"><value>0</value></constructor-arg>
         <constructor-arg index="2"><value>255</value></constructor-arg>
     </bean>
-    
+
     <bean name="/jcaptcha/*.html" id="jCaptchaController"
           class="it.jugpadova.controllers.JCaptchaController" parent="abstractController">
         <property name="captchaService" ref="captchaService"/>
@@ -299,11 +309,11 @@
     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
-         <property name="host"><value>${mail.host}</value></property>
+        <property name="host"><value>${mail.host}</value></property>
         <!-- Parameters for SMTP AUTH -->
 
         <property name="username"><value>${mail.username}</value></property>
-       <property name="password"><value>${mail.password}</value></property>
+        <property name="password"><value>${mail.password}</value></property>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>

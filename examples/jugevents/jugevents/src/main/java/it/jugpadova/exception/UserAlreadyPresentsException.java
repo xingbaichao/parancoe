@@ -8,7 +8,7 @@ package it.jugpadova.exception;
  * @author Enrico Giurin
  *
  */
-public class UserAlreadyPresentsException extends Exception {
+public class UserAlreadyPresentsException extends RuntimeException {
 
 	/**
 	 * 

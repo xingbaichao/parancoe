@@ -18,10 +18,9 @@ import it.jugpadova.Daos;
 import it.jugpadova.bean.EnableJugger;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.po.Jugger;
-
+import it.jugpadova.util.Utilities;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.parancoe.web.BaseFormController;
 import org.springframework.validation.BindException;
@@ -29,53 +28,61 @@ import org.springframework.web.servlet.ModelAndView;
 
 public abstract class JuggerEnableController extends BaseFormController {
 
-	private static final Logger logger = Logger
-			.getLogger(JuggerEnableController.class);
+    private static final Logger logger =
+            Logger.getLogger(JuggerEnableController.class);
+    private static final String JUGGER_ATTRIBUTE = "jugger";
 
-	@Override
-	protected ModelAndView onSubmit(HttpServletRequest req,
-			HttpServletResponse res, Object command, BindException errors)
-			throws Exception {
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest req,
+            HttpServletResponse res, Object command,
+            BindException errors) throws Exception {
 
-		EnableJugger ej = (EnableJugger) command;
-		String confirmationCode = req.getParameter("code");
-		String password = ej.getPassword();
-		logger.info("confirmationCode: " + confirmationCode);
-		try {
-			blo().getJuggerBO().enableJugger(confirmationCode, password);
-		} catch (UserAlreadyEnabledException uaee) {
-			return new ModelAndView("redirect:/jugger/already.html");
-		} catch (Exception e) {
-			logger.error(e, e);
-			return new ModelAndView("redirect:/jugger/failed.html");
-		}
-		return onSubmit(command, errors);
+        EnableJugger ej = (EnableJugger) command;
+        Jugger jugger = (Jugger) req.getAttribute(JUGGER_ATTRIBUTE);
+        String password = ej.getPassword();
+        try {
+            blo().getJuggerBO().enableJugger(jugger, password);
+        } catch (UserAlreadyEnabledException uaee) {
+            return Utilities.getMessageView("jugger.registration.already");
+        } catch (Exception e) {
+            logger.error(e, e);
+            return Utilities.getMessageView("jugger.registration.failed");
+        }
+        ModelAndView mv = onSubmit(command, errors);
+        Utilities.addMessageArguments(mv, jugger.getFirstName());
+        return mv;
+    }
 
-	}
+    @Override
+    protected Object formBackingObject(HttpServletRequest req) throws Exception {
+        String username = null;
+        String confirmationCode = null;
+        if ((username = req.getParameter("username")) == null) {
+            throw new Exception("No username found in the request!");
+        }
+        if ((confirmationCode = req.getParameter("code")) == null) {
+            throw new Exception("No code found in the request!");
+        }
+        Jugger jugger =
+                dao().getJuggerDao().
+                findByUsernameAndConfirmationCode(username, confirmationCode);
+        if (jugger == null) {
+            logger.warn("Trying to enable " + username +
+                    " user, but it doesn't exist or the confirmation code (" +
+                    confirmationCode + ") doesn't correspond");
+            throw new Exception("The " + username +
+                    " user doesn't exist, or the confirmation code (" +
+                    confirmationCode + ") doesn't correspond");
+        }
+        req.setAttribute(JUGGER_ATTRIBUTE, jugger);
+        return new EnableJugger();
+    }
 
-	@Override
-	protected Object formBackingObject(HttpServletRequest req) throws Exception {
-		String confirmationCode = null;
-		if ((confirmationCode = req.getParameter("code")) == null) {
-			throw new Exception("No code found in the request!");
-		}
-		Jugger jugger = dao().getJuggerDao().findByConfirmationCode(
-				confirmationCode);
-		if (jugger == null) {
-			throw new Exception(
-					"There is no Jugger associated with this confirmationCode: "
-							+ confirmationCode);
-		}
-		req.setAttribute("jugger", jugger);
-		return new EnableJugger();
-	}
+    public Logger getLogger() {
+        return logger;
+    }
 
-	public Logger getLogger() {
-		return logger;
-	}
+    protected abstract Daos dao();
 
-	protected abstract Daos dao();
-
-	protected abstract Blos blo();
-
+    protected abstract Blos blo();
 }
