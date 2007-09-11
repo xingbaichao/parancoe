@@ -32,16 +32,6 @@ public abstract class JuggerController extends BaseMultiActionController {
         return logger;
     }
 
-    public ModelAndView failed(HttpServletRequest req,
-            HttpServletResponse res) {
-        return new ModelAndView("jugger/registration/failed");
-    }
-
-    public ModelAndView already(HttpServletRequest req,
-            HttpServletResponse res) {
-        return new ModelAndView("jugger/registration/alreadyRegistered");
-    }
-
     public ModelAndView confirmUpdateJugger(HttpServletRequest req,
             HttpServletResponse res) {
         Long Id = new Long(req.getParameter("id"));
