@@ -78,6 +78,11 @@ public abstract class JuggerRegistrationController extends BaseFormController {
                     e.getMessage());
             logger.error(e);
             return showForm(req, res, errors);
+        } finally {
+            if (jc.getJugger().getJug().getCountry() == null) {
+                jc.getJugger().getJug().
+                        setCountry(new Country());
+            }
         }
         ModelAndView mv = onSubmit(command, errors);
         Utilities.addMessageArguments(mv, jc.getJugger().getEmail());
