@@ -24,6 +24,7 @@ import it.jugpadova.Daos;
 import it.jugpadova.bean.Registration;
 import it.jugpadova.po.Event;
 import it.jugpadova.po.Participant;
+import it.jugpadova.util.Utilities;
 import java.util.List;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -64,17 +65,20 @@ public abstract class ParticipantRegistrationController extends BaseFormControll
                     register(registration.getEvent(),
                     registration.getParticipant(), baseUrl);
             ModelAndView mv = onSubmit(command, errors);
-            mv.addObject("participantId", registration.getParticipant().getId());
+            Utilities.addMessageArguments(mv, registration.getEvent().getTitle(),
+                    registration.getParticipant().getEmail());
             return mv;
         } else {
             Participant p = prevParticipant.get(0);
             if (p.getConfirmed().booleanValue()) {
                 return new ModelAndView("event/registration/yet");
             } else {
-                blo().getEventBo().refreshRegistration(registration.getEvent(),
-                        p, baseUrl);
+                blo().getEventBo().
+                        refreshRegistration(registration.getEvent(), p, baseUrl);
                 ModelAndView mv = onSubmit(command, errors);
-                mv.addObject("participantId", p.getId());
+                Utilities.addMessageArguments(mv,
+                        registration.getEvent().getTitle(),
+                        registration.getParticipant().getEmail());
                 return mv;
             }
         }
