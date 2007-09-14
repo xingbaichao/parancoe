@@ -171,7 +171,7 @@
         <property name="commandClass" value="it.jugpadova.bean.Registration"/>
         <property name="commandName" value="registration"/>
         <property name="formView" value="event/registration"/>
-        <property name="successView" value="redirect:/home/confirmParticipantRegistration.html"/>
+        <property name="successView" value="redirect:/home/message.html?messageCode=participant.registration.sentMail"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>
 
