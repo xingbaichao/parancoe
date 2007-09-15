@@ -16,6 +16,8 @@ package org.parancoe.web.controller;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.parancoe.util.Utils;
+import org.parancoe.web.controller.annotation.DefaultUrlMapping;
 import org.parancoe.web.controller.annotation.MultiUrlMapping;
 import org.parancoe.web.controller.annotation.UrlMapping;
 import org.springframework.beans.BeansException;
@@ -27,6 +29,7 @@ import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
  * An HandlerMapping implementation that reads url mapping from annotations.
  * Annotation supported are:
  * <ol>
+ *  <li>{@link org.parancoe.web.controller.annotation.DefaultUrlMapping}</li>
  *  <li>{@link org.parancoe.web.controller.annotation.UrlMapping}</li>
  *  <li>{@link org.parancoe.web.controller.annotation.MultiUrlMapping}</li>
  * </ol>
@@ -35,9 +38,11 @@ import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
  * way it's still possible to map urls to controller using the 'name' attribute.
  * 
  * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/> 
- * @version $$Revision$$
+ * @version $Revision: $
  */
 public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
+    
+    private String defaultExtension = "html";
 
     private static final Logger logger = Logger.getLogger(AnnotationHandlerMapping.class);
 
@@ -45,6 +50,14 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
     public void initApplicationContext() throws ApplicationContextException {
         super.initApplicationContext();
         registerHandlers();
+    }
+    
+    public void setDefaultExtension(String defaultExtension) {
+        this.defaultExtension = defaultExtension;
+    }
+
+    public String getDefaultExtension() {
+        return defaultExtension;
     }
 
     /**
@@ -63,13 +76,26 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
             Controller ctrl = (Controller) it.next();
             logger.info("processing controller: " + ctrl.getClass().getSimpleName());
 
+            //check for DefaultUrlMapping
+            if(ctrl.getClass().isAnnotationPresent(DefaultUrlMapping.class)){
+                String defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
+                logger.info("registering handler [" + ctrl.toString() + "] for default url [" + defaultUrl + "]");
+                registerHandler(defaultUrl, ctrl);
+                
+            } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(DefaultUrlMapping.class)) {
+                String defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
+                logger.info("registering handler [" + ctrl.toString() + "] for default url [" + defaultUrl + "] from superclass");
+                registerHandler(defaultUrl, ctrl);
+                
+            }
+            
             //check for UrlMapping annotation
             if (ctrl.getClass().isAnnotationPresent(UrlMapping.class)) {
                 UrlMapping urlMappingAnn = ctrl.getClass().getAnnotation(UrlMapping.class);
-                mapUrl(ctrl, urlMappingAnn);
+                mapUrl(ctrl, urlMappingAnn, false);
             } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(UrlMapping.class)) {
                 UrlMapping urlMappingAnn = ctrl.getClass().getSuperclass().getAnnotation(UrlMapping.class);
-                mapUrl(ctrl, urlMappingAnn);
+                mapUrl(ctrl, urlMappingAnn, true);
             }
 
 
@@ -79,26 +105,55 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
 
                 for (int i = 0; i < multiUrlMappingAnn.values().length; i++) {
                     UrlMapping urlMapping = multiUrlMappingAnn.values()[i];
-                    mapUrl(ctrl, urlMapping);
+                    mapUrl(ctrl, urlMapping, false);
                 }
             } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(MultiUrlMapping.class)) {
                 MultiUrlMapping multiUrlMappingAnn = ctrl.getClass().getSuperclass().getAnnotation(MultiUrlMapping.class);
 
                 for (int i = 0; i < multiUrlMappingAnn.values().length; i++) {
                     UrlMapping urlMapping = multiUrlMappingAnn.values()[i];
-                    mapUrl(ctrl, urlMapping);
+                    mapUrl(ctrl, urlMapping, true);
                 }
             }
         }
     }
 
-    private void mapUrl(Controller ctrl, UrlMapping urlMappingAnn) throws BeansException, IllegalStateException {
-        java.lang.String url = urlMappingAnn.value();
+    private void mapUrl(Controller ctrl, UrlMapping urlMappingAnn, boolean fromSuperclass) throws BeansException, IllegalStateException {
+        String url = urlMappingAnn.value();
 
+        if(url==null || url.trim().equals("")){
+            //there was no value on the annotation
+            //default it
+            if(fromSuperclass){
+                url = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
+            } else {
+                url = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
+            }
+                
+            logger.info("value from annotation was null or empty --> provided a default value");
+        }
+        
         if (!this.getHandlerMap().containsKey(url)) {
             logger.info("registering handler [" + ctrl.toString() + "] for url [" + url + "]");
             registerHandler(url, ctrl);
         }
+    }
+    
+    private String getDefaultUrlFromControllerName(String ctrlName){
+        
+        String[] values = Utils.uncamelize(ctrlName);
+        StringBuffer sb = new StringBuffer();
+        
+        //the last element of the array is the 'controller' string
+        //and we don't want to put it in the mapping
+        for(int i=0; i<values.length - 1; i++){
+            sb.append("/");
+            sb.append(values[i]);                    
+        }
+        sb.append("/*.").append(defaultExtension);
+        
+        return sb.toString();
+        
     }
 
 }
