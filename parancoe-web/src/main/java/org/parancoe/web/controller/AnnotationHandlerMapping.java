@@ -38,7 +38,7 @@ import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
  * way it's still possible to map urls to controller using the 'name' attribute.
  * 
  * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/> 
- * @version $Revision: $
+ * @version $Revision$
  */
 public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
     
@@ -77,16 +77,17 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
             logger.info("processing controller: " + ctrl.getClass().getSimpleName());
 
             //check for DefaultUrlMapping
+            String defaultUrl = null;
             if(ctrl.getClass().isAnnotationPresent(DefaultUrlMapping.class)){
-                String defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
-                logger.info("registering handler [" + ctrl.toString() + "] for default url [" + defaultUrl + "]");
-                registerHandler(defaultUrl, ctrl);
-                
+                defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
+            
             } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(DefaultUrlMapping.class)) {
-                String defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
-                logger.info("registering handler [" + ctrl.toString() + "] for default url [" + defaultUrl + "] from superclass");
-                registerHandler(defaultUrl, ctrl);
-                
+                defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
+            
+            }
+            
+            if(defaultUrl != null){
+                registerUrlIfNotPresent(ctrl, defaultUrl);
             }
             
             //check for UrlMapping annotation
@@ -122,8 +123,7 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
         String url = urlMappingAnn.value();
 
         if(url==null || url.trim().equals("")){
-            //there was no value on the annotation
-            //default it
+            //there was no value on the annotation: default it
             if(fromSuperclass){
                 url = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
             } else {
@@ -133,10 +133,8 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
             logger.info("value from annotation was null or empty --> provided a default value");
         }
         
-        if (!this.getHandlerMap().containsKey(url)) {
-            logger.info("registering handler [" + ctrl.toString() + "] for url [" + url + "]");
-            registerHandler(url, ctrl);
-        }
+        registerUrlIfNotPresent(ctrl, url);
+        
     }
     
     private String getDefaultUrlFromControllerName(String ctrlName){
@@ -154,6 +152,14 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
         
         return sb.toString();
         
+    }
+
+    private void registerUrlIfNotPresent(Controller ctrl, String url) throws IllegalStateException, BeansException {
+
+        if (!this.getHandlerMap().containsKey(url)) {
+            logger.info("registering handler [" + ctrl.getClass().getSimpleName() + "] for url [" + url + "]");
+            registerHandler(url, ctrl);
+        }
     }
 
 }
