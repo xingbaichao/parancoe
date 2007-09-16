@@ -3,6 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <%@ include file="../head.jspf" %>
+        <script type="text/javascript">
+			<!--
+				function confirmDelete(delUrl) {
+				  if (confirm("Are you sure you want deleting this event?")) {
+				    document.location = delUrl;
+				  }
+				}//end of function		
+			//-->
+		</script>
         <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}" rel="alternate" title="RSS" type="application/rss+xml" />
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
         <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
@@ -77,7 +86,7 @@
                                                 </authz:authorize>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
                                                     <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
-                                                        <a href="delete.html?id=${event.id}">delete</a>
+                                                        <a href="javascript:confirmDelete('delete.html?id=${event.id}')">delete</a>
                                                     </c:if>
                                                 </authz:authorize>
                                                 <c:if test="${today lt event.startDate}">
