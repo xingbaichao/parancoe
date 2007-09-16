@@ -1,12 +1,19 @@
 <%@ include file="../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+				
     <head>
         <%@ include file="../head.jspf" %>
+         <%  String msg = "Are you sure you want deleting this event?"; %>
+	        <c:choose>       	  
+		       <c:when test="${requestScope.lang eq 'it'}">
+		       <% msg = "Sei sicuro di volere cancellare questo evento?";%> 
+		       </c:when>        
+	   		</c:choose>
         <script type="text/javascript">
 			<!--
-				function confirmDelete(delUrl) {
-				  if (confirm("Are you sure you want deleting this event?")) {
+				function confirmDelete(delUrl) {				
+				  if (confirm("<%= msg %>")) {
 				    document.location = delUrl;
 				  }
 				}//end of function		
