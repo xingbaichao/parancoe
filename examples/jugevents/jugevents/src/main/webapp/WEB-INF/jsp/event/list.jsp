@@ -1,15 +1,15 @@
 <%@ include file="../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-				
+    
     <head>
         <%@ include file="../head.jspf" %>
-         <%  String msg = "Are you sure you want deleting this event?"; %>
-	        <c:choose>       	  
-		       <c:when test="${requestScope.lang eq 'it'}">
-		       <% msg = "Sei sicuro di volere cancellare questo evento?";%> 
-		       </c:when>        
-	   		</c:choose>
+        <%  String msg = "Are you sure you want deleting this event?"; %>
+        <c:choose>       	  
+            <c:when test="${requestScope.lang eq 'it'}">
+                <% msg = "Sei sicuro di volere cancellare questo evento?";%> 
+            </c:when>        
+        </c:choose>
         <script type="text/javascript">
 			<!--
 				function confirmDelete(delUrl) {				
@@ -18,7 +18,7 @@
 				  }
 				}//end of function		
 			//-->
-		</script>
+        </script>
         <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}" rel="alternate" title="RSS" type="application/rss+xml" />
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
         <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
@@ -28,8 +28,19 @@
             <jsp:include page="../header.jsp"/>
             <div id="content">
                 <div id="content_main">
-
-                    <h1>Search Events <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a></h1>
+                    <c:if test="${!empty news}">
+                        <h1><spring:message code="NewsAndUpcomings"/></h1>
+                        <ul id="news">
+                            <c:forEach  items="${news}" var="newsMessage">
+                                <c:if test="${newsMessage.type eq 'UPCOMING_EVENT'}">
+                                    <li class="upcoming">
+                                        <b><fmt:formatDate value="${newsMessage.date}" type="date"/>:</b> <spring:message code="upcomingEventMessage" arguments="${newsMessage.arguments}"/>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <h1><spring:message code="SearchEvents"/> <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a> <span class="smallText"><a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><spring:message code="SearchFeed"/></span></a></h1>
                     <a href="#" onclick="updateBadge(); $('webBadge').show(); new Effect.ScrollTo('webBadge', {offset: -24}); return false;"><spring:message code="GetBadgeLink"/></a>
                     <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
                         <fieldset>
@@ -49,7 +60,7 @@
                             </dl>
                         </fieldset>
                     </form:form>
-
+                    
                     <c:choose>
                         <c:when test="${not empty events}">
                             <table class="dataList">
