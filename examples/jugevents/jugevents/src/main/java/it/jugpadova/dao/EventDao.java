@@ -14,6 +14,7 @@
 package it.jugpadova.dao;
 
 import it.jugpadova.po.Event;
+import java.util.Date;
 import java.util.List;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
@@ -25,4 +26,5 @@ public interface EventDao extends GenericDao<Event, Long> {
     List<Event> findCurrentEvents();
     List<Event> findEventByPartialLocation(String location);
     List<Event> findEventByPartialLocationAndOwner(String partialLocation, String owner);
+    List<Event> findUpcomingEvents(Date notAfter);
 }

@@ -28,7 +28,9 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
         "Event.findEventByPartialLocation", query =
         "from Event e where lower(e.location) like lower(?) order by e.location"), @NamedQuery(name =
         "Event.findEventByPartialLocationAndOwner", query =
-        "from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location")})
+        "from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location"), @NamedQuery(name =
+        "Event.findUpcomingEvents", query =
+        "from Event e where e.startDate >= current_date() and e.startDate <= ? order by e.startDate")})
 public class Event extends EntityBase {
 
     @NotBlank
@@ -45,7 +47,7 @@ public class Event extends EntityBase {
     private String filter = "Textile";
     private Jugger owner;
     private Date creationDate;
-    
+
     @ManyToOne
     public Jugger getOwner() {
         return owner;
@@ -162,7 +164,7 @@ public class Event extends EntityBase {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
-    
+
     @Transient
     public int getNumberOfParticipants() {
         int result = 0;
@@ -179,14 +181,16 @@ public class Event extends EntityBase {
     @Transient
     public String getFilteredDirections() {
         String filteredDirections =
-                FilterBo.filterText(this.getDirections(), this.getFilter(), false);
+                FilterBo.filterText(this.getDirections(), this.getFilter(),
+                false);
         return filteredDirections;
     }
 
     @Transient
     public String getFilteredDescription() {
         String filteredDescription =
-                FilterBo.filterText(this.getDescription(), this.getFilter(), false);
+                FilterBo.filterText(this.getDescription(), this.getFilter(),
+                false);
         return filteredDescription;
     }
 }

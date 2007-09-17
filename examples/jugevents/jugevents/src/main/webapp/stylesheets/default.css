@@ -316,3 +316,19 @@ dd {
 .preview {
     margin-left: 10px;
 }
+
+.smallText {
+    font-size: 10px;
+}
+
+#news li.upcoming {
+    line-height: 1.1;    
+    list-style-type: none;
+    display: block;
+    padding-top: 7px; 
+    margin-bottom: 2px;
+    margin-left: 7px;
+    padding-left: 7px;
+    padding-bottom: 2px;  
+    background: transparent url(../images/mdot_green.png) 0 7px no-repeat;
+}

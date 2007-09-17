@@ -22,6 +22,7 @@ import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EventSearch;
 import it.jugpadova.po.Event;
+import it.jugpadova.util.Utilities;
 import java.util.List;
 import org.parancoe.web.BaseFormController;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -57,6 +58,7 @@ public abstract class EventSearchController extends BaseFormController {
 
     @Override
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
+        req.setAttribute("news", blo().getEventBo().buildNewsMessages(Utilities.getBaseUrl(req)));
         return new EventSearch();
     }
 
