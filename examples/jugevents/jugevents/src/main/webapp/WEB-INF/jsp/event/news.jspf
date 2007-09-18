@@ -1,0 +1,9 @@
+<ul id="news">
+    <c:forEach  items="${news}" var="newsMessage">
+        <c:if test="${newsMessage.type eq 'UPCOMING_EVENT'}">
+            <li class="upcoming">
+                <b><fmt:formatDate value="${newsMessage.date}" type="date"/>:</b> <spring:message code="upcomingEventMessage" arguments="${newsMessage.arguments}"/>
+            </li>
+        </c:if>
+    </c:forEach>
+</ul>
