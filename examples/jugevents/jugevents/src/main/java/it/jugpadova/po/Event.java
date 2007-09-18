@@ -24,13 +24,15 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  */
 @Entity
 @NamedQueries(value = {@NamedQuery(name = "Event.findCurrentEvents", query =
-        "from Event e where e.startDate >= current_date()"), @NamedQuery(name =
-        "Event.findEventByPartialLocation", query =
-        "from Event e where lower(e.location) like lower(?) order by e.location"), @NamedQuery(name =
-        "Event.findEventByPartialLocationAndOwner", query =
-        "from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location"), @NamedQuery(name =
-        "Event.findUpcomingEvents", query =
-        "from Event e where e.startDate >= current_date() and e.startDate <= ? order by e.startDate")})
+        "from Event e where e.startDate >= current_date()"),
+        @NamedQuery(name = "Event.findEventByPartialLocation", query =
+        "from Event e where lower(e.location) like lower(?) order by e.location"),
+        @NamedQuery(name = "Event.findEventByPartialLocationAndOwner", query =
+        "from Event e where lower(e.location) like lower(?) and e.owner.user.username = ? order by e.location"),
+        @NamedQuery(name = "Event.findUpcomingEvents", query =
+        "from Event e where e.startDate >= current_date() and e.startDate <= ? order by e.startDate"),
+        @NamedQuery(name = "Event.findNewEvents", query =
+        "from Event e where e.startDate >= current_date() and e.creationDate >= ? order by e.startDate")})
 public class Event extends EntityBase {
 
     @NotBlank

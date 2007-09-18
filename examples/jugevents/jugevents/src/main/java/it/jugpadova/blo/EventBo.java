@@ -64,14 +64,12 @@ public class EventBo {
 
     private static final Logger logger =
             Logger.getLogger(EventBo.class);
-
     private Daos daos;
-
     private JavaMailSender mailSender;
-
     private VelocityEngine velocityEngine;
-
     private String confirmationSenderEmailAddress;
+    private int upcomingEventDays = 7;
+    private int newEventDays = 7;
 
     public Daos getDaos() {
         return daos;
@@ -103,6 +101,22 @@ public class EventBo {
 
     public void setConfirmationSenderEmailAddress(String confirmationSenderEmailAddress) {
         this.confirmationSenderEmailAddress = confirmationSenderEmailAddress;
+    }
+
+    public int getUpcomingEventDays() {
+        return upcomingEventDays;
+    }
+
+    public void setUpcomingEventDays(int upcomingEventDays) {
+        this.upcomingEventDays = upcomingEventDays;
+    }
+
+    public int getNewEventDays() {
+        return newEventDays;
+    }
+
+    public void setNewEventDays(int newEventDays) {
+        this.newEventDays = newEventDays;
     }
 
     @Transactional(readOnly = true)
@@ -580,12 +594,20 @@ public class EventBo {
         DateTime dt = new DateTime();
         List<Event> upcomings =
                 getDaos().getEventDao().
-                findUpcomingEvents(dt.plusDays(7).toDate());
+                findUpcomingEvents(dt.plusDays(this.upcomingEventDays).toDate());
         for (Event event : upcomings) {
             messages.add(new NewsMessage(NewsMessage.TYPE_UPCOMING_EVENT,
                     event.getStartDate(), event, baseUrl));
         }
+        List<Event> newEvents =
+                getDaos().getEventDao().
+                findNewEvents(dt.minusDays(this.newEventDays).toDate());
+        for (Event event : newEvents) {
+            if (!upcomings.contains(event)) {
+                messages.add(new NewsMessage(NewsMessage.TYPE_NEW_EVENT,
+                        event.getStartDate(), event, baseUrl));
+            }
+        }
         return messages;
     }
-    
 }

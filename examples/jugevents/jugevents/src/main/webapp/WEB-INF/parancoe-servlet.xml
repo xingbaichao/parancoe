@@ -27,6 +27,8 @@
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
+        <property name="upcomingEventDays" value="15" />
+        <property name="newEventDays" value="7" />
         <dwr:remote javascript="eventBo">
             <dwr:include method="findPartialLocation"/>
             <dwr:include method="copyDirectionsFromEvent"/>
