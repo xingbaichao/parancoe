@@ -4,21 +4,6 @@
     
     <head>
         <%@ include file="../head.jspf" %>
-        <%  String msg = "Are you sure you want deleting this event?"; %>
-        <c:choose>       	  
-            <c:when test="${requestScope.lang eq 'it'}">
-                <% msg = "Sei sicuro di volere cancellare questo evento?";%> 
-            </c:when>        
-        </c:choose>
-        <script type="text/javascript">
-			<!--
-				function confirmDelete(delUrl) {				
-				  if (confirm("<%= msg %>")) {
-				    document.location = delUrl;
-				  }
-				}//end of function		
-			//-->
-        </script>
         <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}" rel="alternate" title="RSS" type="application/rss+xml" />
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
         <script src="${cp}/dwr/interface/eventBo.js" type="text/javascript"></script>
@@ -30,15 +15,7 @@
                 <div id="content_main">
                     <c:if test="${!empty news}">
                         <h1><spring:message code="NewsAndUpcomings"/></h1>
-                        <ul id="news">
-                            <c:forEach  items="${news}" var="newsMessage">
-                                <c:if test="${newsMessage.type eq 'UPCOMING_EVENT'}">
-                                    <li class="upcoming">
-                                        <b><fmt:formatDate value="${newsMessage.date}" type="date"/>:</b> <spring:message code="upcomingEventMessage" arguments="${newsMessage.arguments}"/>
-                                    </li>
-                                </c:if>
-                            </c:forEach>
-                        </ul>
+                        <%@ include file="news.jspf" %>
                     </c:if>
                     <h1><spring:message code="SearchEvents"/> <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a> <span class="smallText"><a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><spring:message code="SearchFeed"/></span></a></h1>
                     <a href="#" onclick="updateBadge(); $('webBadge').show(); new Effect.ScrollTo('webBadge', {offset: -24}); return false;"><spring:message code="GetBadgeLink"/></a>
@@ -99,20 +76,21 @@
                                             <td class="actionColumn">
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
                                                     <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
-                                                        <a href="edit.form?id=${event.id}">edit</a>
+                                                        <a href="edit.form?id=${event.id}"><spring:message code="edit"/></a>
                                                     </c:if>
                                                 </authz:authorize>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
                                                     <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
-                                                        <a href="javascript:confirmDelete('delete.html?id=${event.id}')">delete</a>
+                                                        <spring:message code='confirmDeleteEvent' var="confirmDeleteEventMessage"/>
+                                                        <a href="delete.html?id=${event.id}" onclick="return confirm('${confirmDeleteEventMessage}')"><spring:message code="delete"/></a>
                                                     </c:if>
                                                 </authz:authorize>
                                                 <c:if test="${today lt event.startDate}">
-                                                    <a href="registration.form?event.id=${event.id}">register</a>
+                                                    <a href="registration.form?event.id=${event.id}"><spring:message code="register"/></a>
                                                 </c:if>
                                                 <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_JUGGER">
                                                     <c:if test="${event.owner.user.username == authentication.name || authentication.authorities[0] == 'ROLE_ADMIN'}">
-                                                        <a href="participants.html?id=${event.id}">participants</a>
+                                                        <a href="participants.html?id=${event.id}"><spring:message code="participants"/></a>
                                                     </c:if>
                                                 </authz:authorize>
                                             </td>
