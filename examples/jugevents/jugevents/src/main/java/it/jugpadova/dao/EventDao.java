@@ -20,11 +20,19 @@ import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 
 
-@Dao(entity=Event.class)
+@Dao(entity = Event.class)
 public interface EventDao extends GenericDao<Event, Long> {
+
     List<Event> findByLocation(String location);
+
     List<Event> findCurrentEvents();
+
     List<Event> findEventByPartialLocation(String location);
-    List<Event> findEventByPartialLocationAndOwner(String partialLocation, String owner);
+
+    List<Event> findEventByPartialLocationAndOwner(String partialLocation,
+            String owner);
+
     List<Event> findUpcomingEvents(Date notAfter);
+
+    List<Event> findNewEvents(Date notBefore);
 }

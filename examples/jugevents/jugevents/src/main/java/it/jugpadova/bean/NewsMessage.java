@@ -69,7 +69,7 @@ public class NewsMessage {
     }
 
     public Object[] getArguments() {
-        if (TYPE_UPCOMING_EVENT.equals(this.type)) {
+        if (TYPE_UPCOMING_EVENT.equals(this.type) || TYPE_NEW_EVENT.equals(this.type)) {
             return new Object[]{event.getTitle(), event.getOwner().getJug().getName(), event.getOwner().getJug().getWebSite(), getEventUrl(baseUrl, event)};
         }
         return new Object[]{};

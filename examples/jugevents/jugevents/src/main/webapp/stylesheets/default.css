@@ -321,14 +321,26 @@ dd {
     font-size: 10px;
 }
 
-#news li.upcoming {
+ul#news {
+    padding-left: 0px;
+}
+
+#news li {
     line-height: 1.1;    
     list-style-type: none;
     display: block;
     padding-top: 7px; 
     margin-bottom: 2px;
     margin-left: 7px;
-    padding-left: 7px;
+    padding-left: 14px;
     padding-bottom: 2px;  
     background: transparent url(../images/mdot_green.png) 0 7px no-repeat;
+}
+
+#news li.upcoming {
+    background: transparent url(../images/mdot_green.png) 0 7px no-repeat;
+}
+
+#news li.new {
+    background: transparent url(../images/mdot_yellow.png) 0 7px no-repeat;
 }
