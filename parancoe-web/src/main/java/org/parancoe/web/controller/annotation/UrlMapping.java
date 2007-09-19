@@ -28,5 +28,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Documented
 public @interface UrlMapping {
-    String value();
+    String value() default "";
 }
