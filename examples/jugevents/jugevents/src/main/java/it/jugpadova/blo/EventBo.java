@@ -34,6 +34,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import org.acegisecurity.Authentication;
@@ -536,7 +537,8 @@ public class EventBo {
     }
 
     private String javascriptize(String s) {
-        return s.replaceAll("\'", "\'").replaceAll("\n", "\n");
+        return s.replaceAll("\'", Matcher.quoteReplacement("\\'"))
+                .replaceAll("\n", Matcher.quoteReplacement("\\n"));
     }
 
     private User getCurrentUser() {
