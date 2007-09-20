@@ -6,6 +6,10 @@
 <script type="text/javascript">
 function init() {
   parancoe.util.initDWR();
+  
+  if (NiftyCheck()) {
+    RoundedBottom("#header", "#FFFFFF", "#F9F9AB", 30, 30);  
+  }
 }
 
 if (window.addEventListener) {
