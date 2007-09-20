@@ -67,9 +67,10 @@
 							<c:otherwise>
 								<a
 									href="${cp}/adminjugger/enableJugger.html?username=${jugger.user.username}">enable</a>
-							</c:otherwise>
-						</c:choose> <a
-							href="javascript:confirmDelete('${cp}/adminjugger/delete.html?username=${jugger.user.username}')">delete</a>
+							</c:otherwise>														
+						</c:choose>						
+						 <spring:message code='confirmDeleteJugger' var="confirmDeleteJuggerMessage"/>
+                         <a href="${cp}/adminjugger/delete.html?username=${jugger.user.username}" onclick="return confirm('${confirmDeleteJuggerMessage}')"><spring:message code="delete"/></a>						
 						</td>
 
 
