@@ -7,6 +7,11 @@ html, body {
   height: 100%;
 }
 
+img {
+  margin: 0;
+  padding: 0;
+}
+
 #nonFooter {
     position: relative;    
     min-height: 100%;
@@ -91,16 +96,39 @@ form br {
   color: red;
 }
 
+#topRuler{
+  border: none;
+  background-color: #000000;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  height: 10px;
+  font-size: 10px;
+}
+
+#topRulerShadow{
+  border: none;
+  background-color: #F0F090;
+  padding: 0 0 0 0;
+  margin: 0 auto 0 auto;
+  width: 750px;
+  height: 7px;
+  font-size: 7px;
+}
+
 #header{
   border: none;
   background-color: #F9F9AB;
   padding: 0 0 0 0;
-  margin: 0 0 0 0;
-  height: 100px;
+  margin: 0 auto 0 auto;
+  width: 750px;
 }
 
 #logo {
-  float: left;
+    background-color: #F9F9AB;
+    margin: 0 0 0 0;
+    padding: 15px 0 0 15px;
+    overflow: hidden;
+    position: absolute;
 }
 
 #motto {
@@ -112,7 +140,8 @@ form br {
 }
 
 #languages {
-  padding-top: 85px;
+    text-align: right;
+    padding-top: 50px;
 }
 
 #footer {
@@ -153,7 +182,7 @@ form br {
 
 #language{
     margin-right: 10px;
-    float: right;
+/*    float: right; */
     text-decoration: none;
 }
 
@@ -238,8 +267,8 @@ form br {
 }
 
 .vertical_filler {
-    margin: 40px 0 0 0;
-    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    padding: 40px 0 0 0;
 }
 
 /* Login form */
@@ -343,4 +372,11 @@ ul#news {
 
 #news li.new {
     background: transparent url(../images/mdot_yellow.jpg) 0 7px no-repeat;
+}
+
+div.rounded div {
+  padding: 0;
+  margin: 0;
+  height: 1px;
+  overflow: hidden;
 }
