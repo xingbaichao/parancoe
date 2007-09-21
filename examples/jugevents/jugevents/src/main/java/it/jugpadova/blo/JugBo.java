@@ -3,6 +3,9 @@ package it.jugpadova.blo;
 import it.jugpadova.Daos;
 import it.jugpadova.dao.JUGDao;
 import it.jugpadova.po.JUG;
+import it.jugpadova.po.Jugger;
+import it.jugpadova.util.Utilities;
+
 import java.util.List;
 import nu.xom.Builder;
 import nu.xom.Document;
@@ -27,6 +30,7 @@ public class JugBo {
             "http://earth.google.com/kml/2.1";
     private Daos daos;
     private String defaultKmlUrl;
+    
 
     public JugBo() {
     }
@@ -234,15 +238,26 @@ public class JugBo {
     }
 
     @Transactional
-    public JUG save(JUG newJUG) {
+    public JUG saveJUG(Jugger jugger, double thresholdAccess) {
+    	JUG newJUG = jugger.getJug();
         JUGDao jugDao = daos.getJUGDao();
         CountryDao countryDao = daos.getCountryDao();
         // create or find JUG
         JUG jug = jugDao.findByName(newJUG.getName());
-        if (jug == null) {
-            //create the JUG instance
-            jug = new JUG();
-        }
+        if (jug == null) 
+	        {
+	            //create the JUG instance
+	            jug = new JUG();
+	        }
+        else
+	        {
+	        	 //check if this jugger could update the JUG attribute
+	            if(!Utilities.checkAuthorizationEditJUG(jugger, thresholdAccess)) 
+	            {
+	            	return jug;
+	            }//end of if
+	        }//end of if
+       
         jug.setModifiedKmlData(evaluateModifiedKmlDate(newJUG, jug));
         jug.setName(newJUG.getName());
         jug.setCountry(countryDao.findByEnglishName(newJUG.getCountry().
@@ -272,4 +287,6 @@ public class JugBo {
                 (newJUG.getInfos() != null &&
                 !newJUG.getInfos().equals(oldJUG.getInfos()));
     }
+
+	
 }

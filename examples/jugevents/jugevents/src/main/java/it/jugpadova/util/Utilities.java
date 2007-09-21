@@ -6,6 +6,8 @@ package it.jugpadova.util;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.world.Country;
 import it.jugpadova.bean.JuggerCaptcha;
+import it.jugpadova.blo.JuggerBo;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.JUG;
 import it.jugpadova.po.Jugger;
 import javax.servlet.http.HttpServletRequest;
@@ -77,5 +79,29 @@ public class Utilities {
             mv.addObject("messageArguments", arguments);
         }
     }
+    
+    
+    
+    /**
+	 * Check if jugger is enabled to update his JUG attribute.
+	 * @param jugger
+	 * @return
+	 */
+	 public static boolean checkAuthorizationEditJUG(Jugger jugger, double thresholdAccess)
+	{
+		double reliability = jugger.getReliability();
+		if(reliability < JuggerBo.MIN_THRESHOLD_ACCESS || reliability > JuggerBo.MAX_THRESHOLD_ACCESS)
+		{
+			throw new IllegalArgumentException("reliability: "+reliability+" is out of range");
+		}
+		if(thresholdAccess < JuggerBo.MIN_THRESHOLD_ACCESS || thresholdAccess > JuggerBo.MAX_THRESHOLD_ACCESS)
+		{
+			throw new IllegalArgumentException("thresholdAccess: "+thresholdAccess+" is out of range");
+		}
+		if(jugger.getReliability()>= thresholdAccess)
+			return true;
+		
+		return false;
+	}
     
 }
