@@ -5,22 +5,6 @@
    
 <head>
 <%@ include file="../../head.jspf"%>
-    <%  String msg = "Are you sure you want deleting this jugger?"; %>
-	    <c:choose>		       	  
-		       <c:when test="${requestScope.lang eq 'it'}">
-		       <% msg = "Sei sicuro di volere cancellare questo jugger?";%> 
-		       </c:when>        
-	   </c:choose>
-	<script type="text/javascript">
-		<!--
-		function confirmDelete(delUrl) {
-		  if (confirm("<%= msg %>")) {
-		    document.location = delUrl;
-		  }
-		}//end of function
-		
-		//-->
-	</script>
 </head>
 <body>
 <div id="nonFooter"><jsp:include page="../../header.jsp" />
