@@ -9,6 +9,7 @@ import it.jugpadova.Daos;
 import it.jugpadova.JugEventsBaseTest;
 import it.jugpadova.dao.JUGDao;
 import it.jugpadova.exception.UserAlreadyEnabledException;
+import it.jugpadova.po.Jugger;
 
 /**
  * @author Enrico Giurin
@@ -30,5 +31,10 @@ public class JuggerBoTest extends JugEventsBaseTest {
 		}
     	
     }//end of method
+    
+    public void testThresholdAccess()
+    {
+    	assertEquals(1,0d, juggerBo.getThresholdAccess());       	
+    }
 
 }

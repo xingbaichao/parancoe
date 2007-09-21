@@ -47,6 +47,7 @@
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
+        <property name="thresholdAccess" value="1"/>
         <dwr:remote javascript="juggerBo">
             <dwr:include method="findPartialContinent"/>
             <dwr:include method="findPartialCountryWithContinent"/>
@@ -61,6 +62,7 @@
         <property name="defaultKmlUrl">
             <value>https://sv-web-jug.dev.java.net/kml/jug-leaders.kml</value>
         </property>
+        
     </bean>
 
     <bean id="daos" parent="abstractDaoProvider">

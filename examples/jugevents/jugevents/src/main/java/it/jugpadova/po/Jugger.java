@@ -16,6 +16,10 @@ import org.parancoe.plugins.security.User;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import it.jugpadova.blo.JuggerBo;
+
+
+
 
 /**
  * @author Enrico Giurin & Lucio benfante.
@@ -53,6 +57,8 @@ public class Jugger extends EntityBase {
 
     private String confirmationCode;
     private String changePasswordCode;
+    private double  reliability=1;
+     
 
     public Jugger() {
     }
@@ -114,4 +120,12 @@ public class Jugger extends EntityBase {
     public void setJug(JUG jug) {
         this.jug = jug;
     }
+
+	public double getReliability() {
+		return reliability;
+	}
+
+	public void setReliability(double reliability) {		
+		this.reliability = reliability;
+	}
 }

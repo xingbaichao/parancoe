@@ -52,6 +52,14 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  *
  */
 public class JuggerBo {
+	/**
+	 * min value for threshold access.
+	 */
+	public static final double MIN_THRESHOLD_ACCESS = 0d;
+	/**
+	 * Max value for threshold access
+	 */
+	public static final double MAX_THRESHOLD_ACCESS = 1d;
 
     private static final Logger logger =
             Logger.getLogger(JuggerBo.class);
@@ -61,6 +69,8 @@ public class JuggerBo {
     private VelocityEngine velocityEngine;
 
     private String confirmationSenderEmailAddress;
+    
+    private  double thresholdAccess;
 
     private Daos daos;
 
@@ -113,7 +123,7 @@ public class JuggerBo {
             throw new EmailAlreadyPresentException("An user tried to register with an email that exists yet");
         }
         // creates or updated jug associated to jugger
-        JUG jug = jugBo.save(jugger.getJug());
+        JUG jug = jugBo.saveJUG(jugger,thresholdAccess);
         // assign values to jugger
         jugger.setJug(jug);
         jugger.setUser(newUser(jugger.getUser().getUsername()));
@@ -370,8 +380,8 @@ public class JuggerBo {
         JuggerDao juggerDao = daos.getJuggerDao();
 
         User newUser = updateUser(jugger.getUser());
-        // TODO al momento � disabilitato update JUG
-        JUG newJUG = jugBo.save(jugger.getJug());
+        
+        JUG newJUG = jugBo.saveJUG(jugger, thresholdAccess);
         jugger.setJug(newJUG);
         jugger.setUser(newUser);
         juggerDao.update(jugger);
@@ -519,4 +529,14 @@ public class JuggerBo {
         };
         this.mailSender.send(preparator);
     }
+
+	public  double getThresholdAccess() {
+		return thresholdAccess;
+	}
+
+	public  void setThresholdAccess(double thresholdAccess) {		
+		this.thresholdAccess = thresholdAccess;
+	}
+	
+	
 } // end of class
