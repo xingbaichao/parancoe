@@ -11,11 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package ${groupId}.dao;
+package ${package}.dao;
 
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
-import ${groupId}.po.Person;
+import ${package}.po.Person;
 
 import java.util.List;
 import java.util.Date;

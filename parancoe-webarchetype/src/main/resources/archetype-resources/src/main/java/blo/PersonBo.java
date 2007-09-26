@@ -11,11 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package ${groupId}.blo;
+package ${package}.blo;
 
 import org.springframework.transaction.annotation.Transactional;
-import ${groupId}.po.Person;
-import ${groupId}.dao.PersonDao;
+import ${package}.po.Person;
+import ${package}.dao.PersonDao;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
