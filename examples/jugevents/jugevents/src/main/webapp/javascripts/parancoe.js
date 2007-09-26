@@ -4,6 +4,15 @@ function Parancoe() {
             useLoadingMessage();
             dwr.engine.reverseAjax = true;
         };
+        
+        this.disableFormElement = function (elementId) {
+            $(elementId).disabled = 'true';
+        }
+
+        this.enableFormElement = function (elementId) {
+            $(elementId).disabled = 'false';
+        }
+        
     }
 
     this.util = new Util();
