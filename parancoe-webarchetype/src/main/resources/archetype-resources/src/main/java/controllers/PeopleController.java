@@ -11,13 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package ${groupId}.controllers;
+package ${package}.controllers;
 
 import java.text.ParseException;
 import org.parancoe.web.BaseMultiActionController;
-import ${groupId}.Daos;
-import ${groupId}.Blos;
-import ${groupId}.po.Person;
+import ${package}.Daos;
+import ${package}.Blos;
+import ${package}.po.Person;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 

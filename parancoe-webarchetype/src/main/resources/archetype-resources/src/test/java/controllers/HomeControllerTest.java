@@ -1,4 +1,4 @@
-package ${groupId}.controllers;
+package ${package}.controllers;
 
 import org.springframework.web.servlet.ModelAndView;
 

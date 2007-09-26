@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package ${groupId}.controllers;
+package ${package}.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import ${groupId}.Blos;
-import ${groupId}.Daos;
+import ${package}.Blos;
+import ${package}.Daos;
 import org.parancoe.util.MemoryAppender;
 import org.parancoe.web.BaseMultiActionController;
 import org.springframework.web.servlet.ModelAndView;

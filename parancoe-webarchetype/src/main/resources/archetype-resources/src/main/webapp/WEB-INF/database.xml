@@ -22,7 +22,7 @@
     </bean>
     
     <!-- Authomatic discovering of persistent classes -->
-    <parancoe:discover-persistent-classes basePackage="${groupId}"/>
+    <parancoe:discover-persistent-classes basePackage="${package}"/>
     <parancoe:discover-persistent-classes basePackage="org.parancoe.persistence.security"/>
     
 </beans>
