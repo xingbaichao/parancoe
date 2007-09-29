@@ -6,11 +6,11 @@ function Parancoe() {
         };
         
         this.disableFormElement = function (elementId) {
-            $(elementId).disabled = 'true';
+            $(elementId).disabled = true;
         }
 
         this.enableFormElement = function (elementId) {
-            $(elementId).disabled = 'false';
+            $(elementId).disabled = false;
         }
         
     }
