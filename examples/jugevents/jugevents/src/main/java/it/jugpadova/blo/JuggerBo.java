@@ -52,14 +52,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  *
  */
 public class JuggerBo {
-	/**
-	 * min value for threshold access.
-	 */
-	public static final double MIN_THRESHOLD_ACCESS = 0d;
-	/**
-	 * Max value for threshold access
-	 */
-	public static final double MAX_THRESHOLD_ACCESS = 1d;
+	
 
     private static final Logger logger =
             Logger.getLogger(JuggerBo.class);
@@ -70,7 +63,7 @@ public class JuggerBo {
 
     private String confirmationSenderEmailAddress;
     
-    private  double thresholdAccess;
+    
 
     private Daos daos;
 
@@ -123,7 +116,7 @@ public class JuggerBo {
             throw new EmailAlreadyPresentException("An user tried to register with an email that exists yet");
         }
         // creates or updated jug associated to jugger
-        JUG jug = jugBo.saveJUG(jugger,thresholdAccess);
+        JUG jug = jugBo.saveJUG(jugger);
         // assign values to jugger
         jugger.setJug(jug);
         jugger.setUser(newUser(jugger.getUser().getUsername()));
@@ -254,6 +247,7 @@ public class JuggerBo {
     @Transactional(readOnly = true)
     public List findPartialJugNameWithCountry(String partialJugName,
             String partialCountry) {
+    	
         List<String> result = new ArrayList<String>();
         if (!StringUtils.isBlank(partialJugName)) {
             try {
@@ -261,11 +255,21 @@ public class JuggerBo {
                         getDaos().getJUGDao().
                         findByPartialJugNameAndCountry("%" + partialJugName + "%",
                         "%" + partialCountry + "%");
-                Iterator<JUG> itJugs = jugs.iterator();
-                while (itJugs.hasNext()) {
-                    JUG jug = itJugs.next();
-                    result.add(jug.getName());
+                if(jugs.size()==0)
+                {
+                	fixJugFields(true);
                 }
+                else
+                {
+                	 Iterator<JUG> itJugs = jugs.iterator();                	 
+                     while (itJugs.hasNext()) {
+                         JUG jug = itJugs.next();
+                         result.add(jug.getName());
+                     }//end of while
+//                   disable jug fields
+                 	fixJugFields(false);
+                }
+               
             } catch (Exception e) {
                 logger.error("Error completing the JUG Name", e);
             }
@@ -336,37 +340,85 @@ public class JuggerBo {
 
     @Transactional(readOnly = true)
     public void populateJugFields(String jugName) {
-        JUG jug = daos.getJUGDao().findByName(jugName);
-        if (jug != null) {
-            WebContext wctx = WebContextFactory.get();
-            ScriptSession session = wctx.getScriptSession();
-            Util util = new Util(session);
-            Effect effect =
-                    new Effect(session);
-            Country country = jug.getCountry();
-            if (country != null) {
-                util.setValue("jugger.jug.country.englishName",
-                        country.getEnglishName());
-                effect.highlight("jugger.jug.country.englishName");
-            }
-            util.setValue("jugger.jug.webSite", jug.getWebSite());
-            effect.highlight("jugger.jug.webSite");
-            if (jug.getLongitude() != null) {
-                util.setValue("jugger.jug.longitude",
-                        jug.getLongitude().toString());
-                effect.highlight("jugger.jug.longitude");
-            }
-            if (jug.getLatitude() != null) {
-                util.setValue("jugger.jug.latitude",
-                        jug.getLatitude().toString());
-                effect.highlight("jugger.jug.latitude");
-            }
-            if (jug.getInfos() != null) {
-                util.setValue("jugger.jug.infos",
-                        jug.getInfos());
-                effect.highlight("jugger.jug.infos");
-            }
-        }
+    	JUG jug = daos.getJUGDao().findByName(jugName);
+    	if (jug != null) {
+    		WebContext wctx = WebContextFactory.get();
+    		ScriptSession session = wctx.getScriptSession();
+    		Util util = new Util(session);
+    		fixJugFields(true);
+
+    		Effect effect = new Effect(session);
+    		String tmp = null;
+    		Country country = jug.getCountry();
+
+    		if (country != null) {
+    			util.setValue("jugger.jug.country.englishName", country
+    					.getEnglishName());
+    		} else {
+    			util.setValue("jugger.jug.country.englishName", null);
+    		}
+    		effect.highlight("jugger.jug.country.englishName");
+
+    		util.setValue("jugger.jug.webSite", jug.getWebSite());
+    		effect.highlight("jugger.jug.webSite");
+
+    		if (jug.getLongitude() != null) {
+    			util.setValue("jugger.jug.longitude", jug.getLongitude()
+    					.toString());
+
+    		} else {
+    			util.setValue("jugger.jug.longitude", null);
+    		}
+    		effect.highlight("jugger.jug.longitude");
+    		if (jug.getLatitude() != null) {
+    			util.setValue("jugger.jug.latitude", jug.getLatitude()
+    					.toString());
+    		} else {
+    			util.setValue("jugger.jug.latitude", null);
+    		}
+    		effect.highlight("jugger.jug.latitude");
+
+    		util.setValue("jugger.jug.infos", jug.getInfos());
+    		effect.highlight("jugger.jug.infos");
+    		
+    		fixJugFields(false);
+    		}
+
+    }
+    
+   /**
+	 * Disable/Enable all jug fields.
+	 * 
+	 * @param util
+	 */
+    private void fixJugFields(boolean enable) {
+    	 WebContext wctx = WebContextFactory.get();
+         ScriptSession session = wctx.getScriptSession();
+         Util util = new Util(session);
+         String jsFunction = "parancoe.util.disableFormElement";
+    	
+    	if(enable)
+    	{
+    		jsFunction = "parancoe.util.enableFormElement";
+    	}
+        util.addFunctionCall(jsFunction,
+        "jugger.jug.country.englishName");
+        util.addFunctionCall(jsFunction,
+        "jugger.jug.webSite");
+        util.addFunctionCall(jsFunction,
+        "jugger.jug.longitude");
+        util.addFunctionCall(jsFunction,
+        "jugger.jug.latitude");
+        util.addFunctionCall(jsFunction,
+        "jugger.jug.infos");
+    }
+    
+    
+    
+    //hard copied by Lucio
+    @Transactional(readOnly = true)
+    public void enableJugFields(String jugName) {
+    
     }
 
     /**
@@ -381,7 +433,7 @@ public class JuggerBo {
 
         User newUser = updateUser(jugger.getUser());
         
-        JUG newJUG = jugBo.saveJUG(jugger, thresholdAccess);
+        JUG newJUG = jugBo.saveJUG(jugger);
         jugger.setJug(newJUG);
         jugger.setUser(newUser);
         juggerDao.update(jugger);
@@ -530,13 +582,7 @@ public class JuggerBo {
         this.mailSender.send(preparator);
     }
 
-	public  double getThresholdAccess() {
-		return thresholdAccess;
-	}
-
-	public  void setThresholdAccess(double thresholdAccess) {		
-		this.thresholdAccess = thresholdAccess;
-	}
+	
 	
 	
 } // end of class

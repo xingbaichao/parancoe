@@ -30,6 +30,7 @@ public class JugBo {
             "http://earth.google.com/kml/2.1";
     private Daos daos;
     private String defaultKmlUrl;
+    private TrustBo trustBo;
     
 
     public JugBo() {
@@ -238,7 +239,7 @@ public class JugBo {
     }
 
     @Transactional
-    public JUG saveJUG(Jugger jugger, double thresholdAccess) {
+    public JUG saveJUG(Jugger jugger) {
     	JUG newJUG = jugger.getJug();
         JUGDao jugDao = daos.getJUGDao();
         CountryDao countryDao = daos.getCountryDao();
@@ -252,7 +253,7 @@ public class JugBo {
         else
 	        {
 	        	 //check if this jugger could update the JUG attribute
-	            if(!Utilities.checkAuthorizationEditJUG(jugger, thresholdAccess)) 
+	            if(!trustBo.canJuggerEditJUG(jugger)) 
 	            {
 	            	return jug;
 	            }//end of if
@@ -288,5 +289,14 @@ public class JugBo {
                 !newJUG.getInfos().equals(oldJUG.getInfos()));
     }
 
+	public TrustBo getTrustBo() {
+		return trustBo;
+	}
+
+	public void setTrustBo(TrustBo trustBo) {
+		this.trustBo = trustBo;
+	}
+
+	
 	
 }

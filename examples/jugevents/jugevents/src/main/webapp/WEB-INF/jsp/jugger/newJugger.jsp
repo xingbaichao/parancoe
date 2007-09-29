@@ -4,6 +4,7 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
+        
     </head>
     <body>
         <div id="nonFooter">
@@ -35,20 +36,21 @@
                         <fieldset>
                             <legend>JUG</legend>                        
                             <dl>
+                               
                                 <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>                            
                                 <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
                                 <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/></form:label></dt>                            
-                                <dd><form:input path="jugger.jug.country.englishName"/><div id="countryList" class="auto_complete"></div></dd>
+                                <dd><form:input path="jugger.jug.country.englishName"  /><div id="countryList" class="auto_complete"></div></dd>
                                 <dt><form:label path="jugger.jug.webSite"><spring:message code="juggerRegistrationWebSite"/></form:label></dt>                            
-                                <dd><form:input path="jugger.jug.webSite"/></dd>
+                                <dd><form:input path="jugger.jug.webSite"    /></dd>
                                 <dt><form:label path="jugger.jug.longitude"><spring:message code="juggerRegistrationLongitude"/></form:label></dt>                            
-                                <dd><form:input path="jugger.jug.longitude"/></dd>
+                                <dd><form:input path="jugger.jug.longitude"  /></dd>
                                 <dt><form:label path="jugger.jug.latitude"><spring:message code="juggerRegistrationLatitude"/></form:label></dt>                            
-                                <dd><form:input path="jugger.jug.latitude"/></dd>
+                                <dd><form:input path="jugger.jug.latitude" /></dd>
                                 <dt>
                                     <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
                                 </dt>
-                                <dd><form:textarea path="jugger.jug.infos" cols="40" rows="5" /></dd>
+                                <dd><form:textarea path="jugger.jug.infos" readonly="true" cols="30" rows="5" /></dd>
                             </dl>
                         </fieldset>
                         <dl>
@@ -80,7 +82,7 @@ function updateCountryList(autocompleter, token) {
 }
 
 function updateJUGNameList(autocompleter, token) {
-    juggerBo.findPartialJugNameWithCountry(token, $('jugger.jug.country.englishName').value, function(data) {
+    juggerBo.findPartialJugNameWithCountry(token,  $('jugger.jug.country.englishName').value, function(data)  {
         autocompleter.setChoices(data)
     });
 }
@@ -92,6 +94,8 @@ function populateJugFields(jugName, selectedElement) {
  function singleValueSelector(tag) {
     return tag;
 }
+
+
         </script>
     </body>
 </html>
