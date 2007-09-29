@@ -57,7 +57,7 @@ public class Jugger extends EntityBase {
 
     private String confirmationCode;
     private String changePasswordCode;
-    private double  reliability=1;
+    private double  reliability=0.0d;
      
 
     public Jugger() {

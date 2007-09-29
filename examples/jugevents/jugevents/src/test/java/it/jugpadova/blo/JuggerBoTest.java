@@ -17,9 +17,11 @@ import it.jugpadova.po.Jugger;
  */
 public class JuggerBoTest extends JugEventsBaseTest {
 	private JuggerBo juggerBo;
+	private TrustBo trustBo;
 
     public JuggerBoTest() {
-    	juggerBo = (JuggerBo) ctx.getBean("juggerBo");        
+    	juggerBo = (JuggerBo) ctx.getBean("juggerBo");    
+    	trustBo = (TrustBo) ctx.getBean("trustBo"); 
     }
     public void testNewUser() 
     {
@@ -34,7 +36,7 @@ public class JuggerBoTest extends JugEventsBaseTest {
     
     public void testThresholdAccess()
     {
-    	assertEquals(1,0d, juggerBo.getThresholdAccess());       	
+    	assertEquals(1,0d, trustBo.getThresholdAccess());       	
     }
 
 }
