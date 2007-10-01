@@ -11,7 +11,7 @@ public class PeopleEditControllerTest extends ControllerTest {  // non si riesce
   public void setUp() throws Exception {
         super.setUp();    // non togliere questa riga
 
-      controller = (PeopleEditController) ctx.getBean("peopleEditController");
+      controller = (PeopleEditController) ctx.getBean("org.parancoe.basicWebApp.controllers.PeopleEditController");
     }
 
     public void testNotNull() {

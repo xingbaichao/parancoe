@@ -29,8 +29,9 @@ import org.parancoe.web.controller.annotation.DefaultUrlMapping;
 import org.parancoe.web.controller.annotation.UrlMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-//@UrlMapping("/admin/*.html")
-@DefaultUrlMapping
+
+//@DefaultUrlMapping
+@UrlMapping
 public abstract class AdminController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(AdminController.class);
 

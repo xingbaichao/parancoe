@@ -12,7 +12,7 @@ public class HomeControllerTest extends ControllerTest {
 
     public void setUp() throws Exception {
         super.setUp();    // non togliere questa riga
-        controller = (HomeController) ctx.getBean("homeController");
+        controller = (HomeController) ctx.getBean("org.parancoe.basicWebApp.controllers.HomeController");
     }
 
     public void testNotNull() {
