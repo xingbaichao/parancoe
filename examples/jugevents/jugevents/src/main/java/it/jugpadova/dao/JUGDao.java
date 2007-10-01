@@ -27,6 +27,7 @@ import org.parancoe.persistence.dao.generic.GenericDao;
 @Dao(entity=JUG.class)
 public interface JUGDao extends GenericDao<JUG, Long> {
 	 JUG findByName(String jugName);
+	 JUG findByICName(String jugName);
 	 List<JUG> findByPartialName(String s);
 	 List<JUG> findByPartialJugNameAndCountry(String partialName, String partialCountryEnglishName);
 	 List<JUG> findByNameAndCountryEN(String name, String countryEnglishName);

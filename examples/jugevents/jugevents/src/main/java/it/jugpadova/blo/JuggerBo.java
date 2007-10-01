@@ -384,22 +384,23 @@ public class JuggerBo {
 	/**
 	 * Disable/Enable all jug fields.
 	 * 
-	 * @param util
+	 * @param jugName
 	 */
-	private void fixJugFields(boolean enable) {
+	public void disableJugFields(String jugName) {
 		WebContext wctx = WebContextFactory.get();
 		ScriptSession session = wctx.getScriptSession();
 		Util util = new Util(session);
-		String jsFunction = "parancoe.util.disableFormElement";
-
-		if (enable) {
-			jsFunction = "parancoe.util.enableFormElement";
+		JUG jug = daos.getJUGDao().findByICName(jugName);
+		String jsFunction = "parancoe.util.enableFormElement";
+		if (jug != null) {
+			jsFunction = "parancoe.util.disableFormElement";
 		}
 		util.addFunctionCall(jsFunction, "jugger.jug.country.englishName");
 		util.addFunctionCall(jsFunction, "jugger.jug.webSite");
 		util.addFunctionCall(jsFunction, "jugger.jug.longitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.latitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.infos");
+
 	}
 
 	// hard copied by Lucio
