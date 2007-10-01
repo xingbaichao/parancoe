@@ -19,7 +19,7 @@
             </h3>
 
             <p>
-                <spring:message code="${requestScope.messageCode}" text="${requestScope.messageCode}"/>
+                <spring:message code="${requestScope.messageCode}" text="${requestScope.messageCode}" htmlEscape="true"/>
             </p>
 
             <!--
