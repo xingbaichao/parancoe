@@ -53,7 +53,7 @@
                                 <dt>
                                     <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
                                 </dt>
-                                <dd><form:textarea path="jugger.jug.infos"  readonly="true" cols="30" rows="5" /></dd>
+                                <dd><form:textarea path="jugger.jug.infos"   cols="30" rows="5" /></dd>
                             </dl>
                         </fieldset>
                         <dl>
