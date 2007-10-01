@@ -13,7 +13,7 @@
     </bean>
 
     <!-- HSQLDB session factory -->
-    <!--  
+    
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
@@ -23,7 +23,7 @@
             </props>
         </property>
     </bean>
-    -->
+    
     <!-- MySQL session factory -->
     <!--     
     <bean id="sessionFactory" parent="abstractSessionFactory">
