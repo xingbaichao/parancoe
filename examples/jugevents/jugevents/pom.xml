@@ -133,6 +133,15 @@
             <version>1.8.0.4</version>
             <scope>runtime</scope>
         </dependency>
+		
+	<!-- mysql db -->	
+   	<dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.0.5</version>
+	</dependency>
+
+
 
         <!-- AJAX framework -->
         <dependency>
