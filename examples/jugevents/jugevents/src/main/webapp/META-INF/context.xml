@@ -6,5 +6,4 @@
 <Context path="/jugevents" reloadable="true" >
   <Resource auth="Container" driverClassName="org.gjt.mm.mysql.Driver" maxActive="5" name="jdbc/jugeventsDS" password="root" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/jugevents" username="root"/>
 </Context>
-
  -->

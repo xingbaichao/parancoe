@@ -47,6 +47,11 @@ public class JUGDaoTest extends JugEventsBaseTest {
         List<JUG> jugs = jugDao.findByNameAndCountryEN("JUG Padova", "Italy");
         assertSize(1, jugs);
     }
+    
+    public void testFindByICName() {
+        JUG jug = jugDao.findByICName("jug padova");
+        assertEquals(jug.getName(), "JUG Padova");
+    }
 
    
 }

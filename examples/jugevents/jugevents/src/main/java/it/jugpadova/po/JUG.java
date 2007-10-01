@@ -24,7 +24,11 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
         "JUG.findByPartialJugNameAndCountry", query =
         "from JUG jug where upper(jug.name) like upper(?) and upper(jug.country.englishName) like upper(?) order by jug.name asc"), @NamedQuery(name =
         "JUG.findByNameAndCountryEN", query =
-        "from JUG jug where upper(jug.name) = upper(?) and upper(jug.country.englishName) = upper(?) order by jug.name asc"), @NamedQuery(name =
+        "from JUG jug where upper(jug.name) = upper(?) and upper(jug.country.englishName) = upper(?) order by jug.name asc"),
+        @NamedQuery(name =
+            "JUG.findByICName", query =
+            "from JUG jug where upper(jug.name) = upper(?) order by jug.name asc")
+        , @NamedQuery(name =
         "JUG.findByPartialJugNameAndCountryAndContinent", query =
         "from JUG j where upper(j.name) like upper(?) and upper(j.country.localName) like upper(?) and upper(j.country.continent.name) like upper(?) order by j.name asc")})
 public class JUG extends EntityBase {

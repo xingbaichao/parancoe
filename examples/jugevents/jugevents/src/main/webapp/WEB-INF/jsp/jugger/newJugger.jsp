@@ -38,7 +38,7 @@
                             <dl>
                                
                                 <dt><form:label path="jugger.jug.name"><spring:message code="juggerRegistrationJUGName"/> (*)</form:label></dt>                            
-                                <dd><form:input path="jugger.jug.name"/><div id="jugList" class="auto_complete"></div></dd>      
+                                <dd><form:input path="jugger.jug.name" onblur="javascript:disableJugFields();"/><div id="jugList" class="auto_complete"></div></dd>      
                                 <dt><form:label path="jugger.jug.country.englishName"><spring:message code="juggerRegistrationCountry"/></form:label></dt>                            
                                 <dd><form:input path="jugger.jug.country.englishName"  /><div id="countryList" class="auto_complete"></div></dd>
                                 <dt><form:label path="jugger.jug.webSite"><spring:message code="juggerRegistrationWebSite"/></form:label></dt>                            
@@ -50,7 +50,7 @@
                                 <dt>
                                     <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
                                 </dt>
-                                <dd><form:textarea path="jugger.jug.infos" readonly="true" cols="30" rows="5" /></dd>
+                                <dd><form:textarea path="jugger.jug.infos"  cols="30" rows="5" /></dd>
                             </dl>
                         </fieldset>
                         <dl>
@@ -89,6 +89,11 @@ function updateJUGNameList(autocompleter, token) {
 
 function populateJugFields(jugName, selectedElement) {
     juggerBo.populateJugFields(jugName.value);
+}
+
+function disableJugFields() {
+    var s = document.getElementById('jugger.jug.name');    
+    juggerBo.disableJugFields(s.value);
 }
     
  function singleValueSelector(tag) {

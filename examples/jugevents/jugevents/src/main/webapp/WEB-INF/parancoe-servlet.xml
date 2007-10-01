@@ -55,6 +55,8 @@
             <dwr:include method="findPartialCountry"/>
             <dwr:include method="findPartialJugNameWithCountry"/>
             <dwr:include method="populateJugFields"/>
+            <dwr:include method="disableJugFields"/>
+            
         </dwr:remote>
     </bean>
 
