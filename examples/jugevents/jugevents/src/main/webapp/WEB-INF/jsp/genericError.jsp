@@ -5,9 +5,9 @@
         <%@ include file="head.jspf" %>
     </head>
     <body>
-        <div id="nonFooter">            
+        <div id="nonFooter">
             <jsp:include page="header.jsp"/>
-            <div id="content"> 
+            <div id="content">
                 <div id="content_main">
         <h2>
             <spring:message code="attention"/>
@@ -23,18 +23,20 @@
             </p>
 
             <!--
-    	<%
-    	Exception e = (Exception)request.getAttribute("exception");
+<%--
+        <%
+            Exception e = (Exception)request.getAttribute("exception");
 	    if (e != null){
 	      e.printStackTrace(new java.io.PrintWriter(out));
 	    }
     	%>
-           -->
+--%>
+        -->
         </div>
                 </div>
                 <jsp:include page="menu.jsp"/>
             </div>
         </div>
-        <jsp:include page="footer.jsp"/>        
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>
