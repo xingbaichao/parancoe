@@ -18,6 +18,7 @@ import it.jugpadova.dao.JUGDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
 import it.jugpadova.dao.PersonDao;
+import it.jugpadova.dao.ReliabilityRequestDao;
 
 import org.parancoe.persistence.dao.DaoProvider;
 import org.parancoe.plugins.security.AuthorityDao;
@@ -26,22 +27,31 @@ import org.parancoe.plugins.security.UserDao;
 import org.parancoe.plugins.world.ContinentDao;
 import org.parancoe.plugins.world.CountryDao;
 
-
 /**
- * Interface for the DAO Provider. Doesn't require an implementation.
- * Simply add methods for the DAOs you need to use.
- * The convention for the methods is get<dao_bean_id>.
+ * Interface for the DAO Provider. Doesn't require an implementation. Simply add
+ * methods for the DAOs you need to use. The convention for the methods is get<dao_bean_id>.
  */
 public interface Daos extends DaoProvider {
 
-    public PersonDao getPersonDao();    
-    public EventDao getEventDao();    
-    public ParticipantDao getParticipantDao();
-    public JuggerDao getJuggerDao();
-    public UserDao getUserDao();
-    public AuthorityDao getAuthorityDao();    
-    public CountryDao getCountryDao();
-    public ContinentDao getContinentDao();
-    public UserAuthorityDao getUserAuthorityDao();
-    public JUGDao getJUGDao();
+	public PersonDao getPersonDao();
+
+	public EventDao getEventDao();
+
+	public ParticipantDao getParticipantDao();
+
+	public JuggerDao getJuggerDao();
+
+	public UserDao getUserDao();
+
+	public AuthorityDao getAuthorityDao();
+
+	public CountryDao getCountryDao();
+
+	public ContinentDao getContinentDao();
+
+	public UserAuthorityDao getUserAuthorityDao();
+
+	public JUGDao getJUGDao();
+
+	public ReliabilityRequestDao getReliabilityRequestDao();
 }
