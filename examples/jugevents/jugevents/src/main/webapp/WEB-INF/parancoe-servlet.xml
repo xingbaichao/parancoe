@@ -44,6 +44,7 @@
 
     <bean id="juggerBo" class="it.jugpadova.blo.JuggerBo" autowire="byType">
         <property name="jugBo" ref="jugBo"/>
+        <property name="trustBo" ref="trustBo"/>  
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
@@ -53,9 +54,9 @@
             <dwr:include method="findPartialCountryWithContinent"/>
             <dwr:include method="findPartialJugNameWithCountryAndContinent"/>
             <dwr:include method="findPartialCountry"/>
-            <dwr:include method="findPartialJugNameWithCountry"/>
+            <dwr:include method="findPartialJugNameWithCountry"/>           
+            <dwr:include method="readOnlyJugFields"/>
             <dwr:include method="populateJugFields"/>
-            <dwr:include method="disableJugFields"/>
             
         </dwr:remote>
     </bean>

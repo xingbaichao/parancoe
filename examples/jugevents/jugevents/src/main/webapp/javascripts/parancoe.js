@@ -13,6 +13,14 @@ function Parancoe() {
             $(elementId).enable();
         }
         
+         this.readOnlyFormElement = function (elementId) {
+            $(elementId).readOnly = true;
+        }
+        
+         this.writeFormElement = function (elementId) {
+            $(elementId).readOnly = false;
+        }
+        
     }
 
     this.util = new Util();

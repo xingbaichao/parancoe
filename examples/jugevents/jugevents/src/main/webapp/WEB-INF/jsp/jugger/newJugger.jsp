@@ -4,6 +4,19 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
+        <script type="text/javascript">
+function require()
+  {     
+      if($('requireReliability1').checked)
+      {
+      $('hcomment').style.visibility = 'visible';
+      }
+      else
+      {
+      $('hcomment').style.visibility = 'hidden';
+      }   
+    }  
+</script>
         
     </head>
     <body>
@@ -50,7 +63,16 @@
                                 <dt>
                                     <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
                                 </dt>
-                                <dd><form:textarea path="jugger.jug.infos"  cols="30" rows="5" /></dd>
+                                <dd><form:textarea path="jugger.jug.infos"  cols="35" rows="5" /></dd>
+                                 <dt>
+                                    <form:label path="requireReliability"><spring:message code="requireReliability"/></form:label>
+                                </dt>
+                                <dd><form:checkbox path="requireReliability" value='false' onclick="javascript:require();"/></dd>
+                                <br>
+                                <div id="hcomment" style="visibility:hidden;">        
+							        <dt><form:label path="comment"><spring:message code="comment"/></form:label></dt>        
+							        <dd><form:textarea path="comment"  cols="35" rows="5" /></dd>
+        						</div>
                             </dl>
                         </fieldset>
                         <dl>
@@ -93,7 +115,7 @@ function populateJugFields(jugName, selectedElement) {
 
 function disableJugFields() {
     var s = document.getElementById('jugger.jug.name');    
-    juggerBo.disableJugFields(s.value);
+    juggerBo.readOnlyJugFields(s.value, false);
 }
     
  function singleValueSelector(tag) {

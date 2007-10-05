@@ -3,37 +3,44 @@
  */
 package it.jugpadova.bean;
 
+import it.jugpadova.po.Jugger;
+import it.jugpadova.util.JCaptchaValidable;
+import it.jugpadova.util.JCaptchaValidator;
+
 import org.springmodules.validation.bean.conf.loader.annotation.handler.CascadeValidation;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Validator;
 
 import com.octo.captcha.service.CaptchaService;
 
-import it.jugpadova.po.Event;
-import it.jugpadova.po.Jugger;
-import it.jugpadova.po.Participant;
-import it.jugpadova.util.JCaptchaValidable;
-import it.jugpadova.util.JCaptchaValidator;
-
 /**
  * @author Enrico Giurin
- *
+ * 
  */
-@Validator(value=JCaptchaValidator.class)
+@Validator(value = JCaptchaValidator.class)
 public class JuggerCaptcha implements JCaptchaValidable {
-	
-	
-    @CascadeValidation
-    private Jugger jugger = new Jugger();
-    
-    //fields for captcha porpouse
-    private CaptchaService captchaService;
-    
-    private String captchaResponse;
-    private String captchaId;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3966418613209250360L;
 
-	/* (non-Javadoc)
+	@CascadeValidation
+	private Jugger jugger = new Jugger();
+
+	// fields for captcha porpouse
+	private CaptchaService captchaService;
+
+	private String captchaResponse;
+
+	private String captchaId;
+
+	private boolean requireReliability = false;
+
+	private String comment;
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see it.jugpadova.util.JCaptchaValidable#getCaptchaId()
 	 */
 	public String getCaptchaId() {
@@ -41,7 +48,9 @@ public class JuggerCaptcha implements JCaptchaValidable {
 		return captchaId;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see it.jugpadova.util.JCaptchaValidable#getCaptchaResponse()
 	 */
 	public String getCaptchaResponse() {
@@ -49,7 +58,9 @@ public class JuggerCaptcha implements JCaptchaValidable {
 		return captchaResponse;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see it.jugpadova.util.JCaptchaValidable#getCaptchaService()
 	 */
 	public CaptchaService getCaptchaService() {
@@ -75,6 +86,22 @@ public class JuggerCaptcha implements JCaptchaValidable {
 
 	public void setCaptchaService(CaptchaService captchaService) {
 		this.captchaService = captchaService;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public boolean isRequireReliability() {
+		return requireReliability;
+	}
+
+	public void setRequireReliability(boolean requireReliability) {
+		this.requireReliability = requireReliability;
 	}
 
 }
