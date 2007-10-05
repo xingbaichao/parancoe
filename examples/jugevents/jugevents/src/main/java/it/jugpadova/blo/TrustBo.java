@@ -21,6 +21,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -95,8 +96,9 @@ public class TrustBo {
 	 * 
 	 * @param jug
 	 */
-	@Transactional
-	public void requireReliability(Jugger jugger, String motivation) {
+	// Metodo da chiamare all' interno di un contesto transazionale
+	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
+	void requireReliability(long juggerId, String motivation) {
 		JuggerDao jdao = daos.getJuggerDao();
 		ReliabilityRequestDao rrdao = daos.getReliabilityRequestDao();
 
@@ -105,16 +107,22 @@ public class TrustBo {
 		rr.setMotivation(motivation);
 		rr.setStatus(ReliabilityRequest.RELIABILITY_REQUIRED);
 		rrdao.create(rr);
-		Jugger ej = jdao.read(jugger.getId());
+		Jugger ej = jdao.read(juggerId);
 		ej.setReliabilityRequest(rr);
 		jdao.update(ej);
 
 		// send mail to admin-jugevents
-		sendEmail(jugger, "", "A jugger has required reliability",
+		sendEmail(ej, "", "A jugger has required reliability",
 				"it/jugpadova/request-reliability2admin.vm", internalMail,
 				adminMailJE, motivation);
-		logger.info("Jugger " + jugger.getUser().getUsername()
+		logger.info("Jugger " + ej.getUser().getUsername()
 				+ " has completed wth success request of reliability");
+	}
+
+	@Transactional
+	public void requireReliabilityOnExistingJugger(long juggerId,
+			String motivation) {
+		requireReliability(juggerId, motivation);
 	}
 
 	private void sendEmail(final Jugger jugger, final String baseUrl,

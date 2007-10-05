@@ -27,9 +27,8 @@ public class TrustBoTest extends JugEventsBaseTest {
 	public void testRequireReliability() {
 		JuggerDao juggerDao = daos.getJuggerDao();
 		Jugger jugger = juggerDao.searchByUsername("enrico");
-		trustBo
-				.requireReliability(
-						jugger,
+		trustBo.requireReliabilityOnExistingJugger(
+						jugger.getId(),
 						"I am one of the leaders of JUG Padova, "
 								+ "thereby I ask grant in order to edit informations about that JUG");
 		jugger = juggerDao.searchByUsername("enrico");

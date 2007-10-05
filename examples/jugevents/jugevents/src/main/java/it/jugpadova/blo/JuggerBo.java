@@ -68,6 +68,8 @@ public class JuggerBo {
 
 	private JugBo jugBo;
 
+	private TrustBo trustBo;
+
 	public Daos getDaos() {
 		return daos;
 	}
@@ -105,7 +107,8 @@ public class JuggerBo {
 	 * @throws Exception
 	 */
 	@Transactional
-	public void newJugger(Jugger jugger, String baseUrl)
+	public void newJugger(Jugger jugger, String baseUrl,
+			boolean requiredReliability, String motivation)
 			throws EmailAlreadyPresentException, UserAlreadyPresentsException {
 		// retrieves dao
 		JuggerDao juggerDao = daos.getJuggerDao();
@@ -121,7 +124,10 @@ public class JuggerBo {
 		jugger.setJug(jug);
 		jugger.setUser(newUser(jugger.getUser().getUsername()));
 		jugger.setConfirmationCode(generateConfirmationCode(jugger));
-		juggerDao.create(jugger);
+		Long id = juggerDao.create(jugger);
+		if (requiredReliability) {
+			trustBo.requireReliability(id, motivation);
+		}
 		sendEmail(jugger, baseUrl, "Please Confirm your Jugger registration",
 				jugger.getConfirmationCode(),
 				"it/jugpadova/jugger-registration-confirmation.vm");
@@ -337,13 +343,13 @@ public class JuggerBo {
 	public void populateJugFields(String jugName) {
 		JUG jug = daos.getJUGDao().findByName(jugName);
 		if (jug != null) {
+			readOnlyJugFields(null, true);
 			WebContext wctx = WebContextFactory.get();
 			ScriptSession session = wctx.getScriptSession();
 			Util util = new Util(session);
-			// fixJugFields(true);
 
 			Effect effect = new Effect(session);
-			String tmp = null;
+
 			Country country = jug.getCountry();
 
 			if (country != null) {
@@ -382,30 +388,24 @@ public class JuggerBo {
 	}
 
 	/**
-	 * Disable/Enable all jug fields.
+	 * Read only/not read only all jug fields.
 	 * 
 	 * @param jugName
 	 */
-	public void disableJugFields(String jugName) {
+	public void readOnlyJugFields(String jugName, boolean write) {
 		WebContext wctx = WebContextFactory.get();
 		ScriptSession session = wctx.getScriptSession();
 		Util util = new Util(session);
-		JUG jug = daos.getJUGDao().findByICName(jugName);
-		String jsFunction = "parancoe.util.enableFormElement";
-		if (jug != null) {
-			jsFunction = "parancoe.util.disableFormElement";
+		String jsFunction = "parancoe.util.writeFormElement";
+		if (!(write) && (daos.getJUGDao().findByICName(jugName) != null)) {
+			jsFunction = "parancoe.util.readOnlyFormElement";
 		}
+
 		util.addFunctionCall(jsFunction, "jugger.jug.country.englishName");
 		util.addFunctionCall(jsFunction, "jugger.jug.webSite");
 		util.addFunctionCall(jsFunction, "jugger.jug.longitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.latitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.infos");
-
-	}
-
-	// hard copied by Lucio
-	@Transactional(readOnly = true)
-	public void enableJugFields(String jugName) {
 
 	}
 
@@ -562,6 +562,14 @@ public class JuggerBo {
 			}
 		};
 		this.mailSender.send(preparator);
+	}
+
+	public TrustBo getTrustBo() {
+		return trustBo;
+	}
+
+	public void setTrustBo(TrustBo trustBo) {
+		this.trustBo = trustBo;
 	}
 
 } // end of class

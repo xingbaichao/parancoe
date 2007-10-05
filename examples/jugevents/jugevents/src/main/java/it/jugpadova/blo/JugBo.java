@@ -255,7 +255,7 @@ public class JugBo {
 		} else {
 			// check if this jugger could update the JUG attribute
 			if (!trustBo.isJuggerReliable(jugger))
-				;
+
 			{
 				return jug;
 			}// end of if
