@@ -4,21 +4,21 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
-        <script type="text/javascript">
-function require()
-  {     
+<script type="text/javascript">        
+	function require()
+ 	 {     
       if($('requireReliability1').checked)
       {
-      $('hcomment').style.visibility = 'visible';
+       $('hcomment').show(); return false;
       }
       else
       {
-      $('hcomment').style.visibility = 'hidden';
+      $('hcomment').hide(); return false;
       }   
     }  
-</script>
-        
-    </head>
+	</script>
+
+</head>
     <body>
         <div id="nonFooter">
             <jsp:include page="../header.jsp"/>
@@ -46,7 +46,24 @@ function require()
                                 <dd><form:input path="jugger.user.username"/></dd>
                             </dl>
                         </fieldset>
-                        <fieldset>
+
+	<fieldset><legend><spring:message
+		code="Reliability" /></legend>
+	<dl>
+		<dt><form:label path="requireReliability">
+			<spring:message code="requireReliability" />
+		</form:label></dt>
+		<dd><form:checkbox path="requireReliability" value='false'
+			onclick="javascript:require();" /></dd>
+	</dl>
+	<div id="hcomment" style="display: none;">
+	<dl>
+		<dt><spring:message code="commentReliability" /></dt>
+		<dd><form:textarea path="comment" cols="35" rows="5" /></dd>
+	</dl>
+	</fieldset>
+
+	<fieldset>
                             <legend>JUG</legend>                        
                             <dl>
                                
@@ -63,16 +80,7 @@ function require()
                                 <dt>
                                     <form:label path="jugger.jug.infos"><spring:message code="juggerRegistrationJUGInfos"/></form:label>
                                 </dt>
-                                <dd><form:textarea path="jugger.jug.infos"  cols="35" rows="5" /></dd>
-                                 <dt>
-                                    <form:label path="requireReliability"><spring:message code="requireReliability"/></form:label>
-                                </dt>
-                                <dd><form:checkbox path="requireReliability" value='false' onclick="javascript:require();"/></dd>
-                                <br>
-                                <div id="hcomment" style="visibility:hidden;">        
-							        <dt><form:label path="comment"><spring:message code="comment"/></form:label></dt>        
-							        <dd><form:textarea path="comment"  cols="35" rows="5" /></dd>
-        						</div>
+                                <dd><form:textarea path="jugger.jug.infos"  cols="35" rows="5" /></dd>                               
                             </dl>
                         </fieldset>
                         <dl>
