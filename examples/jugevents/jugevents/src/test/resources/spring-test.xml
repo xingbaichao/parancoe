@@ -15,11 +15,12 @@
        
         
         <property name="url" value="jdbc:hsqldb:hsql://localhost/jugevents"/>
+         -->
        
         <property name="username" value="sa"/>
         <property name="password" value=""/>
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-         -->
+
         <!-- 
         <property name="url" value="jdbc:mysql://localhost:3306/jugevents"/>
         <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
