@@ -19,6 +19,7 @@ import it.jugpadova.blo.JugBo;
 import it.jugpadova.blo.JuggerBo;
 import it.jugpadova.blo.SampleBlo;
 import it.jugpadova.blo.PersonBo;
+import it.jugpadova.blo.ServicesBo;
 
 public class Blos {
 
@@ -28,6 +29,7 @@ public class Blos {
     public JuggerBo juggerBo;
     public FilterBo filterBo;
     public JugBo jugBo;
+    public ServicesBo servicesBo;
 
     public SampleBlo getSample() {
         return sample;
@@ -76,5 +78,13 @@ public class Blos {
     public void setJugBo(JugBo jugBo) {
         this.jugBo = jugBo;
     }
+
+	public ServicesBo getServicesBo() {
+		return servicesBo;
+	}
+
+	public void setServicesBo(ServicesBo servicesBo) {
+		this.servicesBo = servicesBo;
+	}
         
 }

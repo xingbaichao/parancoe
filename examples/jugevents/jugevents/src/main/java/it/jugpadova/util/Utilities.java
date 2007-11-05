@@ -5,7 +5,7 @@ package it.jugpadova.util;
 
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.world.Country;
-import it.jugpadova.bean.JuggerCaptcha;
+import it.jugpadova.bean.NewJugger;
 import it.jugpadova.blo.JuggerBo;
 import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.JUG;
@@ -22,11 +22,11 @@ public class Utilities {
 
 
     /**
-     * Returns an instance of JuggerCaptcha with beans attributes set.
+     * Returns an instance of NewJugger with beans attributes set.
      * @return
      */
-    public static JuggerCaptcha newJuggerCaptcha() {
-        JuggerCaptcha jc = new JuggerCaptcha();
+    public static NewJugger newJuggerCaptcha() {
+        NewJugger jc = new NewJugger();
         jc.getJugger().setUser(new User());
         jc.getJugger().setJug(new JUG());
         jc.getJugger().getJug().

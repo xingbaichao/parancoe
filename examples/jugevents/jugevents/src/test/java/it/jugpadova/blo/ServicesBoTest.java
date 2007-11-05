@@ -13,22 +13,22 @@ import it.jugpadova.po.ReliabilityRequest;
  * @author Enrico
  * 
  */
-public class TrustBoTest extends JugEventsBaseTest {
-	private TrustBo trustBo;
+public class ServicesBoTest extends JugEventsBaseTest {
+	private ServicesBo servicesBo;
 
 	private Daos daos;
 
-	public TrustBoTest() {
+	public ServicesBoTest() {
 
-		trustBo = (TrustBo) ctx.getBean("trustBo");
+		servicesBo = (ServicesBo) ctx.getBean("servicesBo");
 		daos = (Daos) ctx.getBean("daos");
 	}
 
 	public void testRequireReliability() {
 		JuggerDao juggerDao = daos.getJuggerDao();
 		Jugger jugger = juggerDao.searchByUsername("enrico");
-		trustBo.requireReliabilityOnExistingJugger(
-						jugger.getId(),
+		servicesBo.requireReliabilityOnExistingJugger(
+						jugger,
 						"I am one of the leaders of JUG Padova, "
 								+ "thereby I ask grant in order to edit informations about that JUG");
 		jugger = juggerDao.searchByUsername("enrico");

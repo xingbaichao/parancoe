@@ -15,7 +15,8 @@ package it.jugpadova.controllers;
 
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
-import it.jugpadova.bean.JuggerCaptcha;
+import it.jugpadova.bean.NewJugger;
+import it.jugpadova.bean.RequireReliability;
 import it.jugpadova.exception.EmailAlreadyPresentException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.util.Utilities;
@@ -60,7 +61,7 @@ public abstract class JuggerRegistrationController extends BaseFormController {
 	@Override
 	protected void onBind(HttpServletRequest request, Object command)
 			throws Exception {
-		JuggerCaptcha jc = (JuggerCaptcha) command;
+		NewJugger jc = (NewJugger) command;
 		jc.getJugger().getUser().setPassword("xxx");
 	}
 
@@ -68,11 +69,11 @@ public abstract class JuggerRegistrationController extends BaseFormController {
 	protected ModelAndView onSubmit(HttpServletRequest req,
 			HttpServletResponse res, Object command, BindException errors)
 			throws Exception {
-		JuggerCaptcha jc = (JuggerCaptcha) command;
+		NewJugger jc = (NewJugger) command;
 		try {
 			blo().getJuggerBO().newJugger(jc.getJugger(),
-					Utilities.getBaseUrl(req), jc.isRequireReliability(),
-					jc.getComment());
+					Utilities.getBaseUrl(req), jc.getRequireReliability().isRequireReliability(),
+					jc.getRequireReliability().getComment());
 		} catch (EmailAlreadyPresentException e) {
 			errors.rejectValue("jugger.email", "emailalreadypresent", e
 					.getMessage());
@@ -98,9 +99,10 @@ public abstract class JuggerRegistrationController extends BaseFormController {
 		// set list of countries into request
 		List<Country> list = dao().getCountryDao().findByOrderByEnglishName();
 		req.setAttribute("countries", list);
-		JuggerCaptcha jc = Utilities.newJuggerCaptcha();
+		NewJugger jc = Utilities.newJuggerCaptcha();
 		jc.setCaptchaId(req.getSession().getId());
 		jc.setCaptchaService(captchaService);
+		jc.setRequireReliability(new RequireReliability());
 		return jc;
 	}
 

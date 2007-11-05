@@ -7,7 +7,7 @@
 <script type="text/javascript">        
 	function require()
  	 {     
-      if($('requireReliability1').checked)
+      if($('requireReliability.requireReliability1').checked)
       {
        $('hcomment').show(); return false;
       }
@@ -50,16 +50,16 @@
 	<fieldset><legend><spring:message
 		code="Reliability" /></legend>
 	<dl>
-		<dt><form:label path="requireReliability">
+		<dt><form:label path="requireReliability.requireReliability">
 			<spring:message code="requireReliability" />
 		</form:label></dt>
-		<dd><form:checkbox path="requireReliability" value='false'
+		<dd><form:checkbox path="requireReliability.requireReliability" value='false'
 			onclick="javascript:require();" /></dd>
 	</dl>
 	<div id="hcomment" style="display: none;">
 	<dl>
 		<dt><spring:message code="commentReliability" /></dt>
-		<dd><form:textarea path="comment" cols="35" rows="5" /></dd>
+		<dd><form:textarea path="requireReliability.comment" cols="35" rows="5" /></dd>
 	</dl>
 	</fieldset>
 

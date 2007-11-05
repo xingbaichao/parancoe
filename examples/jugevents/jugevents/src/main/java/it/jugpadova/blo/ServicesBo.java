@@ -6,18 +6,25 @@ package it.jugpadova.blo;
 import it.jugpadova.Daos;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ReliabilityRequestDao;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
+import it.jugpadova.po.Event;
 import it.jugpadova.po.Jugger;
 import it.jugpadova.po.ReliabilityRequest;
 
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
+import org.acegisecurity.Authentication;
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
+import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.security.UserAuthority;
+import org.parancoe.plugins.security.UserDao;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -26,12 +33,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
- * General porpouse BO for reliability services.
+ * General porpouse BO for reliability services. The methods defined in this 
+ * class should be called only by the others BO.
  * 
  * @author Enrico Giurin
  * 
  */
-public class TrustBo {
+public class ServicesBo {
 	/**
 	 * min value for threshold access.
 	 */
@@ -42,7 +50,7 @@ public class TrustBo {
 	 */
 	public static final double MAX_THRESHOLD_ACCESS = 1d;
 
-	private static final Logger logger = Logger.getLogger(TrustBo.class);
+	private static final Logger logger = Logger.getLogger(ServicesBo.class);
 
 	private double thresholdAccess;
 
@@ -70,11 +78,12 @@ public class TrustBo {
 	 * @param jugger
 	 * @return
 	 */
-	public boolean isJuggerReliable(Jugger jugger) {
+	public boolean isJuggerReliable(double reliability) {
 		// NOTE: we can change here Policy to grant reliablility, we
 		// can also decide to grant a special ROLE to jugger, without using the
 		// attribute reliability
-		double reliability = jugger.getReliability();
+		
+		
 		if (reliability < MIN_THRESHOLD_ACCESS
 				|| reliability > MAX_THRESHOLD_ACCESS) {
 			throw new IllegalArgumentException("reliability: " + reliability
@@ -85,11 +94,13 @@ public class TrustBo {
 			throw new IllegalArgumentException("thresholdAccess: "
 					+ thresholdAccess + " is out of range");
 		}
-		if (jugger.getReliability() >= thresholdAccess)
+		if (reliability >= thresholdAccess)
 			return true;
 
 		return false;
 	}
+	
+	
 
 	/**
 	 * Business method to require Reliability.
@@ -98,32 +109,44 @@ public class TrustBo {
 	 */
 	// Metodo da chiamare all' interno di un contesto transazionale
 	@Transactional(readOnly = false, propagation = Propagation.MANDATORY)
-	void requireReliability(long juggerId, String motivation) {
+	void requireReliability(Jugger jugger, String motivation) {
 		JuggerDao jdao = daos.getJuggerDao();
 		ReliabilityRequestDao rrdao = daos.getReliabilityRequestDao();
+		
+		ReliabilityRequest rr = jugger.getReliabilityRequest();
+		if(rr!=null)
+		{
+			rr = rrdao.read(rr.getId());
+		}
+		else
+		{
+			rr = new ReliabilityRequest();
+		}
+	
 
-		ReliabilityRequest rr = new ReliabilityRequest();
+		
 		rr.setDateRequest(new Date(System.currentTimeMillis()));
 		rr.setMotivation(motivation);
 		rr.setStatus(ReliabilityRequest.RELIABILITY_REQUIRED);
 		rrdao.create(rr);
-		Jugger ej = jdao.read(juggerId);
-		ej.setReliabilityRequest(rr);
-		jdao.update(ej);
+		
+		jugger.setReliabilityRequest(rr);
+		jdao.update(jugger);
 
 		// send mail to admin-jugevents
-		sendEmail(ej, "", "A jugger has required reliability",
+		sendEmail(jugger, "", "A jugger has required reliability",
 				"it/jugpadova/request-reliability2admin.vm", internalMail,
 				adminMailJE, motivation);
-		logger.info("Jugger " + ej.getUser().getUsername()
+		logger.info("Jugger " + jugger.getUser().getUsername()
 				+ " has completed wth success request of reliability");
 	}
-
+    
 	@Transactional
-	public void requireReliabilityOnExistingJugger(long juggerId,
-			String motivation) {
-		requireReliability(juggerId, motivation);
+	public void requireReliabilityOnExistingJugger(Jugger jugger, String motivation)
+	{
+		requireReliability(jugger, motivation);
 	}
+	
 
 	private void sendEmail(final Jugger jugger, final String baseUrl,
 			final String subject, final String template, final String sender,
@@ -151,6 +174,109 @@ public class TrustBo {
 		this.mailSender.send(preparator);
 	}
 
+	/**
+	 * Retrieves the current authenticated user.
+	 * @return
+	 */
+	 User getCurrentUser() {
+        User result = null;
+        String name = authenticatedUsername();
+        if(name!=null) {
+            UserDao userDao = getDaos().getUserDao();
+            List<User> users = userDao.findByUsername(name);
+            if (users.size() > 0) {
+                result = users.get(0);
+                if (users.size() > 1) {
+                    logger.warn("More than an user with the '" + name +
+                            "' username");
+                }
+            } else {
+                logger.error("No user with the '" + name + "' username");
+            }
+        }
+        return result;
+	}
+	 
+	 
+	  /**
+	   * Returns the current jugger, that is, the jugger, if exists, corrisponding to
+	   * the autherized user.
+	   * @return
+	   */
+	  Jugger getCurrentJugger() {
+		User currenUser = getCurrentUser();
+		Jugger result = null;
+		String username = currenUser.getUsername();
+		if (username != null) {
+			JuggerDao juggerDao = getDaos().getJuggerDao();
+			result = juggerDao.searchByUsername(currenUser.getUsername());
+			if (result == null) {
+				logger.error("No jugger with the '" + username + "' username");
+			}
+		}
+		return result;
+	}
+	  
+	  /**
+		 * This method return true in one of these two cases:
+		 * <ol>
+		 *  <li>The user identified by username is the authentified user</li>
+		 *  <li>The authentified user is in the role of ROLE_ADMIN</li> 
+		 *  </ol>
+		 * @param username
+		 */
+		@Transactional
+		public boolean checkAuthorization(String username) {		
+				String name = authenticatedUsername();
+				if(name!=null)
+				{
+				if (username.equals(name)) {
+					return true;
+				}
+			} // end of if
+			// is the authenticated user in the role_admin?
+			
+			User currentUser = getCurrentUser();
+			return isAdmin(currentUser);
+			
+		} // end of method
+	  
+	  
+	   boolean isCurrentUserAuthorized(User user) {		  
+		   return checkAuthorization(user.getUsername());		   
+	    }
+	   /**
+	    * Returns true if the user is in the role of ROLE_AMIN.
+	    * @param user
+	    * @return
+	    */
+	   private boolean isAdmin(User user)	   
+	   {
+		    List<UserAuthority> userAuthorities = user.getUserAuthority();
+	        for (UserAuthority userAuthority : userAuthorities) {
+	            if ("ROLE_ADMIN".equals(userAuthority.getAuthority().getRole())) {
+	            	return true;
+	            }
+	        }
+	       return false;		   
+	   }
+	/**
+	 * Returns the authenticated username.
+	 * @return
+	 */
+	private String authenticatedUsername() 
+	{
+		 Authentication authentication =
+             org.acegisecurity.context.SecurityContextHolder.getContext().
+             getAuthentication();
+     if (authentication != null && authentication.isAuthenticated()) {
+        return authentication.getName();
+     }
+     return null; //not so good...
+	}
+	
+	
+	
 	public String getAdminMailJE() {
 		return adminMailJE;
 	}

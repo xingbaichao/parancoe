@@ -44,7 +44,7 @@
 
     <bean id="juggerBo" class="it.jugpadova.blo.JuggerBo" autowire="byType">
         <property name="jugBo" ref="jugBo"/>
-        <property name="trustBo" ref="trustBo"/>  
+        <property name="servicesBo" ref="servicesBo"/>  
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
         <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
@@ -65,10 +65,10 @@
         <property name="defaultKmlUrl">
             <value>https://sv-web-jug.dev.java.net/kml/jug-leaders.kml</value>
         </property>   
-        <property name="trustBo" ref="trustBo"/>              
+        <property name="servicesBo" ref="servicesBo"/>              
     </bean>
     
-    <bean id="trustBo" class="it.jugpadova.blo.TrustBo" autowire="byType">
+    <bean id="servicesBo" class="it.jugpadova.blo.ServicesBo" autowire="byType">
           <property name="thresholdAccess" value="1"/> 
           <property name="internalMail" value="internal@jugevents.org"/> 
           <property name="adminMailJE" value="enrico.giurin@jugpadova.it"/> 
@@ -164,7 +164,7 @@
     <bean name="/jugger/registration.form" id="juggerRegistrationController"
           class="it.jugpadova.controllers.JuggerRegistrationController"
           parent="abstractController">
-        <property name="commandClass" value="it.jugpadova.bean.JuggerCaptcha"/>
+        <property name="commandClass" value="it.jugpadova.bean.NewJugger"/>
         <property name="commandName" value="jugger"/>
         <property name="formView" value="jugger/newJugger"/>
         <property name="successView" value="redirect:/home/message.html?messageCode=jugger.registration.sentMail"/>
@@ -203,9 +203,7 @@
     </bean>
 
     <!--  begin security section -->
-    <!-- secure porpouse -->
-    <bean name="/*.secure" id="secureController"
-          class="org.parancoe.plugins.security.SecureController" />
+   
 
     <bean name="pluginSecurityFilterDefinitions" class="java.lang.String">
         <constructor-arg>
@@ -323,7 +321,7 @@
     </bean>
     <!-- end jcaptcha section -->
 
-    <!-- start mail section -->
+     <!-- start mail section -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <!-- here your smtp server -->
         <property name="host"><value>${mail.host}</value></property>

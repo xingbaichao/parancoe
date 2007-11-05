@@ -16,8 +16,17 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.Expressi
  *
  */
 public class EditJugger implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2868414967591782783L;
+
 	@CascadeValidation
 	private Jugger jugger;
+	
+	private RequireReliability requireReliability;
+	
+	private Boolean juggerIsReliable = false;
 	
 	private String password;
 	@Expression("confirmPassword == password")
@@ -39,6 +48,18 @@ public class EditJugger implements Serializable {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Boolean getJuggerIsReliable() {
+		return juggerIsReliable;
+	}
+	public void setJuggerIsReliable(Boolean juggerIsReliable) {
+		this.juggerIsReliable = juggerIsReliable;
+	}
+	public RequireReliability getRequireReliability() {
+		return requireReliability;
+	}
+	public void setRequireReliability(RequireReliability requireReliability) {
+		this.requireReliability = requireReliability;
 	}
 
 }
