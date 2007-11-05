@@ -16,6 +16,8 @@ package it.jugpadova.controllers;
 import it.jugpadova.Blos;
 import it.jugpadova.Daos;
 import it.jugpadova.bean.EditJugger;
+import it.jugpadova.bean.RequireReliability;
+import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.Jugger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +61,8 @@ public abstract class JuggerEditController extends BaseFormController {
         if (StringUtils.isNotBlank(ej.getPassword())) {
             ej.getJugger().getUser().setPassword(ej.getPassword());
         }
-        blo().getJuggerBO().update(ej.getJugger());
+        blo().getJuggerBO().update(ej.getJugger(), ej.getRequireReliability().isRequireReliability(),
+				ej.getRequireReliability().getComment());
         ModelAndView mv = onSubmit(command, errors);
         mv.addObject("id", ej.getJugger().getId());
         return mv;
@@ -71,8 +74,14 @@ public abstract class JuggerEditController extends BaseFormController {
 
         EditJugger ej = new EditJugger();
         Jugger jugger = dao().getJuggerDao().searchByUsername(username);
-        blo().getJuggerBO().checkAuthorization(username);
+        if(!blo().getServicesBo().checkAuthorization(username))
+        {
+        	throw new ParancoeAccessDeniedException("Forbidden access to user identified by "+username);
+        }
+        
         ej.setJugger(jugger);
+        ej.setRequireReliability(new RequireReliability());
+        ej.setJuggerIsReliable(blo().getServicesBo().isJuggerReliable(jugger.getReliability()));
         if (jugger.getJug().getCountry() == null) {
             jugger.getJug().setCountry(new Country());
         }

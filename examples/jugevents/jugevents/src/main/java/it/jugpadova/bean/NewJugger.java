@@ -17,7 +17,7 @@ import com.octo.captcha.service.CaptchaService;
  * 
  */
 @Validator(value = JCaptchaValidator.class)
-public class JuggerCaptcha implements JCaptchaValidable {
+public class NewJugger implements JCaptchaValidable {
 
 	/**
 	 * 
@@ -34,9 +34,15 @@ public class JuggerCaptcha implements JCaptchaValidable {
 
 	private String captchaId;
 
-	private boolean requireReliability = false;
+	private RequireReliability requireReliability;
 
-	private String comment;
+	public RequireReliability getRequireReliability() {
+		return requireReliability;
+	}
+
+	public void setRequireReliability(RequireReliability requireReliability) {
+		this.requireReliability = requireReliability;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -86,22 +92,6 @@ public class JuggerCaptcha implements JCaptchaValidable {
 
 	public void setCaptchaService(CaptchaService captchaService) {
 		this.captchaService = captchaService;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-
-	public boolean isRequireReliability() {
-		return requireReliability;
-	}
-
-	public void setRequireReliability(boolean requireReliability) {
-		this.requireReliability = requireReliability;
 	}
 
 }

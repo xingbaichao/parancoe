@@ -51,7 +51,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 /**
  * Defines business methods for Jugger entity.
  * 
- * @author Enrico Giurin
+ * @author Enrico Giurin, Lucio Benfante
  * 
  */
 public class JuggerBo {
@@ -68,7 +68,7 @@ public class JuggerBo {
 
 	private JugBo jugBo;
 
-	private TrustBo trustBo;
+	private ServicesBo servicesBo;
 
 	public Daos getDaos() {
 		return daos;
@@ -86,17 +86,7 @@ public class JuggerBo {
 		this.jugBo = jugBo;
 	}
 
-	private Jugger getCurrentJugger() {
-		JuggerDao juggerDao = daos.getJuggerDao();
-		Jugger result = null;
-		Authentication authentication = org.acegisecurity.context.SecurityContextHolder
-				.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-			String name = authentication.getName();
-			result = juggerDao.searchByUsername(name);
-		}
-		return result;
-	}
+	
 
 	/**
 	 * Creates and persists new Jugger.
@@ -126,7 +116,7 @@ public class JuggerBo {
 		jugger.setConfirmationCode(generateConfirmationCode(jugger));
 		Long id = juggerDao.create(jugger);
 		if (requiredReliability) {
-			trustBo.requireReliability(id, motivation);
+			servicesBo.requireReliability(jugger, motivation);
 		}
 		sendEmail(jugger, baseUrl, "Please Confirm your Jugger registration",
 				jugger.getConfirmationCode(),
@@ -392,12 +382,12 @@ public class JuggerBo {
 	 * 
 	 * @param jugName
 	 */
-	public void readOnlyJugFields(String jugName, boolean write) {
+	public void readOnlyJugFields(String jugName, boolean reliability) {
 		WebContext wctx = WebContextFactory.get();
 		ScriptSession session = wctx.getScriptSession();
 		Util util = new Util(session);
 		String jsFunction = "parancoe.util.writeFormElement";
-		if (!(write) && (daos.getJUGDao().findByICName(jugName) != null)) {
+		if ((daos.getJUGDao().findByICName(jugName) != null) &&(!reliability)) {
 			jsFunction = "parancoe.util.readOnlyFormElement";
 		}
 
@@ -415,9 +405,12 @@ public class JuggerBo {
 	 * @param jugger
 	 */
 	@Transactional
-	public void update(Jugger jugger) {
+	public void update(Jugger jugger, boolean requiredReliability, String motivation) {
 
 		JuggerDao juggerDao = daos.getJuggerDao();
+		if (requiredReliability) {
+			servicesBo.requireReliability(jugger, motivation);
+		}
 
 		User newUser = updateUser(jugger.getUser());
 
@@ -475,34 +468,7 @@ public class JuggerBo {
 		return user;
 	} // end of method
 
-	@Transactional
-	public void checkAuthorization(String username) {
-
-		Authentication authentication = org.acegisecurity.context.SecurityContextHolder
-				.getContext().getAuthentication();
-		String name = null;
-
-		if (authentication != null && authentication.isAuthenticated()) {
-			name = authentication.getName();
-			if (username.equals(name)) {
-				return;
-			}
-		} // end of if
-		// is the role_admin role?
-		boolean isAdmin = false;
-		User currentUser = daos.getUserDao().findByUsername(name).get(0);
-		List<UserAuthority> userAuthorities = currentUser.getUserAuthority();
-		for (UserAuthority userAuthority : userAuthorities) {
-			if ("ROLE_ADMIN".equals(userAuthority.getAuthority().getRole())) {
-				isAdmin = true;
-				break;
-			}
-		}
-		if (!isAdmin) {
-			throw new ParancoeAccessDeniedException(
-					"You are not authorized on this Jugger.");
-		} // end of if
-	} // end of method
+	
 
 	@Transactional
 	public void delete(String username) {
@@ -564,12 +530,14 @@ public class JuggerBo {
 		this.mailSender.send(preparator);
 	}
 
-	public TrustBo getTrustBo() {
-		return trustBo;
+	public ServicesBo getServicesBo() {
+		return servicesBo;
 	}
 
-	public void setTrustBo(TrustBo trustBo) {
-		this.trustBo = trustBo;
+	public void setServicesBo(ServicesBo servicesBo) {
+		this.servicesBo = servicesBo;
 	}
+
+	
 
 } // end of class

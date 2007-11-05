@@ -32,6 +32,11 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
 		@NamedQuery(name = "Jugger.findAllOrderByUsername", query = "from Jugger j order by j.user.username asc") })
 public class Jugger extends EntityBase {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6005123717507782857L;
+
 	@NotBlank
 	private String firstName;
 

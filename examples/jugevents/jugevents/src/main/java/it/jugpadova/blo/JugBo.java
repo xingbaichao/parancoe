@@ -33,7 +33,7 @@ public class JugBo {
 
 	private String defaultKmlUrl;
 
-	private TrustBo trustBo;
+	private ServicesBo servicesBo;
 
 	public JugBo() {
 	}
@@ -254,9 +254,10 @@ public class JugBo {
 			jug = new JUG();
 		} else {
 			// check if this jugger could update the JUG attribute
-			if (!trustBo.isJuggerReliable(jugger))
+			if (!servicesBo.isJuggerReliable(jugger.getReliability()))
 
 			{
+				logger.warn("Jugger "+jugger.getUser().getUsername()+ " is not reliable!");
 				return jug;
 			}// end of if
 		}// end of if
@@ -290,12 +291,14 @@ public class JugBo {
 						oldJUG.getInfos()));
 	}
 
-	public TrustBo getTrustBo() {
-		return trustBo;
+	public ServicesBo getServicesBo() {
+		return servicesBo;
 	}
 
-	public void setTrustBo(TrustBo trustBo) {
-		this.trustBo = trustBo;
+	public void setServicesBo(ServicesBo servicesBo) {
+		this.servicesBo = servicesBo;
 	}
+
+	
 
 }
