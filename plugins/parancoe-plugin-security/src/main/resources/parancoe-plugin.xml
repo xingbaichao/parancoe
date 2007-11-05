@@ -172,4 +172,8 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
             </list>
         </property>
     </bean>
+    
+     <!-- mapping .secure url to secure controller -->
+    <bean name="/*.secure" id="secureController"
+          class="org.parancoe.plugins.security.SecureController" />
 </beans>
