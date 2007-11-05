@@ -212,9 +212,9 @@
                 </property>
             </activation>
             <build />
-            <properties>
-                <netbeans.deployment.server.type>Tomcat55</netbeans.deployment.server.type>
-            </properties>
         </profile>
     </profiles>
+    <properties>
+        <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
+    </properties>
 </project>

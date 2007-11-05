@@ -37,7 +37,7 @@
                             <dt>&nbsp;</dt>
                             <dd><div id="directionsPreview" class="preview">${requestScope.event.filteredDirections}&nbsp;</div></dd>
                             <dt><form:label path="startDate"><spring:message code="event.startDate"/></form:label></dt>
-                            <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/></dd>
+                            <dd><form:input path="startDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('startDate');"/>&nbsp;(dd/MM/yyyy)</dd>
                             <dt><form:label path="startTime"><spring:message code="event.startTime"/></form:label></dt>
                             <dd>
                                 <form:select path="startTime">
@@ -92,7 +92,7 @@
                                 </form:select>
                             </dd>
                             <dt><form:label path="endDate"><spring:message code="event.endDate"/></form:label></dt>
-                            <dd><form:input path="endDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('endDate');"/></dd>
+                            <dd><form:input path="endDate" maxlength="10" size="10"/>&nbsp;<img src="${cp}/images/calendar.gif" alt="Calendar icon" onclick="return showCalendar('endDate');"/>&nbsp;(dd/MM/yyyy)</dd>
                             <dt><form:label path="endTime"><spring:message code="event.endTime"/></form:label></dt>
                             <dd>
                                 <form:select path="endTime">

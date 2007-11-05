@@ -1,7 +1,7 @@
 <%@ include file="../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    
+
     <head>
         <%@ include file="../head.jspf" %>
         <link href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}" rel="alternate" title="RSS" type="application/rss+xml" />
@@ -17,7 +17,17 @@
                         <h1><spring:message code="NewsAndUpcomings"/></h1>
                         <%@ include file="news.jspf" %>
                     </c:if>
-                    <h1><spring:message code="SearchEvents"/> <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png"></a> <span class="smallText"><a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}"><spring:message code="SearchFeed"/></span></a></h1>
+                    <h1>
+                        <spring:message code="SearchEvents"/>
+                        <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}">
+                            <img style="vertical-align: middle; border: none;" src="${cp}/images/feed-icon-14x14.png" />
+                        </a>
+                        <span class="smallText">
+                            <a href="${cp}/event/rss.html?continent=${eventSearch.continent}&country=${eventSearch.country}&jugName=${eventSearch.jugName}&pastEvents=${eventSearch.pastEvents}&order=${eventSearch.orderByDate}">
+                                <spring:message code="SearchFeed"/>
+                            </a>
+                        </span>
+                    </h1>
                     <a href="#" onclick="updateBadge(); $('webBadge').show(); new Effect.ScrollTo('webBadge', {offset: -24}); return false;"><spring:message code="GetBadgeLink"/></a>
                     <form:form commandName="eventSearch" method="POST" action="${cp}/event/search.form">
                         <fieldset>
@@ -37,7 +47,7 @@
                             </dl>
                         </fieldset>
                     </form:form>
-                    
+
                     <c:choose>
                         <c:when test="${not empty events}">
                             <table class="dataList">
@@ -130,37 +140,37 @@
         <jsp:include page="../footer.jsp"/>
         <script type="text/javascript">
 
-dwr.util.setEscapeHtml(false);
+            dwr.util.setEscapeHtml(false);
 
-new Autocompleter.DWR('continent', 'continentList', updateContinentList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
-new Autocompleter.DWR('country', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
-new Autocompleter.DWR('jugName', 'jugNameList', updateJugNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+            new Autocompleter.DWR('continent', 'continentList', updateContinentList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+            new Autocompleter.DWR('country', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+            new Autocompleter.DWR('jugName', 'jugNameList', updateJugNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
 
-function updateContinentList(autocompleter, token) {
-    juggerBo.findPartialContinent(token, function(data) {
-        autocompleter.setChoices(data)
-    });
-}
+            function updateContinentList(autocompleter, token) {
+            juggerBo.findPartialContinent(token, function(data) {
+            autocompleter.setChoices(data)
+            });
+            }
 
-function updateCountryList(autocompleter, token) {
-    juggerBo.findPartialCountryWithContinent(token, $('continent').value, function(data) {
-        autocompleter.setChoices(data)
-    });
-}
+            function updateCountryList(autocompleter, token) {
+            juggerBo.findPartialCountryWithContinent(token, $('continent').value, function(data) {
+            autocompleter.setChoices(data)
+            });
+            }
 
-function updateJugNameList(autocompleter, token) {
-    juggerBo.findPartialJugNameWithCountryAndContinent(token, $('country').value, $('continent').value, function(data) {
-        autocompleter.setChoices(data)
-    });
-}
+            function updateJugNameList(autocompleter, token) {
+            juggerBo.findPartialJugNameWithCountryAndContinent(token, $('country').value, $('continent').value, function(data) {
+            autocompleter.setChoices(data)
+            });
+            }
 
-function singleValueSelector(tag) {
-    return tag;
-}
+            function singleValueSelector(tag) {
+            return tag;
+            }
 
-function updateBadge() {
-    eventBo.updateBadgePanel($('continent').value, $('country').value, $('jugName').value, $('pastEvents').checked, $$('input[type=radio][name=orderByDate]').find(function(el) { return el.checked }).value, $('badgeIncludeTheDescription').checked, $$('input[type=radio][name=badgeStyle]').find(function(el) { return el.checked }).value, '${requestScope.lang}');
-}
+            function updateBadge() {
+            eventBo.updateBadgePanel($('continent').value, $('country').value, $('jugName').value, $('pastEvents').checked, $$('input[type=radio][name=orderByDate]').find(function(el) { return el.checked }).value, $('badgeIncludeTheDescription').checked, $$('input[type=radio][name=badgeStyle]').find(function(el) { return el.checked }).value, '${requestScope.lang}');
+            }
 
         </script>
     </body>

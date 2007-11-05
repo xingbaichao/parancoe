@@ -10,10 +10,10 @@
             <div id="content"> 
                 <div id="content_main">
                     
-                    <h1>Event</h1>
+                    <h1><spring:message code='Event'/></h1>
                     <%@ include file="show.jspf" %>
                     
-                    <h2>List of Participants</h2>
+                    <h2><spring:message code='ParticipantList'/></h2>
                     
                     <c:choose>
                         <c:when test="${not empty participants}">
@@ -21,9 +21,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>E-Mail</th>
+                                        <th><spring:message code='first_name'/></th>
+                                        <th><spring:message code='last_name'/></th>
+                                        <th><spring:message code='Email'/></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,7 +47,7 @@
                             </table>
                         </c:when>
                         <c:otherwise>
-                            No participants
+                            <spring:message code='NoParticipants'/>
                         </c:otherwise>
                     </c:choose>
                     <br/>
