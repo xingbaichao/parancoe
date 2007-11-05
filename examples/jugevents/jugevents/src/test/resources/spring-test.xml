@@ -7,19 +7,19 @@
                                
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
        
-        <!--  
+        
         <property name="url" value="jdbc:hsqldb:mem:jugevents"/>
-        -->
+       
         <!--  
           For populating the DB (not the in memory one) with test data.
-        -->
+       
         
         <property name="url" value="jdbc:hsqldb:hsql://localhost/jugevents"/>
        
         <property name="username" value="sa"/>
         <property name="password" value=""/>
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-        
+         -->
         <!-- 
         <property name="url" value="jdbc:mysql://localhost:3306/jugevents"/>
         <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
