@@ -26,7 +26,7 @@
     <bean id="eventBO" class="it.jugpadova.blo.EventBo" autowire="byType">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
-        <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
+        <property name="confirmationSenderEmailAddress" value="${email.noreply}"/>
         <property name="upcomingEventDays" value="15" />
         <property name="newEventDays" value="7" />
         <dwr:remote javascript="eventBo">
@@ -47,7 +47,7 @@
         <property name="servicesBo" ref="servicesBo"/>  
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
-        <property name="confirmationSenderEmailAddress" value="jugevents-noreply@jugevents.org"/>
+        <property name="confirmationSenderEmailAddress" value="${email.noreply}"/>
         
         <dwr:remote javascript="juggerBo">
             <dwr:include method="findPartialContinent"/>
@@ -70,8 +70,8 @@
     
     <bean id="servicesBo" class="it.jugpadova.blo.ServicesBo" autowire="byType">
           <property name="thresholdAccess" value="1"/> 
-          <property name="internalMail" value="internal@jugevents.org"/> 
-          <property name="adminMailJE" value="enrico.giurin@jugpadova.it"/> 
+          <property name="internalMail" value="${email.internal}"/> 
+          <property name="adminMailJE" value="${email.admin}"/> 
           <property name="mailSender" ref="mailSender"/>
        	  <property name="velocityEngine" ref="velocityEngine"/>            
     </bean>
