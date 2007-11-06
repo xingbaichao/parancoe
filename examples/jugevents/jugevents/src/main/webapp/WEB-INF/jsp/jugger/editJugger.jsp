@@ -81,32 +81,32 @@
 		<dl>
 			<dt><form:label path="jugger.jug.name">
 				<spring:message code="juggerRegistrationJUGName" /> (*)</form:label></dt>
-			<dd><form:input path="jugger.jug.name"
+			<dd><form:input path="jugger.jug.name" 
 				onblur="javascript:disableJugFields();" />
 			<div id="jugList" class="auto_complete"></div>
 			</dd>
 			<dt><form:label path="jugger.jug.country.englishName">
 				<spring:message code="juggerRegistrationCountry" />
 			</form:label></dt>
-			<dd><form:input path="jugger.jug.country.englishName" />
+			<dd><form:input path="jugger.jug.country.englishName" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/>
 			<div id="countryList" class="auto_complete"></div>
 			</dd>
 			<dt><form:label path="jugger.jug.webSite">
 				<spring:message code="juggerRegistrationWebSite" />
 			</form:label></dt>
-			<dd><form:input path="jugger.jug.webSite" /></dd>
+			<dd><form:input path="jugger.jug.webSite" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
 			<dt><form:label path="jugger.jug.longitude">
 				<spring:message code="juggerRegistrationLongitude" />
 			</form:label></dt>
-			<dd><form:input path="jugger.jug.longitude" /></dd>
+			<dd><form:input path="jugger.jug.longitude" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
 			<dt><form:label path="jugger.jug.latitude">
 				<spring:message code="juggerRegistrationLatitude" />
 			</form:label></dt>
-			<dd><form:input path="jugger.jug.latitude" /></dd>
+			<dd><form:input path="jugger.jug.latitude" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>" /></dd>
 			<dt><form:label path="jugger.jug.infos">
 				<spring:message code="juggerRegistrationJUGInfos" />
 			</form:label></dt>
-			<dd><form:textarea path="jugger.jug.infos" cols="30" rows="5" /></dd>
+			<dd><form:textarea path="jugger.jug.infos" cols="30" rows="5" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
 		</dl>
 		</fieldset>
 		<dl>
