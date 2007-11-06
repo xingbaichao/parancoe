@@ -51,7 +51,6 @@
                             </dl>
                         </fieldset>
                         
-                        <jsp:useBean id="jugger" type="it.jugpadova.bean.EditJugger" scope="request"/>
                         <c:if test="${!jugger.reliable}">                            
                             <fieldset><legend><spring:message
                                     code="Reliability" /></legend>
@@ -144,7 +143,7 @@
             
             function disableJugFields() {
             var s = document.getElementById('jugger.jug.name');      
-            var k = document.getElementById('juggerIsReliable');    
+            var k = document.getElementById('reliable');    
             juggerBo.readOnlyJugFields(s.value, k.value);
             }
         </script>
