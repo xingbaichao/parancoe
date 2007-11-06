@@ -21,6 +21,16 @@ function Parancoe() {
             $(elementId).readOnly = false;
         }
         
+        this.fullDisableFormElement = function (elementId) {
+            this.readOnlyFormElement(elementId);
+            this.disableFormElement(elementId);
+        }
+
+        this.fullEnableFormElement = function (elementId) {
+            this.enableFormElement(elementId);
+            this.writeFormElement(elementId);
+        }
+        
     }
 
     this.util = new Util();

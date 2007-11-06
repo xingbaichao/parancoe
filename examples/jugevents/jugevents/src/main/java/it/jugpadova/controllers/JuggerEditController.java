@@ -81,7 +81,7 @@ public abstract class JuggerEditController extends BaseFormController {
         
         ej.setJugger(jugger);
         ej.setRequireReliability(new RequireReliability());
-        ej.setJuggerIsReliable(blo().getServicesBo().isJuggerReliable(jugger.getReliability()));
+        ej.setReliable(blo().getServicesBo().isJuggerReliable(jugger.getReliability()));
         if (jugger.getJug().getCountry() == null) {
             jugger.getJug().setCountry(new Country());
         }

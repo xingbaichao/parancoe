@@ -5,36 +5,35 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
-<script type="text/javascript">        
-	function require()
- 	 {     
-      if($('requireReliability.requireReliability1').checked)
-      {
-       $('hcomment').show(); return false;
-      }
-      else
-      {
-      $('hcomment').hide(); return false;
-      }   
-    }  
-	</script>
+        <script type="text/javascript">        
+            function require()
+            {     
+            if($('requireReliability.requireReliability1').checked)
+            {
+            $('hcomment').show(); return false;
+            }
+            else
+            {
+            $('hcomment').hide(); return false;
+            }   
+            }  
+        </script>
     </head>
     <body>
         <div id="nonFooter">
             <jsp:include page="../header.jsp"/>
             <div id="content">
                 <div id="content_main">
-
-
+                                        
                     <h1><spring:message code="Edit-Jugger"/></h1>
-
+                    
                     <form:form commandName="jugger" method="POST" action="${cp}/jugger/edit.form">
                         <form:errors path="*" cssClass="errorBox"/>
-
-
+                        
+                        
                         <form:hidden path="jugger.user.username"/>
-                        <form:hidden path="juggerIsReliable" />
-
+                        <form:hidden path="reliable" />
+                        
                         <fieldset>
                             <legend>Jugger</legend>
                             <dl>
@@ -48,116 +47,107 @@
                                 <dd><form:password path="password" /></dd>
                                 <dt><form:label path="confirmPassword"><spring:message code="confirmPassword"/></form:label></dt>
                                 <dd><form:password path="confirmPassword" /></dd>
-
+                                
                             </dl>
                         </fieldset>
-
-    <jsp:useBean id="jugger" type="it.jugpadova.bean.EditJugger" scope="request"/>
-	<% if(!jugger.getJuggerIsReliable()) { %>
-	
-			<fieldset><legend><spring:message
-				code="Reliability" /></legend>
-			<dl>
-				<dt><form:label path="requireReliability.requireReliability">
-					<spring:message code="requireReliability" />
-				</form:label></dt>
-				<dd><form:checkbox path="requireReliability.requireReliability" value='false'
-					onclick="javascript:require();" /></dd>
-			</dl>
-			<div id="hcomment" style="display: none;">
-			<dl>
-				<dt><spring:message code="commentReliability" /></dt>
-				<dd><form:textarea path="requireReliability.comment" cols="35" rows="5" /></dd>
-			</dl>
-			</fieldset>
-			 
-			<% } %>
-			
-		
-
-
-
-		<fieldset><legend>JUG</legend>
-		<dl>
-			<dt><form:label path="jugger.jug.name">
-				<spring:message code="juggerRegistrationJUGName" /> (*)</form:label></dt>
-			<dd><form:input path="jugger.jug.name" 
-				onblur="javascript:disableJugFields();" />
-			<div id="jugList" class="auto_complete"></div>
-			</dd>
-			<dt><form:label path="jugger.jug.country.englishName">
-				<spring:message code="juggerRegistrationCountry" />
-			</form:label></dt>
-			<dd><form:input path="jugger.jug.country.englishName" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/>
-			<div id="countryList" class="auto_complete"></div>
-			</dd>
-			<dt><form:label path="jugger.jug.webSite">
-				<spring:message code="juggerRegistrationWebSite" />
-			</form:label></dt>
-			<dd><form:input path="jugger.jug.webSite" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
-			<dt><form:label path="jugger.jug.longitude">
-				<spring:message code="juggerRegistrationLongitude" />
-			</form:label></dt>
-			<dd><form:input path="jugger.jug.longitude" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
-			<dt><form:label path="jugger.jug.latitude">
-				<spring:message code="juggerRegistrationLatitude" />
-			</form:label></dt>
-			<dd><form:input path="jugger.jug.latitude" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>" /></dd>
-			<dt><form:label path="jugger.jug.infos">
-				<spring:message code="juggerRegistrationJUGInfos" />
-			</form:label></dt>
-			<dd><form:textarea path="jugger.jug.infos" cols="30" rows="5" readonly="<%= String.valueOf(!jugger.getJuggerIsReliable())%>"/></dd>
-		</dl>
-		</fieldset>
-		<dl>
-			<dt>&nbsp;</dt>
-			<dd><input type="submit" value="<spring:message code='Update'/>" /><br />
-			<br />
-			</dd>
-
-			<dt><spring:message code="juggerRegistrationRequired" /> (*)</dt>
-
-		</dl>
-		
-</form:form>
+                        
+                        <jsp:useBean id="jugger" type="it.jugpadova.bean.EditJugger" scope="request"/>
+                        <c:if test="${!jugger.reliable}">                            
+                            <fieldset><legend><spring:message
+                                    code="Reliability" /></legend>
+                                <dl>
+                                    <dt><form:label path="requireReliability.requireReliability">
+                                            <spring:message code="requireReliability" />
+                                    </form:label></dt>
+                                    <dd><form:checkbox path="requireReliability.requireReliability" value='false'
+                                                       onclick="javascript:require();" /></dd>
+                                </dl>
+                                <div id="hcomment" style="display: none;">
+                                    <dl>
+                                        <dt><spring:message code="commentReliability" /></dt>
+                                        <dd><form:textarea path="requireReliability.comment" cols="35" rows="5" /></dd>
+                                    </dl>
+                                </div>
+                            </fieldset>                            
+                        </c:if>
+                        
+                        <fieldset><legend>JUG</legend>
+                            <dl>
+                                <dt><form:label path="jugger.jug.name">
+                                <spring:message code="juggerRegistrationJUGName" /> (*)</form:label></dt>
+                                <dd><form:input path="jugger.jug.name" 
+                                                    onblur="javascript:disableJugFields();" />
+                                    <div id="jugList" class="auto_complete"></div>
+                                </dd>
+                                <dt><form:label path="jugger.jug.country.englishName">
+                                        <spring:message code="juggerRegistrationCountry" />
+                                </form:label></dt>
+                                <dd><form:input path="jugger.jug.country.englishName" readonly="${!jugger.reliable}" disabled="${!jugger.reliable}" />
+                                    <div id="countryList" class="auto_complete"></div>
+                                </dd>
+                                <dt><form:label path="jugger.jug.webSite">
+                                        <spring:message code="juggerRegistrationWebSite" />
+                                </form:label></dt>
+                                <dd><form:input path="jugger.jug.webSite" readonly="${!jugger.reliable}" disabled="${!jugger.reliable}"/></dd>
+                                <dt><form:label path="jugger.jug.longitude">
+                                        <spring:message code="juggerRegistrationLongitude" />
+                                </form:label></dt>
+                                <dd><form:input path="jugger.jug.longitude" readonly="${!jugger.reliable}" disabled="${!jugger.reliable}"/></dd>
+                                <dt><form:label path="jugger.jug.latitude">
+                                        <spring:message code="juggerRegistrationLatitude" />
+                                </form:label></dt>
+                                <dd><form:input path="jugger.jug.latitude" readonly="${!jugger.reliable}" disabled="${!jugger.reliable}"/></dd>
+                                <dt><form:label path="jugger.jug.infos">
+                                        <spring:message code="juggerRegistrationJUGInfos" />
+                                </form:label></dt>
+                                <dd><form:textarea path="jugger.jug.infos" cols="30" rows="5" readonly="${!jugger.reliable}" disabled="${!jugger.reliable}"/></dd>
+                            </dl>
+                        </fieldset>
+                        <dl>
+                            <dt>&nbsp;</dt>
+                            <dd><input type="submit" value="<spring:message code='Update'/>" /><br/><br/></dd>                            
+                            <dt><spring:message code="juggerRegistrationRequired" /> (*)</dt><dd>&nbsp;</dd>                            
+                        </dl>
+                        
+                    </form:form>
                 </div>
                 <jsp:include page="../menu.jsp"/>
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
         <script type="text/javascript">
-
-dwr.util.setEscapeHtml(false);
-
-new Autocompleter.DWR('jugger.jug.country.englishName', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
-new Autocompleter.DWR('jugger.jug.name', 'jugList', updateJUGNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true, afterUpdateElement: populateJugFields });
-
-function updateCountryList(autocompleter, token) {
-    juggerBo.findPartialCountry(token, function(data) {
-        autocompleter.setChoices(data)
-    });
-}
-
-function updateJUGNameList(autocompleter, token) {
-    juggerBo.findPartialJugNameWithCountry(token, $('jugger.jug.country.englishName').value, function(data) {
-        autocompleter.setChoices(data)
-    });
-}
-
-function populateJugFields(jugName, selectedElement) {
-    juggerBo.populateJugFields(jugName.value);
-}
-
- function singleValueSelector(tag) {
-    return tag;
-}
-
-function disableJugFields() {
-    var s = document.getElementById('jugger.jug.name');      
-    var k = document.getElementById('juggerIsReliable');    
-    juggerBo.readOnlyJugFields(s.value, k.value);
-}
+            
+            dwr.util.setEscapeHtml(false);
+            
+            new Autocompleter.DWR('jugger.jug.country.englishName', 'countryList', updateCountryList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true });
+            new Autocompleter.DWR('jugger.jug.name', 'jugList', updateJUGNameList, { valueSelector: singleValueSelector, partialChars: 0, fullSearch: true, afterUpdateElement: populateJugFields });
+            
+            function updateCountryList(autocompleter, token) {
+            juggerBo.findPartialCountry(token, function(data) {
+            autocompleter.setChoices(data)
+            });
+            }
+            
+            function updateJUGNameList(autocompleter, token) {
+            juggerBo.findPartialJugNameWithCountry(token, $('jugger.jug.country.englishName').value, function(data) {
+            autocompleter.setChoices(data)
+            });
+            }
+            
+            function populateJugFields(jugName, selectedElement) {
+            juggerBo.populateJugFields(jugName.value);
+            }
+            
+            function singleValueSelector(tag) {
+            return tag;
+            }
+            
+            function disableJugFields() {
+            var s = document.getElementById('jugger.jug.name');      
+            var k = document.getElementById('juggerIsReliable');    
+            juggerBo.readOnlyJugFields(s.value, k.value);
+            }
         </script>
-
+        
     </body>
 </html>

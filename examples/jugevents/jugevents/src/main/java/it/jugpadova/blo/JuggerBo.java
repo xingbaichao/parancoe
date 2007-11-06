@@ -348,10 +348,10 @@ public class JuggerBo {
 			} else {
 				util.setValue("jugger.jug.country.englishName", null);
 			}
-			effect.highlight("jugger.jug.country.englishName");
+			// effect.highlight("jugger.jug.country.englishName");
 
 			util.setValue("jugger.jug.webSite", jug.getWebSite());
-			effect.highlight("jugger.jug.webSite");
+			// effect.highlight("jugger.jug.webSite");
 
 			if (jug.getLongitude() != null) {
 				util.setValue("jugger.jug.longitude", jug.getLongitude()
@@ -360,17 +360,17 @@ public class JuggerBo {
 			} else {
 				util.setValue("jugger.jug.longitude", null);
 			}
-			effect.highlight("jugger.jug.longitude");
+			// effect.highlight("jugger.jug.longitude");
 			if (jug.getLatitude() != null) {
 				util.setValue("jugger.jug.latitude", jug.getLatitude()
 						.toString());
 			} else {
 				util.setValue("jugger.jug.latitude", null);
 			}
-			effect.highlight("jugger.jug.latitude");
+			// effect.highlight("jugger.jug.latitude");
 
 			util.setValue("jugger.jug.infos", jug.getInfos());
-			effect.highlight("jugger.jug.infos");
+			// effect.highlight("jugger.jug.infos");
 
 			// fixJugFields(false);
 		}
@@ -386,9 +386,9 @@ public class JuggerBo {
 		WebContext wctx = WebContextFactory.get();
 		ScriptSession session = wctx.getScriptSession();
 		Util util = new Util(session);
-		String jsFunction = "parancoe.util.writeFormElement";
+		String jsFunction = "parancoe.util.fullEnableFormElement";
 		if ((daos.getJUGDao().findByICName(jugName) != null) &&(!reliability)) {
-			jsFunction = "parancoe.util.readOnlyFormElement";
+			jsFunction = "parancoe.util.fullDisableFormElement";
 		}
 
 		util.addFunctionCall(jsFunction, "jugger.jug.country.englishName");

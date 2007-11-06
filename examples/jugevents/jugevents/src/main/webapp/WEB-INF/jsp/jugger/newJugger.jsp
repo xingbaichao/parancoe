@@ -61,6 +61,7 @@
 		<dt><spring:message code="commentReliability" /></dt>
 		<dd><form:textarea path="requireReliability.comment" cols="35" rows="5" /></dd>
 	</dl>
+        </div>
 	</fieldset>
 
 	<fieldset>
