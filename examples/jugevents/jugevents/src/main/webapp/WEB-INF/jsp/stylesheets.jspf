@@ -1,6 +1,7 @@
 <link href="${cp}/stylesheets/default.css" rel="stylesheet" type="text/css"/>
 <link href="${cp}/stylesheets/calendar.css" rel="stylesheet" type="text/css"/>
 <link href="${cp}/stylesheets/autocomplete.css" rel="stylesheet" type="text/css"/>
+<link href="${cp}/stylesheets/prototip/prototip.css" rel="stylesheet" type="text/css"/>
 
 <style type="text/css">
 #messageZone {

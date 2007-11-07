@@ -285,7 +285,9 @@ public class EventBo {
 	@Transactional(readOnly = true)
 	public Event retrieveEvent(Long id) {
 		Event event = getDaos().getEventDao().read(id);
-		event.getParticipants().size();
+                if (event != null) {
+                    event.getParticipants().size();
+                }
 		return event;
 	}
 
