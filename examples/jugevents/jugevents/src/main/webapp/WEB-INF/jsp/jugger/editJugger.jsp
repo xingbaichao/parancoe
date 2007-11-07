@@ -59,7 +59,7 @@
                                             <spring:message code="requireReliability" />
                                     </form:label></dt>
                                     <dd><form:checkbox path="requireReliability.requireReliability" value='false'
-                                                       onclick="javascript:require();" /></dd>
+                                                       onclick="javascript:require();" />&nbsp;<img id="tip_reliability" src="${cp}/images/question16x16.png" /></dd>
                                 </dl>
                                 <div id="hcomment" style="display: none;">
                                     <dl>
@@ -115,6 +115,7 @@
         </div>
         <jsp:include page="../footer.jsp"/>
         <script type="text/javascript">
+            new Tip($('tip_reliability'), '<spring:message code="tip.reliability"/>', {title: 'Reliability', effect: 'appear'});
             
             dwr.util.setEscapeHtml(false);
             
