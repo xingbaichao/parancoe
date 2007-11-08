@@ -229,6 +229,7 @@ public class EventBo {
 		participant.setConfirmationCode(generateConfirmationCode(event,
 				participant));
 		participant.setEvent(event);
+                participant.setCreationDate(new Date());
 		getDaos().getParticipantDao().createOrUpdate(participant);
 		event.addParticipant(participant);
 		eventDao.createOrUpdate(event);
@@ -244,6 +245,7 @@ public class EventBo {
 		participant.setConfirmationCode(generateConfirmationCode(event,
 				participant));
 		participant.setEvent(event);
+                participant.setCreationDate(new Date());
 		getDaos().getParticipantDao().createOrUpdate(participant);
 		sendConfirmationEmail(event, participant, baseUrl);
 	}

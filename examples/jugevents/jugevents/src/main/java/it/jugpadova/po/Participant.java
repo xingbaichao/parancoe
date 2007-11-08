@@ -1,9 +1,12 @@
 package it.jugpadova.po;
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -31,6 +34,7 @@ public class Participant extends EntityBase {
     private String confirmationCode;
     private Boolean confirmed;
     private Event event;
+    private Date creationDate;
     
     /** Creates a new instance of Participant */
     public Participant() {
@@ -84,5 +88,14 @@ public class Participant extends EntityBase {
     public void setEvent(Event event) {
         this.event = event;
     }        
-        
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
 }
