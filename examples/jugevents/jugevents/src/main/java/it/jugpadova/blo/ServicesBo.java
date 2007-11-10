@@ -22,6 +22,10 @@ import javax.mail.internet.MimeMessage;
 import org.acegisecurity.Authentication;
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.VelocityEngine;
+import org.directwebremoting.ScriptSession;
+import org.directwebremoting.WebContext;
+import org.directwebremoting.WebContextFactory;
+import org.directwebremoting.proxy.dwr.Util;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.security.UserAuthority;
 import org.parancoe.plugins.security.UserDao;
@@ -142,9 +146,24 @@ public class ServicesBo {
 	}
     
 	@Transactional
-	public void requireReliabilityOnExistingJugger(Jugger jugger, String motivation)
+	public void requireReliabilityOnExistingJugger(String emailJugger, String motivation)
 	{
-		requireReliability(jugger, motivation);
+		Jugger jugger = daos.getJuggerDao().findByEmail(emailJugger);
+		Util util = null;
+		try {
+			
+		
+			WebContext wctx = WebContextFactory.get();
+			ScriptSession session = wctx.getScriptSession();
+			util = new Util(session);
+			requireReliability(jugger, motivation);
+			util.setValue("confirmMSG", " Your request has been forwarded to jugevents administrator");
+				
+		} catch (Exception e) {
+			util.setValue("confirmMSG", "Error while processing your request. Try later");
+		}
+		
+		
 	}
 	
 
@@ -274,6 +293,9 @@ public class ServicesBo {
      }
      return null; //not so good...
 	}
+	
+	
+	
 	
 	
 	

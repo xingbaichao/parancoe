@@ -5,19 +5,40 @@
     <head>
         <%@ include file="../head.jspf" %>
         <script src="${cp}/dwr/interface/juggerBo.js" type="text/javascript"></script>
-        <script type="text/javascript">        
-            function require()
-            {     
-            if($('requireReliability.requireReliability1').checked)
-            {
-            $('hcomment').show(); return false;
-            }
-            else
-            {
-            $('hcomment').hide(); return false;
-            }   
-            }  
-        </script>
+		<script src="${cp}/dwr/interface/servicesBo.js" type="text/javascript"></script>
+        <script src="${cp}/javascripts/modal.js" type="text/javascript"></script>
+        <style type="text/css">
+
+#mww
+{
+    position: fixed;    
+    top: 0;
+    left: 0;
+
+	z-index: 10;
+	background-color: white;
+	display: none;
+	width: 45em;
+	height: 15em;
+	border: 3px solid blue;
+}
+
+#mbg
+{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    
+	z-index: 9;
+	background-color:#222222;
+	display: none;
+	opacity: 0.50;
+	filter: alpha(opacity=40)
+}
+</style>
+        
     </head>
     <body>
         <div id="nonFooter">
@@ -52,25 +73,18 @@
                         </fieldset>
                         
                         <c:if test="${!jugger.reliable}">                            
-                            <fieldset><legend><spring:message
-                                    code="Reliability" /></legend>
-                                <dl>
-                                    <dt><form:label path="requireReliability.requireReliability">
-                                            <spring:message code="requireReliability" />
-                                    </form:label></dt>
-                                    <dd><form:checkbox path="requireReliability.requireReliability" value='false'
-                                                       onclick="javascript:require();" />&nbsp;<img id="tip_reliability" src="${cp}/images/question16x16.png" /></dd>
-                                </dl>
-                                <div id="hcomment" style="display: none;">
-                                    <dl>
-                                        <dt><spring:message code="commentReliability" /></dt>
-                                        <dd><form:textarea path="requireReliability.comment" cols="35" rows="5" /></dd>
-                                    </dl>
-                                </div>
-                            </fieldset>                            
-                            <script type="text/javascript">
+                            <fieldset>
+                            	<legend><spring:message  code="Reliability" /></legend>       
+                            	<a href="javascript:require();"><spring:message code="requireReliability"/></a>                
+                                &nbsp;<img id="tip_reliability" src="${cp}/images/question16x16.png" />          
+                                
+                                <div id="confirmMSG" style="display: none; color: #FF0000;"/>
+                               
+								
+                            </fieldset>      
+						 <script type="text/javascript">
                                 new Tip($('tip_reliability'), '<spring:message code="tip.reliability"/>', {title: 'Reliability', effect: 'appear'});
-                            </script>
+                            </script>                      
                         </c:if>
                         
                         <fieldset><legend>JUG</legend>
@@ -117,6 +131,14 @@
             </div>
         </div>
         <jsp:include page="../footer.jsp"/>
+        
+        <div id="mww">     
+                    <spring:message code="commentReliability" /><br>
+                    <textarea id="commentr"  cols="20" rows="5"></textarea><br>   
+                    <input value="Send" type="button" onclick="javascript:requireReliability();"/>                   
+        </div>
+	    <div id="mbg"></div>
+        
         <script type="text/javascript">
             
             dwr.util.setEscapeHtml(false);
@@ -145,11 +167,20 @@
             }
             
             function disableJugFields() {
-            var s = document.getElementById('jugger.jug.name');      
-            var k = document.getElementById('reliable');    
-            juggerBo.readOnlyJugFields(s.value, k.value);
+            // var s = document.getElementById('jugger.jug.name');      
+            // var k = document.getElementById('reliable');    
+            juggerBo.readOnlyJugFields($('jugger.jug.name').value, $('reliable').value);
+            }
+            
+            function requireReliability() {			 
+			  // var s = document.getElementById('jugger.email');      
+			  // var k = document.getElementById('commentr'); 				
+              servicesBo.requireReliabilityOnExistingJugger($('jugger.email').value, $('commentr').value);
+			  comeBack();
+			  $('confirmMSG').show(); return false;		  
             }
         </script>
+       
         
     </body>
 </html>
