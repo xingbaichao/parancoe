@@ -68,6 +68,9 @@
                                     </dl>
                                 </div>
                             </fieldset>                            
+                            <script type="text/javascript">
+                                new Tip($('tip_reliability'), '<spring:message code="tip.reliability"/>', {title: 'Reliability', effect: 'appear'});
+                            </script>
                         </c:if>
                         
                         <fieldset><legend>JUG</legend>
@@ -115,7 +118,6 @@
         </div>
         <jsp:include page="../footer.jsp"/>
         <script type="text/javascript">
-            new Tip($('tip_reliability'), '<spring:message code="tip.reliability"/>', {title: 'Reliability', effect: 'appear'});
             
             dwr.util.setEscapeHtml(false);
             
