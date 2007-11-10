@@ -12,15 +12,14 @@
 #mww
 {
     position: fixed;    
-    top: 0;
-    left: 0;
-
-	z-index: 10;
+    z-index: 10;
 	background-color: white;
-	display: none;
-	width: 45em;
-	height: 15em;
-	border: 3px solid blue;
+	// display: none;
+	width: 	18em;
+	height: 8em;
+	border: 2px solid blue;
+	padding: 2em 2em 2em 2em;	
+	
 }
 
 #mbg
@@ -78,7 +77,9 @@
                             	<a href="javascript:require();"><spring:message code="requireReliability"/></a>                
                                 &nbsp;<img id="tip_reliability" src="${cp}/images/question16x16.png" />          
                                 
-                                <div id="confirmMSG" style="display: none; color: #FF0000;"/>
+                               
+								<div id="confirmMSGOK" style="display: none; color: #41AF0A"></div>
+								
                                
 								
                             </fieldset>      
@@ -132,11 +133,16 @@
         </div>
         <jsp:include page="../footer.jsp"/>
         
-        <div id="mww">     
-                    <spring:message code="commentReliability" /><br>
-                    <textarea id="commentr"  cols="20" rows="5"></textarea><br>   
-                    <input value="Send" type="button" onclick="javascript:requireReliability();"/>                   
-        </div>
+       <div id="mww">    
+			<table width="60%" align="center" valign="center">
+			<tr><td colspan="2"><spring:message code="commentReliability" /></td></tr>
+			<tr><td colspan="2" ><textarea id="commentr"  ></textarea></td></tr>
+			<tr>
+				<td align="center"><input value="Send" type="button" onclick="javascript:requireReliability();"/></td>
+				<td align="center"> <input value="Cancel" type="button" onclick="javascript:comeBack();"/></td>
+			</tr>
+			</table>
+		</div>
 	    <div id="mbg"></div>
         
         <script type="text/javascript">
@@ -174,10 +180,23 @@
             
             function requireReliability() {			 
 			  // var s = document.getElementById('jugger.email');      
-			  // var k = document.getElementById('commentr'); 				
-              servicesBo.requireReliabilityOnExistingJugger($('jugger.email').value, $('commentr').value);
-			  comeBack();
-			  $('confirmMSG').show(); return false;		  
+			  // var k = document.getElementById('commentr'); 		
+              comeBack();			  
+              servicesBo.requireReliabilityOnExistingJugger($('jugger.email').value, $('commentr').value, function(data) 
+	              {				    
+				    if(data == 'true')
+					{
+					    
+						dwr.util.setValue("confirmMSGOK", "<spring:message code="confirmMSG.RequireReliability.OK" />");
+						
+					}
+					else
+					{    
+						 dwr.util.setValue("confirmMSGOK", "<spring:message code="confirmMSG.RequireReliability.KO" />");
+						
+					}   
+				$('confirmMSGOK').show(); 
+	              });		 
             }
         </script>
        

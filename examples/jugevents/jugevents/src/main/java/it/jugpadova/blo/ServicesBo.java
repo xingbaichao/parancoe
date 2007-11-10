@@ -146,21 +146,18 @@ public class ServicesBo {
 	}
     
 	@Transactional
-	public void requireReliabilityOnExistingJugger(String emailJugger, String motivation)
+	public String requireReliabilityOnExistingJugger(String emailJugger, String motivation)
 	{
 		Jugger jugger = daos.getJuggerDao().findByEmail(emailJugger);
-		Util util = null;
+		
 		try {
 			
-		
-			WebContext wctx = WebContextFactory.get();
-			ScriptSession session = wctx.getScriptSession();
-			util = new Util(session);
 			requireReliability(jugger, motivation);
-			util.setValue("confirmMSG", " Your request has been forwarded to jugevents administrator");
+			return "true";
 				
 		} catch (Exception e) {
-			util.setValue("confirmMSG", "Error while processing your request. Try later");
+			logger.error(e.toString(),e);
+			return "false";
 		}
 		
 		
