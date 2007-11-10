@@ -22,16 +22,16 @@
                 <spring:message code="${requestScope.messageCode}" text="${requestScope.messageCode}" htmlEscape="true"/>
             </p>
 
+<% if (!BaseConf.isProduction()) { %>
             <!--
-<%--
         <%
             Exception e = (Exception)request.getAttribute("exception");
 	    if (e != null){
 	      e.printStackTrace(new java.io.PrintWriter(out));
 	    }
     	%>
---%>
         -->
+<% } %>
         </div>
                 </div>
                 <jsp:include page="menu.jsp"/>

@@ -15,41 +15,15 @@
                     
                     <h2><spring:message code='ParticipantList'/></h2>
                     
-                    <c:choose>
-                        <c:when test="${not empty participants}">
-                            <table class="dataList">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th><spring:message code='first_name'/></th>
-                                        <th><spring:message code='last_name'/></th>
-                                        <th><spring:message code='Email'/></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="participant" items="${participants}" varStatus="status">
-                                        <c:choose>
-                                            <c:when test="${status.count % 2 == 0}">
-                                                <c:set var="rowStyle" value="evenRow"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="rowStyle" value="oddRow"/>                                            
-                                            </c:otherwise>
-                                        </c:choose>
-                                        <tr class="${rowStyle}">
-                                            <td>${status.count}</td>
-                                            <td>${participant.firstName}</td>
-                                            <td>${participant.lastName}</td>
-                                            <td>${participant.email}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:when>
-                        <c:otherwise>
-                            <spring:message code='NoParticipants'/>
-                        </c:otherwise>
-                    </c:choose>
+                    <div class="displaytag">
+                    <display:table name="participants" id="participantList" sort="list" pagesize="20" defaultsort="3" defaultorder="ascending" requestURI="participants.html" export="true">
+                        <display:column title="#">${participantList_rowNum}</display:column>
+                        <display:column property="firstName" titleKey="first_name" sortable="true" headerClass="sortable"/>
+                        <display:column property="lastName" titleKey="last_name" sortable="true" headerClass="sortable"/>
+                        <display:column property="email" titleKey="Email" sortable="true" headerClass="sortable"/>
+                        <display:column property="creationDate" title="Iscritto il" autolink="true" sortable="true" headerClass="sortable"/>
+                    </display:table>
+                    </div>
                     <br/>
                 </div>
                 <jsp:include page="../menu.jsp"/>
