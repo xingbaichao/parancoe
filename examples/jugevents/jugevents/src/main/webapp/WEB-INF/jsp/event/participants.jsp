@@ -16,7 +16,7 @@
                     <h2><spring:message code='ParticipantList'/></h2>
                     
                     <div class="displaytag">
-                    <display:table name="participants" id="participantList" sort="list" pagesize="20" defaultsort="3" defaultorder="ascending" requestURI="participants.html" export="true">
+                    <display:table name="participants" id="participantList" sort="list" pagesize="20" defaultsort="5" defaultorder="ascending" requestURI="participants.html" export="true">
                         <display:column title="#">${participantList_rowNum}</display:column>
                         <display:column property="firstName" titleKey="first_name" sortable="true" headerClass="sortable"/>
                         <display:column property="lastName" titleKey="last_name" sortable="true" headerClass="sortable"/>

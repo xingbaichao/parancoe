@@ -11,7 +11,7 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
-/**
+/**id
  * The participant of an event.
  *
  * @author lucio
@@ -21,7 +21,7 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
     @NamedQuery(name="Participant.findParticipantByEmailAndEventId",
         query="from Participant p where p.email = ? and p.event.id = ?"),
     @NamedQuery(name="Participant.findConfirmedParticipantsByEventId",
-        query="from Participant p where p.event.id = ? and p.confirmed = true order by p.lastName, p.firstName")
+        query="from Participant p where p.event.id = ? and p.confirmed = true order by p.creationDate, p.id")
 })
 public class Participant extends EntityBase {
     @NotBlank
