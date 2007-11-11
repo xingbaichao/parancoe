@@ -1,12 +1,8 @@
-/**
- *
- */
 package it.jugpadova.blo;
 
 import it.jugpadova.Daos;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.exception.EmailAlreadyPresentException;
-import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.exception.UserAlreadyEnabledException;
 import it.jugpadova.exception.UserAlreadyPresentsException;
 import it.jugpadova.exception.UserNotEnabledException;
@@ -23,7 +19,6 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
-import org.acegisecurity.Authentication;
 import org.acegisecurity.providers.encoding.MessageDigestPasswordEncoder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -50,9 +45,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 /**
  * Defines business methods for Jugger entity.
- * 
+ *
  * @author Enrico Giurin, Lucio Benfante
- * 
+ *
  */
 public class JuggerBo {
 
@@ -86,11 +81,11 @@ public class JuggerBo {
 		this.jugBo = jugBo;
 	}
 
-	
+
 
 	/**
 	 * Creates and persists new Jugger.
-	 * 
+	 *
 	 * @param jugger
 	 * @param baseUrl
 	 *            for confirmation mail
@@ -127,7 +122,7 @@ public class JuggerBo {
 
 	/**
 	 * Send mail to the user for changing password.
-	 * 
+	 *
 	 * @param jugger
 	 * @param baseUrl
 	 * @throws Exception
@@ -333,7 +328,7 @@ public class JuggerBo {
 	public void populateJugFields(String jugName) {
 		JUG jug = daos.getJUGDao().findByName(jugName);
 		if (jug != null) {
-			readOnlyJugFields(null, true);
+			jugFieldsEnable(true);
 			WebContext wctx = WebContextFactory.get();
 			ScriptSession session = wctx.getScriptSession();
 			Util util = new Util(session);
@@ -379,29 +374,42 @@ public class JuggerBo {
 
 	/**
 	 * Read only/not read only all jug fields.
-	 * 
+	 *
 	 * @param jugName
 	 */
 	public void readOnlyJugFields(String jugName, boolean reliability) {
+		if ((daos.getJUGDao().findByICName(jugName) != null) &&(!reliability)) {
+                    jugFieldsEnable(false);
+		} else {
+                    jugFieldsEnable(true);
+                }
+	}
+
+        /**
+         * Enable or disable the jug fields in page
+         *
+         * @param enable enable the fields if true. Disable, if false.
+         */
+        private void jugFieldsEnable(boolean enable) {
 		WebContext wctx = WebContextFactory.get();
 		ScriptSession session = wctx.getScriptSession();
 		Util util = new Util(session);
-		String jsFunction = "parancoe.util.fullEnableFormElement";
-		if ((daos.getJUGDao().findByICName(jugName) != null) &&(!reliability)) {
-			jsFunction = "parancoe.util.fullDisableFormElement";
+                String jsFunction = null;
+                if (enable) {
+                    jsFunction = "parancoe.util.fullEnableFormElement";
+                } else {
+                    jsFunction = "parancoe.util.fullDisableFormElement";
 		}
-
 		util.addFunctionCall(jsFunction, "jugger.jug.country.englishName");
 		util.addFunctionCall(jsFunction, "jugger.jug.webSite");
 		util.addFunctionCall(jsFunction, "jugger.jug.longitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.latitude");
 		util.addFunctionCall(jsFunction, "jugger.jug.infos");
-
-	}
+        }
 
 	/**
 	 * Updates Jugger and its childs.
-	 * 
+	 *
 	 * @param jugger
 	 */
 	@Transactional
@@ -468,7 +476,7 @@ public class JuggerBo {
 		return user;
 	} // end of method
 
-	
+
 
 	@Transactional
 	public void delete(String username) {
@@ -499,7 +507,7 @@ public class JuggerBo {
 
 	/**
 	 * General jugger mail sender
-	 * 
+	 *
 	 * @param jugger
 	 * @param baseUrl
 	 * @param subject
@@ -538,6 +546,6 @@ public class JuggerBo {
 		this.servicesBo = servicesBo;
 	}
 
-	
+
 
 } // end of class
