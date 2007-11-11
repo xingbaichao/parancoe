@@ -15,7 +15,7 @@ function require()
 	
 	
 	if (document.all)
-		document.documentElement.onscroll = OnWindowResize;
+		document.documentElement.onscroll = resize;
 		document.getElementById('commentr').focus();
 }
 
