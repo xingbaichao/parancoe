@@ -37,6 +37,34 @@
 	filter: alpha(opacity=40)
 }
 </style>
+
+<!--[if gte IE 5.5]>
+<![if lt IE 7]>
+<style>
+#mbg, #modalIframe
+{    
+	position: absolute;
+    left: expression(ignoreMe = document.documentElement.scrollLeft + "px");
+    top: expression(ignoreMe = document.documentElement.scrollTop + "px");
+    width: expression(document.documentElement.clientWidth + "px");
+    height: expression(document.documentElement.clientHeight + "px");
+}
+
+#modalIframe
+{
+	filter: alpha(opacity=0);
+	z-index: 8;
+}
+
+#mww
+{
+	position: absolute;
+    left: expression(ignoreMe = document.documentElement.scrollLeft + "px");
+    top: expression(ignoreMe = document.documentElement.scrollTop + "px");
+}
+</style>
+<![endif]>
+<![endif]-->
         
     </head>
     <body>
