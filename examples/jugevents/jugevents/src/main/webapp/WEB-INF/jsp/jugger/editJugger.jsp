@@ -16,7 +16,7 @@
 	background-color: white;
 	// display: none;
 	width: 	18em;
-	height: 8em;
+	height: 10em;
 	border: 2px solid blue;
 	padding: 2em 2em 2em 2em;	
 	

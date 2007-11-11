@@ -21,7 +21,7 @@
                         <display:column property="firstName" titleKey="first_name" sortable="true" headerClass="sortable"/>
                         <display:column property="lastName" titleKey="last_name" sortable="true" headerClass="sortable"/>
                         <display:column property="email" titleKey="Email" sortable="true" headerClass="sortable"/>
-                        <display:column property="creationDate" title="Iscritto il" autolink="true" sortable="true" headerClass="sortable"/>
+                        <display:column property="creationDate" titleKey="JoinedAt" sortable="true" headerClass="sortable"/>
                     </display:table>
                     </div>
                     <br/>
