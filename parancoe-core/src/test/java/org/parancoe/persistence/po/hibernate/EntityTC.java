@@ -30,6 +30,7 @@ import javax.persistence.NamedQuery;
 public class EntityTC extends EntityBase {
     private String fieldOne;
     private String fieldTwo;
+    private String fieldThree;
     
     /**
      * Creates a new instance of EntityTC
@@ -53,4 +54,12 @@ public class EntityTC extends EntityBase {
         this.fieldTwo = fieldTwo;
     }
 
+    public String getFieldThree() {
+        return fieldThree;
+    }
+
+    public void setFieldThree(String fieldThree) {
+        this.fieldThree = fieldThree;
+    }
+    
 }
