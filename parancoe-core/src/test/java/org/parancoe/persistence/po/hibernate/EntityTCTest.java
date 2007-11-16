@@ -94,4 +94,32 @@ public class EntityTCTest extends BaseTest {
         assertEquals("two1", entityTC.getFieldTwo());
     }
     
+    public void testFindByOrderByFieldTwoWithFirstRecordAndMaxRecords() {
+        EntityTCDao dao = this.daos.getEntityTCDao();
+        List<EntityTC> entities = dao.findByOrderByFieldOne(1, 2);
+        assertSize(2, entities);
+        assertEquals("one2", entities.get(0).getFieldOne());
+    }
+    
+    public void testFindByOrderByFieldTwoWithFirstRecordAndNoMaxRecords() {
+        EntityTCDao dao = this.daos.getEntityTCDao();
+        List<EntityTC> entities = dao.findByOrderByFieldOne(1, -1);
+        assertSize(4, entities);
+        assertEquals("one2", entities.get(0).getFieldOne());
+    }
+
+    public void testSearchAllOrderByFieldTwoWithFirstRecordAndMaxRecords() {
+        EntityTCDao dao = this.daos.getEntityTCDao();
+        List<EntityTC> entities = dao.searchAllOrderByFieldOne(1, 2);
+        assertSize(2, entities);
+        assertEquals("one2", entities.get(0).getFieldOne());
+    }
+
+    public void testSearchAllOrderByFieldTwoWithFirstRecordAndNoMaxRecords() {
+        EntityTCDao dao = this.daos.getEntityTCDao();
+        List<EntityTC> entities = dao.searchAllOrderByFieldOne(1, -1);
+        assertSize(4, entities);
+        assertEquals("one2", entities.get(0).getFieldOne());
+    }
+    
 }
