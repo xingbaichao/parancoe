@@ -32,4 +32,6 @@ public interface EntityTCDao extends GenericDao<EntityTC, Long> {
     List<EntityTC> findByOrderByFieldTwo();
     List<EntityTC> findByOrderByFieldOneAndFieldTwo();
     EntityTC findByFieldOneOrderByFieldTwo(String one);
+    List<EntityTC> findByOrderByFieldOne(@FirstResult int firstResult, @MaxResults int maxResults);
+    List<EntityTC> searchAllOrderByFieldOne(@FirstResult int firstResult, @MaxResults int maxResults);
 }
