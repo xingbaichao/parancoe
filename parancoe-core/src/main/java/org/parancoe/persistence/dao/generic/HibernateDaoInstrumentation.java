@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 package org.parancoe.persistence.dao.generic;
 
 import java.lang.annotation.Annotation;
@@ -32,7 +31,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.util.StringUtils;
-
 
 /**
  * An aspect for instrumenting a class with dao interfaces and methods.
@@ -63,52 +61,52 @@ public class HibernateDaoInstrumentation {
         // query using a named query from the method name
         result = target.getHibernateTemplate().executeFind(new HibernateCallback() {
 
-                    public Object doInHibernate(Session session) throws HibernateException {
-                        String queryName = queryNameFromMethod(target, method);
-                        Query namedQuery = null;
-                        try {
-                            namedQuery = session.getNamedQuery(queryName);
-                        } catch (MappingException e) {
-                        // No such named query
+            public Object doInHibernate(Session session) throws HibernateException {
+                String queryName = queryNameFromMethod(target, method);
+                Query namedQuery = null;
+                try {
+                    namedQuery = session.getNamedQuery(queryName);
+                } catch (MappingException e) {
+                // No such named query
+                }
+                if (namedQuery != null) {
+                    for (int i = 0; i < args.length; i++) {
+                        if (isQueryParameter(i, parameterTypes, parameterAnnotations)) {
+                            Object arg = args[i];
+                            namedQuery.setParameter(i, arg);
                         }
-                        if (namedQuery != null) {
-                            for (int i = 0; i < args.length; i++) {
-                                if (isQueryParameter(i, parameterTypes, parameterAnnotations)) {
-                                    Object arg = args[i];
-                                    namedQuery.setParameter(i, arg);
-                                }
-                            }
-                            if (firstResult != null) {
-                                namedQuery.setFirstResult(firstResult.intValue());
-                            }
-                            if (maxResults != null && maxResults.intValue() >= 0) {
-                                namedQuery.setMaxResults(maxResults.intValue());
-                            }
-                            return namedQuery.list();
-                        } else {
-                            errorMessages.append("Named query not found: ").append(queryName).append(". ");
-                        }
-                        return null;
                     }
-                });
+                    if (firstResult != null) {
+                        namedQuery.setFirstResult(firstResult.intValue());
+                    }
+                    if (maxResults != null && maxResults.intValue() >= 0) {
+                        namedQuery.setMaxResults(maxResults.intValue());
+                    }
+                    return namedQuery.list();
+                } else {
+                    errorMessages.append("Named query not found: ").append(queryName).append(". ");
+                }
+                return null;
+            }
+        });
         if (result == null) {
             // No named query found
             if (method.getName().startsWith("findBy")) {
                 // Query evicting condition from the method name
                 result = target.getHibernateTemplate().executeFind(new HibernateCallback() {
 
-                            public Object doInHibernate(Session session) throws HibernateException {
-                                DetachedCriteria criteria = criteriaFromMethod(target, method, args);
-                                Criteria executableCriteria = criteria.getExecutableCriteria(session);
-                                if (firstResult != null) {
-                                    executableCriteria.setFirstResult(firstResult.intValue());
-                                }
-                                if (maxResults != null && maxResults.intValue() >= 0) {
-                                    executableCriteria.setMaxResults(maxResults.intValue());
-                                }
-                                return criteria.getExecutableCriteria(session).list();
-                            }
-                        });
+                    public Object doInHibernate(Session session) throws HibernateException {
+                        DetachedCriteria criteria = criteriaFromMethod(target, method, args);
+                        Criteria executableCriteria = criteria.getExecutableCriteria(session);
+                        if (firstResult != null) {
+                            executableCriteria.setFirstResult(firstResult.intValue());
+                        }
+                        if (maxResults != null && maxResults.intValue() >= 0) {
+                            executableCriteria.setMaxResults(maxResults.intValue());
+                        }
+                        return criteria.getExecutableCriteria(session).list();
+                    }
+                });
             } else {
                 // Call an instance method
                 try {
@@ -159,7 +157,8 @@ public class HibernateDaoInstrumentation {
                     // skip not query parameters
                     argIndex++;
                 }
-                criteria.add(Restrictions.eq(StringUtils.uncapitalize(parameters[i]), args[argIndex]));
+                addComparison(criteria, StringUtils.uncapitalize(parameters[i]), args[argIndex], parameterAnnotations[argIndex]);
+//                criteria.add(Restrictions.eq(StringUtils.uncapitalize(parameters[i]), args[argIndex]));
                 argIndex++;
             }
         }
@@ -253,6 +252,56 @@ public class HibernateDaoInstrumentation {
         for (int i = 0; i < args.length; i++) {
             if (isMaxResultsParameter(i, parameterTypes, parameterAnnotations)) {
                 result = (Integer) args[i];
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Add a comparison to criteria.
+     * 
+     * @param criteria
+     * @param string the parameter name
+     * @param object the parameter value to compare
+     * @param annotations method parameter annotations
+     */
+    private void addComparison(DetachedCriteria criteria, String parameter, Object value, Annotation[] annotations) {
+        Compare compareAnnotation = getCompareAnnotation(annotations);
+        CompareType compareType = compareAnnotation != null?compareAnnotation.value():CompareType.EQUAL;
+        switch (compareType) {
+            case LIKE:
+                criteria.add(Restrictions.like(parameter, value));
+                break;
+            case ILIKE:
+                criteria.add(Restrictions.ilike(parameter, value));
+                break;
+            case GE:
+                criteria.add(Restrictions.ge(parameter, value));
+                break;
+            case GT:
+                criteria.add(Restrictions.gt(parameter, value));
+                break;
+            case LE:
+                criteria.add(Restrictions.le(parameter, value));
+                break;
+            case LT:
+                criteria.add(Restrictions.lt(parameter, value));
+                break;
+            case NE:
+                criteria.add(Restrictions.ne(parameter, value));
+                break;
+            case EQUAL:
+            default:
+                criteria.add(Restrictions.eq(parameter, value));                
+        }
+    }
+
+    private Compare getCompareAnnotation(Annotation[] annotations) {
+        Compare result = null;
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof Compare) {
+                result = (Compare) annotation;
                 break;
             }
         }

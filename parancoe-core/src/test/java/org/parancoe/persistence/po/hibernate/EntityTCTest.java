@@ -122,4 +122,10 @@ public class EntityTCTest extends BaseTest {
         assertEquals("one2", entities.get(0).getFieldOne());
     }
     
+    public void testFindByFieldThree() {
+        EntityTCDao dao = this.daos.getEntityTCDao();
+        List<EntityTC> entities = dao.findByFieldThree("t%");
+        assertSize(4, entities);        
+    }
+    
 }
