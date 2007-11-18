@@ -14,7 +14,7 @@
     position: fixed;    
     z-index: 10;
 	background-color: white;
-	// display: none;
+	/* display: none; */
 	width: 	18em;
 	height: 10em;
 	border: 2px solid blue;
@@ -34,7 +34,7 @@
 	background-color:#222222;
 	display: none;
 	opacity: 0.50;
-	filter: alpha(opacity=40)
+	filter: alpha(opacity=40);
 }
 </style>
 

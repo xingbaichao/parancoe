@@ -79,6 +79,11 @@
         </dwr:remote>    
     </bean>
     
+    <bean id="participantBo" class="it.jugpadova.blo.ParticipantBo" autowire="byType">
+       	  <dwr:remote javascript="participantBo">
+            <dwr:include method="setAttended"/>            
+        </dwr:remote>    
+    </bean>
   
 
     <bean id="daos" parent="abstractDaoProvider">
