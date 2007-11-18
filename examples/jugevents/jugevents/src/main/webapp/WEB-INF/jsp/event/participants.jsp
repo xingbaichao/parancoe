@@ -23,9 +23,10 @@
                         <display:column property="lastName" titleKey="last_name" sortable="true" headerClass="sortable"/>
                         <display:column property="email" titleKey="Email" sortable="true" headerClass="sortable"/>
                         <display:column property="creationDate" titleKey="JoinedAt" sortable="true" headerClass="sortable"/>
-                        <display:column titleKey="Attended" sortable="true" headerClass="sortable" style="text-align: center;">
+                        <display:column media="html" titleKey="Attended" sortable="true" headerClass="sortable" style="text-align: center;">
                             <input onclick="participantBo.setAttended(${participantList.id}, this.checked)" type="checkbox" <c:if test="${participantList.attended}">checked="${participantList.attended}"</c:if> />
                         </display:column>
+                        <display:column media="csv xml excel pdf" property="attended" titleKey="Attended" sortable="true" headerClass="sortable" style="text-align: center;" />
                     </display:table>
                     </div>
                     <br/>
