@@ -74,5 +74,19 @@ public class ReliabilityRequest extends EntityBase implements Serializable {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	
+	public String statusDescription()
+	{
+		switch(status) 
+		{	
+		case 0: return "NOT REQUIRED";
+		case RELIABILITY_REQUIRED: return "REQUIRED";
+		case RELIABILITY_GRANTED: return "GRANTED";
+		case RELIABILITY_NOT_GRANTED: return "NOT_GRANTED";
+		case RELIABILITY_REVOKED: return "REVOKED";
+		}
+		return "INVALID";
+	}
 
 }
