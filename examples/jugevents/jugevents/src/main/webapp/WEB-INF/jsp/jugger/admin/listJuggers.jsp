@@ -1,5 +1,6 @@
 <%@ include file="../../common.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@page import="it.jugpadova.po.Jugger"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	
    
@@ -22,6 +23,7 @@
 					<th>username</th>
 					<th>country</th>
 					<th>jugName</th>
+					<th>Reliability Request</th>
 					<th>actions</th>
 				</tr>
 			</thead>
@@ -41,6 +43,21 @@
 							href="${cp}/adminjugger/viewJugger.html?username=${jugger.user.username}">${jugger.user.username}</a></td>
 						<td>${jugger.jug.country.englishName}</td>
 						<td>${jugger.jug.name}</td>
+						
+						<td>
+						
+						<jsp:useBean id="jugger" scope="page" class="it.jugpadova.po.Jugger"/>
+						<% 
+						if(jugger.getReliabilityRequest()!= null) {	%>
+							<%= jugger.getReliabilityRequest().statusDescription() %>
+							<%
+							} else {
+							%>
+							NOT REQUIRED
+							<% } %>
+						
+						
+						</td>
 						<td><a
 							href="${cp}/jugger/edit.form?jugger.user.username=${jugger.user.username}">edit</a>
 						<c:choose>
