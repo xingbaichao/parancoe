@@ -55,6 +55,8 @@ public abstract class EventController extends BaseMultiActionController {
             }
             blo().getEventBo().checkUserAuthorization(event);
             dao().getEventDao().delete(event);
+            logger.info("User " + blo().getServicesBo().authenticatedUsername() +
+                    " deleted event with id=" + id);
         } catch (ParancoeAccessDeniedException pade) {
             throw pade;
         } catch (Exception e) {
@@ -137,7 +139,8 @@ public abstract class EventController extends BaseMultiActionController {
                 guid.setPermaLink(true);
                 item.setGuid(guid);
                 Jugger jugger = event.getOwner();
-                item.setAuthor(jugger.getFirstName() + " " + jugger.getLastName());
+                item.setAuthor(jugger.getFirstName() + " " +
+                        jugger.getLastName());
                 item.setTitle(event.getTitle());
                 item.setExpirationDate(event.getEndDate() != null
                         ? event.getEndDate() : event.getStartDate());

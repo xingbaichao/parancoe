@@ -97,21 +97,21 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-security</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-world</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-
+        
         <!-- Servlet/JSP APIs provided by your container -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -125,7 +125,7 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
-
+        
         <!-- db driver -->
         <dependency>
             <groupId>hsqldb</groupId>
@@ -133,9 +133,9 @@
             <version>1.8.0.4</version>
             <scope>runtime</scope>
         </dependency>
-		
-	<!-- mysql db -->	
-   	<dependency>
+        
+        <!-- mysql db -->	
+        <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>5.0.5</version>
@@ -149,40 +149,40 @@
             <artifactId>dwr</artifactId>
             <version>2.0.1</version>
         </dependency>
-
+        
         <!-- Only for tests of your application (if any ;) )-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
-
-
+            
+            
         </dependency>
-
+        
         <dependency>
             <groupId>com.plink</groupId>
             <artifactId>plextile</artifactId>
             <version>1.0.5</version>
         </dependency>
-
+        
         <dependency>
             <groupId>jcaptcha</groupId>
             <artifactId>jcaptcha-all</artifactId>
             <version>1.0-RC6</version>
         </dependency>
-
+        
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
         </dependency>
-
+        
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.5</version>
         </dependency>
-
+        
         <!--dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-tools</artifactId>
@@ -194,20 +194,33 @@
             <artifactId>rome</artifactId>
             <version>0.9</version>
         </dependency>
-
+        
         <dependency>
             <groupId>xom</groupId>
             <artifactId>xom</artifactId>
             <version>1.1</version>
         </dependency>
-
+        
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.1.1</version>
             <scope>compile</scope>
         </dependency>
-
+        
+        <!--dependency>
+            <groupId>footprint</groupId>
+            <artifactId>footprint-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency-->
+        
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>3.0.0.ga</version>
+        </dependency>
+        
     </dependencies>
     <profiles>
         <profile>
