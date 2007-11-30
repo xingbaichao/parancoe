@@ -167,8 +167,9 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
         <!-- fixtures da caricare all'avvio del plugin -->
         <property name="fixtureClassNames">
             <list>
-                <!--value>org.parancoe.plugins.security.Authorities</value>
-                <value>org.parancoe.plugins.security.User</value-->
+                <value>org.parancoe.plugins.security.Authority</value>
+                <value>org.parancoe.plugins.security.User</value>
+                <value>org.parancoe.plugins.security.UserAuthority</value>
             </list>
         </property>
     </bean>
