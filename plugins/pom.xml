@@ -4,7 +4,7 @@
     <groupId>org.parancoe</groupId>
     <artifactId>parancoe-plugins</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.3.3</version>
     <name>Parancoe Plugins</name>
     <url>http://www.parancoe.org</url>
     <build>
@@ -77,9 +77,9 @@
         </repository>
     </distributionManagement>
     <scm>
-        <connection>scm:svn:http://parancoe.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/trunk</developerConnection>
-        <url>http://parancoe.googlecode.com/svn/trunk</url>
+        <connection>scm:svn:http://parancoe.googlecode.com/svn/tags/parancoe-plugins-0.3.3</connection>
+        <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/tags/parancoe-plugins-0.3.3</developerConnection>
+        <url>http://parancoe.googlecode.com/svn/tags/parancoe-plugins-0.3.3</url>
     </scm>
     <dependencies>
         <!-- parancoe framework -->
