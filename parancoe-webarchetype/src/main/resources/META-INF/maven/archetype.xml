@@ -21,6 +21,9 @@
         <resource>src/main/resources/log4j.properties</resource>
         <resource>src/main/resources/production.properties</resource>
         <resource>src/main/resources/test.properties</resource>      
+        <resource>src/main/resources/fixtures/Authority.yml</resource>      
+        <resource>src/main/resources/fixtures/User.yml</resource>      
+        <resource>src/main/resources/fixtures/UserAuthority.yml</resource>      
         <resource>src/main/webapp/index.jsp</resource>
         <resource>src/main/webapp/logs.jsp</resource>
         <resource>src/main/webapp/test.jsp</resource>
