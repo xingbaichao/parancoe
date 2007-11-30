@@ -1,8 +1,0 @@
-- &Authorities-parancoe
-  id: 1
-  username: parancoe
-  authority: ROLE_PARANCOE
-- &Authorities-admin
-  id: 2
-  username: admin
-  authority: ROLE_ADMIN

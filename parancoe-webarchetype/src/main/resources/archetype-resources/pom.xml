@@ -45,13 +45,13 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-core</artifactId>
-            <version>0.3.2</version>
+            <version>0.3.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-web</artifactId>
-            <version>0.3.2</version>
+            <version>0.3.3</version>
             <scope>compile</scope>
         </dependency>
 
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-security</artifactId>
-            <version>0.3.2</version>
+            <version>0.3.3.1</version>
             <scope>compile</scope>
         </dependency>
 

@@ -1,10 +1,8 @@
-- &UserProfile-parancoe
-  id: 1
+- &User-parancoe
   username: parancoe
   password: parancoe
   enabled: true
-- &UserProfile-admin
-  id: 2
+- &User-admin
   username: admin
   password: admin
   enabled: true
