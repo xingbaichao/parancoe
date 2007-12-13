@@ -60,5 +60,8 @@ public class Person extends EntityBase {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
-    
+
+    public String toString() {
+        return this.firstName + " "+this.lastName+" ("+this.birthDate+")";
+    }
 }
