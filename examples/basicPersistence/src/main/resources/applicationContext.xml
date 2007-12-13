@@ -25,7 +25,8 @@ limitations under the License.
     
     <bean id="bookBO" class="org.parancoe.example.bo.BookBO">    
         <property name="dao" ref="bookDao"/>
-    </bean>   
+    </bean>
+    
     <bean id="personBO" class="org.parancoe.example.bo.PersonBO">    
         <property name="dao" ref="personDao"/>
     </bean>   
