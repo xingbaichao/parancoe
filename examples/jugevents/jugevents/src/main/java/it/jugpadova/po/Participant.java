@@ -35,7 +35,9 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
     @NamedQuery(name="Participant.findParticipantByEmailAndEventId",
         query="from Participant p where p.email = ? and p.event.id = ?"),
     @NamedQuery(name="Participant.findConfirmedParticipantsByEventId",
-        query="from Participant p where p.event.id = ? and p.confirmed = true order by p.creationDate, p.id")
+        query="from Participant p where p.event.id = ? and p.confirmed = true order by p.creationDate, p.id"),
+    @NamedQuery(name="Participant.findPresentParticipantsByEventId",
+        query="from Participant p where p.event.id = ? and p.attended = true")
 })
 public class Participant extends EntityBase {
     @NotBlank
@@ -50,6 +52,7 @@ public class Participant extends EntityBase {
     private Event event;
     private Date creationDate;
     private Boolean attended;
+    private Date lastCertificateSentDate;
     
     /** Creates a new instance of Participant */
     public Participant() {
@@ -120,5 +123,14 @@ public class Participant extends EntityBase {
     public void setAttended(Boolean attended) {
         this.attended = attended;
     }
-        
+
+    @Temporal(value = TemporalType.TIMESTAMP)
+    public Date getLastCertificateSentDate() {
+        return lastCertificateSentDate;
+    }
+
+    public void setLastCertificateSentDate(Date lastCertificateSentDate) {
+        this.lastCertificateSentDate = lastCertificateSentDate;
+    }
+    
 }

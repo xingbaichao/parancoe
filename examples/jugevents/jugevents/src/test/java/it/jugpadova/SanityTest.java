@@ -6,13 +6,6 @@ import it.jugpadova.blo.JuggerBo;
 import it.jugpadova.dao.EventDao;
 import it.jugpadova.dao.JuggerDao;
 import it.jugpadova.dao.ParticipantDao;
-import it.jugpadova.po.Event;
-import it.jugpadova.po.Jugger;
-import org.parancoe.plugins.security.Authority;
-import org.parancoe.plugins.security.User;
-import org.parancoe.plugins.security.UserAuthority;
-import org.parancoe.plugins.world.Continent;
-import org.parancoe.plugins.world.Country;
 
 public class SanityTest extends JugEventsBaseTest {
 
