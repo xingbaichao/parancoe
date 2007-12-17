@@ -26,4 +26,6 @@ public interface ParticipantDao extends GenericDao<Participant, Long> {
 
     public List<Participant> findConfirmedParticipantsByEventId(Long id);
     public List<Participant> findParticipantByEmailAndEventId(String email, Long eventId);
+
+    public List<Participant> findPresentParticipantsByEventId(Long eventId);
 }

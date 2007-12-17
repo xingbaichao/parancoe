@@ -1,0 +1,10 @@
+<html>
+<body>
+<p>Hi <b>${participant.firstName} ${participant.lastName}</b>,<br/>
+attached you'll find your signed certificate for your presence at
+&quot;${participant.event.title}&quot;.</p>
+<p>Best Regards,<br/>
+The JUG Events Team<br/>
+<a href="http://www.jugevents.org">www.jugevents.org</a></p>
+</body>
+</html>
