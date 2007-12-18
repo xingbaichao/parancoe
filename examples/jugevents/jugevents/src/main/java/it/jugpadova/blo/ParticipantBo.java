@@ -112,9 +112,9 @@ public class ParticipantBo {
     public void sendCertificateToParticipant(long participantId, String baseUrl)
             throws Exception {
         try {
-			WebContext wctx = WebContextFactory.get();
-			ScriptSession session = wctx.getScriptSession();
-			Util util = new Util(session);
+            WebContext wctx = WebContextFactory.get();
+            ScriptSession session = wctx.getScriptSession();
+            Util util = new Util(session);
             Participant participant =
                     daos.getParticipantDao().
                     read(Long.valueOf(participantId));
@@ -130,8 +130,8 @@ public class ParticipantBo {
                     "it/jugpadova/participant-certificate.vm", attachment,
                     "certificate" + event.getId() + ".pdf");
             participant.setLastCertificateSentDate(new Date());
-            util.setValue("certificateMsg"+participantId, "Sent");
-            logger.info("Sent certificate for the participant "+participantId);
+            util.setValue("certificateMsg" + participantId, "Sent");
+            logger.info("Sent certificate for the participant " + participantId);
         } catch (Exception ex) {
             logger.error("Error generating a certificate", ex);
             throw ex;
@@ -141,15 +141,15 @@ public class ParticipantBo {
     @Transactional
     public void sendCertificateToAllParticipants(long eventId, String baseUrl)
             throws Exception {
-        try {
-			WebContext wctx = WebContextFactory.get();
-			ScriptSession session = wctx.getScriptSession();
-			Util util = new Util(session);
-            List<Participant> participantList = daos.getParticipantDao().
-                    findPresentParticipantsByEventId(eventId);
-            int total = participantList.size();
-            int count = 0;
-            for (Participant participant : participantList) {
+        WebContext wctx = WebContextFactory.get();
+        ScriptSession session = wctx.getScriptSession();
+        Util util = new Util(session);
+        List<Participant> participantList = daos.getParticipantDao().
+                findPresentParticipantsByEventId(eventId);
+        int total = participantList.size();
+        int count = 0;
+        for (Participant participant : participantList) {
+            try {
                 Event event = participant.getEvent();
                 byte[] certificate =
                         buildCertificate(participant.getFirstName() + " " +
@@ -164,13 +164,13 @@ public class ParticipantBo {
                         "certificate" + event.getId() + ".pdf");
                 participant.setLastCertificateSentDate(new Date());
                 count++;
-                util.setValue("sentCertificatesMessage", "Sent "+count+" of "+total+" certificates");
+                util.setValue("sentCertificatesMessage", "Sent " + count +
+                        " of " + total + " certificates");
+            } catch (Exception ex) {
+                logger.error("Error generating certificates", ex);
             }
-            logger.info("Sent "+count+" certificates for the event "+eventId);
-        } catch (Exception ex) {
-            logger.error("Error generating certificates", ex);
-            throw ex;
         }
+        logger.info("Sent " + count + " certificates for the event " + eventId);
     }
 
     private byte[] buildCertificate(String name, String title, Date date,
