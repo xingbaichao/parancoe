@@ -237,6 +237,20 @@ public class EventBo {
     }
 
     @Transactional
+    public void addParticipant(Event event, Participant participant) {
+        EventDao eventDao = getDaos().getEventDao();
+        event = eventDao.read(event.getId());
+        participant.setConfirmed(Boolean.TRUE);
+        participant.setEvent(event);
+        participant.setCreationDate(new Date());
+        getDaos().getParticipantDao().createOrUpdate(participant);
+        event.addParticipant(participant);
+        eventDao.createOrUpdate(event);
+        logger.info(participant.getEmail() + " (" + participant.getId() +
+                ") added to the event with id=" + event.getId());
+    }
+    
+    @Transactional
     public void refreshRegistration(Event event, Participant participant,
             String baseUrl) {
         participant.setConfirmed(Boolean.FALSE);
