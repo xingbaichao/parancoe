@@ -204,6 +204,15 @@
         <property name="successView" value="redirect:/home/message.html?messageCode=participant.registration.sentMail"/>
         <property name="captchaService" ref="captchaService"/>
     </bean>
+
+    <bean name="/event/addParticipant.form" id="addParticipantController"
+          class="it.jugpadova.controllers.AddParticipantController"
+          parent="abstractController">
+        <property name="commandClass" value="it.jugpadova.bean.Registration"/>
+        <property name="commandName" value="registration"/>
+        <property name="formView" value="event/participants"/>
+        <property name="successView" value="event/participants"/>
+    </bean>
     
     <!-- controller for password recovery -->
     <bean name="/passwordRecovery.form" id="passwordRecoveryController"
@@ -228,6 +237,7 @@
                 /event/edit*=ROLE_ADMIN, ROLE_JUGGER
                 /event/delete*=ROLE_ADMIN, ROLE_JUGGER
                 /event/participants*=ROLE_ADMIN, ROLE_JUGGER
+                /event/addparticipant*=ROLE_ADMIN, ROLE_JUGGER
                 /admin/**=ROLE_ADMIN
                 /**=IS_AUTHENTICATED_ANONYMOUSLY
             </value>

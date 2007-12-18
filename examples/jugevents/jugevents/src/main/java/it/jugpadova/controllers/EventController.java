@@ -22,6 +22,7 @@ import org.parancoe.web.BaseMultiActionController;
 import it.jugpadova.Daos;
 import it.jugpadova.Blos;
 import it.jugpadova.bean.EventSearch;
+import it.jugpadova.bean.Registration;
 import it.jugpadova.blo.EventBo;
 import it.jugpadova.exception.ParancoeAccessDeniedException;
 import it.jugpadova.po.Event;
@@ -98,6 +99,10 @@ public abstract class EventController extends BaseMultiActionController {
                     findConfirmedParticipantsByEventId(event.getId());
             mv.addObject("event", event);
             mv.addObject("participants", participants);
+            Registration registration = new Registration();
+            registration.setEvent(event);
+            registration.setParticipant(new Participant());
+            mv.addObject("registration", registration);
         } catch (ParancoeAccessDeniedException pade) {
             throw pade;
         } catch (Exception e) {

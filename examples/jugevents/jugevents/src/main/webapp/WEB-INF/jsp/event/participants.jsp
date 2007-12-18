@@ -15,8 +15,28 @@
             <%@ include file="show.jspf" %>
             
             <h2><spring:message code='ParticipantList'/></h2>
-            <a href="" onclick="participantBo.sendCertificateToAllParticipants(${event.id}, 'http://www.jugevents.org'); return false;"><spring:message code="SendAllCertificates"/></a>
+            <a href="javascript:void(0)" onclick="participantBo.sendCertificateToAllParticipants(${event.id}, 'http://www.jugevents.org'); return false;"><spring:message code="SendAllCertificates"/></a>
+            <a href="javascript:void(0)" onclick="$('addNewParticipantDiv').show(); $('participant.firstName').focus(); return false;"><spring:message code="AddParticipant"/></a>
             <div id="sentCertificatesMessage"></div>
+            <div id="addNewParticipantDiv" <c:if test="${showAddNewPartecipantDiv != 'true'}">style="display: none;"</c:if>><div>
+                    <fieldset>
+                        <legend><spring:message code="AddParticipant"/></legend>
+                        <form:form commandName="registration" method="POST" action="${cp}/event/addParticipant.form">
+                            <form:errors path="*" cssClass="errorBox"/>
+                            <form:hidden path="event.id"/>
+                            <dl>
+                                <dt><form:label path="participant.firstName"><spring:message code="first_name"/>:</form:label></dt>
+                                <dd><form:input path="participant.firstName"/></dd>
+                                <dt><form:label path="participant.lastName"><spring:message code="last_name"/>:</form:label></dt>
+                                <dd><form:input path="participant.lastName"/></dd>
+                                <dt><form:label path="participant.email"><spring:message code="Email"/>:</form:label></dt>
+                                <dd><form:input path="participant.email"/></dd>
+                                <dt>&nbsp;</dt>
+                                <dd><input type="submit" value="<spring:message code="AddParticipant"/>"/><br/><br/></dd>
+                            </dl>
+                        </form:form>                
+                    </fieldset>
+            </div></div>
             <div class="displaytag">
                 <display:table name="participants" id="participantList" sort="list" pagesize="20" defaultsort="5" defaultorder="ascending" requestURI="participants.html" export="true">
                     <display:column title="#">${participantList_rowNum}</display:column>
@@ -41,5 +61,17 @@
     </div>            
 </div>
 <jsp:include page="../footer.jsp"/>        
+<script language="javascript">
+
+function pausecomp(millis)
+{
+var date = new Date();
+var curDate = null;
+
+do { curDate = new Date(); }
+while(curDate-date < millis);
+}
+
+</script> 
 </body>
 </html>
