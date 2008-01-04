@@ -208,6 +208,10 @@ public class FixtureHelper {
 			// for (Object o : rows) {
 			// dao.delete(o);
 			// }
+			if(dao == null)
+			{
+				throw new IllegalArgumentException("Dao associated to "+model.getName()+" PO is null!");
+			}
 			((GenericDao) dao).deleteAll();
 		} catch (Exception e) {
 			logger.error("Error deleting rows in " + getModelName(model)
