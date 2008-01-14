@@ -49,7 +49,7 @@ public class DaoProviderInstrumentation {
                 try {
                     result = pjp.proceed(args);
                 } catch (Throwable throwable) {
-                    logger.error("No "+daoNameFromMethod(method)+ "DAO in the daoMap. " +
+                    logger.error("No "+daoNameFromMethod(method)+ " DAO in the daoMap. " +
                             "Trying to call "+method.getName()+" method, but the method doesn't exist in the object."
                             , throwable);
                     throw throwable;
