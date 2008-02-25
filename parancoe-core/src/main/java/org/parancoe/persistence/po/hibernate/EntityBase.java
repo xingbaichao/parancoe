@@ -127,6 +127,9 @@ public abstract class EntityBase implements Entity, Serializable {
         return result;            
     }
 
-
+    @Override
+    public String toString() {
+        return this.getClass().getName()+"[id=" + this.id + "]";
+    }
 
 }
