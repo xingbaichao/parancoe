@@ -31,4 +31,5 @@ public interface PersonDao extends GenericDao<Person, Long> {
     List<Person> findByLastName(String lastName);
     List<Person> findByFirstNameAndLastName(String firstName, String lastName);
     List<Person> findByBirthDate(Date birthDate);
+    List<Person> findByFirstName(String firstName);    
 }

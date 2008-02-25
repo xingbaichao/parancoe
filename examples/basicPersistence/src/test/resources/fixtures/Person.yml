@@ -6,6 +6,10 @@
   firstName: Ugo
   lastName: Benfante
   birthDate: 1177535645454
+- &Person-grandugo
+  firstName: Ugo
+  lastName: Benfante
+  birthDate: 1176535645454
 - &Person-guido
   firstName: Guido
   lastName: Benfante

@@ -27,10 +27,19 @@ public class PersonDaoTest extends BaseTest {
      */
     public void testFindByLastName() {
         List<Person> people = dao.findByLastName("Benfante");
-        assertEquals(7, people.size());
+        assertEquals(8, people.size());
         for (Person p: people) {
             assertEquals("Benfante", p.getLastName());
         }
     }
 
+    public void testFindByFirstName() {
+        List<Person> people = dao.findByFirstName("Ugo");
+        assertEquals(2, people.size());
+        for (Person p: people) {
+            assertEquals("Ugo", p.getFirstName());
+            System.out.println(p);
+        }
+    }
+    
 }
