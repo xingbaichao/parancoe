@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Parancoe">
+    <skin>
+        <groupId>org.jvnet.maven-javanet-skin</groupId>
+        <artifactId>maven-javanet-skin</artifactId>
+        <version>1.1</version>
+    </skin>
+    
+    <publishDate format="dd MMM yyyy"/>    
+    
+    <body>
+        <links>
+            <item name="JUG Padova" href="http://www.jugpadova.it/" />
+        </links>
+        
+        <menu name="Parancoe">
+            <item name="Introduction" href="index.html"/>
+            <item name="Announcements" href="servlets/ProjectNewsList"/>            
+            <item name="Discussion Forums" href="servlets/ProjectForumView"/>            
+            <item name="Mailing Lists" href="servlets/ProjectMailingListList"/>
+            <item name="Documents &amp; Files" href="servlets/ProjectDocumentList"/>
+            <item name="Wiki" href="http://wiki.java.net/bin/view/Projects/Parancoe"/>
+        </menu>
+    
+        <menu ref="modules" />
+        <menu ref="reports"/>
+    </body>
+</project>

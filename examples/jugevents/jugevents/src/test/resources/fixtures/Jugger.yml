@@ -1,0 +1,21 @@
+- &Jugger-lucio
+  firstName: Lucio
+  lastName: Benfante
+  email: lucio.benfante@jugpadova.it  
+  jug: *JUG-Padova
+  user: *User-lucio
+  
+- &Jugger-fabrizio
+  firstName: Fabrizio
+  lastName: Gianneschi
+  email: fabrizio@gianneschi.it  
+  jug: *JUG-Sardegna
+  user: *User-fabrizio
+  
+- &Jugger-enrico
+  firstName: Enrico
+  lastName: Giurin
+  email: enricogiurin@gmail.com  
+  jug: *JUG-Padova
+  user: *User-enrico
+  

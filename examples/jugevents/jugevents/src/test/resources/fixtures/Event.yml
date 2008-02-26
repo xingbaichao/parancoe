@@ -1,0 +1,22 @@
+- &Event-springframework
+  title: "Springframework Meeting 2007"
+  startDate: 07/14/2007
+  startTime: "09:00 AM"
+  endDate: 07/14/2007
+  endTime: "02:00 PM"
+  location: DIEE
+  directions: "Aule B0 e B1"
+  description: "Lo Spring Framework Italian User Group in collaborazione con il Java User Group Sardegna Onlus e il DIEE ha organizzato il primo Spring Meeting del 2007"
+  filter: Textile
+  owner: *Jugger-fabrizio
+- &Event-jugpdnov
+  title: "JUG Padova Meeting #38"
+  startDate: 11/24/2007
+  startTime: "09:00 AM"
+  endDate: 11/24/2007
+  endTime: "01:00 PM"
+  location: DEI
+  directions: "Aula De"
+  description: "Meeting di novembre del JUG Padova"
+  filter: Textile
+  owner: *Jugger-lucio

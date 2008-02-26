@@ -1,0 +1,85 @@
+<project name="JUGEventsDemo" default="help" basedir=".">
+    <description>
+        A build file for jugevents demo automation.
+    </description>
+    
+    <property name="demo.artifactId" value="jugevents"/>
+    <property name="demo.dir" location="${demo.artifactId}"/>
+    <property name="demo.files.dir" location="files"/>
+    <available property="demo.dir.present" file="${demo.dir}" type="dir"/>
+
+    <target name="help">
+        <echoproperties prefix="demo" />
+        <echo><![CDATA[
+JUG Events - Demo
+
+For available task, run:
+
+   ant -p
+        ]]></echo>
+    </target>
+    
+    <target name="step0" description="Start the project" unless="demo.dir.present">        
+        <exec executable="mvn">
+            <arg value="archetype:create" />
+            <arg value="-DarchetypeGroupId=org.parancoe" />
+            <arg value="-DarchetypeArtifactId=parancoe-webarchetype" />
+            <arg value="-DarchetypeVersion=0.3" />
+            <arg value="-DgroupId=it.jugpadova" />
+            <arg value="-DartifactId=${demo.artifactId}" />
+        </exec>
+    </target>
+
+    <target name="step1" description="Add the persistent layer" depends="step0">
+        <echo>Adding the persistent layer...</echo>
+        <copy todir="${demo.dir}" verbose="true" overwrite="true">
+            <fileset dir="${demo.files.dir}/step1">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+        <echo>Show Event.java, EventDao.java and Daos.java.</echo>
+        <echo>Re-run the application.</echo>
+    </target>
+
+    <target name="step2" description="Create a simple controller" depends="step1">
+        <echo>Creating a simple controller...</echo>
+        <copy todir="${demo.dir}" verbose="true" overwrite="true">
+            <fileset dir="${demo.files.dir}/step2">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+        <echo>Complete EventController.java.</echo>
+        <echo>Add the eventController in parancoe-servlet.xml.</echo>
+        <echo>Show EventBo.java, Blos.java, list.jsp and menu.jsp.</echo>
+        <echo>Build the application.</echo>
+    </target>
+
+    <target name="step3" description="Complete the presentation layer" depends="step2">
+        <echo>Completing the presentation layer...</echo>
+        <copy todir="${demo.dir}" verbose="true" overwrite="true">
+            <fileset dir="${demo.files.dir}/step3">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+        <echo>Show EventEditController.java, EventBo.java, parancoe-servlet.xml and edit.jsp.</echo>
+        <echo>For the validation, show Registration.java and Participant.java.</echo>
+        <echo>Build the application.</echo>
+    </target>
+
+    <target name="step4" description="Complete the presentation layer" depends="step3">
+        <echo>Completing the presentation layer...</echo>
+        <copy todir="${demo.dir}" verbose="true" overwrite="true">
+            <fileset dir="${demo.files.dir}/step4">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+        <echo>Show pom.xml and parancoe-servlet.xml.</echo>
+        <echo>Re-run the application.</echo>
+    </target>
+    
+    <target name="clean">
+        <delete includeemptydirs="true">
+            <fileset dir="jugevents" defaultexcludes="false"/>
+        </delete>
+    </target>
+</project>

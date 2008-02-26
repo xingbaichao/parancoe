@@ -1,0 +1,19 @@
+- &Author-joe
+  name: joe
+  books: 
+    - *Book-WarPeace
+    - *Book-Bean
+- &Author-sam
+  name: sam
+  books:
+    - *Book-Java
+    - *Book-Bean
+- &Author-peter
+  name: peter
+  books:
+    - *Book-Java  
+- &Author-john
+  name: john
+  books:
+    - *Book-Java
+  

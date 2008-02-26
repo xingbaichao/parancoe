@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+
+  <!-- Authomatic discovering of persistent classes -->
+  <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.sample"/>
+  <parancoe:define-daos basePackage="org.parancoe.plugins.sample"/>
+
+  <!-- Interceptor specifico per questo plugin -->
+  <bean id="pluginSampleInterceptor" class="org.parancoe.plugins.sample.SampleInterceptor"/>
+
+  <!-- ContextListener specifico per questo plugin -->
+  <bean id="pluginSampleContextListener" class="org.parancoe.plugins.sample.SampleContextListener"/>
+
+  <!--                           -->
+  <!-- Configurazione del plugin -->
+  <!--                           -->
+  <bean id="pluginSampleConfig" class="org.parancoe.web.plugin.Plugin">
+    <property name="name" value="parancoe-plugin-sample"/>
+    <property name="interceptors">
+      <list>
+        <ref bean="pluginSampleInterceptor"/>
+        <!-- <ref bean="pluginSampleInterceptor2"/> -->
+      </list>
+    </property>
+
+    <property name="contextLoaderListeners">
+      <list>
+        <ref bean="pluginSampleContextListener"/>
+        <!-- <ref bean="pluginSampleContextListener2"/> -->
+      </list>
+    </property>
+
+    <!-- fixtures da caricare all'avvio del plugin -->
+    <property name="fixtureClassNames">
+      <list>
+       <!-- <value>org.parancoe.plugins.sample.Sample</value>  -->
+        <!--
+        <value>Sample2</value>
+        <value>Sample3</value>
+        -->
+      </list>
+    </property>
+  </bean>
+</beans>
