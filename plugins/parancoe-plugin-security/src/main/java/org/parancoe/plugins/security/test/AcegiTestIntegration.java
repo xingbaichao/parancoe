@@ -14,10 +14,10 @@ import org.acegisecurity.context.SecurityContextImpl;
 import org.acegisecurity.providers.ProviderManager;
 import org.acegisecurity.providers.TestingAuthenticationProvider;
 import org.acegisecurity.providers.TestingAuthenticationToken;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 
 public class AcegiTestIntegration {
-	public AcegiTestIntegration(ConfigurableApplicationContext applicationContext) {
+	public AcegiTestIntegration(ApplicationContext applicationContext) {
 		List providerList = new ArrayList();
 		providerList.add(new TestingAuthenticationProvider());
 		
