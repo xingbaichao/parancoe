@@ -21,6 +21,7 @@ import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.persistence.dao.generic.HibernateGenericBusinessDao;
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.core.annotation.AnnotationUtils;
 
 /**
  * Utils for the DAO tools.
@@ -64,7 +65,7 @@ public class DaoUtils {
      */
     @SuppressWarnings(value = "unchecked")
     public static boolean isDao(Object o) {
-        if (o.getClass().getAnnotation(BusinessDao.class) != null) return true;
+        if (AnnotationUtils.findAnnotation(o.getClass(), BusinessDao.class) != null) return true;
 
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
@@ -78,6 +79,12 @@ public class DaoUtils {
 
     @SuppressWarnings("unchecked")
     public static boolean isDaoFor(Object o, Class daoEntityType) {
+        if (AnnotationUtils.findAnnotation(o.getClass(), BusinessDao.class) != null) {
+            if (((HibernateGenericBusinessDao)o).getPersistentClass().getName().equals(daoEntityType.getName())) {
+                return true;
+            }
+        }
+        
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
             @SuppressWarnings(value = "unchecked")
@@ -89,12 +96,8 @@ public class DaoUtils {
                     return true;
                 }
             }
-            else if (o.getClass().getAnnotation(BusinessDao.class) != null) {
-                if (((HibernateGenericBusinessDao)o).getPersistentClass().getName().equals(daoEntityType.getName())) {
-                    return true;
-                }
-            }
         }
+        
         return false;
     }
 

@@ -166,14 +166,7 @@
             </list>
         </property>
         
-        <!-- fixtures da caricare all'avvio del plugin -->
-        <property name="fixtureClassNames">
-            <list>
-                <value>org.parancoe.plugins.security.Authority</value>
-                <value>org.parancoe.plugins.security.User</value>
-                <value>org.parancoe.plugins.security.UserAuthority</value>
-            </list>
-        </property>
+        
     </bean>
     
     <!-- mapping .secure url to secure controller -->

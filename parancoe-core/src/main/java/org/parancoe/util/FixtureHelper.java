@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.yaml.Yaml;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
@@ -62,7 +63,7 @@ public class FixtureHelper {
 	 * 
 	 * The DAO_PROVIDER_ID usually is "daos".
 	 */
-	public static String getFixtureDaoId(Class model) {
+        public static String getFixtureDaoId(Class model) {
 		return StringUtils.uncapitalize(model.getSimpleName()) + "Dao";
 	}
 
@@ -193,7 +194,7 @@ public class FixtureHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void populateDbForModel(Class model, Object[] fixtures,
+        public static void populateDbForModel(Class model, Object[] fixtures,
 			GenericDaoBase dao) {
 		logger.debug("Populating table for " + getModelName(model));
 		if (fixtures == null) {
@@ -214,7 +215,7 @@ public class FixtureHelper {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void eraseDbForModel(Class model, GenericDaoBase dao) {
+        public static void eraseDbForModel(Class model, GenericDaoBase dao) {
 		logger.debug("Erasing table for " + getModelName(model));
 		try {
 			// List rows = dao.findAll();

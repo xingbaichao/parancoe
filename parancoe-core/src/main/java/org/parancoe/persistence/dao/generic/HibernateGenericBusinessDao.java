@@ -28,114 +28,92 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
  * @author jacopo
  */
-public class HibernateGenericBusinessDao<T, PK extends Serializable> implements GenericDaoBase<T, PK> {
-    
-    @Autowired
-    private SessionFactory sessionFactory;
+public class HibernateGenericBusinessDao<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDaoBase<T, PK>
+         {
+    private Class type;
+        
     
     private Class<T> persistentClass;
 
     public HibernateGenericBusinessDao() {
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
                                 .getGenericSuperclass()).getActualTypeArguments()[0];
-     }
-
+    }
+    
+    @Autowired
+    public void initBusinessDao(SessionFactory sessionFactory) {
+        setSessionFactory(sessionFactory);
+    }
+    
     public Class<T> getPersistentClass() {
         return persistentClass;
     }
     
-    /** Persist the newInstance object into database */
     @SuppressWarnings("unchecked")
-    public PK create(T newInstance) {
-        return (PK) sessionFactory.getCurrentSession().save(newInstance);
+    public PK create(T o) {
+        return (PK) getHibernateTemplate().save(o);
     }
-
-    /** create or update an object */
+    @SuppressWarnings("unchecked")
     public void createOrUpdate(T o) {
-        sessionFactory.getCurrentSession().saveOrUpdate(o);
+        getHibernateTemplate().saveOrUpdate(o);
     }
-
-    /** Retrieve an object that was previously persisted to the database using
-     *   the indicated id as primary key
-     */
+    
     @SuppressWarnings("unchecked")
     public T read(PK id) {
-      return (T) sessionFactory.getCurrentSession().load(getPersistentClass(), id);
+        return (T) getHibernateTemplate().get(persistentClass, id);
     }
-
-    /** Save changes made to a persistent object.  */
-    public void update(T transientObject) {
-        sessionFactory.getCurrentSession().update(transientObject);
+    
+    public void update(T o) {
+        getHibernateTemplate().update(o);
     }
-
-    /** Remove an object from persistent storage in the database */
-    public void delete(T persistentObject) {
-        sessionFactory.getCurrentSession().delete(persistentObject);
+    
+    public void delete(T o) {
+        getHibernateTemplate().delete(o);
     }
 
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        
-        return searchByCriteria();
+        return getHibernateTemplate().find("from "+persistentClass.getName()+" x");
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<T> searchByCriteria(Criterion... criterion) {
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(getPersistentClass());
-        for (Criterion c : criterion) {
+        Criteria crit = getSession().createCriteria(persistentClass);
+        for (Criterion c: criterion) {
             crit.add(c);
         }
         return crit.list();
     }
-    
-    public List<T> searchByCriteria(DetachedCriteria criteria) {
-        Criteria crit = criteria.getExecutableCriteria(sessionFactory.getCurrentSession());
-        return crit.list();
-    }
-    
-    public List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults) {
-       Criteria crit = criteria.getExecutableCriteria(sessionFactory.getCurrentSession());
-       crit.setFirstResult(firstResult);
-       crit.setMaxResults(maxResults);
-       return crit.list(); 
-    }
 
-    public int deleteAll() {
-        return sessionFactory.getCurrentSession().createQuery("delete from "+persistentClass.getName()+" x").executeUpdate();
-    }
-    
-    public long count() {
-        return 0L;
+    @SuppressWarnings("unchecked")
+    public List<T> searchByCriteria(DetachedCriteria criteria) {
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     @SuppressWarnings("unchecked")
-    public List<T> findByExample(T exampleInstance, String[] excludeProperty) {
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(getPersistentClass());
-        Example example =  Example.create(exampleInstance);
-        for (String exclude : excludeProperty) {
-            example.excludeProperty(exclude);
-        }
-        crit.add(example);
-        return crit.list();
-    }
-
+    public List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults) {
+        return getHibernateTemplate().
+                findByCriteria(criteria, firstResult, maxResults);
+    }    
     
-    public void flush() {
-        sessionFactory.getCurrentSession().flush();
-    }
-
-    public void clear() {
-        sessionFactory.getCurrentSession().clear();
+    public int deleteAll() {
+        return getHibernateTemplate().bulkUpdate("delete from "+persistentClass.getName()+" x");
     }
     
+    public long count() {
+        // TODO IMPLEMENTARE IL METODO COUNT
+        throw new RuntimeException("Implementare il metodo di contaggio");
+    }
+    
+  
     public void evict(T persistentObject) {
-        sessionFactory.getCurrentSession().evict(persistentObject);
+        getHibernateTemplate().evict(persistentObject);
     }
-    
-}
+  }
