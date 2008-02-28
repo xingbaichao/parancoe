@@ -115,6 +115,7 @@
         <module>parancoe-plugin-italy</module>
         <module>parancoe-plugin-world</module>
         <module>parancoe-plugin-security</module>
+		<module>parancoe-plugin-security-encrypt</module>		
         <module>parancoe-plugin-sample</module>
     </modules>
 </project>
