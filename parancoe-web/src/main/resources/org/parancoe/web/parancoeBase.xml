@@ -75,6 +75,7 @@ limitations under the License.
         <property name="interceptors">
             <list>
                 <!--  secured interceptor  -->
+                <ref bean="openSessionInViewInterceptor"/>
                 <ref bean="localeChangeInterceptor"/>
                 <ref bean="languageInterceptor"/>
                 <ref bean="pluginInterceptor"/>                
@@ -111,6 +112,12 @@ limitations under the License.
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="1000000"/>
+    </bean>
+    
+    <!-- Open session in view pattern -->
+    <bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+        <property name="singleSession" value="false" />
     </bean>
     
     <!-- locale change -->

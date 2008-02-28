@@ -15,10 +15,15 @@ package org.parancoe.web.test;
 
 import javax.sql.DataSource;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.parancoe.util.BaseConf;
 import org.springframework.web.servlet.HandlerMapping;
 import org.parancoe.test.DBTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.orm.hibernate3.SessionHolder;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
  * E' la classe base per tutti i test.
@@ -35,12 +40,17 @@ public abstract class BaseTest extends DBTest {
     protected DataSource dataSource;
 
     protected HandlerMapping handlerMapping;
+    
+    protected SessionFactory sessionFactory = null;
 
     public void setUp() throws Exception {
         super.setUp();
         conf = (BaseConf) ctx.getBean("conf");
         dataSource = (DataSource) ctx.getBean("dataSource");
         handlerMapping = (HandlerMapping) ctx.getBean("handlerMapping");
+        sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
+        Session session = SessionFactoryUtils.getSession(sessionFactory, true);
+        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session)); 
     }
 
     /**
@@ -51,5 +61,11 @@ public abstract class BaseTest extends DBTest {
     @Override
     protected ApplicationContext getTestContext() {
         return DefaultTestContextHolder.getTestContext();
+    }
+    
+    protected void tearDown() throws Exception {
+       SessionHolder sessionHolder = (SessionHolder) TransactionSynchronizationManager.unbindResource(sessionFactory);
+       SessionFactoryUtils.closeSession(sessionHolder.getSession());        
+       super.tearDown();
     }
 }
