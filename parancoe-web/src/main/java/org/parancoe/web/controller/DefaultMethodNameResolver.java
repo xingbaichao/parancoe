@@ -20,6 +20,7 @@ package org.parancoe.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
+import org.parancoe.web.WebUtils;
 import org.springframework.web.servlet.mvc.multiaction.MethodNameResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 import org.springframework.web.util.UrlPathHelper;
@@ -39,7 +40,9 @@ public class DefaultMethodNameResolver implements MethodNameResolver {
         String[] splitPath = lookupPath.split("/");
         String lastPart = splitPath[splitPath.length - 1];
         logger.debug("URL LAST: "+lastPart);
-        return lastPart.split("\\.")[0];
+        String rowMethodUrl = lastPart.split("\\.")[0];
+        
+        return WebUtils.camelizeMethod(rowMethodUrl);
     }
 
 }
