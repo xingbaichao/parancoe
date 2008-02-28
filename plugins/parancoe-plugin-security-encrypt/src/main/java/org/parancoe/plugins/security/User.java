@@ -39,6 +39,8 @@ public class User extends EntityBase {
     private String username = null;
     @NotBlank
     private String password = null;
+    @NotBlank
+    private String oldPassword = null;
 
     private boolean enabled = true;
     /**
@@ -90,6 +92,14 @@ public class User extends EntityBase {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "username: "+username+" - password: <XXX> - enabled: "+enabled;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
     
 }
