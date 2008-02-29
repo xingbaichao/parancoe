@@ -2,13 +2,13 @@
    <parent>
       <artifactId>parancoe</artifactId>
       <groupId>org.parancoe</groupId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.3.4</version>
    </parent>
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.parancoe</groupId>
    <artifactId>parancoe-yaml</artifactId>
    <name>Parancoe Yaml</name>
-   <version>1.0-SNAPSHOT</version>
+   <version>0.3.4</version>
    <url>http://www.parancoe.org</url>
    <build>
       <plugins>
