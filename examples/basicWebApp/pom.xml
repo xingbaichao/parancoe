@@ -44,14 +44,8 @@
         <!-- The Parancoe framework -->
         <dependency>
             <groupId>org.parancoe</groupId>
-            <artifactId>parancoe-core</artifactId>
-            <version>0.3.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.parancoe</groupId>
             <artifactId>parancoe-web</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
         
@@ -59,21 +53,21 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-italy</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
         
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-security</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
         
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-sample</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
         
@@ -96,7 +90,7 @@
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.4</version>
-            <scope>runtime</scope>
+            <scope>provided</scope>
         </dependency>
         
         <!-- AJAX framework -->
