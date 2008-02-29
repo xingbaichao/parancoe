@@ -13,6 +13,10 @@
 // limitations under the License.
 package org.parancoe.web.test;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -20,6 +24,8 @@ import org.hibernate.SessionFactory;
 import org.parancoe.util.BaseConf;
 import org.springframework.web.servlet.HandlerMapping;
 import org.parancoe.test.DBTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
@@ -35,37 +41,21 @@ public abstract class BaseTest extends DBTest {
 
     private static final Logger log = Logger.getLogger(BaseTest.class);
 
+    @Autowired
     protected BaseConf conf;
-
-    protected DataSource dataSource;
-
+    
+    @Autowired
+    @Qualifier("abstractHandlerMapping")
     protected HandlerMapping handlerMapping;
     
-    protected SessionFactory sessionFactory = null;
-
-    public void setUp() throws Exception {
-        super.setUp();
-        conf = (BaseConf) ctx.getBean("conf");
-        dataSource = (DataSource) ctx.getBean("dataSource");
-        handlerMapping = (HandlerMapping) ctx.getBean("handlerMapping");
-        sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
-        Session session = SessionFactoryUtils.getSession(sessionFactory, true);
-        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session)); 
-    }
-
-    /**
-     * Creo un webApplicationContext finto
-     *
-     * @return
-     */
     @Override
-    protected ApplicationContext getTestContext() {
-        return DefaultTestContextHolder.getTestContext();
-    }
-    
-    protected void tearDown() throws Exception {
-       SessionHolder sessionHolder = (SessionHolder) TransactionSynchronizationManager.unbindResource(sessionFactory);
-       SessionFactoryUtils.closeSession(sessionHolder.getSession());        
-       super.tearDown();
+    protected String[] getConfigLocations() {
+        String parancoeServlet=null;
+        try {
+                 parancoeServlet = new File("./src/main/webapp/WEB-INF/parancoe-servlet.xml").getCanonicalPath();
+        } catch (IOException ex) {
+                throw new RuntimeException("Unable to get parancoe-servlet", ex);
+        }
+        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml","classpath:org/parancoe/web/parancoeBase.xml", "file:" + parancoeServlet, "classpath:spring-test.xml", "classpath*:parancoe-plugin.xml"};
     }
 }

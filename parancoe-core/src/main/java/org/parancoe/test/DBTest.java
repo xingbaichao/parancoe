@@ -13,6 +13,7 @@
 // limitations under the License.
 package org.parancoe.test;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,8 @@ import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.util.FixtureHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -31,29 +34,10 @@ public abstract class DBTest extends EnhancedTestCase {
 
     private static final Logger logger = Logger.getLogger(DBTest.class);
 
-    private static Map<Class, Object[]> fixtures;
+    protected Map<Class, Object[]> fixtures;
 
-    protected ApplicationContext ctx;
-
-    public DBTest() {
-        this.ctx = getTestContext();
-        if (fixtures == null) {
-            // carico le fixture se non sono già presenti
-            Set<Class> fixtureClasses = getFixtureClassSet();
-            if (fixtureClasses != null && fixtureClasses.size() > 0) {
-                try {
-                    fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) this.ctx
-                            .getResource("classpath:/fixtures/"), fixtureClasses);
-                    logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
-                } catch (Exception e) {
-                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi "
-                            + fixtureClasses.toString(), e);
-                }
-            } else {
-                logger.info("No fixtures to load");
-            }
-        }
-    }
+    @Autowired
+    HashMap daoMap;
 
     /**
      * Restituisce un array <strong>ordinato al contrario</strong> di model che
@@ -91,25 +75,49 @@ public abstract class DBTest extends EnhancedTestCase {
      * Cancello le righe dalle tabelle e le ripopolo
      */
     @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
+    public void onSetUpBeforeTransaction() throws Exception {
+        
         // erase everything
         for (Class model : getReverseOrderFixtureClasses()) {
-            GenericDaoBase dao = DaoUtils.getDaoFor(model, this.ctx);
+            GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
             FixtureHelper.eraseDbForModel(model, dao);
         }
         // repopulate
         for (Class model : getFixtureClasses()) {
-            GenericDaoBase dao = DaoUtils.getDaoFor(model, this.ctx);
+            GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
             FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
         }
     }
+    
+    protected String[] getConfigLocations() {
+        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
+                             "classpath:database_test.xml",
+                             "classpath:dao_test.xml",
+                             "classpath:applicationContext_test.xml"};
+    }
+    
+   protected void prepareTestInstance() throws Exception {
+        super.prepareTestInstance();
+        
+        Map ldaos = DaoUtils.getDaos(applicationContext);
+        daoMap.putAll(ldaos);
+        
+        if (fixtures == null) {
+            // carico le fixture se non sono già presenti
+            Set<Class> fixtureClasses = getFixtureClassSet();
+            if (fixtureClasses != null && fixtureClasses.size() > 0) {
+                try {
+                    fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) applicationContext
+                            .getResource("classpath:/fixtures/"), fixtureClasses);
+                    logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
+                } catch (Exception e) {
+                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi "
+                            + fixtureClasses.toString(), e);
+                }
+            } else {
+                logger.info("No fixtures to load");
+            }
+        }
+    }
 
-    /**
-     * Return the application context.
-     * 
-     * @return The application context
-     */
-    protected abstract ApplicationContext getTestContext();
 }

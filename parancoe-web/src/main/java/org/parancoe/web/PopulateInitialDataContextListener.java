@@ -59,7 +59,7 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
                 return;
             }
 
-            Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("fixtures/",
+            Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("initialData/",
                     fixtureClasses);
             log.info("Populating initial data for models...");
             String className = "";

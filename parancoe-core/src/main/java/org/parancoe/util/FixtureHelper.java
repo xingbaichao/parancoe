@@ -226,8 +226,8 @@ public class FixtureHelper {
 			{
 				throw new IllegalArgumentException("Dao associated to "+model.getName()+" PO is null!");
 			}
-			dao.deleteAll();
-		} catch (Exception e) {
+			int deleted = dao.deleteAll();
+                } catch (Exception e) {
 			logger.error("Error deleting rows in " + getModelName(model)
 					+ " table", e);
 		}

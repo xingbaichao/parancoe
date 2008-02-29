@@ -3,16 +3,14 @@ package org.parancoe.basicWebApp.controllers;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.test.ControllerTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PeopleEditControllerTest extends ControllerTest {  // non si riesce a iniettare dinamicamente?
+    
+    @Autowired  
     private PeopleEditController controller;
 
 
-  public void setUp() throws Exception {
-        super.setUp();    // non togliere questa riga
-
-      controller = (PeopleEditController) ctx.getBean("peopleEditController");
-    }
 
     public void testNotNull() {
         assertNotNull(controller);

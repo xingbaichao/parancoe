@@ -15,13 +15,13 @@
 package org.parancoe.test;
 
 import java.util.Collection;
-
 import junit.framework.TestCase;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
  * Adds useful assertions to the standard JUnit TestCase
  */
-public abstract class EnhancedTestCase extends TestCase {
+public abstract class EnhancedTestCase extends AbstractTransactionalDataSourceSpringContextTests {
 
     public static void assertEquals(byte[] expected, byte[] actual) {
         assertEquals("", expected, actual);

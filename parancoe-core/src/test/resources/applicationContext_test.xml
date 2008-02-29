@@ -21,8 +21,8 @@ limitations under the License.
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     
-    <bean id="entityTCBO" class="org.parancoe.persistence.dao.generic.EntityTCBO" autowire="byName"/>
+    <bean id="entityTCBO" class="org.parancoe.persistence.dao.generic.EntityTCBO"/>
     
-    <bean id="versionedEntityTCBO" class="org.parancoe.persistence.dao.generic.VersionedEntityTCBO" autowire="byName"/> 
+    <bean id="versionedEntityTCBO" class="org.parancoe.persistence.dao.generic.VersionedEntityTCBO"/> 
     
 </beans>

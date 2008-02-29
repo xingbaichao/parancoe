@@ -16,6 +16,7 @@ package org.parancoe.persistence.dao.generic;
 import org.parancoe.persistence.dao.Daos;
 import org.parancoe.persistence.po.hibernate.VersionedEntityDataTC;
 import org.parancoe.persistence.po.hibernate.VersionedEntityTC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,6 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $Revision$
  */
 public class VersionedEntityTCBO {
+    
+    @Autowired
+    public Daos daos;
     
     /** Creates a new instance of VersionedEntityTCBO */
     public VersionedEntityTCBO() {
@@ -48,16 +52,6 @@ public class VersionedEntityTCBO {
         retrievedEntity.updateVersionedData(versionedData);
         this.daos.getVersionedEntityTCDao().update(retrievedEntity);
         return retrievedEntity;
-    }
-
-    public Daos daos;
-
-    public Daos getDaos() {
-        return daos;
-    }
-
-    public void setDaos(Daos daos) {
-        this.daos = daos;
     }
     
 }

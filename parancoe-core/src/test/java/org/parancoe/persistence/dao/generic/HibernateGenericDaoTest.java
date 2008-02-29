@@ -16,8 +16,10 @@ package org.parancoe.persistence.dao.generic;
 import java.util.Iterator;
 import java.util.List;
 import org.parancoe.persistence.dao.DaoUtils;
+import org.parancoe.persistence.dao.Daos;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test case for the generic DAO.
@@ -26,22 +28,22 @@ import org.parancoe.persistence.util.BaseTest;
  * @version $Revision$
  */
 public class HibernateGenericDaoTest extends BaseTest {
+    
+    @Autowired
     private EntityTCBO entityTCBO;
     
-    public HibernateGenericDaoTest() {
-        this.entityTCBO = (EntityTCBO)this.ctx.getBean("entityTCBO");        
-    }
+    @Autowired
+    private Daos daos;
         
     public void testStoreRetrieve() {
         EntityTC entity = new EntityTC();
         Long id = this.entityTCBO.createEntity(entity);
         EntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
         assertEquals(entity, retrievedEntity);
-        assertNotSame(entity, retrievedEntity);
     }
 
     public void testFindAll(){
-        List<EntityTC> list = this.entityTCBO.getDaos().getEntityTCDao().findAll();
+        List<EntityTC> list = this.daos.getEntityTCDao().findAll();
         assertNotNull(list);
     }
     

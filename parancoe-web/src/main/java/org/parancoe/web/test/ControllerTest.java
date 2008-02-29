@@ -26,8 +26,8 @@ public abstract class ControllerTest extends BaseTest {
     protected MockHttpServletResponse res;
 
     @Override
-    public void setUp() throws Exception {
-        super.setUp();
+    public void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
         // preparo la richiesta multipart
         mpReq = new MockMultipartHttpServletRequest();
         mpReq.setMethod("GET");
@@ -38,8 +38,8 @@ public abstract class ControllerTest extends BaseTest {
     }
 
     @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
+    public void onTearDownAfterTransaction() throws Exception {
+        super.onTearDownAfterTransaction();
         mpReq = null;
         req = null;
         res = null;

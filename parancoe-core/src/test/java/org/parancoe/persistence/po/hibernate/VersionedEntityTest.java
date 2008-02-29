@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import org.parancoe.persistence.dao.generic.VersionedEntityTCBO;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A test case for a versioned entity.
@@ -26,12 +27,9 @@ import org.parancoe.persistence.util.BaseTest;
  * @version $Revision$
  */
 public class VersionedEntityTest extends BaseTest {
-
+    
+    @Autowired
     private VersionedEntityTCBO entityTCBO;
-
-    public VersionedEntityTest() {
-        this.entityTCBO = (VersionedEntityTCBO) this.ctx.getBean("versionedEntityTCBO");       
-    }
 
     public void testStoreRetrieve() {
         VersionedEntityTC versionedEntity = new VersionedEntityTC();
@@ -43,7 +41,6 @@ public class VersionedEntityTest extends BaseTest {
         Long id = this.entityTCBO.createEntity(versionedEntity);
         VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
         assertEquals(versionedEntity, retrievedEntity);
-        assertNotSame(versionedEntity, retrievedEntity);
     }
 
     public void testUpdateNewVersionedData() {

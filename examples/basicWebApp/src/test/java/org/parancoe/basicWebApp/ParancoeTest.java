@@ -6,20 +6,20 @@ public class ParancoeTest extends BaseTest {
 
   /* test everything has been loaded properly */
   public void testSanity() {
-    assertNotNull(ctx.getBean("dataSource"));
-    assertNotNull(ctx.getBean("transactionManager"));
-    assertNotNull(ctx.getBean("conf"));
-    assertNotNull(ctx.getBean("sessionFactory"));
-    assertNotNull(ctx.getBean("handlerMapping"));
-    assertNotNull(ctx.getBean("messageSource"));
-    assertNotNull(ctx.getBean("hibernateGenericDaoInstrumentationAspect"));
+    assertNotNull(getApplicationContext().getBean("dataSource"));
+    assertNotNull(getApplicationContext().getBean("transactionManager"));
+    assertNotNull(getApplicationContext().getBean("conf"));
+    assertNotNull(getApplicationContext().getBean("sessionFactory"));
+    assertNotNull(getApplicationContext().getBean("handlerMapping"));
+    assertNotNull(getApplicationContext().getBean("messageSource"));
+    assertNotNull(getApplicationContext().getBean("hibernateGenericDaoInstrumentationAspect"));
 
-    assertNotNull(ctx.getBean("viewResolver"));
-    assertNotNull(ctx.getBean("exceptionResolver"));
-    assertNotNull(ctx.getBean("multipartResolver"));
+    assertNotNull(getApplicationContext().getBean("viewResolver"));
+    assertNotNull(getApplicationContext().getBean("exceptionResolver"));
+    assertNotNull(getApplicationContext().getBean("multipartResolver"));
   }
 
 //  public void testItalyPlugin() {
-//    assertNotNull(ctx.getBean("comuneDao"));
+//    assertNotNull(getApplicationContext().getBean("comuneDao"));
 //  }
 }

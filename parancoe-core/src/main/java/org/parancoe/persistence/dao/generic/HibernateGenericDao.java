@@ -15,10 +15,14 @@ package org.parancoe.persistence.dao.generic;
 
 import java.io.Serializable;
 import java.util.List;
+import org.apache.commons.lang.ArrayUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
+import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -40,7 +44,7 @@ public class HibernateGenericDao <T, PK extends Serializable>
     }
     @SuppressWarnings("unchecked")
     public void createOrUpdate(T o) {
-        getHibernateTemplate().saveOrUpdate(o);
+        getHibernateTemplate().merge(o);
     }
     
     @SuppressWarnings("unchecked")
@@ -49,7 +53,7 @@ public class HibernateGenericDao <T, PK extends Serializable>
     }
     
     public void update(T o) {
-        getHibernateTemplate().update(o);
+        getHibernateTemplate().merge(o);
     }
     
     public void delete(T o) {
@@ -82,7 +86,11 @@ public class HibernateGenericDao <T, PK extends Serializable>
     }    
     
     public int deleteAll() {
-        return getHibernateTemplate().bulkUpdate("delete from "+getType().getName()+" x");
+        List<T> rows = findAll();
+        
+        getHibernateTemplate().deleteAll(rows);
+        
+        return rows.size();
     }
     
     public long count() {

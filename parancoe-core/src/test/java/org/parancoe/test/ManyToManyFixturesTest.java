@@ -23,6 +23,7 @@ import org.parancoe.persistence.po.hibernate.AuthorTCDao;
 import org.parancoe.persistence.po.hibernate.BookTC;
 import org.parancoe.persistence.po.hibernate.BookTCDao;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests fixture load with M:N relationships
@@ -32,20 +33,14 @@ import org.parancoe.persistence.util.BaseTest;
  */
 public class ManyToManyFixturesTest extends BaseTest {
 
-    protected DaoProvider daos = null;
-
+    @Autowired
     protected AuthorTCDao authorDao = null;
-
+    
+    @Autowired
     protected BookTCDao bookDao = null;
 
-    public ManyToManyFixturesTest() {
-        daos = (DaoProvider) ctx.getBean("daos");
-        authorDao = (AuthorTCDao) DaoUtils.getDaoFor(AuthorTC.class, this.ctx);
-        bookDao = (BookTCDao) DaoUtils.getDaoFor(BookTC.class, this.ctx);
-    }
 
     public void testDaoExists() {
-        assertNotNull("Daos variable not setted", daos);
         assertNotNull("Author dao variable not setted", authorDao);
         assertNotNull("Book dao variable not setted", bookDao);
     }

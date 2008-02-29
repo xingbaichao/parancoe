@@ -15,6 +15,8 @@ package org.parancoe.plugins.security;
 
 import org.parancoe.web.plugin.Plugin;
 import org.parancoe.web.test.PluginTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,17 +27,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SecurityTest extends PluginTest {
 
+        @Autowired
+        @Qualifier("pluginSecurityConfig")
 	private Plugin plugin;
+        
+        @Autowired
+        UserDao userDao;
+        
+        @Autowired
+        UserAuthorityDao userAuthorityDao;
+        
+        @Autowired
+        AuthorityDao authorityDao;
+        
 
 	public SecurityTest() {
 	}
-
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		plugin = (Plugin) ctx.getBean("pluginSecurityConfig");
-	}
-
+        
 	public void testPlugin() throws Exception {
 		assertEquals(3, getFixtureClasses().length);
 
@@ -43,14 +51,10 @@ public class SecurityTest extends PluginTest {
 
 	@Transactional
 	public void testInsertUser() {
-		UserDao userDao = (UserDao) ctx.getBean("userDao");
-		UserAuthorityDao userAuthorityDao = (UserAuthorityDao) ctx
-				.getBean("userAuthorityDao");
-		AuthorityDao authorityDao = (AuthorityDao) ctx.getBean("authorityDao");
-
+		
 		// creates entities
 		User pippo = SecureUtility.newUserToValidate("pippo");
-		userDao.createOrUpdate(pippo);
+		userDao.create(pippo);
 		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
 				
 
@@ -58,7 +62,7 @@ public class SecurityTest extends PluginTest {
 		ua.setAuthority(parancoeAuthority);
 		ua.setUser(pippo);
 
-		userAuthorityDao.createOrUpdate(ua);
+		userAuthorityDao.create(ua);
 		assertNotNull(userDao.findByUsername("pippo").get(0));
 		assertNotNull(userAuthorityDao.findAll().size());
 	}

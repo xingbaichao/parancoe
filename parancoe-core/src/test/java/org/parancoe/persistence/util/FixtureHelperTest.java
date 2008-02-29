@@ -18,6 +18,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.parancoe.test.DBTest;
 import org.parancoe.test.EnhancedTestCase;
 import org.parancoe.util.FixtureHelper;
 import org.springframework.util.CollectionUtils;
@@ -26,13 +27,13 @@ import org.springframework.util.CollectionUtils;
  * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
  * @version $Revision$
  */
-public class FixtureHelperTest extends EnhancedTestCase {
+public class FixtureHelperTest extends DBTest {
 
 	private DemoBean[] expected;
 
 	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void onSetUpBeforeTransaction() throws Exception {
+		super.onSetUpBeforeTransaction();
 		expected = new DemoBean[5];
 		expected[0] = new DemoBean("first one", new Long(356));
 		expected[1] = new DemoBean("Demo 1", new Long(6789));
@@ -107,8 +108,7 @@ public class FixtureHelperTest extends EnhancedTestCase {
 		DemoBean[] result = (DemoBean[]) objects.get(DemoBean.class);
 		assertEquals("Non carica tutti i beans", 5, result.length);
 		for (int i = 0; i < 5; i++) {
-			assertEquals("Non ha caricato correttamente il beans numero " + i,
-					result[i], expected[i]);
+			assertEquals("Non ha caricato correttamente il beans numero " + i, result[i], expected[i]);
 		}
 	}
 

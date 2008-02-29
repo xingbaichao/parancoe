@@ -27,6 +27,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +64,7 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
     }
     @SuppressWarnings("unchecked")
     public void createOrUpdate(T o) {
-        getHibernateTemplate().saveOrUpdate(o);
+        getHibernateTemplate().merge(o);
     }
     
     @SuppressWarnings("unchecked")
@@ -104,8 +106,13 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
     }    
     
     public int deleteAll() {
-        return getHibernateTemplate().bulkUpdate("delete from "+persistentClass.getName()+" x");
+        List<T> rows = findAll();
+        
+        getHibernateTemplate().deleteAll(rows);
+        
+        return rows.size();
     }
+    
     
     public long count() {
         // TODO IMPLEMENTARE IL METODO COUNT
