@@ -27,12 +27,25 @@
                     <useFile>true</useFile>
                     <forkMode>once</forkMode> <!-- pertest once or never -->
                     <!-- <reportFormat>plain</reportFormat> -->
-                    <argLine>-Xmx512M</argLine>
+                    <!--argLine>-Xmx512M</argLine--> <!-- don't use if you want to debug tests in NetBeans -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <repositories>
+        <repository>
+            <id>parancoe-org-repository</id>
+            <name>Parancoe Repository for Maven</name>
+            <url>http://maven2.parancoe.org/repo</url>
+            <layout>default</layout>
+        </repository>
         <repository>
             <id>maven2-repository.dev.java.net</id>
             <name>Java.net Repository for Maven</name>
@@ -44,14 +57,8 @@
         <!-- The Parancoe framework -->
         <dependency>
             <groupId>org.parancoe</groupId>
-            <artifactId>parancoe-core</artifactId>
-            <version>0.3.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.parancoe</groupId>
             <artifactId>parancoe-web</artifactId>
-            <version>0.3.3</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
 
@@ -69,21 +76,38 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Plugins -->
+        <!-- Parancoe Plugins -->
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-plugin-security</artifactId>
-            <version>0.3.3.1</version>
+            <version>0.3.4</version>
             <scope>compile</scope>
         </dependency>
 
-        <!-- db driver -->
+        <!-- common db driver(s) -->
+        <!-- HSQLDB -->
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.4</version>
-            <scope>runtime</scope>
+            <scope>provided</scope>
         </dependency>
+        
+        <!-- MySQL db -->	
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.0.5</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- PostgreSQLmysql db -->	
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.2-507.jdbc3</version>
+            <scope>provided</scope>
+        </dependency>        
 
         <!-- AJAX framework -->
         <dependency>
