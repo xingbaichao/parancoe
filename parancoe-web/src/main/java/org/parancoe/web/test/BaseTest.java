@@ -44,10 +44,6 @@ public abstract class BaseTest extends DBTest {
     @Autowired
     protected BaseConf conf;
     
-    @Autowired
-    @Qualifier("abstractHandlerMapping")
-    protected HandlerMapping handlerMapping;
-    
     @Override
     protected String[] getConfigLocations() {
         String parancoeServlet=null;

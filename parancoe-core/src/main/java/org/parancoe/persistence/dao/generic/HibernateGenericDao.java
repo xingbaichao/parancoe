@@ -20,6 +20,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 
+import org.hibernate.criterion.Projections;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.metadata.CollectionMetadata;
 import org.hibernate.type.Type;
@@ -84,6 +85,39 @@ public class HibernateGenericDao <T, PK extends Serializable>
         return getHibernateTemplate().
                 findByCriteria(criteria, firstResult, maxResults);
     }    
+    
+    @SuppressWarnings("unchecked")
+    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion) {
+        Criteria crit = getSession().createCriteria(getType());
+        Criteria count = getSession().createCriteria(getType());
+        for (Criterion c: criterion) {
+            crit.add(c);
+            count.add(c);
+        }
+        
+        // row count
+        count.setProjection(Projections.rowCount());
+        int rowCount = ((Integer)count.list().get(0)).intValue();
+        
+        crit.setFirstResult((page-1)*pageSize);
+        crit.setMaxResults(pageSize);
+        return new HibernatePage<T>(crit.list(), page, pageSize, rowCount);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria) {
+        // Row count
+        criteria.setProjection(Projections.rowCount());
+        int rowCount = ((Integer)getHibernateTemplate().
+                findByCriteria(criteria).get(0)).intValue();
+        criteria.setProjection(null);
+        criteria.setResultTransformer(Criteria.ROOT_ENTITY);
+        
+        List<T> list = getHibernateTemplate().
+                findByCriteria(criteria, (page-1)*pageSize, pageSize);
+        
+        return new HibernatePage<T>(list, page, pageSize,rowCount);
+    }
     
     public int deleteAll() {
         List<T> rows = findAll();

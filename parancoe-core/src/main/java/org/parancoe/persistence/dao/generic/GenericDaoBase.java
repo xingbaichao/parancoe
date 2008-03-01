@@ -53,6 +53,10 @@ public interface GenericDaoBase<T, PK extends Serializable> {
     
     List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults);
 
+    HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion);
+    
+    HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria);
+    
     int deleteAll();
     
     long count();
