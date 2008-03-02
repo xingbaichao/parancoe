@@ -39,7 +39,6 @@ public class User extends EntityBase {
     private String username = null;
     @NotBlank
     private String password = null;
-    @NotBlank
     private String oldPassword = null;
 
     private boolean enabled = true;
