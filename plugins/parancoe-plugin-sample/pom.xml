@@ -2,14 +2,14 @@
  <parent>
       <artifactId>parancoe-plugins</artifactId>
       <groupId>org.parancoe</groupId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.3.4.1</version>
    </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.parancoe</groupId>
   <artifactId>parancoe-plugin-sample</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.3.4.1</version>
   <name>Parancoe Plugin Sample</name>
   <url>http://www.parancoe.org</url>
   <build>
