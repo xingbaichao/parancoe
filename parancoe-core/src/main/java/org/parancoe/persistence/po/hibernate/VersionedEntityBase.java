@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -45,7 +46,7 @@ public abstract class VersionedEntityBase<T extends VersionedData> extends Entit
     public VersionedEntityBase() {
     }
     
-    @OneToMany(mappedBy="entity", cascade =  {javax.persistence.CascadeType.ALL})
+    @OneToMany(mappedBy="entity")
     @OrderBy(value="dateFrom")
     public List<T> getVersionedData() {
         return this.versionedData;

@@ -68,10 +68,10 @@ public class ManyToManyFixturesTest extends BaseTest {
     public void _testRelationSanity() {
         BookTC book1 = new BookTC();
         book1.setTitle("title1");
-        bookDao.createOrUpdate(book1);
+        bookDao.store(book1);
         BookTC book2 = new BookTC();
         book2.setTitle("title2");
-        bookDao.createOrUpdate(book2);
+        bookDao.store(book2);
 
         AuthorTC author1 = new AuthorTC();
         author1.setName("name1");
@@ -79,14 +79,14 @@ public class ManyToManyFixturesTest extends BaseTest {
         bookList.add(book1);
         bookList.add(book2);
         author1.setBooks(bookList);
-        authorDao.createOrUpdate(author1);
+        authorDao.store(author1);
 
         AuthorTC author2 = new AuthorTC();
         author2.setName("name2");
         bookList.clear();
         bookList.add(book2);
         author2.setBooks(bookList);
-        authorDao.createOrUpdate(author2);
+        authorDao.store(author2);
 
         authorDao.deleteAll();
         bookDao.deleteAll();

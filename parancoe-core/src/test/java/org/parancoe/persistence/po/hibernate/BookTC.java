@@ -48,7 +48,7 @@ public class BookTC extends EntityBase {
         this.title = title;
     }
 
-    @ManyToMany(targetEntity = AuthorTC.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "books", fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = AuthorTC.class, cascade = { CascadeType.ALL }, mappedBy = "books", fetch = FetchType.EAGER)
     public List<AuthorTC> getAuthors() {
         return authors;
     }

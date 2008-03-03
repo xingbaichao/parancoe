@@ -28,19 +28,13 @@ import org.hibernate.criterion.DetachedCriteria;
  */
 public interface GenericDaoBase<T, PK extends Serializable> {
     
-    /** Persist the newInstance object into database */
-    PK create(T newInstance);
-
-    /** create or update an object */
-    void createOrUpdate(T o);
-
-    /** Retrieve an object that was previously persisted to the database using
-     *   the indicated id as primary key
-     */
     T read(PK id);
 
-    /** Save changes made to a persistent object.  */
-    void update(T transientObject);
+    /** create or update an object  */
+    void create(T transientObject);
+    
+    /** create or update an object  */
+    void store(T transientObject);
 
     /** Remove an object from persistent storage in the database */
     void delete(T persistentObject);

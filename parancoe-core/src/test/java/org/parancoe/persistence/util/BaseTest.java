@@ -34,6 +34,6 @@ public abstract class BaseTest extends DBTest {
 
 	@Override
 	public Class[] getFixtureClasses() {
-		return new Class[] { EntityTC.class, BookTC.class, AuthorTC.class };
+		return new Class[] { EntityTC.class, AuthorTC.class, BookTC.class};
 	}
 }

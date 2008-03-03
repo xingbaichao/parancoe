@@ -205,8 +205,8 @@ public class FixtureHelper {
 		}
 		try {
 			for (Object entity : fixtures) {
-				dao.create(entity);
-				dao.evict(entity);
+                            dao.store(entity);
+                            dao.evict(entity);
 			}
 		} catch (Exception e) {
 			logger.error("Error populating rows in " + getModelName(model)

@@ -35,8 +35,8 @@ public class VersionedEntityTCBO {
     }
     
     @Transactional()
-    public Long createEntity(VersionedEntityTC entity) {
-        return (Long)daos.getVersionedEntityTCDao().create(entity);
+    public void createEntity(VersionedEntityTC entity) {
+        daos.getVersionedEntityTCDao().create(entity);
     }
     
     @Transactional(readOnly=true)
@@ -50,7 +50,7 @@ public class VersionedEntityTCBO {
     public VersionedEntityTC updateVersionedData(Long id, VersionedEntityDataTC versionedData) {
         VersionedEntityTC retrievedEntity = this.daos.getVersionedEntityTCDao().read(id);
         retrievedEntity.updateVersionedData(versionedData);
-        this.daos.getVersionedEntityTCDao().update(retrievedEntity);
+        this.daos.getVersionedEntityTCDao().store(retrievedEntity);
         return retrievedEntity;
     }
     

@@ -37,8 +37,8 @@ public class HibernateGenericDaoTest extends BaseTest {
         
     public void testStoreRetrieve() {
         EntityTC entity = new EntityTC();
-        Long id = this.entityTCBO.createEntity(entity);
-        EntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        this.entityTCBO.createEntity(entity);
+        EntityTC retrievedEntity = this.entityTCBO.retrieveEntity(entity.getId());
         assertEquals(entity, retrievedEntity);
     }
 
@@ -50,7 +50,7 @@ public class HibernateGenericDaoTest extends BaseTest {
     public void testGetByFieldOne() {
         EntityTC entity = new EntityTC();
         entity.setFieldOne("ONE");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldOne("ONE");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();
@@ -63,7 +63,7 @@ public class HibernateGenericDaoTest extends BaseTest {
     public void testGetByFieldTwo() {
         EntityTC entity = new EntityTC();
         entity.setFieldTwo("TWO");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldTwo("TWO");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();
@@ -77,7 +77,7 @@ public class HibernateGenericDaoTest extends BaseTest {
         EntityTC entity = new EntityTC();
         entity.setFieldOne("ONEONE");
         entity.setFieldTwo("TWOTWO");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldOneAndFieldTwo("ONEONE", "TWOTWO");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();

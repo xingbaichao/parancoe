@@ -22,6 +22,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.MappedSuperclass;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.SessionFactory; 
 import org.hibernate.criterion.Criterion;
@@ -40,9 +41,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class HibernateGenericBusinessDao<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDaoBase<T, PK>
          {
-    private Class type;
-        
     
+   
     private Class<T> persistentClass;
 
     public HibernateGenericBusinessDao() {
@@ -50,31 +50,29 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
                                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
     
-    @Autowired
-    public void initBusinessDao(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
     
     public Class<T> getPersistentClass() {
         return persistentClass;
     }
     
-    @SuppressWarnings("unchecked")
-    public PK create(T o) {
-        return (PK) getHibernateTemplate().save(o);
+    @Autowired
+    public void initDao(SessionFactory sessionFactory) {
+        setSessionFactory(sessionFactory);
     }
+    
     @SuppressWarnings("unchecked")
-    public void createOrUpdate(T o) {
-        getHibernateTemplate().merge(o);
+    public void create(T o) {
+       getHibernateTemplate().save(o);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void store(T o) {
+       getHibernateTemplate().saveOrUpdate(o);
     }
     
     @SuppressWarnings("unchecked")
     public T read(PK id) {
         return (T) getHibernateTemplate().get(persistentClass, id);
-    }
-    
-    public void update(T o) {
-        getHibernateTemplate().update(o);
     }
     
     public void delete(T o) {
@@ -94,7 +92,7 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
         }
         return crit.list();
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<T> searchByCriteria(DetachedCriteria criteria) {
         return getHibernateTemplate().findByCriteria(criteria);
@@ -152,7 +150,6 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
         throw new RuntimeException("Implementare il metodo di contaggio");
     }
     
-  
     public void evict(T persistentObject) {
         getHibernateTemplate().evict(persistentObject);
     }

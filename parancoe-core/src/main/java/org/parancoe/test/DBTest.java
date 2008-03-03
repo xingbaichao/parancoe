@@ -87,6 +87,7 @@ public abstract class DBTest extends EnhancedTestCase {
             GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
             FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
         }
+        
     }
     
     protected String[] getConfigLocations() {

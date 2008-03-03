@@ -36,8 +36,8 @@ public class EntityTCBO {
     }
     
     @Transactional()
-    public Long createEntity(EntityTC entity) {
-        return daos.getEntityTCDao().create(entity);
+    public void createEntity(EntityTC entity) {
+        daos.getEntityTCDao().create(entity);
     }
     
     @Transactional(readOnly=true)

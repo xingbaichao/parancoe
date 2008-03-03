@@ -50,7 +50,7 @@ public class AuthorTC extends EntityBase {
         this.name = name;
     }
 
-    @ManyToMany(targetEntity = BookTC.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },  fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = BookTC.class, cascade = { CascadeType.ALL },  fetch = FetchType.EAGER)
     @JoinTable(name = "AUTHOR_BOOK", joinColumns = { @JoinColumn(name = "author_id") }, inverseJoinColumns = { @JoinColumn(name = "book_id") })
     public List<BookTC> getBooks() {
         return books;

@@ -76,7 +76,7 @@ public class PeopleEditController {
                 return "people/edit"; 
             }
             else {
-                daos.getPersonDao().createOrUpdate(person);
+                daos.getPersonDao().store(person);
                 return "redirect:people/list.html"; // restituisce succesView
             }
         } catch (Exception e) {

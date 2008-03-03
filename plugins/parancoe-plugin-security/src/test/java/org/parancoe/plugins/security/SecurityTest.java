@@ -54,7 +54,7 @@ public class SecurityTest extends PluginTest {
 		
 		// creates entities
 		User pippo = SecureUtility.newUserToValidate("pippo");
-		userDao.create(pippo);
+		userDao.store(pippo);
 		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
 				
 
@@ -62,7 +62,7 @@ public class SecurityTest extends PluginTest {
 		ua.setAuthority(parancoeAuthority);
 		ua.setUser(pippo);
 
-		userAuthorityDao.create(ua);
+		userAuthorityDao.store(ua);
 		assertNotNull(userDao.findByUsername("pippo").get(0));
 		assertNotNull(userAuthorityDao.findAll().size());
 	}

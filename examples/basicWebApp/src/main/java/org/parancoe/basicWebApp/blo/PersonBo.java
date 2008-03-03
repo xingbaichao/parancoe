@@ -47,7 +47,7 @@ public class PersonBo {
             p.setFirstName("Mario");
             p.setLastName("Rossi");
             p.setBirthDate(sdf.parse("25/04/1970"));
-            dao.create(p);
+            dao.store(p);
         }
         searches = dao.findByFirstNameAndLastName("Francesca", "Verdi");
         if (searches.isEmpty()) {
@@ -55,7 +55,7 @@ public class PersonBo {
             p.setFirstName("Francesca");
             p.setLastName("Verdi");
             p.setBirthDate(sdf.parse("30/08/1990"));
-            dao.create(p);
+            dao.store(p);
         }
         searches = dao.findByFirstNameAndLastName("Giovanni", "Bianchi");
         if (searches.isEmpty()) {
@@ -63,7 +63,7 @@ public class PersonBo {
             p.setFirstName("Giovanni");
             p.setLastName("Bianchi");
             p.setBirthDate(sdf.parse("15/03/1980"));
-            dao.create(p);
+            dao.store(p);
         }
     }
     
