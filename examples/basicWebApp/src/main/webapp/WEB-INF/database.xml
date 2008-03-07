@@ -12,11 +12,6 @@
     </bean>
     
     <bean id="sessionFactory" parent="abstractSessionFactory">
-        <property name="eventListeners">
-                <map>
-                        <entry key="merge"><ref bean="idTransferringMergeEventListener" /></entry>
-                </map>
-        </property>
         <property name="hibernateProperties">
             <props merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>

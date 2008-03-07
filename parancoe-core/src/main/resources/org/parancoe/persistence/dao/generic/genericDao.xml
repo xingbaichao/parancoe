@@ -63,7 +63,5 @@ limitations under the License.
     <bean id="abstractDaoProvider"
           class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
     </bean>
-    
-    <bean id="idTransferringMergeEventListener"  class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
-    
+        
 </beans>

@@ -36,11 +36,6 @@ limitations under the License.
         <property name="dataSource" ref="dataSource"/>
         <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
         <!-- <property name="configLocation" value="classpath:hibernate-mappings-test.cfg.xml"/>-->
-        <property name="eventListeners">
-                <map>
-                        <entry key="merge"><ref bean="idTransferringMergeEventListener" /></entry>
-                </map>
-        </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>

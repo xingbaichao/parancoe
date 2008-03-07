@@ -117,7 +117,7 @@ limitations under the License.
     <!-- Open session in view pattern -->
     <bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-        <property name="singleSession" value="false" />
+        <property name="singleSession" value="true" />
     </bean>
     
     <!-- locale change -->
