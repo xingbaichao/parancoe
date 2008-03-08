@@ -76,9 +76,9 @@ limitations under the License.
             <list>
                 <!--  secured interceptor  -->
                 <ref bean="openSessionInViewInterceptor"/>
+                <ref bean="pluginInterceptor"/>
                 <ref bean="localeChangeInterceptor"/>
-                <ref bean="languageInterceptor"/>
-                <ref bean="pluginInterceptor"/>                
+                <ref bean="languageInterceptor"/>                
             </list>
         </property>
     </bean>
@@ -115,10 +115,7 @@ limitations under the License.
     </bean>
     
     <!-- Open session in view pattern -->
-    <bean id="openSessionInViewInterceptor" class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
-        <property name="sessionFactory"><ref bean="sessionFactory"/></property>
-        <property name="singleSession" value="true" />
-    </bean>
+    <bean id="openSessionInViewInterceptor" class="org.parancoe.web.ParancoeOpenSessionInViewInterceptor" />
     
     <!-- locale change -->
     <bean id="localeResolver"

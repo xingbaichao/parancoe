@@ -58,15 +58,15 @@ public abstract class EntityBase implements Entity, Serializable {
         return this.id;
     }
 
-    /**
-     * Get the version for optimistic locking.
-     *
-     * @return The version fooptimistic locking
-     */
-    @Version
-    public Integer getVersion() {
-        return this.version;
-    }
+//    /**
+//     * Get the version for optimistic locking.
+//     *
+//     * @return The version fooptimistic locking
+//     */
+//    @Version
+//    public Integer getVersion() {
+//        return this.version;
+//    }
 
 
     /**
@@ -78,15 +78,15 @@ public abstract class EntityBase implements Entity, Serializable {
         this.id = id;
     }
 
-
-    /**
-     * Set the version for optimistic locking
-     *
-     * @param version The version for optimistic locking
-     */
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+//
+//    /**
+//     * Set the version for optimistic locking
+//     *
+//     * @param version The version for optimistic locking
+//     */
+//    public void setVersion(Integer version) {
+//        this.version = version;
+//    }
 
     /**
      * Default implementation of the equals method.

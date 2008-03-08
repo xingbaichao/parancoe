@@ -19,6 +19,7 @@
     
     <!-- Authomatic DAO definition from persistent classes -->
     <parancoe:define-daos basePackage="org.parancoe.basicWebApp"/>
+    <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
     
     
     <!-- <parancoe-web:define-controllers basePackage="org.parancoe.basicWebApp.controllers" parent="abstractController"/> -->

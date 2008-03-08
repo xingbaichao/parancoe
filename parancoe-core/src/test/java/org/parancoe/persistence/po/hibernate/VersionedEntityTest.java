@@ -55,9 +55,9 @@ public class VersionedEntityTest extends BaseTest {
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(1, entityDataVersions.size());
-        //assertTrue(versionedEntityData.getId().equals(versionedEntity.findLastVersionedData().getId()));
-        //assertNotNull(versionedEntity.findLastVersionedData().getDateFrom());
-        //assertNull(versionedEntity.findLastVersionedData().getDateTo());
+        assertTrue(versionedEntityData.getId().equals(versionedEntity.findLastVersionedData().getId()));
+        assertNotNull(versionedEntity.findLastVersionedData().getDateFrom());
+        assertNull(versionedEntity.findLastVersionedData().getDateTo());
     }
 
     public void testUpdateExistentVersionedData() throws InterruptedException {
@@ -77,9 +77,9 @@ public class VersionedEntityTest extends BaseTest {
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(2, entityDataVersions.size());
-        //assertTrue(versionedEntityData.getId().equals(retrievedEntity.findLastVersionedData().getId()));
-        //assertTrue(entityDataVersions.get(entityDataVersions.size() - 1).getDateFrom().compareTo(
-        //        entityDataVersions.get(entityDataVersions.size() - 2).getDateFrom()) > 0);
+        assertTrue(versionedEntityData.getId().equals(retrievedEntity.findLastVersionedData().getId()));
+        assertTrue(entityDataVersions.get(entityDataVersions.size() - 1).getDateFrom().compareTo(
+                entityDataVersions.get(entityDataVersions.size() - 2).getDateFrom()) > 0);
     }
 
     public void testUpdateExistentVersionedDataWithLocales() throws InterruptedException {
@@ -113,8 +113,8 @@ public class VersionedEntityTest extends BaseTest {
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(4, entityDataVersions.size());
-        //assertTrue(italianVersionedEntityData.getId().equals(retrievedEntity.findLastVersionedData().getId()));
-        //assertTrue(englishVersionedEntityData.getId().equals(
-        //        retrievedEntity.findLastVersionedData(Locale.ENGLISH.getLanguage()).getId()));
+        assertTrue(italianVersionedEntityData.getId().equals(retrievedEntity.findLastVersionedData().getId()));
+        assertTrue(englishVersionedEntityData.getId().equals(
+                retrievedEntity.findLastVersionedData(Locale.ENGLISH.getLanguage()).getId()));
     }
 }

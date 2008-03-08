@@ -22,6 +22,8 @@ import javax.servlet.ServletContextEvent;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.parancoe.persistence.dao.DaoProvider;
 import org.parancoe.persistence.dao.generic.BusinessDao;
 import org.parancoe.persistence.dao.generic.GenericDao;
@@ -31,6 +33,8 @@ import org.parancoe.web.plugin.PluginHelper;
 import org.parancoe.web.plugin.Plugin;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.orm.hibernate3.SessionHolder;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -50,19 +54,27 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
-        try {
-            ctx = (ApplicationContext) evt.getServletContext().getAttribute(
-                    WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-            Set<Class> fixtureClasses = new LinkedHashSet<Class>(getFixtureClasses());
-            if (CollectionUtils.isEmpty(fixtureClasses)) {
-                log.info("Skipping initial data population (no models)");
-                return;
-            }
+        ctx = (ApplicationContext) evt.getServletContext().getAttribute(
+                WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        Set<Class> fixtureClasses = new LinkedHashSet<Class>(getFixtureClasses());
+        if (CollectionUtils.isEmpty(fixtureClasses)) {
+            log.info("Skipping initial data population (no models)");
+            return;
+        }
 
-            Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("initialData/",
-                    fixtureClasses);
-            log.info("Populating initial data for models...");
-            String className = "";
+        Map<Class, Object[]> fixtures = FixtureHelper.loadFixturesFromResource("initialData/",
+                fixtureClasses);
+        log.info("Populating initial data for models...");
+        String className = "";
+        
+        SessionFactory sessionFactory = (SessionFactory)ctx.getBean("sessionFactory");
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //Attach transaction to thread
+        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
+        TransactionSynchronizationManager.initSynchronization();
+
+        try{
             for (Class clazz : fixtures.keySet()) {
                 className = clazz.getName();
                 if (ArrayUtils.isEmpty(fixtures.get(clazz))) {
@@ -74,9 +86,23 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
             }
             fixtures.clear();
             log.info("Populating initial data for models done!");
-        } catch (Exception e) {
+            session.getTransaction().commit();
+            if(session.isOpen()) session.close();
+        }catch(Exception e){
+            log.error(e);
             log.error("Error while populating initial data for models " + e.getMessage(), e);
+            log.debug("Rolling back the populating database transaction");
+            session.getTransaction().rollback();
+        }finally{
+            try{
+                if(session.isOpen()){
+                    session.close();
+                }
+            }catch(Exception e){/*do nothing*/}
+            TransactionSynchronizationManager.unbindResource(sessionFactory);
+            TransactionSynchronizationManager.clearSynchronization();
         }
+            
     }
 
     private List<Class> getFixtureClasses() {

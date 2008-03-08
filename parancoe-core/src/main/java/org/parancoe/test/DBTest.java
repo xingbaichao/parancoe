@@ -21,6 +21,8 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
@@ -29,6 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.orm.hibernate3.SessionHolder;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 public abstract class DBTest extends EnhancedTestCase {
 
@@ -36,6 +40,9 @@ public abstract class DBTest extends EnhancedTestCase {
 
     protected Map<Class, Object[]> fixtures;
 
+    @Autowired
+    SessionFactory sessionFactory;
+    
     @Autowired
     HashMap daoMap;
 
@@ -76,16 +83,38 @@ public abstract class DBTest extends EnhancedTestCase {
      */
     @Override
     public void onSetUpBeforeTransaction() throws Exception {
+       
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //Attach transaction to thread
+        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
+        TransactionSynchronizationManager.initSynchronization();
         
-        // erase everything
-        for (Class model : getReverseOrderFixtureClasses()) {
-            GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
-            FixtureHelper.eraseDbForModel(model, dao);
-        }
-        // repopulate
-        for (Class model : getFixtureClasses()) {
-            GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
-            FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
+        try{
+            // erase everything
+            for (Class model : getReverseOrderFixtureClasses()) {
+                GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
+                FixtureHelper.eraseDbForModel(model, dao);
+            }
+            // repopulate
+            for (Class model : getFixtureClasses()) {
+                GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
+                FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
+            }
+            session.getTransaction().commit();
+            if(session.isOpen()) session.close();
+        }catch(Exception e){
+            logger.error(e);
+            logger.debug("Rolling back the database transaction");
+            session.getTransaction().rollback();
+        }finally{
+            try{
+                if(session.isOpen()){
+                    session.close();
+                }
+            }catch(Exception e){/*do nothing*/}
+            TransactionSynchronizationManager.unbindResource(sessionFactory);
+            TransactionSynchronizationManager.clearSynchronization();
         }
         
     }

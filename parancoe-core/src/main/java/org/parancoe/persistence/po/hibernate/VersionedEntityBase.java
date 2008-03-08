@@ -46,7 +46,7 @@ public abstract class VersionedEntityBase<T extends VersionedData> extends Entit
     public VersionedEntityBase() {
     }
     
-    @OneToMany(mappedBy="entity")
+    @OneToMany(mappedBy="entity", cascade=CascadeType.ALL)
     @OrderBy(value="dateFrom")
     public List<T> getVersionedData() {
         return this.versionedData;

@@ -62,17 +62,17 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
     
     @SuppressWarnings("unchecked")
     public void create(T o) {
-       getHibernateTemplate().save(o);
+       getHibernateTemplate().persist(o);
     }
     
     @SuppressWarnings("unchecked")
     public void store(T o) {
-       getHibernateTemplate().saveOrUpdate(o);
+       getHibernateTemplate().merge(o);
     }
     
     @SuppressWarnings("unchecked")
     public T read(PK id) {
-        return (T) getHibernateTemplate().get(persistentClass, id);
+        return (T) getHibernateTemplate().load(persistentClass, id);
     }
     
     public void delete(T o) {
@@ -149,8 +149,5 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
         // TODO IMPLEMENTARE IL METODO COUNT
         throw new RuntimeException("Implementare il metodo di contaggio");
     }
-    
-    public void evict(T persistentObject) {
-        getHibernateTemplate().evict(persistentObject);
-    }
+
   }

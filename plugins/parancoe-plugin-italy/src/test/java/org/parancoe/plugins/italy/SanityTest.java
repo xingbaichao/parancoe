@@ -19,4 +19,9 @@ public class SanityTest extends PluginTest {
     assertEquals(Comune.class, plugin.getFixtureClasses().get(2));
     assertEquals(Procura.class, plugin.getFixtureClasses().get(3));
   }
+  
+  @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{Regione.class, Provincia.class, Comune.class, Procura.class};
+    }
 }

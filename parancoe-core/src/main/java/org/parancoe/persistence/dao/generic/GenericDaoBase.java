@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  *
@@ -55,6 +56,6 @@ public interface GenericDaoBase<T, PK extends Serializable> {
     
     long count();
     
-    void evict(T persistentObject);
+    HibernateTemplate getHibernateTemplate();
     
 }
