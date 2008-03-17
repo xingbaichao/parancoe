@@ -34,6 +34,7 @@ import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.support.DataAccessUtils;
 
 /**
  * 
@@ -146,8 +147,12 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
     }
     
     public long count() {
-        // TODO IMPLEMENTARE IL METODO COUNT
-        throw new RuntimeException("Implementare il metodo di contaggio");
+        return DataAccessUtils.intResult(getHibernateTemplate().find("select count(*) from " + getPersistentClass().getSimpleName()));
+    }
+
+    public long countByCriteria(DetachedCriteria criteria){
+       criteria.setProjection(Projections.rowCount());
+       return DataAccessUtils.intResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
   }
