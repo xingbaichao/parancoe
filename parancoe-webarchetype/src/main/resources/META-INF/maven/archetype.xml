@@ -30,6 +30,7 @@
         <resource>src/main/webapp/META-INF/MANIFEST.MF</resource>
         <resource>src/main/webapp/META-INF/context.xml</resource>
         <resource>src/main/webapp/WEB-INF/database.xml</resource>
+        <resource>src/main/webapp/WEB-INF/messages.properties</resource>
         <resource>src/main/webapp/WEB-INF/messages_en.properties</resource>
         <resource>src/main/webapp/WEB-INF/messages_it.properties</resource>
         <resource>src/main/webapp/WEB-INF/parancoe-servlet.xml</resource>
