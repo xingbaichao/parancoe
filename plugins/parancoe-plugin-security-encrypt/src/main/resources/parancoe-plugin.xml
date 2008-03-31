@@ -78,8 +78,15 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
     
     <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager">
-            <bean class="org.acegisecurity.vote.AffirmativeBased">
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+      
+        <property name="objectDefinitionSource">
+            <ref bean="pluginSecurityFilterDefinitions"/>
+        </property>
+    </bean>
+    
+    
+    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
                 <property name="allowIfAllAbstainDecisions" value="false"/>
                 <property name="decisionVoters">
                     <list>
@@ -87,12 +94,7 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
                         <bean class="org.acegisecurity.vote.AuthenticatedVoter"/>
                     </list>
                 </property>
-            </bean>
-        </property>
-        <property name="objectDefinitionSource">
-            <ref bean="pluginSecurityFilterDefinitions"/>
-        </property>
-    </bean>
+     </bean>
     
     
     
@@ -182,6 +184,39 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
             </list>
         </property>
     </bean>
+    
+    
+<!-- ======================== BEGIN - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
+		
+<!-- secured methods -->
+<bean id="businessMethodSecurity"
+class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+<property name="authenticationManager">
+<ref bean="authenticationManager"/>
+</property>
+<property name="accessDecisionManager">
+<ref bean="accessDecisionManager"/>
+</property>
+<property name="objectDefinitionSource">
+	<ref bean="objectDefinitionSource"/>
+</property>
+</bean>
+
+<bean id="objectDefinitionSource" class="org.acegisecurity.intercept.method.MethodDefinitionAttributes">
+  <property name="attributes"><ref local="attributes"/></property>
+</bean>
+<bean id="attributes" class="org.acegisecurity.annotation.SecurityAnnotationAttributes"/>
+
+<bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+  <property name="interceptorNames">
+    <list><value>businessMethodSecurity</value></list>
+  </property>
+  <property name="beanNames">
+ 	 <ref bean="beanNames"/>
+  </property>
+</bean>    
+<!-- ======================== END - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
+
     
      <!-- mapping .secure url to secure controller -->
     <bean name="/*.secure" id="secureController"
