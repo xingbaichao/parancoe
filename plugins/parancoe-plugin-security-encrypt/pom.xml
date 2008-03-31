@@ -80,5 +80,12 @@
             <version>8.2-507.jdbc3</version>
             <scope>provided</scope>
         </dependency>  
+        
+        <!-- for Secured annotation purpose  -->
+	    <dependency>
+		      <groupId>org.acegisecurity</groupId>
+		      <artifactId>acegi-security-tiger</artifactId>
+		      <version>1.0.6</version>
+	    </dependency>
     </dependencies>
 </project>
