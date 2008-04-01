@@ -212,7 +212,7 @@ class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor"
     <list><value>businessMethodSecurity</value></list>
   </property>
   <property name="beanNames">
- 	 <ref bean="beanNames"/>
+ 	 <ref bean="securedBeanNames"/>
   </property>
 </bean>    
 <!-- ======================== END - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
