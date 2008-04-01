@@ -4,18 +4,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
                            http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
-    <!-- 
+
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>        
         <property name="url" value="jdbc:hsqldb:mem:test"/>         
         <property name="username" value="sa"/>
         <property name="password" value=""/>
     </bean>
-     -->
-    
+
+    <bean id="sessionFactory" parent="abstractSessionFactory">
+        <property name="hibernateProperties">
+            <props merge="true">
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>    
     
     <!-- MySql configuration -->
-    
+    <!--
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="url" value="jdbc:mysql://localhost:3306/parancoetest"/>
         <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
@@ -33,7 +41,8 @@
             </props>
         </property>
     </bean>
-
+    -->
+    
    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
 
     <!--   -->
@@ -54,7 +63,7 @@
     
     
     
-    <bean id="beanNames" class="java.util.ArrayList">    	
+    <bean id="securedBeanNames" class="java.util.ArrayList">    	
         <constructor-arg>
             <list>
             <value>test</value>                
