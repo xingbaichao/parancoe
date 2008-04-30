@@ -226,7 +226,8 @@ public class FixtureHelper {
 			{
 				throw new IllegalArgumentException("Dao associated to "+model.getName()+" PO is null!");
 			}
-			int deleted = dao.deleteAll();
+			int deleted = dao.getHibernateTemplate().bulkUpdate("DELETE FROM " + org.hibernate.cfg.DefaultComponentSafeNamingStrategy.INSTANCE.tableName(model.getSimpleName()));
+//                                deleteAll();
                 } catch (Exception e) {
 			logger.error("Error deleting rows in " + getModelName(model)
 					+ " table", e);
