@@ -17,6 +17,7 @@ import java.util.List;
 import org.parancoe.persistence.dao.Daos;
 
 import org.parancoe.persistence.po.hibernate.EntityTC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,13 +28,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class EntityTCBO {
     
+    @Autowired
+    public Daos daos;
+    
     /** Creates a new instance of EntityTCBO */
     public EntityTCBO() {
     }
     
     @Transactional()
-    public Long createEntity(EntityTC entity) {
-        return daos.getEntityTCDao().create(entity);
+    public void createEntity(EntityTC entity) {
+        daos.getEntityTCDao().create(entity);
     }
     
     @Transactional(readOnly=true)
@@ -55,16 +59,6 @@ public class EntityTCBO {
     @Transactional(readOnly=true)    
     List<EntityTC> retrieveEntityByFieldOneAndFieldTwo(String one, String two) {
         return daos.getEntityTCDao().findByFieldOneAndFieldTwo(one, two);
-    }
-
-    public Daos daos;
-
-    public Daos getDaos() {
-        return daos;
-    }
-
-    public void setDaos(Daos daos) {
-        this.daos = daos;
     }
     
 }

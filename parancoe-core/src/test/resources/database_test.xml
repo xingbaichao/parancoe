@@ -40,7 +40,15 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">false</prop>
             </props>
+        </property>
+        <property name="eventListeners">
+                <map>
+                        <entry key="merge">
+                                <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                        </entry>
+                </map>
         </property>
     </bean>
     

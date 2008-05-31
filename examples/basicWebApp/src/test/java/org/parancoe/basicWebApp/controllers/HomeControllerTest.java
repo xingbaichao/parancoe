@@ -4,16 +4,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.parancoe.web.test.ControllerTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class HomeControllerTest extends ControllerTest {
 
-    // non si riesce a iniettare dinamicamente?
+    @Autowired
     private HomeController controller;
-
-    public void setUp() throws Exception {
-        super.setUp();    // non togliere questa riga
-        controller = (HomeController) ctx.getBean("org.parancoe.basicWebApp.controllers.HomeController");
-    }
 
     public void testNotNull() {
         assertNotNull(controller);

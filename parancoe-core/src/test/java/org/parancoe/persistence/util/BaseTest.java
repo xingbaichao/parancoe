@@ -31,20 +31,9 @@ import org.springframework.context.ApplicationContext;
  * @author lucio
  */
 public abstract class BaseTest extends DBTest {
-    
-    @SuppressWarnings(value = "unchecked")
-    protected ApplicationContext getTestContext() {
-        BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance("beanRefFactory_test.xml");
-        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.persistence");
-        ApplicationContext lctx = (ApplicationContext) bf.getFactory();
-        Map daoMap = (Map) lctx.getBean("daoMap");
-        Map ldaos = DaoUtils.getDaos(lctx);
-        daoMap.putAll(ldaos);
-        return lctx;
-    }
 
 	@Override
 	public Class[] getFixtureClasses() {
-		return new Class[] { EntityTC.class, BookTC.class, AuthorTC.class };
+		return new Class[] { EntityTC.class, AuthorTC.class, BookTC.class};
 	}
 }

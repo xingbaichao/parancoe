@@ -15,10 +15,15 @@ package org.parancoe.persistence.dao.generic;
 
 import java.io.Serializable;
 import java.util.List;
+import org.apache.commons.lang.ArrayUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 
+import org.hibernate.criterion.Projections;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
+import org.hibernate.type.Type;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
@@ -35,21 +40,18 @@ public class HibernateGenericDao <T, PK extends Serializable>
     private Class type;
             
     @SuppressWarnings("unchecked")
-    public PK create(T o) {
-        return (PK) getHibernateTemplate().save(o);
+    public void create(T o) {
+        getHibernateTemplate().persist(o);
     }
+    
     @SuppressWarnings("unchecked")
-    public void createOrUpdate(T o) {
-        getHibernateTemplate().saveOrUpdate(o);
+    public void store(T o) {
+        getHibernateTemplate().merge(o);
     }
     
     @SuppressWarnings("unchecked")
     public T read(PK id) {
-        return (T) getHibernateTemplate().get(getType(), id);
-    }
-    
-    public void update(T o) {
-        getHibernateTemplate().update(o);
+        return (T) getHibernateTemplate().load(getType(), id);
     }
     
     public void delete(T o) {
@@ -81,8 +83,45 @@ public class HibernateGenericDao <T, PK extends Serializable>
                 findByCriteria(criteria, firstResult, maxResults);
     }    
     
+    @SuppressWarnings("unchecked")
+    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion) {
+        Criteria crit = getSession().createCriteria(getType());
+        Criteria count = getSession().createCriteria(getType());
+        for (Criterion c: criterion) {
+            crit.add(c);
+            count.add(c);
+        }
+        
+        // row count
+        count.setProjection(Projections.rowCount());
+        int rowCount = ((Integer)count.list().get(0)).intValue();
+        
+        crit.setFirstResult((page-1)*pageSize);
+        crit.setMaxResults(pageSize);
+        return new HibernatePage<T>(crit.list(), page, pageSize, rowCount);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria) {
+        // Row count
+        criteria.setProjection(Projections.rowCount());
+        int rowCount = ((Integer)getHibernateTemplate().
+                findByCriteria(criteria).get(0)).intValue();
+        criteria.setProjection(null);
+        criteria.setResultTransformer(Criteria.ROOT_ENTITY);
+        
+        List<T> list = getHibernateTemplate().
+                findByCriteria(criteria, (page-1)*pageSize, pageSize);
+        
+        return new HibernatePage<T>(list, page, pageSize,rowCount);
+    }
+    
     public int deleteAll() {
-        return getHibernateTemplate().bulkUpdate("delete from "+getType().getName()+" x");
+        List<T> rows = findAll();
+        
+        getHibernateTemplate().deleteAll(rows);
+        
+        return rows.size();
     }
     
     public long count() {

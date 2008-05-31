@@ -81,8 +81,10 @@ class MapState extends State {
                                 newObject = convertType(content, field.getType());
                             field.set(obj, newObject);
                         }
+                    } catch (java.lang.IllegalArgumentException iae) {
+                        // Do nothing, this happens when a dipendent fixture is not loaded
                     } catch (Exception e) {
-                        logger.warn("Can't set " + key + " field on " + obj + " with value " + newObject
+                        logger.warn("Can't set " + key + " field on " + obj.getClass().getSimpleName() + " with value " + newObject
                                 + "\n" + e);
                     }
 
@@ -223,8 +225,10 @@ class MapState extends State {
         else
             try {
                 obj.getClass().getField(key).set(obj, child);
+            } catch (java.lang.IllegalArgumentException iae) {
+                        // Do nothing, this happens when a dipendent fixture is not loaded
             } catch (Exception e) {
-                logger.warn("Can't set " + key + " field on " + obj + " with value " + child + "\n" + e);
+                logger.warn("Can't set " + key + " field on " + obj.getClass().getSimpleName() + " with value " + child + "\n" + e);
             }
         clear();
         key = null;
@@ -236,8 +240,11 @@ class MapState extends State {
             Object ret = convertType(value, prop.getPropertyType());
             prop.getWriteMethod().invoke(bean, new Object[] { ret });
             return ret;
+        } catch (java.lang.IllegalArgumentException iae) {
+            // Do nothing, this happens when a dipendent fixture is not loaded
+            return null;
         } catch (Exception e) {
-            logger.warn("Can't set " + key + " property on " + bean + " with value ("
+            logger.warn("Can't set " + key + " property on " + bean.getClass().getSimpleName() + " with value ("
                     + value.getClass() + ") " + value + "\n" + e);
             return null;
         }

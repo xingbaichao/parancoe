@@ -40,12 +40,16 @@ public abstract class PeopleEditController extends BaseFormController {
     }
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
-    protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object command, BindException errors) throws Exception {
-        Person person = null;
+    protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object person, BindException errors) throws Exception {
         try {
-            person = (Person) command;
-            dao().getPersonDao().createOrUpdate(person);
-            return onSubmit(command, errors); // restituisce succesView
+            validator.validate(person,result);
+            if (result.hasErrors()) {
+                return "people/edit"; 
+            }
+            else {
+                daos.getPersonDao().store(person);
+                return "redirect:people/list.html"; // restituisce succesView
+            }
         } catch (Exception e) {
             logger.error("Problema salvando Utente " + person, e);
                      

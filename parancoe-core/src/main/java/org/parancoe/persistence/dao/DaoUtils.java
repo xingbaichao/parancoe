@@ -13,12 +13,14 @@
 // limitations under the License.
 package org.parancoe.persistence.dao;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.core.annotation.AnnotationUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utils for the DAO tools.
@@ -28,7 +30,9 @@ import org.springframework.beans.factory.ListableBeanFactory;
  */
 public class DaoUtils {
 
-    /** Creates a new instance of DaoUtils */
+    /**
+     * Creates a new instance of DaoUtils
+     */
     private DaoUtils() {
     }
 
@@ -62,6 +66,8 @@ public class DaoUtils {
      */
     @SuppressWarnings(value = "unchecked")
     public static boolean isDao(Object o) {
+        if (AnnotationUtils.findAnnotation(o.getClass(), BusinessDao.class) != null) return true;
+
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
             if (objInterfaces[i].getAnnotation(Dao.class) != null) {
@@ -72,6 +78,12 @@ public class DaoUtils {
     }
 
     public static boolean isDaoFor(Object o, Class daoEntityType) {
+        if (AnnotationUtils.findAnnotation(o.getClass(), BusinessDao.class) != null) {
+            if (((HibernateGenericBusinessDao) o).getPersistentClass().getName().equals(daoEntityType.getName())) {
+                return true;
+            }
+        }
+
         Class[] objInterfaces = o.getClass().getInterfaces();
         for (int i = 0; i < objInterfaces.length; i++) {
             @SuppressWarnings(value = "unchecked")
@@ -84,11 +96,12 @@ public class DaoUtils {
                 }
             }
         }
+
         return false;
     }
 
     public static GenericDao getDaoFor(Class daoEntityType,
-            ListableBeanFactory beanFactory) {
+                                       ListableBeanFactory beanFactory) {
         GenericDao result = null;
         Map<String, Object> daos =
                 DaoUtils.getDaos(beanFactory);

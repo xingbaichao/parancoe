@@ -16,6 +16,7 @@ package org.parancoe.persistence.po.hibernate;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -50,7 +51,7 @@ public class VersionedDataBase<T extends VersionedEntity> extends EntityBase
         return this.dateTo;
     }
     
-    @ManyToOne(cascade =  {javax.persistence.CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     public T getEntity() {
         return this.entity;
     }

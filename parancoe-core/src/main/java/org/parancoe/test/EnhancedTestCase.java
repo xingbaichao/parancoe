@@ -17,11 +17,12 @@ package org.parancoe.test;
 import java.util.Collection;
 
 import junit.framework.TestCase;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
  * Adds useful assertions to the standard JUnit TestCase
  */
-public abstract class EnhancedTestCase extends TestCase {
+public abstract class EnhancedTestCase extends AbstractTransactionalDataSourceSpringContextTests {
 
     public static void assertEquals(byte[] expected, byte[] actual) {
         assertEquals("", expected, actual);
@@ -32,6 +33,18 @@ public abstract class EnhancedTestCase extends TestCase {
             byte expected_b = expected[i];
             byte actual_b = actual[i];
             assertEquals(description + ": byte[" + i + "] does not match", expected_b, actual_b);
+        }
+    }
+
+    public static void assertEquals(double[] expected, double[] actual) {
+        assertEquals("", expected, actual);
+    }
+
+    public static void assertEquals(String description, double[] expected, double[] actual) {
+        for (int i = 0; i < expected.length; i++) {
+            double expected_b = expected[i];
+            double actual_b = actual[i];
+            assertEquals(description + ": double[" + i + "] does not match", expected_b, actual_b);
         }
     }
 

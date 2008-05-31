@@ -15,5 +15,21 @@ package org.parancoe.web;
 
 public class WebUtils {
 
-    // you can put here web utility methdos
+    public static String camelizeMethod(String rawMethodUrl) {
+        
+        if (rawMethodUrl == null || rawMethodUrl.length() == 0) {
+            throw new IllegalArgumentException("rawMethodUrl cannot be null or empty");
+        }
+        
+        rawMethodUrl = rawMethodUrl.toLowerCase();
+        String[] methodParts = rawMethodUrl.split("_");
+        
+        StringBuffer sb = new StringBuffer(methodParts[0]);
+        for(int i = 1; i < methodParts.length; i++) {
+            sb.append(methodParts[i].substring(0,1).toUpperCase());
+            sb.append(methodParts[i].substring(1,methodParts[i].length()));
+        }
+        
+        return sb.toString();
+    }
 }
