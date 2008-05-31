@@ -1,3 +1,0 @@
-- &UserAutority-admin-admin
-  user: *User-admin
-  authority: *Authority-admin
