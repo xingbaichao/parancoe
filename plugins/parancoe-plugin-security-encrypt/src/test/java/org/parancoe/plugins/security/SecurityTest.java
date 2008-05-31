@@ -15,6 +15,8 @@ package org.parancoe.plugins.security;
 
 import org.parancoe.web.plugin.Plugin;
 import org.parancoe.web.test.PluginTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,47 +27,43 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SecurityTest extends PluginTest {
 
-	private Plugin plugin;
+    @Autowired
+    @Qualifier("pluginSecurityConfig")
+    private Plugin plugin;
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    UserAuthorityDao userAuthorityDao;
+    @Autowired
+    AuthorityDao authorityDao;
 
-	public SecurityTest() {
-	}
+    public SecurityTest() {
+    }
 
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-		plugin = (Plugin) ctx.getBean("pluginSecurityConfig");
-	}
+    public void testPlugin() throws Exception {
+        assertEquals(3, getFixtureClasses().length);
 
-	public void testPlugin() throws Exception {
-		assertEquals(3, getFixtureClasses().length);
+    }
 
-	}
+    @Transactional
+    public void testInsertUser() {
+        // creates entities
+        User pippo = SecureUtility.newUserToValidate("pippo");
+        userDao.store(pippo);
+        Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
 
-	@Transactional
-	public void testInsertUser() {
-		UserDao userDao = (UserDao) ctx.getBean("userDao");
-		UserAuthorityDao userAuthorityDao = (UserAuthorityDao) ctx
-				.getBean("userAuthorityDao");
-		AuthorityDao authorityDao = (AuthorityDao) ctx.getBean("authorityDao");
 
-		// creates entities
-		User pippo = SecureUtility.newUserToValidate("pippo");
-		userDao.createOrUpdate(pippo);
-		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
-				
+        UserAuthority ua = new UserAuthority();
+        ua.setAuthority(parancoeAuthority);
+        ua.setUser(pippo);
 
-		UserAuthority ua = new UserAuthority();
-		ua.setAuthority(parancoeAuthority);
-		ua.setUser(pippo);
+        userAuthorityDao.store(ua);
+        assertNotNull(userDao.findByUsername("pippo").get(0));
+        assertNotNull(userAuthorityDao.findAll().size());
+    }
 
-		userAuthorityDao.createOrUpdate(ua);
-		assertNotNull(userDao.findByUsername("pippo").get(0));
-		assertNotNull(userAuthorityDao.findAll().size());
-	}
-
-	@Override
-	public Class[] getFixtureClasses() {
-		return new Class[] { User.class, Authority.class, UserAuthority.class };
-	}
-
+    @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{User.class, Authority.class, UserAuthority.class};
+    }
 }
