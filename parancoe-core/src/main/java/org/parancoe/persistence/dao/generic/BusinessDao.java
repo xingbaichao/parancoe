@@ -13,20 +13,21 @@
 // limitations under the License.
 package org.parancoe.persistence.dao.generic;
 
-import java.io.Serializable;
-import java.util.List;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.DetachedCriteria;
-
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.springframework.stereotype.Component;
 
 /**
- * Interface for the generic DAO.
+ * An annotation for marking a Generic Business Dao type.
  *
- * Derived from http://www-128.ibm.com/developerworks/java/library/j-genericdao.html
- *
- * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
- * @version $Rev$
  */
-public interface GenericDao <T, PK extends Serializable> extends GenericDaoBase<T,PK>, GenericDaoHibernateSupport {
+@Documented
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Component
+public @interface BusinessDao {
 
 }

@@ -13,8 +13,7 @@
 // limitations under the License.
 package org.parancoe.persistence.dao;
 
-import org.parancoe.persistence.dao.generic.Dao;
-import org.parancoe.persistence.dao.generic.GenericDao;
+import org.parancoe.persistence.dao.generic.*;
 import org.springframework.beans.factory.BeanIsAbstractException;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -100,14 +99,14 @@ public class DaoUtils {
         return false;
     }
 
-    public static GenericDao getDaoFor(Class daoEntityType,
+    public static GenericDaoBase getDaoFor(Class daoEntityType,
                                        ListableBeanFactory beanFactory) {
-        GenericDao result = null;
+        GenericDaoBase result = null;
         Map<String, Object> daos =
                 DaoUtils.getDaos(beanFactory);
         for (Object dao : daos.values()) {
             if (DaoUtils.isDaoFor(dao, daoEntityType)) {
-                result = (GenericDao) dao;
+                result = (GenericDaoBase) dao;
                 break;
             }
         }
