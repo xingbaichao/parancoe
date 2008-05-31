@@ -3,15 +3,14 @@ package org.parancoe.plugins.italy;
 import org.parancoe.web.test.BaseTest;
 import org.parancoe.web.test.PluginTest;
 import org.parancoe.web.plugin.Plugin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class SanityTest extends PluginTest {
 
+  @Autowired
+  @Qualifier("pluginItalyConfig")
   private Plugin plugin;
-
-  public void setUp() throws Exception {
-    super.setUp();
-    plugin = (Plugin) ctx.getBean("pluginItalyConfig");
-  }
 
   public void testPlugin() throws Exception {
     assertEquals(4, plugin.getFixtureClasses().size());
@@ -20,4 +19,9 @@ public class SanityTest extends PluginTest {
     assertEquals(Comune.class, plugin.getFixtureClasses().get(2));
     assertEquals(Procura.class, plugin.getFixtureClasses().get(3));
   }
+  
+  @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{Regione.class, Provincia.class, Comune.class, Procura.class};
+    }
 }

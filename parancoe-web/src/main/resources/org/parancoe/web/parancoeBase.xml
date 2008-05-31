@@ -78,9 +78,10 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
         <property name="interceptors">
             <list>
                 <!--  secured interceptor  -->
+                <ref bean="openSessionInViewInterceptor"/>
+                <ref bean="pluginInterceptor"/>
                 <ref bean="localeChangeInterceptor"/>
-                <ref bean="languageInterceptor"/>
-                <ref bean="pluginInterceptor"/>                
+                <ref bean="languageInterceptor"/>                
             </list>
         </property>
     </bean>
@@ -110,6 +111,9 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="1000000"/>
     </bean>
+    
+    <!-- Open session in view pattern -->
+    <bean id="openSessionInViewInterceptor" class="org.parancoe.web.ParancoeOpenSessionInViewInterceptor" />
     
     <!-- locale change -->
     <bean id="localeResolver"

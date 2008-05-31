@@ -32,7 +32,7 @@ public interface Entity {
      * 
      * @return The version of this entity
      */
-    Integer getVersion();
+//    Integer getVersion();
 
     /**
      * Set the entity id
@@ -45,7 +45,7 @@ public interface Entity {
      * Set the version of this entity
      * 
      * @param version The version
-     */
-    void setVersion(Integer version);
+//     */
+//    void setVersion(Integer version);
     
 }

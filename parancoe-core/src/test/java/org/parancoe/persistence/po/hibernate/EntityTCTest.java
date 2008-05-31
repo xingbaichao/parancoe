@@ -17,6 +17,7 @@ import java.util.List;
 import org.parancoe.persistence.dao.Daos;
 import org.parancoe.persistence.dao.generic.EntityTCDao;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests on generic DAO using EntityTC.
@@ -26,11 +27,8 @@ import org.parancoe.persistence.util.BaseTest;
  */
 public class EntityTCTest extends BaseTest {
 
+    @Autowired
     protected Daos daos;
-
-    public EntityTCTest() {
-        this.daos = (Daos) this.ctx.getBean("daos");
-    }
 
     public void testDaoExists() {
         assertNotNull(this.daos);

@@ -16,8 +16,10 @@ package org.parancoe.persistence.dao.generic;
 import java.util.Iterator;
 import java.util.List;
 import org.parancoe.persistence.dao.DaoUtils;
+import org.parancoe.persistence.dao.Daos;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test case for the generic DAO.
@@ -26,29 +28,29 @@ import org.parancoe.persistence.util.BaseTest;
  * @version $Revision$
  */
 public class HibernateGenericDaoTest extends BaseTest {
+    
+    @Autowired
     private EntityTCBO entityTCBO;
     
-    public HibernateGenericDaoTest() {
-        this.entityTCBO = (EntityTCBO)this.ctx.getBean("entityTCBO");        
-    }
+    @Autowired
+    private Daos daos;
         
     public void testStoreRetrieve() {
         EntityTC entity = new EntityTC();
-        Long id = this.entityTCBO.createEntity(entity);
-        EntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        this.entityTCBO.createEntity(entity);
+        EntityTC retrievedEntity = this.entityTCBO.retrieveEntity(entity.getId());
         assertEquals(entity, retrievedEntity);
-        assertNotSame(entity, retrievedEntity);
     }
 
     public void testFindAll(){
-        List<EntityTC> list = this.entityTCBO.getDaos().getEntityTCDao().findAll();
+        List<EntityTC> list = this.daos.getEntityTCDao().findAll();
         assertNotNull(list);
     }
     
     public void testGetByFieldOne() {
         EntityTC entity = new EntityTC();
         entity.setFieldOne("ONE");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldOne("ONE");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();
@@ -61,7 +63,7 @@ public class HibernateGenericDaoTest extends BaseTest {
     public void testGetByFieldTwo() {
         EntityTC entity = new EntityTC();
         entity.setFieldTwo("TWO");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldTwo("TWO");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();
@@ -75,7 +77,7 @@ public class HibernateGenericDaoTest extends BaseTest {
         EntityTC entity = new EntityTC();
         entity.setFieldOne("ONEONE");
         entity.setFieldTwo("TWOTWO");
-        Long id = this.entityTCBO.createEntity(entity);
+        this.entityTCBO.createEntity(entity);
         List<EntityTC> result = this.entityTCBO.retrieveEntityByFieldOneAndFieldTwo("ONEONE", "TWOTWO");
         assertTrue(result.size() > 0);
         Iterator<EntityTC> enIt = result.iterator();

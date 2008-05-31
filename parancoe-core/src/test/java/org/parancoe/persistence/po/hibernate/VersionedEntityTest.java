@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import org.parancoe.persistence.dao.generic.VersionedEntityTCBO;
 import org.parancoe.persistence.util.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A test case for a versioned entity.
@@ -26,12 +27,9 @@ import org.parancoe.persistence.util.BaseTest;
  * @version $Revision$
  */
 public class VersionedEntityTest extends BaseTest {
-
+    
+    @Autowired
     private VersionedEntityTCBO entityTCBO;
-
-    public VersionedEntityTest() {
-        this.entityTCBO = (VersionedEntityTCBO) this.ctx.getBean("versionedEntityTCBO");       
-    }
 
     public void testStoreRetrieve() {
         VersionedEntityTC versionedEntity = new VersionedEntityTC();
@@ -40,22 +38,20 @@ public class VersionedEntityTest extends BaseTest {
         versionedEntityData.setBalance(new BigDecimal("100.00"));
         versionedEntityData.setDescription("Test description");
         versionedEntity.updateVersionedData(versionedEntityData);
-        Long id = this.entityTCBO.createEntity(versionedEntity);
-        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        this.entityTCBO.createEntity(versionedEntity);
+        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(versionedEntity.getId());
         assertEquals(versionedEntity, retrievedEntity);
-        assertNotSame(versionedEntity, retrievedEntity);
     }
 
     public void testUpdateNewVersionedData() {
-        Long id;
         VersionedEntityTC versionedEntity = new VersionedEntityTC();
         versionedEntity.setName("Test name");
         VersionedEntityDataTC versionedEntityData = new VersionedEntityDataTC();
         versionedEntityData.setBalance(new BigDecimal("100.00"));
         versionedEntityData.setDescription("Test description");
         versionedEntity.updateVersionedData(versionedEntityData);
-        id = this.entityTCBO.createEntity(versionedEntity);
-        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        this.entityTCBO.createEntity(versionedEntity);
+        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(versionedEntity.getId());
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(1, entityDataVersions.size());
@@ -71,13 +67,13 @@ public class VersionedEntityTest extends BaseTest {
         versionedEntityData.setBalance(new BigDecimal("100.00"));
         versionedEntityData.setDescription("Test description");
         versionedEntity.updateVersionedData(versionedEntityData);
-        Long id = this.entityTCBO.createEntity(versionedEntity);
+        this.entityTCBO.createEntity(versionedEntity);
         versionedEntityData = new VersionedEntityDataTC();
         versionedEntityData.setBalance(new BigDecimal("200.00"));
         versionedEntityData.setDescription("Test description modified");
         Thread.sleep(300);
-        VersionedEntityTC updatedEntity = this.entityTCBO.updateVersionedData(id, versionedEntityData);
-        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        VersionedEntityTC updatedEntity = this.entityTCBO.updateVersionedData(versionedEntity.getId(), versionedEntityData);
+        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(versionedEntity.getId());
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(2, entityDataVersions.size());
@@ -100,20 +96,20 @@ public class VersionedEntityTest extends BaseTest {
         englishVersionedEntityData.setBalance(new BigDecimal("100.00"));
         englishVersionedEntityData.setDescription("English description");
         versionedEntity.updateVersionedData(englishVersionedEntityData);
-        Long id = this.entityTCBO.createEntity(versionedEntity);
+        this.entityTCBO.createEntity(versionedEntity);
         italianVersionedEntityData = new VersionedEntityDataTC();
         italianVersionedEntityData.setLocale(Locale.ITALIAN.getLanguage());
         italianVersionedEntityData.setBalance(new BigDecimal("200.00"));
         italianVersionedEntityData.setDescription("Descrizione in italiano modificata");
         Thread.sleep(300);
-        VersionedEntityTC updatedEntity = this.entityTCBO.updateVersionedData(id, italianVersionedEntityData);
+        VersionedEntityTC updatedEntity = this.entityTCBO.updateVersionedData(versionedEntity.getId(), italianVersionedEntityData);
         englishVersionedEntityData = new VersionedEntityDataTC();
         englishVersionedEntityData.setLocale(Locale.ENGLISH.getLanguage());
         englishVersionedEntityData.setBalance(new BigDecimal("200.00"));
         englishVersionedEntityData.setDescription("Updated english description");
         Thread.sleep(300);
-        updatedEntity = this.entityTCBO.updateVersionedData(id, englishVersionedEntityData);
-        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(id);
+        updatedEntity = this.entityTCBO.updateVersionedData(versionedEntity.getId(), englishVersionedEntityData);
+        VersionedEntityTC retrievedEntity = this.entityTCBO.retrieveEntity(versionedEntity.getId());
         List<VersionedEntityDataTC> entityDataVersions = retrievedEntity.getVersionedData();
         assertTrue(!entityDataVersions.isEmpty());
         assertEquals(4, entityDataVersions.size());

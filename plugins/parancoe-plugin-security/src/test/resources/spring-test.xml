@@ -18,6 +18,13 @@
     </bean>
     
     <bean id="sessionFactory" parent="abstractSessionFactory">
+        <property name="eventListeners">
+                <map>
+                        <entry key="merge">
+                                <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                        </entry>
+                </map>
+        </property>
         <property name="hibernateProperties">
             <props merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
