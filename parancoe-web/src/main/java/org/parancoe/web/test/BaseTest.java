@@ -52,6 +52,7 @@ public abstract class BaseTest extends DBTest {
         } catch (IOException ex) {
                 throw new RuntimeException("Unable to get parancoe-servlet", ex);
         }
-        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml","classpath:org/parancoe/web/parancoeBase.xml", "file:" + parancoeServlet, "classpath:spring-test.xml", "classpath*:parancoe-plugin.xml"};
+        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
+                "classpath:org/parancoe/web/parancoeBase.xml", "file:" + parancoeServlet, "classpath:spring-test.xml", "classpath*:parancoe-plugin.xml"};
     }
 }
