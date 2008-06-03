@@ -119,6 +119,7 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
     
     <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService"/>
+        <!-- TODO: commented for building after 2.0 merge. Please investigate!        
         <property name="userCache">
             <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
                 <property name="cache">
@@ -131,6 +132,7 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
                 </property>
             </bean>
         </property>
+        -->
         <!-- password encoder -->
         <property name="passwordEncoder">
         	<bean class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"></bean>        

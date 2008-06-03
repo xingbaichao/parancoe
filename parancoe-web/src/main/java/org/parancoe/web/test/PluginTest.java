@@ -1,15 +1,12 @@
 package org.parancoe.web.test;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletContext;
 import org.parancoe.util.BaseConf;
 import org.apache.log4j.Logger;
-import org.springframework.web.servlet.HandlerMapping;
 import javax.sql.DataSource;
 import org.parancoe.test.DBTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -35,11 +32,16 @@ public abstract class PluginTest extends DBTest {
         return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml","classpath:org/parancoe/web/parancoeBase.xml", "classpath:spring-test.xml", "classpath*:parancoe-plugin.xml"};
     }
     
-   protected void prepareTestInstance() throws Exception {
-        super.prepareTestInstance();
+    @Override
+    protected ConfigurableApplicationContext createApplicationContext(
+            String[] locations) {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         ServletContext servletContext = new MockServletContext(rl);
-        XmlWebApplicationContext ctx = new XmlWebApplicationContext();
-        ctx.setServletContext(servletContext);
+        XmlWebApplicationContext context = new XmlWebApplicationContext();
+        context.setServletContext(servletContext);
+        context.setConfigLocations(locations);
+        context.refresh();
+        return context;
     }
+    
 }

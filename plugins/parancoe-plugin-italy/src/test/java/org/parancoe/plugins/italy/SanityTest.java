@@ -1,6 +1,5 @@
 package org.parancoe.plugins.italy;
 
-import org.parancoe.web.test.BaseTest;
 import org.parancoe.web.test.PluginTest;
 import org.parancoe.web.plugin.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;

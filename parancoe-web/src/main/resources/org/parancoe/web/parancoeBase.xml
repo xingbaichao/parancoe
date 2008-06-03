@@ -19,12 +19,12 @@ limitations under the License.
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
        http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator.xsd
-http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
-    
+       http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+       
     <!-- database -->
 
     <tx:annotation-driven/>
@@ -170,7 +170,6 @@ http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.
     <dwr:configuration>
         <dwr:convert type="bean" class="org.parancoe.web.validation.DWRAnnotationValidator" />        
     </dwr:configuration>
-    
     <!-- end dwr section -->
     
 </beans>
