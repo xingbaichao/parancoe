@@ -24,12 +24,9 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.parancoe.persistence.dao.DaoUtils;
-import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.util.FixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -37,12 +34,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 public abstract class DBTest extends EnhancedTestCase {
 
     private static final Logger logger = Logger.getLogger(DBTest.class);
-
     protected Map<Class, Object[]> fixtures;
-
     @Autowired
     SessionFactory sessionFactory;
-
     @Autowired
     HashMap daoMap;
 
@@ -68,7 +62,7 @@ public abstract class DBTest extends EnhancedTestCase {
      * @return array di classi
      */
     public Class[] getFixtureClasses() {
-        return new Class[] {};
+        return new Class[]{};
     }
 
     public final Set<Class> getFixtureClassSet() {
@@ -87,46 +81,57 @@ public abstract class DBTest extends EnhancedTestCase {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         //Attach transaction to thread
-        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
+        TransactionSynchronizationManager.bindResource(sessionFactory,
+                new SessionHolder(session));
         TransactionSynchronizationManager.initSynchronization();
 
-        try{
+        try {
             // erase everything
             for (Class model : getReverseOrderFixtureClasses()) {
-                GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
+                GenericDaoBase dao = DaoUtils.getDaoFor(model,
+                        applicationContext);
                 FixtureHelper.eraseDbForModel(model, dao);
             }
             // repopulate
             for (Class model : getFixtureClasses()) {
-                GenericDaoBase dao = DaoUtils.getDaoFor(model, applicationContext);
+                GenericDaoBase dao = DaoUtils.getDaoFor(model,
+                        applicationContext);
                 FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
             }
             session.getTransaction().commit();
-            if(session.isOpen()) session.close();
-        }catch(Exception e){
+            if (session.isOpen()) {
+                session.close();
+            }
+        } catch (Exception e) {
             logger.error(e);
             logger.debug("Rolling back the database transaction");
             session.getTransaction().rollback();
-        }finally{
-            try{
-                if(session.isOpen()){
+        } finally {
+            try {
+                if (session.isOpen()) {
                     session.close();
                 }
-            }catch(Exception e){/*do nothing*/}
+            } catch (Exception e) {/*do nothing*/
+
+            }
             TransactionSynchronizationManager.unbindResource(sessionFactory);
             TransactionSynchronizationManager.clearSynchronization();
         }
 
     }
 
+    @Override
     protected String[] getConfigLocations() {
-        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                             "classpath:database_test.xml",
-                             "classpath:dao_test.xml",
-                             "classpath:applicationContext_test.xml"};
+        return new String[]{
+                    "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
+                    "classpath:database_test.xml",
+                    "classpath:dao_test.xml",
+                    "classpath:applicationContext_test.xml"
+                };
     }
 
-   protected void prepareTestInstance() throws Exception {
+    @Override
+    protected void prepareTestInstance() throws Exception {
         super.prepareTestInstance();
 
         Map ldaos = DaoUtils.getDaos(applicationContext);
@@ -137,17 +142,18 @@ public abstract class DBTest extends EnhancedTestCase {
             Set<Class> fixtureClasses = getFixtureClassSet();
             if (fixtureClasses != null && fixtureClasses.size() > 0) {
                 try {
-                    fixtures = FixtureHelper.loadFixturesFromResource((ClassPathResource) applicationContext
-                            .getResource("classpath:/fixtures/"), fixtureClasses);
-                    logger.info("Predisposte le fixture per le classi " + fixtures.keySet().toString());
+                    fixtures = FixtureHelper.loadFixturesFromResource(
+                            (ClassPathResource) applicationContext.getResource(
+                            "classpath:/fixtures/"), fixtureClasses);
+                    logger.info("Predisposte le fixture per le classi " +
+                            fixtures.keySet().toString());
                 } catch (Exception e) {
-                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi "
-                            + fixtureClasses.toString(), e);
+                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi " +
+                            fixtureClasses.toString(), e);
                 }
             } else {
                 logger.info("No fixtures to load");
             }
         }
     }
-
 }
