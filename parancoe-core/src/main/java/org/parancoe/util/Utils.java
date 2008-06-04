@@ -142,7 +142,7 @@ public class Utils {
 
     protected static String unsafeLoadString(InputStream stream) throws IOException {
         byte[] byteResult =
-                IOUtils.toByteArray(new InputStreamReader(stream), "UTF-8");
+                IOUtils.toByteArray(stream);
         return stripUTF8preamble(new String(byteResult, "UTF-8"));
     }
 
