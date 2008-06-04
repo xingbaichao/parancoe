@@ -9,7 +9,7 @@
   
 # Without anchor
 -
-  nome: ""
+  nome: "àèéìòù"
   id: -980000
 - &demo3
   nome: "Demo3"
