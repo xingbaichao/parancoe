@@ -108,7 +108,7 @@ public class FixtureHelperTest extends DBTest {
 		DemoBean[] result = (DemoBean[]) objects.get(DemoBean.class);
 		assertEquals("Non carica tutti i beans", 5, result.length);
 		for (int i = 0; i < 5; i++) {
-			assertEquals("Non ha caricato correttamente il beans numero " + i, result[i], expected[i]);
+			assertEquals("Non ha caricato correttamente il beans numero " + i, expected[i], result[i]);
 		}
 	}
 
