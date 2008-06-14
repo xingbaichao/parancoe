@@ -4,7 +4,7 @@
 <head>
     <%@ include file="../head.jspf" %>
     
-    <script src="${cp}/dwr/interface/personBO.js" type="text/javascript"></script>
+    <script src="${cp}/dwr/interface/personBo.js" type="text/javascript"></script>
 </head>
 <body onload="parancoe.util.initDWR()">
 <jsp:include page="../header.jsp"/>
@@ -18,7 +18,7 @@
      <li>${person}
          <a href="show.html?id=${person.id}">show</a>
          <a href="edit.form?id=${person.id}">edit</a>
-         <a href="javascript: personBO.showPerson(${person.id})">Ajax show</a>
+         <a href="javascript: personBo.showPerson(${person.id})">Ajax show</a>
      </li>
 </c:forEach>
 </ul>

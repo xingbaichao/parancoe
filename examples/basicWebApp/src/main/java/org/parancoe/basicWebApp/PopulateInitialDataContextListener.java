@@ -5,11 +5,9 @@ package org.parancoe.basicWebApp;
  * and open the template in the editor.
  */
 
-import javax.servlet.ServletContextEvent;
 import org.parancoe.plugins.security.Authority;
 import org.parancoe.plugins.security.User;
 import org.parancoe.plugins.security.UserAuthority;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 
 /**
  *

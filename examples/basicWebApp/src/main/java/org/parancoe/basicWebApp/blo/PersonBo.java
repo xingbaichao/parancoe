@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 // limitations under the License.
 package org.parancoe.basicWebApp.blo;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.parancoe.basicWebApp.po.Person;
 import org.parancoe.basicWebApp.dao.PersonDao;
 
@@ -23,21 +22,19 @@ import java.util.List;
 import org.directwebremoting.ScriptSession;
 import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
+import org.directwebremoting.annotations.RemoteMethod;
+import org.directwebremoting.annotations.RemoteProxy;
 import org.directwebremoting.proxy.dwr.Util;
 import org.directwebremoting.proxy.scriptaculous.Effect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+@RemoteProxy(name="personBo")
 public class PersonBo {
+    @Autowired
     private PersonDao dao;
-    
-    public PersonDao getDao() {
-        return dao;
-    }
-    
-    public void setDao(PersonDao dao) {
-        this.dao = dao;
-    }
-    
-    @Transactional()
+        
     public void populateArchive() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         List<Person> searches = null;
@@ -67,12 +64,11 @@ public class PersonBo {
         }
     }
     
-    @Transactional(readOnly=true)
     public Person retrievePerson(Long id) {
         return dao.read(id);
     }
     
-    @Transactional(readOnly=true)
+    @RemoteMethod
     public void showPerson(Long id) {
         WebContext wctx = WebContextFactory.get();        
         ScriptSession session = wctx.getScriptSession();

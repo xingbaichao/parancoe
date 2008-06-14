@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,66 +13,72 @@
 // limitations under the License.
 package org.parancoe.basicWebApp.controllers;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
-import org.parancoe.basicWebApp.Blos;
-import org.parancoe.basicWebApp.Daos;
+import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.po.Person;
-import org.parancoe.web.BaseFormController;
-import org.parancoe.web.controller.annotation.UrlMapping;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.validation.BindException;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
-@UrlMapping("/people/edit.form")
-public abstract class PeopleEditController extends BaseFormController {
+@Controller
+@RequestMapping("/people/*.form")
+@SessionAttributes("person")
+public class PeopleEditController {
 
-    private final static Logger logger = Logger.getLogger(PeopleEditController.class);
-
-    protected void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
-        //binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"),true));
-    }
+    @Autowired
+    private PersonDao personDao;
+    @Autowired
+    @Qualifier("validator")
+    Validator validator;
+    private final static Logger logger = Logger.getLogger(
+            PeopleEditController.class);
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
-    protected ModelAndView onSubmit(HttpServletRequest req, HttpServletResponse res, Object person, BindException errors) throws Exception {
+    @RequestMapping
+    protected String update(@ModelAttribute("person") Person person,
+            BindingResult result, SessionStatus status) {
         try {
-            validator.validate(person,result);
+            validator.validate(person, result);
             if (result.hasErrors()) {
-                return "people/edit"; 
-            }
-            else {
-                daos.getPersonDao().store(person);
-                return "redirect:people/list.html"; // restituisce succesView
+                logger.error("Result of validation has errors (" +
+                        result.getAllErrors().toString() + ")");
+                return "people/edit";
+            } else {
+                personDao.store(person);
+                logger.info("Stored the person (" + person + ")");
+                return "redirect:list.html";
             }
         } catch (Exception e) {
             logger.error("Problema salvando Utente " + person, e);
-                     
-            errors.reject("error.generic");
-             return showForm(req, res, errors);
+            result.reject("error.generic");
+            return "people/edit";
         }
     }
 
     /* Se passo il param id, carico la persona da db e mostro il form prepopolato */
-    protected Object formBackingObject(HttpServletRequest req) throws Exception {
+    @RequestMapping
+    protected String edit(@RequestParam("id") Long id, Model model) {
         try {
-            Long id = Long.parseLong(req.getParameter("id"));
-            Person p = dao().getPersonDao().read(id);
-            if (p==null) throw new Exception();
-            return p;
-        } catch(Exception e){
-            return new Person();
+            Person p = personDao.read(id);
+            if (p == null) {
+                throw new Exception();
+            }
+            model.addAttribute("person", p);
+        } catch (Exception e) {
+            model.addAttribute("person", new Person());
         }
+        return "people/edit";
     }
 
     public Logger getLogger() {
         return logger;
     }
-    protected abstract Daos dao();
-    protected abstract Blos blo();
 }

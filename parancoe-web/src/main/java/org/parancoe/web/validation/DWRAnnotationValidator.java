@@ -18,16 +18,21 @@ import java.text.SimpleDateFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
+import org.directwebremoting.annotations.RemoteMethod;
+import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.PropertyValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -45,11 +50,14 @@ import org.springmodules.validation.bean.rule.ValidationRule;
  *
  * @author gtrev
  */
+@Component
 public class DWRAnnotationValidator extends BeanValidator implements ApplicationContextAware{
     
     private final static Logger logger = Logger.getLogger(DWRAnnotationValidator.class);
     //private final static Log logger = LogFactory.getLog(DWRAnnotationValidator.class);
     
+    @Autowired
+    @Qualifier("configurationLoader")
     private BeanValidationConfigurationLoader configurationLoader;
     
     private ErrorCodeConverter errorCodeConverter;
