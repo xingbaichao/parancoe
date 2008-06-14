@@ -16,7 +16,7 @@ public class SanityTest extends BaseTest {
     @Autowired
     @Qualifier("productionConfiguration")
     private PropertiesConfiguration productionConfiguration;
-
+    
     public void testSanity() throws Exception {
         assertNotNull(developmentConfiguration);
         assertNotNull(testConfiguration);

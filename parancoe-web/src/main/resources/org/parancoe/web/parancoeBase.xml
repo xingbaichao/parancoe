@@ -70,11 +70,8 @@ limitations under the License.
     <!-- this is the default conf Object, you can override it in your parancoe-servlet.xml
          just remember to set parent="abstractConf" -->
     <bean id="conf" class="org.parancoe.util.BaseConf" parent="abstractConf"/>
-    
-    <bean id="abstractHandlerMapping" abstract="true"
-       class="org.parancoe.web.controller.AnnotationHandlerMapping">
-          <!--class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">-->
-               
+
+    <bean id="abstractHandlerMapping" abstract="true" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
         <property name="interceptors">
             <list>
                 <!--  secured interceptor  -->
@@ -85,7 +82,7 @@ limitations under the License.
             </list>
         </property>
     </bean>
-    
+
     <!-- this is the default handler mapping, you can override it in your parancoe-servlet.xml -->
     <bean id="handlerMapping" parent="abstractHandlerMapping"/>
     
@@ -148,18 +145,34 @@ limitations under the License.
         <lookup-method name="blo" bean="blos"/>
     </bean>
     
-    <!-- begin dwr section -->    
-    <dwr:controller id="dwrController" debug="false"/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
     
-    <bean id="dwrHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <!-- begin dwr section -->    
+    <dwr:controller id="dwrController" debug="true"/>
+    
+    <dwr:annotation-config />
+    
+    <bean id="dwrHandlerMapping" class="org.directwebremoting.spring.DwrHandlerMapping">
         <property name="alwaysUseFullPath" value="true" />  
         <property name="urlMap">
             <map>
                 <entry key="/dwr/**/*"><ref bean="dwrController"/></entry>                          
             </map>
         </property>
-    </bean>      
+        <property name="interceptors">
+            <list>
+                <!--  secured interceptor  -->
+                <ref bean="openSessionInViewInterceptor"/>
+                <ref bean="pluginInterceptor"/>
+                <ref bean="localeChangeInterceptor"/>
+                <ref bean="languageInterceptor"/>                
+            </list>
+        </property>
+    </bean>
     
+    <dwr:configuration></dwr:configuration>
+    
+<!--
     <bean id="dwrvalidator" class="org.parancoe.web.validation.DWRAnnotationValidator">
         <property name="configurationLoader" ref="configurationLoader"/>
         <dwr:remote javascript="dwrvalidator">
@@ -170,6 +183,7 @@ limitations under the License.
     <dwr:configuration>
         <dwr:convert type="bean" class="org.parancoe.web.validation.DWRAnnotationValidator" />        
     </dwr:configuration>
+-->    
     <!-- end dwr section -->
     
 </beans>

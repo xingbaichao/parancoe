@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,26 +21,29 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.parancoe.web.BaseMultiActionController;
-import org.parancoe.basicWebApp.Daos;
-import org.parancoe.basicWebApp.Blos;
-import org.parancoe.web.controller.annotation.UrlMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@UrlMapping("/home/*.html")
-public abstract class HomeController extends BaseMultiActionController {
+@Controller
+@RequestMapping("/home/*.html")
+public class HomeController extends BaseMultiActionController {
     private static final Logger logger = Logger.getLogger(HomeController.class);
 
     // the simplest possible action
+    @RequestMapping
     public ModelAndView welcome(HttpServletRequest req, HttpServletResponse res) {
         Map params = new HashMap();
         params.put("something", new Object());
         return new ModelAndView("welcome", params);
     }
-
+    
+    @RequestMapping
     public ModelAndView page1(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("page1", null);
     }
 
     // how to handle exceptions
+    @RequestMapping
     public ModelAndView pageThatRaiseAnException(HttpServletRequest req, HttpServletResponse res) {
         try {
             throw new RuntimeException("BOOOM!!!");
@@ -49,6 +52,7 @@ public abstract class HomeController extends BaseMultiActionController {
         }
     }
 
+    @RequestMapping
     public ModelAndView pageThatRaiseAnUnHandledException(HttpServletRequest req, HttpServletResponse res){
         if (1 == 1){
             throw new RuntimeException("UNHANDLED BOOM!!!");
@@ -57,6 +61,4 @@ public abstract class HomeController extends BaseMultiActionController {
     }
 
     public Logger getLogger() {return logger;}
-    protected abstract Daos dao();
-    protected abstract Blos blo();
 }

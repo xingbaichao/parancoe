@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ include file="../head.jspf" %>
-    <script type='text/javascript' src='${cp}/dwr/interface/dwrvalidator.js'></script>
-  	<script type='text/javascript' src='${cp}/dwr/engine.js'></script>
+<%--    <script type='text/javascript' src='${cp}/dwr/interface/dwrvalidator.js'></script> --%>
 </head>
 <body onload="parancoe.util.initDWR()">
 <jsp:include page="../header.jsp"/>
@@ -14,25 +13,34 @@
 
 <h2>Edit Person</h2>
 
-<form:form commandName="person" method="POST" action="${cp}/people/edit.form">
+<form:form commandName="person" method="POST" action="${cp}/people/update.form">
     <form:hidden path="id"/>
     <table>
     <tr>
         <td><spring:message code="first_name"/> (*)</td>
+        <td><form:input path="firstName"/></td>
+<%-- TODO: DWR validation
         <td><form:input path="firstName" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','firstName',firstName.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="firstName" cssClass="errorBox"/></td>
+--%>        
         <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','firstName',firstName.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
         <td><spring:message code="last_name"/> (*)</td>
+        <td><form:input path="lastName"/></td>
+<%-- TODO: DWR validation
         <td><form:input path="lastName" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','lastName',lastName.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="lastName" cssClass="errorBox"/></td>
+--%>        
         <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','lastName',lastName.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
         <td><spring:message code="birth_date"/> (**)</td>
+        <td><form:input path="birthDate"/></td>
+<%-- TODO: DWR validation
         <td><form:input path="birthDate" onchange="javascript: dwrvalidator.validateDWR('peopleEditController','birthDate',birthDate.value, function(str) { if(str!=null) alert(str); });"/></td>
         <td><form:errors path="birthDate" cssClass="errorBox"/></td>
+--%>        
         <!-- <td><input type="button" value="validazione dwr" name="validazione_dwr" onclick="javascript: dwrvalidator.validateDWR('peopleEditController','birthDate',birthDate.value, function(str) { alert(str); });"/></td> -->
     </tr>
     <tr>
@@ -46,7 +54,7 @@
     </tr>       
        
     </table>
-    <!-- <form:errors path="*" cssClass="errorBox"/> -->
+    <form:errors path="*" cssClass="errorBox"/>
 </form:form>
 
 <jsp:include page="../footer.jsp"/>

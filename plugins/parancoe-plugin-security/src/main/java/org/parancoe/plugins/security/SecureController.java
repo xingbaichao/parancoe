@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import org.parancoe.web.BaseMultiActionController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -27,34 +28,31 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  * @author Enrico Giurin
  *
  */
-public  class SecureController extends MultiActionController {
+@Controller
+@RequestMapping("/*.secure")
+public class SecureController extends MultiActionController {
+
     private static Logger logger = Logger.getLogger(SecureController.class);
-    
-    
-    public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
+
+    @RequestMapping
+    public ModelAndView login(HttpServletRequest req, HttpServletResponse res) {
         return new ModelAndView("acegilogin");
     }
-    
-    public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
+
+    @RequestMapping
+    public ModelAndView accessDenied(HttpServletRequest req,
+            HttpServletResponse res) {
         return new ModelAndView("accessDenied");
     }
-    
-    
-    public ModelAndView securityCheck(HttpServletRequest req, HttpServletResponse res){
+
+    @RequestMapping
+    public ModelAndView securityCheck(HttpServletRequest req,
+            HttpServletResponse res) {
         return null;
     }
 
-    public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
+    @RequestMapping
+    public ModelAndView logout(HttpServletRequest req, HttpServletResponse res) {
         return null;
     }
-    
-        /* (non-Javadoc)
-         * @see org.parancoe.web.BaseMultiActionController#getLogger()
-         */
-   
-    
-   
-    
-    
-    
 }
