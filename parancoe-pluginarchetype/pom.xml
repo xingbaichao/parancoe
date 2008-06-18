@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.parancoe</groupId>
+    <artifactId>parancoe-pluginarchetype</artifactId>
+    <name>Parancoe Plugin Archetype</name>
+    <version>2.0-SNAPSHOT</version>
+    <url>http://www.parancoe.org</url>
+    <repositories>
+        <repository>
+            <id>parancoe-org-repository</id>
+            <name>Parancoe Repository for Maven</name>
+            <url>http://maven2.parancoe.org/repo/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>parancoe-org-repository</id>
+            <url>scp://maven2.parancoe.org/home/web/maven2.parancoe.org/repository/repo</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+    <scm>
+        <connection>scm:svn:http://parancoe.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/trunk/</developerConnection>
+        <url>http://parancoe.googlecode.com/svn/trunk/</url>
+    </scm>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>bin</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
