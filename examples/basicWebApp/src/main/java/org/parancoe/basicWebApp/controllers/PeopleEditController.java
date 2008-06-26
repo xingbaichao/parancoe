@@ -65,16 +65,17 @@ public class PeopleEditController {
 
     /* Se passo il param id, carico la persona da db e mostro il form prepopolato */
     @RequestMapping
-    protected String edit(@RequestParam("id") Long id, Model model) {
-        try {
-            Person p = personDao.read(id);
+    protected String edit(@RequestParam(value="id", required=false) Long id, Model model) {
+        Person p = null;
+        if (id == null) {
+            p = new Person();
+        } else {
+            p = personDao.read(id);
             if (p == null) {
-                throw new Exception();
+                p = new Person();
             }
-            model.addAttribute("person", p);
-        } catch (Exception e) {
-            model.addAttribute("person", new Person());
         }
+        model.addAttribute("person", p);
         return "people/edit";
     }
 

@@ -63,6 +63,12 @@
             <version>2.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-dwr</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
                 
         <!-- Servlet/JSP APIs provided by your container -->        
         <dependency>
