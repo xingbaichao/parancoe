@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.web.validation;
+package org.parancoe.plugin.dwr.validation;
 
 import java.text.SimpleDateFormat;
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+    <bean id="sessionFactory" parent="abstractSessionFactory">
+        <property name="eventListeners">
+            <map>
+                <entry key="merge">
+                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                </entry>
+            </map>
+        </property>
+        <property name="hibernateProperties">
+            <props merge="true">
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect
+                </prop>
+                <prop key="hibernate.hbm2ddl.auto">create
+                </prop>
+                <prop key="hibernate.show_sql">false
+                </prop>
+            </props>
+        </property>
+    </bean>
+</beans>
+

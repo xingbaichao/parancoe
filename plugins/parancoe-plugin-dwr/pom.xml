@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent>
+        <artifactId>parancoe-plugins</artifactId>
+        <groupId>org.parancoe</groupId>
+        <version>2.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.parancoe</groupId>
+    <artifactId>parancoe-plugin-dwr</artifactId>
+    <name>Parancoe Plugin DWR</name>
+    <version>2.0-SNAPSHOT</version>
+    <url>http://www.parancoe.org</url>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <useFile>true</useFile>
+                    <forkMode>once</forkMode>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.directwebremoting</groupId>
+            <artifactId>dwr</artifactId>
+            <version>3.0-M1-RCL1</version>
+        </dependency>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -146,44 +146,5 @@ limitations under the License.
     </bean>
     
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
-    
-    <!-- begin dwr section -->    
-    <dwr:controller id="dwrController" debug="true"/>
-    
-    <dwr:annotation-config />
-    
-    <bean id="dwrHandlerMapping" class="org.directwebremoting.spring.DwrHandlerMapping">
-        <property name="alwaysUseFullPath" value="true" />  
-        <property name="urlMap">
-            <map>
-                <entry key="/dwr/**/*"><ref bean="dwrController"/></entry>                          
-            </map>
-        </property>
-        <property name="interceptors">
-            <list>
-                <!--  secured interceptor  -->
-                <ref bean="openSessionInViewInterceptor"/>
-                <ref bean="pluginInterceptor"/>
-                <ref bean="localeChangeInterceptor"/>
-                <ref bean="languageInterceptor"/>                
-            </list>
-        </property>
-    </bean>
-    
-    <dwr:configuration></dwr:configuration>
-    
-<!--
-    <bean id="dwrvalidator" class="org.parancoe.web.validation.DWRAnnotationValidator">
-        <property name="configurationLoader" ref="configurationLoader"/>
-        <dwr:remote javascript="dwrvalidator">
-            <dwr:include method="validateDWR"/>
-        </dwr:remote>
-    </bean>
-    
-    <dwr:configuration>
-        <dwr:convert type="bean" class="org.parancoe.web.validation.DWRAnnotationValidator" />        
-    </dwr:configuration>
--->    
-    <!-- end dwr section -->
-    
+
 </beans>
