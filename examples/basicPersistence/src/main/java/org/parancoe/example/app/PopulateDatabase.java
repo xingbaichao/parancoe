@@ -14,7 +14,6 @@
 package org.parancoe.example.app;
 
 import org.parancoe.example.bo.PersonBO;
-import org.parancoe.example.po.Person;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
@@ -26,11 +25,7 @@ import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
  * @version $Revision$
  */
 public class PopulateDatabase {
-    
-    /** Creates a new instance of PopulateDatabase */
-    public PopulateDatabase() {
-    }
-    
+        
     /**
      * @param args the command line arguments
      */
@@ -40,13 +35,8 @@ public class PopulateDatabase {
         PersonBO personBO = (PersonBO)bf.getFactory().getBean("personBO");
         // Popoulating the database
         personBO.populateArchive();
-        // Finding by id (not really useful)
-        Person p = personBO.retrievePerson(new Long(1));
-        if (p != null) {
-            System.out.println(p.getFirstName()+" "+p.getLastName()+" "+p.getBirthDate());
-        } else {
-            System.out.println("Person (1) not found");
-        }
+        // Print the person with id=1
+        personBO.printPerson(1L);
     }
     
 }

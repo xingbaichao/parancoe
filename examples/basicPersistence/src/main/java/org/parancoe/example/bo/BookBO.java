@@ -14,27 +14,27 @@
 package org.parancoe.example.bo;
 
 import org.parancoe.example.dao.BookDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
-  * Represents Book Business object.
-  * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
-  *
+ * Represents Book Business object.
+ * @author <a href="mailto:enricogiurin@gmail.com">Enrico Giurin</a>
+ *
  */
+@Component
 public class BookBO {
-	private BookDao dao;
-	
-	public BookBO()
-	{
-		
-	}
+    @Autowired
+    private BookDao dao;
 
-	public BookDao getDao() {
-		return dao;
-	}
+    public BookBO() {
+    }
 
-	public void setDao(BookDao dao) {
-		this.dao = dao;
-	}
-	
+    public BookDao getDao() {
+        return dao;
+    }
 
+    public void setDao(BookDao dao) {
+        this.dao = dao;
+    }
 }

@@ -1,14 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.parancoe.example.dao;
 
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.parancoe.example.po.Person;
 import org.parancoe.example.test.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -16,12 +11,9 @@ import org.parancoe.example.test.BaseTest;
  */
 public class PersonDaoTest extends BaseTest {
     
+    @Autowired
     private PersonDao dao;
     
-    public PersonDaoTest() {
-        this.dao = (PersonDao) this.ctx.getBean("personDao");
-    }            
-
     /**
      * Test of findByLastName method, of class PersonDao.
      */
