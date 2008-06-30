@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.parancoe.example.dao.PersonDao;
 import org.parancoe.example.po.Person;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
  * @version $Revision$
  */
+@Component
 public class PersonBO {
+    @Autowired
     private PersonDao dao;
     
     /**
@@ -74,8 +78,13 @@ public class PersonBO {
         }
     }
     
-//    @Transactional(readOnly=true)
-    public Person retrievePerson(Long id) {
-        return dao.read(id);
+    @Transactional(readOnly=true)
+    public void printPerson(Long id) {
+        Person p =dao.read(id);
+        if (p != null) {
+            System.out.println(p.getFirstName()+" "+p.getLastName()+" "+p.getBirthDate());
+        } else {
+            System.out.println("Person (1) not found");
+        }
     }
 }

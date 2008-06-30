@@ -27,6 +27,7 @@ import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.util.FixtureHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -38,6 +39,7 @@ public abstract class DBTest extends EnhancedTestCase {
     @Autowired
     SessionFactory sessionFactory;
     @Autowired
+    @Qualifier("daoMap")
     HashMap daoMap;
 
     /**
@@ -145,10 +147,10 @@ public abstract class DBTest extends EnhancedTestCase {
                     fixtures = FixtureHelper.loadFixturesFromResource(
                             (ClassPathResource) applicationContext.getResource(
                             "classpath:/fixtures/"), fixtureClasses);
-                    logger.info("Predisposte le fixture per le classi " +
+                    logger.info("Loaded fixtures for classes " +
                             fixtures.keySet().toString());
                 } catch (Exception e) {
-                    logger.warn("Non sono riuscito predisporre tutte le fixture delle classi " +
+                    logger.warn("I can't load all fixture for classes " +
                             fixtureClasses.toString(), e);
                 }
             } else {
