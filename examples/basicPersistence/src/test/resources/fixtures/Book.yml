@@ -1,0 +1,5 @@
+- &Book-Concurrent
+  author: "Doug Lea"
+  title: "Concurrent programming in java second edition"
+  borrower: *Person-ugo
+  numPages: 411

@@ -31,21 +31,21 @@ import org.springframework.context.ApplicationContext;
  */
 public abstract class BaseTest extends DBTest {
 
-    @SuppressWarnings(value = "unchecked")
-    protected ApplicationContext getTestContext() {
-        BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance(
-                "beanRefFactory_test.xml");
-        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.example");
-        ApplicationContext lctx = (ApplicationContext) bf.getFactory();
-        Map daoMap = (Map) lctx.getBean("daoMap");
-        Map ldaos = DaoUtils.getDaos(lctx);
-        daoMap.putAll(ldaos);
-        return lctx;
-    }
+//    @SuppressWarnings(value = "unchecked")
+//    protected ApplicationContext getTestContext() {
+//        BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance(
+//                "beanRefFactory_test.xml");
+//        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.example");
+//        ApplicationContext lctx = (ApplicationContext) bf.getFactory();
+//        Map daoMap = (Map) lctx.getBean("daoMap");
+//        Map ldaos = DaoUtils.getDaos(lctx);
+//        daoMap.putAll(ldaos);
+//        return lctx;
+//    }
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[]{Person.class};
+        return new Class[]{Person.class, Book.class};
     }
 
     @Override
