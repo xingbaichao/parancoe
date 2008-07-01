@@ -56,6 +56,13 @@ limitations under the License.
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
+        <property name="eventListeners">
+            <map>
+                <entry key="merge">
+                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                </entry>
+            </map>
+        </property>
     </bean>
         
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
