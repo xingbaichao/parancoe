@@ -15,6 +15,8 @@ package org.parancoe.example.po;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
@@ -24,6 +26,8 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
  *
  */
 @javax.persistence.Entity()
+@NamedQueries(value = {@NamedQuery(name = "Book.allBooksByBorrower", query =
+    "from Book b where upper(b.borrower.firstName) = upper(?) and upper(b.borrower.lastName) = upper(?)")})
 public class Book extends EntityBase {
 	private int numPages = 0;
 	private String author = null;
