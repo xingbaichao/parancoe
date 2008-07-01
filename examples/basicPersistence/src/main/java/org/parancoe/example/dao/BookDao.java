@@ -29,6 +29,14 @@ import org.parancoe.persistence.dao.generic.GenericDao;
 public interface BookDao extends GenericDao<Book, Long>{
 		List<Book> findByAuthor(String author);
 	    List<Book> findByTitle(String title);
+	  /**
+	   * Retrieves all the books lent to the person identified by
+	   * borrowerFirstName and borrowerLastName.
+	   * @param borrowerFirstName
+	   * @param borrowerLastName
+	   * @return
+	   */
+	    List<Book> allBooksByBorrower(String borrowerFirstName, String borrowerLastName);
 	   
 
 }
