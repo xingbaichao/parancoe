@@ -72,7 +72,7 @@ public class Book extends EntityBase {
 		this.title = title;
 	}
         
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	public Person getBorrower() {
 		return borrower;
 	}
