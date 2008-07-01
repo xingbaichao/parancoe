@@ -13,6 +13,9 @@
 // limitations under the License.
 package org.parancoe.example.po;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
@@ -25,6 +28,7 @@ public class Book extends EntityBase {
 	private int numPages = 0;
 	private String author = null;
 	private String title = null;
+	private Person borrower = null;
 	
 
 
@@ -66,6 +70,14 @@ public class Book extends EntityBase {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+        
+	@ManyToOne(cascade=CascadeType.ALL)
+	public Person getBorrower() {
+		return borrower;
+	}
+	public void setBorrower(Person borrower) {
+		this.borrower = borrower;
 	}
 
 }
