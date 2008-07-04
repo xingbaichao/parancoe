@@ -14,8 +14,11 @@
 package org.parancoe.example.bo;
 
 import org.parancoe.example.dao.BookDao;
+import org.parancoe.example.po.Book;
+import org.parancoe.example.po.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Represents Book Business object.
@@ -32,6 +35,22 @@ public class BookBO {
 
     public BookDao getDao() {
         return dao;
+    }
+    /**
+     * This method is called when a book is returned to the library.
+     * It resets the borrower of that book and returns the Person
+     * that had this book.
+     * @param BookTitle
+     */
+    		
+    @Transactional()
+    public Person bookReturned(String author, String title)
+    {
+    	Book book = dao.findByAuthorAndTitle(author, title).get(0);
+    	Person oldBorrower = book.getBorrower();
+    	book.setBorrower(null);
+    	dao.store(book);
+    	return oldBorrower;
     }
 
     public void setDao(BookDao dao) {
