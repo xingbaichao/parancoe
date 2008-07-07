@@ -111,6 +111,7 @@
         <module>parancoe-plugin-security</module>
         <module>parancoe-plugin-security-encrypt</module>
         <module>parancoe-plugin-sample</module>
-        <module>parancoe-plugin-dwr</module>
+        <module>parancoe-plugin-dwr</module> 
+        <module>parancoe-plugin-springsecurity</module> 
   </modules>
 </project>
