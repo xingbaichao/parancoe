@@ -101,16 +101,13 @@ public abstract class DBTest extends EnhancedTestCase {
                 FixtureHelper.populateDbForModel(model, fixtures.get(model), dao);
             }
             session.getTransaction().commit();
-            if (session.isOpen()) {
-                session.close();
-            }
         } catch (Exception e) {
             logger.error(e);
             logger.debug("Rolling back the database transaction");
             session.getTransaction().rollback();
         } finally {
             try {
-                if (session.isOpen()) {
+                if (session != null) {
                     session.close();
                 }
             } catch (Exception e) {/*do nothing*/
