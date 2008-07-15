@@ -50,7 +50,7 @@ public abstract class BaseTest extends DBTest {
                     "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
                     "classpath:org/parancoe/web/parancoeBase.xml", "file:" +
                     parancoeServlet, "classpath:spring-test.xml",
-                    "classpath*:parancoe-plugin.xml"
+                    "classpath*:parancoe-plugin.xml", "classpath:spring-test.xml"
                 };
     }
 
