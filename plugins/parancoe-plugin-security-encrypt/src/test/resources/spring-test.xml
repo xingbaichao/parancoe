@@ -24,6 +24,13 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
+        <property name="eventListeners">
+                <map>
+                        <entry key="merge">
+                                <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                        </entry>
+                </map>
+        </property>
     </bean>    
     
     <!-- MySql configuration -->
