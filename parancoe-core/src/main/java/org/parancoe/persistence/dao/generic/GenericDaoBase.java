@@ -31,6 +31,8 @@ public interface GenericDaoBase<T, PK extends Serializable> {
 
     T read(PK id);
 
+    T get(PK id);
+    
     /** create or update an object  */
     void create(T transientObject);
 
