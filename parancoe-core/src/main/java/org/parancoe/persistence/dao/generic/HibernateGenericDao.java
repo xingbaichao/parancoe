@@ -50,6 +50,11 @@ public class HibernateGenericDao <T, PK extends Serializable>
     public T read(PK id) {
         return (T) getHibernateTemplate().load(getType(), id);
     }
+
+    @SuppressWarnings("unchecked")
+    public T get(PK id) {
+        return (T) getHibernateTemplate().get(getType(), id);
+    }
     
     public void delete(T o) {
         getHibernateTemplate().delete(o);

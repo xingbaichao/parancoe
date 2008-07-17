@@ -76,6 +76,11 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
         return (T) getHibernateTemplate().load(persistentClass, id);
     }
 
+    @SuppressWarnings("unchecked")
+    public T get(PK id) {
+        return (T) getHibernateTemplate().get(persistentClass, id);
+    }
+    
     public void delete(T o) {
         getHibernateTemplate().delete(o);
     }
