@@ -45,7 +45,7 @@ public abstract class EntityBase implements Entity, Serializable {
     /**
      * The entity version for optimistic locking
      */
-    protected Integer version;
+//    protected Integer version;
     
     /**
      * Get the entity id.
