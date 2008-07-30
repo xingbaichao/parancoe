@@ -99,9 +99,13 @@ public abstract class EntityBase implements Entity, Serializable {
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
-        if (obj != null && this.getClass().getName().equals(obj.getClass().getName())) {            
-            if (this.getId() != null && this.getId().equals(((EntityBase)obj).getId())) {
-                result = true;
+        if (obj != null) {
+            String className = obj.getClass().getName();
+            if (className.indexOf("$$EnhancerByCGLIB$$") > 0) className = className.substring(0, className.indexOf("$$EnhancerByCGLIB$$"));
+            if (this.getClass().getName().equals(className)) {
+                if (this.getId() != null && this.getId().equals(((EntityBase)obj).getId())) {
+                    result = true;
+                }
             }
         }
         return result;
