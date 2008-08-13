@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import org.parancoe.web.BaseMultiActionController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -27,34 +29,28 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  * @author Enrico Giurin
  *
  */
+@Controller
+@RequestMapping("/security/*.html")
 public  class SecureController extends MultiActionController {
     private static Logger logger = Logger.getLogger(SecureController.class);
     
-    
+    @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("acegilogin");
     }
-    
+    @RequestMapping
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("accessDenied");
     }
     
-    
-    public ModelAndView securityCheck(HttpServletRequest req, HttpServletResponse res){
+    @RequestMapping
+    public ModelAndView j_spring_security_check(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
-
+    @RequestMapping
     public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
-    
-        /* (non-Javadoc)
-         * @see org.parancoe.web.BaseMultiActionController#getLogger()
-         */
-   
-    
-   
-    
     
     
 }
