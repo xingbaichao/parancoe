@@ -13,6 +13,7 @@
 // limitations under the License.
 package org.parancoe.web.test;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
@@ -20,21 +21,13 @@ import org.springframework.mock.web.MockMultipartHttpServletRequest;
 public abstract class ControllerTest extends BaseTest {
 
     protected MockMultipartHttpServletRequest mpReq;
-
     protected MockHttpServletRequest req;
-
     protected MockHttpServletResponse res;
 
     @Override
     public void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        // preparo la richiesta multipart
-        mpReq = new MockMultipartHttpServletRequest();
-        mpReq.setMethod("GET");
-        // preparo la richiesta normale
-        req = new MockHttpServletRequest();
-        req.setMethod("GET");
-        res = new MockHttpServletResponse();
+        resetRequestAndResponse();
     }
 
     @Override
@@ -43,5 +36,28 @@ public abstract class ControllerTest extends BaseTest {
         mpReq = null;
         req = null;
         res = null;
+    }
+
+    /**
+     * Reset the request and the response, maintaining the same session.
+     * Useful, for example, to call a post after calling the get of the form.
+     */
+    protected void resetRequestAndResponse() {
+        HttpSession httpSession = null;
+        // preparing the multipart request
+        if (mpReq != null) {
+            httpSession = mpReq.getSession();
+        }
+        mpReq = new MockMultipartHttpServletRequest();
+        mpReq.setSession(httpSession);
+        mpReq.setMethod("GET");
+        // preparing the normal request
+        if (req != null) {
+            httpSession = req.getSession();
+        }
+        req = new MockHttpServletRequest();
+        req.setSession(httpSession);
+        req.setMethod("GET");
+        res = new MockHttpServletResponse();
     }
 }
