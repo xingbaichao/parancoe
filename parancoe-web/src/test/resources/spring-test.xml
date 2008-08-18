@@ -35,6 +35,10 @@
         </property>
     </bean>
 
+    <bean id="methodHandler" class="org.parancoe.web.annotation.ParancoeAnnotationMethodHandlerAdapter">
+        <property name="validator" ref="validator"/>
+    </bean>
+
    <parancoe:discover-persistent-classes basePackage="org.parancoe.web"/>
 
 </beans>
