@@ -59,7 +59,7 @@ public class ParancoeOpenSessionInViewInterceptor implements HandlerInterceptor 
         try{
             if(ex==null){
                 logger.debug("Committing the database transaction");
-                session.getTransaction().commit();
+                if (session.getTransaction().isActive() && !session.getTransaction().wasRolledBack()) session.getTransaction().commit();
             }else{
                 logger.error(ex);
                 logger.debug("Rolling back the database transaction");
