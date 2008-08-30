@@ -150,4 +150,16 @@ public abstract class DBTest extends EnhancedTestCase {
         }
     }
 
+    @Override
+    protected void endTransaction() {
+        try {
+            super.endTransaction();
+        }
+        catch (Exception ex) {
+            //do nothing
+        }
+    }
+   
+   
+
 }
