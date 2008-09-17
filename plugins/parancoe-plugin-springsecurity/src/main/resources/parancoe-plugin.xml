@@ -20,7 +20,7 @@
     <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
     
      <!-- Interceptor specifico per questo plugin -->
-    <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.security.SecureInterceptor">
+    <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.security.MockSecureInterceptor">
        <property name="parancoeDelegate" ref="springSecurityFilterChain"></property>
     </bean>
     <!--  
