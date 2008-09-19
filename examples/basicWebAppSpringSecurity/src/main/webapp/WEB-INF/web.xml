@@ -33,29 +33,14 @@
 <!--  end temporarily added -->
     
 
-    <!-- Removed filter for acegi, replaced by spring inteceptor -->   
-	<!--
-    <filter>
-        <filter-name>Acegi Filter Chain Proxy</filter-name>
-        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
-        <init-param>
-            <param-name>targetClass</param-name>
-            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
-        </init-param>
-    </filter>
-	-->
+   
 
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/dog/*</url-pattern>
     </filter-mapping>
-	<!-- Removed filter for acegi, replaced by spring inteceptor -->   
-     <!--
-    <filter-mapping>
-        <filter-name>Acegi Filter Chain Proxy</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-	-->
+	 
+     
 
     <servlet>
         <servlet-name>parancoe</servlet-name>

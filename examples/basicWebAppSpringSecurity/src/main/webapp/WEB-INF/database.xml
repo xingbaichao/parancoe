@@ -7,7 +7,7 @@
 
     <!-- this conf file will be automatically merged with parancoe's parancoeBase.xml -->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="java:comp/env/jdbc/basicwebappDS"/>
+        <property name="jndiName" value="java:comp/env/jdbc/basicwebappSpringSecurityDS"/>
     </bean>
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
