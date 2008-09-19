@@ -33,7 +33,7 @@
         <security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
         <security:intercept-url pattern="/people/**" access="IS_AUTHENTICATED_REMEMBERED" />
         <security:intercept-url pattern="/security/**" filters="none"/>
-        <security:form-login login-page='/security/login.html'/>
+        <security:form-login login-page="/security/login.html"  login-processing-url="/security/j_spring_security_check"/>
 		<!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
         <intercept-url pattern="/listAccounts.html" access="IS_AUTHENTICATED_REMEMBERED" />
         <intercept-url pattern="/post.html" access="ROLE_TELLER" />
