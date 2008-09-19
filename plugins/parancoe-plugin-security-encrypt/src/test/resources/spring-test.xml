@@ -7,7 +7,7 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
                            http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
-    <context:component-scan base-package="org.parancoe.plugins.security"/>       
+    <!--context:component-scan base-package="org.parancoe.plugins.security"/-->       
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>        
