@@ -17,6 +17,7 @@
 
 package org.parancoe.persistence.dao.generic;
 
+import java.util.List;
 import org.parancoe.persistence.po.hibernate.EntityTC;
 import org.parancoe.persistence.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class HibernateGenericBusinessDaoTest  extends BaseTest {
     
     @Autowired
-    private EntityTCBusinessDao dao;
+    private EntityTCBusinessDao entityTCDao;
     
     public void testStoreRetrieve() {
         EntityTC entity = new EntityTC();
-        dao.store(entity);
+        entityTCDao.store(entity);
         assert(entity.getId() > 0);
         entity.setFieldOne("pippo");
-        dao.store(entity);
-        entity = dao.read(entity.getId());
+        entityTCDao.store(entity);
+        entity = entityTCDao.read(entity.getId());
         assertEquals("pippo", entity.getFieldOne());
     }
 
-    
+    public void testFindAll(){
+        List<EntityTC> list = entityTCDao.findAll();
+        assertNotNull(list);
+    }
     
 }

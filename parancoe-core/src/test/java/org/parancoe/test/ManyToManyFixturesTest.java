@@ -16,6 +16,7 @@ package org.parancoe.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import org.parancoe.persistence.dao.DaoProvider;
 import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.po.hibernate.AuthorTC;
@@ -29,37 +30,38 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Tests fixture load with M:N relationships
  * 
  * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */
 public class ManyToManyFixturesTest extends BaseTest {
 
-    @Autowired
-    protected AuthorTCDao authorDao = null;
+    @Resource
+    protected AuthorTCDao authorTCDao = null;
     
-    @Autowired
-    protected BookTCDao bookDao = null;
+    @Resource
+    protected BookTCDao bookTCDao = null;
 
 
     public void testDaoExists() {
-        assertNotNull("Author dao variable not setted", authorDao);
-        assertNotNull("Book dao variable not setted", bookDao);
+        assertNotNull("Author dao variable not setted", authorTCDao);
+        assertNotNull("Book dao variable not setted", bookTCDao);
     }
 
     // FIXME fails in call with other ones
     public void _testAllSize() {
-        assertSize(4, authorDao.findAll());
-        assertSize(3, bookDao.findAll());
+        assertSize(4, authorTCDao.findAll());
+        assertSize(3, bookTCDao.findAll());
     }
 
     // FIXME fails in call with other ones
     public void _testFixturesLoad() {
-        List<AuthorTC> authors = authorDao.findByName("joe");
+        List<AuthorTC> authors = authorTCDao.findByName("joe");
         assertSize(1, authors);
         assertSize(2, authors.get(0).getBooks());
-        List<BookTC> books = bookDao.findByTitle("Java manual");
+        List<BookTC> books = bookTCDao.findByTitle("Java manual");
         assertSize(1, books);
         assertSize(3, books.get(0).getAuthors());
-        books = bookDao.findByTitle("Mr. Bean");
+        books = bookTCDao.findByTitle("Mr. Bean");
         assertSize(1, books);
         assertSize(2, books.get(0).getAuthors());
     }
@@ -68,10 +70,10 @@ public class ManyToManyFixturesTest extends BaseTest {
     public void _testRelationSanity() {
         BookTC book1 = new BookTC();
         book1.setTitle("title1");
-        bookDao.store(book1);
+        bookTCDao.store(book1);
         BookTC book2 = new BookTC();
         book2.setTitle("title2");
-        bookDao.store(book2);
+        bookTCDao.store(book2);
 
         AuthorTC author1 = new AuthorTC();
         author1.setName("name1");
@@ -79,26 +81,26 @@ public class ManyToManyFixturesTest extends BaseTest {
         bookList.add(book1);
         bookList.add(book2);
         author1.setBooks(bookList);
-        authorDao.store(author1);
+        authorTCDao.store(author1);
 
         AuthorTC author2 = new AuthorTC();
         author2.setName("name2");
         bookList.clear();
         bookList.add(book2);
         author2.setBooks(bookList);
-        authorDao.store(author2);
+        authorTCDao.store(author2);
 
-        authorDao.deleteAll();
-        bookDao.deleteAll();
+        authorTCDao.deleteAll();
+        bookTCDao.deleteAll();
 
-        List<AuthorTC> authors = authorDao.findByName("name1");
+        List<AuthorTC> authors = authorTCDao.findByName("name1");
         assertSize(1, authors);
         assertSize(2, authors.get(0).getBooks());
-        List<BookTC> books = bookDao.findByTitle("title2");
+        List<BookTC> books = bookTCDao.findByTitle("title2");
         assertSize(1, books);
         assertSize(2, books.get(0).getAuthors());
 
-        authorDao.deleteAll();
-        bookDao.deleteAll();
+        authorTCDao.deleteAll();
+        bookTCDao.deleteAll();
     }
 }

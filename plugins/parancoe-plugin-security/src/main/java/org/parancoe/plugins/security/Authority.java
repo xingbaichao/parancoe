@@ -16,6 +16,7 @@ package org.parancoe.plugins.security;
 import java.util.List;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.ForeignKey;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
@@ -33,7 +34,7 @@ public class Authority extends EntityBase {
     private static final long serialVersionUID = 1L;
     private String description = null;
     private String role = null;
-    private List<UserAuthority> userAuthority;
+    private List<User> users;
     
     /**
      * Empty constructor
@@ -69,13 +70,14 @@ public class Authority extends EntityBase {
         this.description = description;
     }
 
-    @OneToMany(mappedBy="authority")
-    public List<UserAuthority> getUserAuthority() {
-        return userAuthority;
+    @ManyToMany(mappedBy="authorities")
+    @ForeignKey(name = "none", inverseName = "none")
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUserAuthority(List<UserAuthority> userAuthority) {
-        this.userAuthority = userAuthority;
+    public void setUsers(List<User> useres) {
+        this.users = useres;
     }
 
 	@Override

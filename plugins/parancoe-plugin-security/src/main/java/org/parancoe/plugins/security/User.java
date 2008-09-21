@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.ForeignKey;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
 
@@ -51,7 +53,7 @@ public class User extends EntityBase {
     }
     
 
-    private List<UserAuthority> userAuthority = new ArrayList<UserAuthority>();
+    private List<Authority> authorities = new ArrayList<Authority>();
 
     public boolean isEnabled() {
         return enabled;
@@ -77,13 +79,17 @@ public class User extends EntityBase {
         this.enabled = enabled;
     }
 
-    @OneToMany(mappedBy="user")
-    public List<UserAuthority> getUserAuthority() {
-        return userAuthority;
+    @ManyToMany
+    @ForeignKey(name = "none", inverseName = "none")
+    @JoinTable(name="USER_AUTHORITY", 
+               joinColumns={@JoinColumn(name="USER_ID")},
+               inverseJoinColumns={@JoinColumn(name="AUTHORITY_ID")})
+    public List<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setUserAuthority(List<UserAuthority> userAuthority) {
-        this.userAuthority = userAuthority;
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
 	@Override

@@ -40,17 +40,21 @@ public abstract class BaseTest extends DBTest {
     @Override
     protected String[] getConfigLocations() {
         String parancoeServlet = null;
+        String applicationContext = null;
         try {
             parancoeServlet =
                     new File("./src/main/webapp/WEB-INF/parancoe-servlet.xml").getCanonicalPath();
+            applicationContext =
+                    new File("./src/main/webapp/WEB-INF/applicationContext.xml").getCanonicalPath();
         } catch (IOException ex) {
             throw new RuntimeException("Unable to get parancoe-servlet", ex);
         }
         return new String[]{
                     "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                    "classpath:org/parancoe/web/parancoeBase.xml", "file:" +
-                    parancoeServlet, "classpath:spring-test.xml",
-                    "classpath*:parancoe-plugin.xml", "classpath:spring-test.xml"
+                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
+                    "classpath:org/parancoe/web/parancoeBase.xml", "classpath:spring-test.xml", 
+                    "file:" + applicationContext, "file:" + parancoeServlet,
+                    "classpath*:applicationContext-plugin.xml", "classpath*:parancoe-plugin.xml"
                 };
     }
 

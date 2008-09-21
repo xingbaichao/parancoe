@@ -34,6 +34,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  *
  * @author paolo.dona@seesaw.it
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */
 public class ContextListener implements ServletContextListener {
@@ -50,7 +51,7 @@ public class ContextListener implements ServletContextListener {
             log.info("loading custom Spring WebApplicationContext");
             loadApplicationContext();
             PluginHelper helper = new PluginHelper(applicationContext);
-            helper.initPlugins(); // deve essere DOPO loadApplicationContext()
+            helper.initApplicationContextPlugins(); // deve essere DOPO loadApplicationContext()
             helper.invokePluginContextInitialized(evt);
             log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");        
         } catch (Exception e) {
@@ -67,13 +68,11 @@ public class ContextListener implements ServletContextListener {
         List<String> config = new ArrayList<String>();
         // generici
         config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
-        config.add("classpath:org/parancoe/web/parancoeBase.xml");
+        config.add("classpath:org/parancoe/persistence/applicationContextBase.xml");
         config.add("WEB-INF/database.xml");
+        config.add("WEB-INF/applicationContext.xml");
         // load all plugin configurations at once
-        config.add("classpath*:parancoe-plugin.xml");
-        // application specific
-        config.add("WEB-INF/parancoe-servlet.xml");
-
+        config.add("classpath*:applicationContext-plugin.xml");
         XmlWebApplicationContext ctx = new XmlWebApplicationContext();
         ctx.setServletContext(servletContext);
         ctx.setConfigLocations(config.toArray(new String[config.size()]));

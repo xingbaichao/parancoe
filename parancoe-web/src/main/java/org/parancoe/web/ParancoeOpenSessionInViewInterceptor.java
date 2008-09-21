@@ -45,8 +45,10 @@ public class ParancoeOpenSessionInViewInterceptor implements HandlerInterceptor 
         logger.debug("Opening session and beginning transaction");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
-        TransactionSynchronizationManager.initSynchronization();
+        if (!TransactionSynchronizationManager.hasResource(sessionFactory)) {
+            TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
+            TransactionSynchronizationManager.initSynchronization();
+        }
         return true;
     }
 
@@ -59,11 +61,11 @@ public class ParancoeOpenSessionInViewInterceptor implements HandlerInterceptor 
         try{
             if(ex==null){
                 logger.debug("Committing the database transaction");
-                session.getTransaction().commit();
+                if (session.getTransaction().isActive() && !session.getTransaction().wasRolledBack()) session.getTransaction().commit();
             }else{
                 logger.error(ex);
                 logger.debug("Rolling back the database transaction");
-                session.getTransaction().rollback();
+                if (session.getTransaction().isActive() && !session.getTransaction().wasRolledBack()) session.getTransaction().rollback();
             }
             if(session.isOpen())
              session.close();

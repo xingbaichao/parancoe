@@ -32,6 +32,10 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+/**
+ * 
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
+ */
 public abstract class DBTest extends EnhancedTestCase {
 
     private static final Logger logger = Logger.getLogger(DBTest.class);
@@ -123,8 +127,7 @@ public abstract class DBTest extends EnhancedTestCase {
     protected String[] getConfigLocations() {
         return new String[]{
                     "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                    "classpath:database_test.xml",
-                    "classpath:dao_test.xml",
+                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
                     "classpath:applicationContext_test.xml"
                 };
     }
@@ -153,6 +156,18 @@ public abstract class DBTest extends EnhancedTestCase {
             } else {
                 logger.info("No fixtures to load");
             }
+        }
+    }
+    
+    // At the end of the test the method endTransaction call a rollback for the transaction 
+    // although a explicit rollback call is did. This raise a false exception.
+    @Override
+    protected void endTransaction() {
+        try {
+            super.endTransaction();
+        }
+        catch (Exception ex) {
+            //do nothing
         }
     }
 }

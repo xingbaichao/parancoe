@@ -13,22 +13,26 @@
 // limitations under the License.
 package org.parancoe.persistence.dao.generic;
 
-import org.parancoe.persistence.dao.Daos;
+import javax.annotation.Resource;
+import org.parancoe.persistence.dao.TestDaos;
 import org.parancoe.persistence.po.hibernate.VersionedEntityDataTC;
 import org.parancoe.persistence.po.hibernate.VersionedEntityTC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * A BO to be used for the tests of the versioned entity.
  *
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */
+@Service
 public class VersionedEntityTCBO {
     
-    @Autowired
-    public Daos daos;
+    @Resource
+    public VersionedEntityTCDao versionedEntityTCDao;
     
     /** Creates a new instance of VersionedEntityTCBO */
     public VersionedEntityTCBO() {
@@ -36,21 +40,21 @@ public class VersionedEntityTCBO {
     
     @Transactional()
     public void createEntity(VersionedEntityTC entity) {
-        daos.getVersionedEntityTCDao().create(entity);
+        versionedEntityTCDao.create(entity);
     }
     
     @Transactional(readOnly=true)
     public VersionedEntityTC retrieveEntity(Long id) {
-        VersionedEntityTC retrievedEntity = this.daos.getVersionedEntityTCDao().read(id);
+        VersionedEntityTC retrievedEntity = this.versionedEntityTCDao.read(id);
         retrievedEntity.getVersionedData().size(); // for initializing lazy collection
         return retrievedEntity;
     }
     
     @Transactional()
     public VersionedEntityTC updateVersionedData(Long id, VersionedEntityDataTC versionedData) {
-        VersionedEntityTC retrievedEntity = this.daos.getVersionedEntityTCDao().read(id);
+        VersionedEntityTC retrievedEntity = this.versionedEntityTCDao.read(id);
         retrievedEntity.updateVersionedData(versionedData);
-        this.daos.getVersionedEntityTCDao().store(retrievedEntity);
+        this.versionedEntityTCDao.store(retrievedEntity);
         return retrievedEntity;
     }
     

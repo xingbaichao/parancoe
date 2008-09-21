@@ -2,6 +2,7 @@ package org.parancoe.plugins.italy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * @author Poggiani Alberto poggialb@gmail.com
@@ -59,6 +60,7 @@ public class Comune implements Serializable {
     
   @ManyToOne
   @JoinColumn(name = "codice_provincia")
+  @ForeignKey(name="none")
   public Provincia getProvincia() {
     return provincia;
   }

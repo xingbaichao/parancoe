@@ -14,51 +14,47 @@
 package org.parancoe.persistence.dao.generic;
 
 import java.util.List;
-import org.parancoe.persistence.dao.Daos;
+import javax.annotation.Resource;
 
 import org.parancoe.persistence.po.hibernate.EntityTC;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 /**
  * A BO to be used for the tests of the versioned entity.
  *
  * @author <a href="mailto:lucio@benfante.com">Lucio Benfante</a>
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */
+@Service
 public class EntityTCBO {
     
-    @Autowired
-    public Daos daos;
+    @Resource
+    private EntityTCDao entityTCDao;
     
     /** Creates a new instance of EntityTCBO */
     public EntityTCBO() {
     }
     
-    @Transactional()
     public void createEntity(EntityTC entity) {
-        daos.getEntityTCDao().create(entity);
+        entityTCDao.create(entity);
     }
     
-    @Transactional(readOnly=true)
     public EntityTC retrieveEntity(Long id) {
-        EntityTC retrievedEntity = this.daos.getEntityTCDao().read(id);
+        EntityTC retrievedEntity = entityTCDao.read(id);
         return retrievedEntity;
     }
 
-    @Transactional(readOnly=true)    
     List<EntityTC> retrieveEntityByFieldOne(String value) {
-        return daos.getEntityTCDao().findByFieldOne(value);
+        return entityTCDao.findByFieldOne(value);
     }
 
-    @Transactional(readOnly=true)    
     List<EntityTC> retrieveEntityByFieldTwo(String value) {
-        return daos.getEntityTCDao().findByFieldTwo(value);
+        return entityTCDao.findByFieldTwo(value);
     }
     
-    @Transactional(readOnly=true)    
     List<EntityTC> retrieveEntityByFieldOneAndFieldTwo(String one, String two) {
-        return daos.getEntityTCDao().findByFieldOneAndFieldTwo(one, two);
+        return entityTCDao.findByFieldOneAndFieldTwo(one, two);
     }
     
 }

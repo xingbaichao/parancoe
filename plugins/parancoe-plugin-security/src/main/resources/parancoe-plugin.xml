@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
     
     <!-- Authomatic discovering of persistent classes -->
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
-    <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
+    <context:component-scan base-package="org.parancoe.plugins.security"/>
     
     <!-- Interceptor specifico per questo plugin -->
     <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.security.SecureInterceptor">
@@ -15,9 +16,6 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
             <ref bean="filterChainProxy"/>
         </property>
     </bean>
-    
-    <!-- ContextListener specifico per questo plugin -->
-    <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>
     
     <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
         <property name="filterInvocationDefinitionSource">
@@ -94,82 +92,21 @@ http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.
         </property>
     </bean>
     
-    
-    
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
         <property name="userDetailsService" ref="userDetailsService"/>
         <property name="key" value="changeThis"/>
     </bean>
     
-    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
-        <property name="providers">
-            <list>
-                <ref local="daoAuthenticationProvider"/>
-                <bean class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-                    <property name="key" value="changeThis"/>
-                </bean>
-                <bean class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
-                    <property name="key" value="changeThis"/>
-                </bean>
-            </list>
-        </property>
-    </bean>
-    
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-        <property name="userDetailsService" ref="userDetailsService"/>
-        <!-- TODO: commented for building after 2.0 merge. Please investigate!
-        <property name="userCache">
-            <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
-                <property name="cache">
-                    <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-                        <property name="cacheManager">
-                            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
-                        </property>
-                        <property name="cacheName" value="userCache"/>
-                    </bean>
-                </property>
-            </bean>
-        </property>
-        -->
-    </bean>
-    
-    <bean id="userDetailsService" class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
-        <property name="dataSource">
-            <ref bean="dataSource" />
-        </property>
-        <property name="usersByUsernameQuery">
-            <value>select username, password, enabled FROM psec_user WHERE username = ?</value>
-        </property>
-        <property name="authoritiesByUsernameQuery">
-            <value>select username, role from psec_user u, authority a, user_authority ua 
-            where u.username = ? and u.id = ua.user_id and a.id = ua.authority_id</value>
-        </property>
-    </bean>          
-    
-    <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>    
-    
     <!--                           -->
     <!-- Configurazione del plugin -->
     <!--                           -->
-    <bean id="pluginSecurityConfig" class="org.parancoe.web.plugin.Plugin">
+    <bean id="webPluginSecurityConfig" class="org.parancoe.web.plugin.WebPlugin">
         <property name="name" value="parancoe-plugin-security"/>
         <property name="interceptors">
             <list>
                 <ref bean="pluginSecurityInterceptor"/>
             </list>
         </property>
-        
-        <property name="contextLoaderListeners">
-            <list>
-                <ref bean="pluginSecurityContextListener"/>
-            </list>
-        </property>
-        
-        
     </bean>
     
-     <!-- mapping .secure url to secure controller -->
-    <bean name="/*.secure" id="secureController"
-          class="org.parancoe.plugins.security.SecureController" />
 </beans>

@@ -18,11 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import org.parancoe.web.BaseMultiActionController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 /**
  * Controller for secure porpouse.
@@ -31,7 +29,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  */
 @Controller
 @RequestMapping("/security/*.html")
-public  class SecureController extends MultiActionController {
+public  class SecureController {
     private static Logger logger = Logger.getLogger(SecureController.class);
     
     @RequestMapping

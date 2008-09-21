@@ -13,6 +13,7 @@
 // limitations under the License.
 package org.parancoe.web.controller;
 
+import java.lang.annotation.Annotation;
 import java.util.Iterator;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -21,8 +22,15 @@ import org.parancoe.web.controller.annotation.DefaultUrlMapping;
 import org.parancoe.web.controller.annotation.MultiUrlMapping;
 import org.parancoe.web.controller.annotation.UrlMapping;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.context.ApplicationContextException;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.handler.AbstractDetectingUrlHandlerMapping;
 import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
 
 /**
@@ -37,20 +45,15 @@ import org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping;
  * This handlerMapping inherits directly from BeanNameUrlHandlerMapping, in this
  * way it's still possible to map urls to controller using the 'name' attribute.
  * 
- * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/> 
+ * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/>
+ * @author Jacopo Murador <mailto:jacopo.murador@seesaw.it/> 
  * @version $Revision$
  */
-public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
+public class AnnotationHandlerMapping extends AbstractDetectingUrlHandlerMapping {
     
     private String defaultExtension = "html";
 
     private static final Logger logger = Logger.getLogger(AnnotationHandlerMapping.class);
-
-    @Override
-    public void initApplicationContext() throws ApplicationContextException {
-        super.initApplicationContext();
-        registerHandlers();
-    }
     
     public void setDefaultExtension(String defaultExtension) {
         this.defaultExtension = defaultExtension;
@@ -60,106 +63,98 @@ public class AnnotationHandlerMapping extends BeanNameUrlHandlerMapping {
         return defaultExtension;
     }
 
-    /**
-     *  Iterates over beans of type Controller registered in the current spring context
-     *  searching for UrlAnnotation and MultiUrlAnnotation. 
-     * 
-     *  If a controller doesn't have annotations we search in the superclass. This is 
-     *  the case of AbstractControllers: the concrete implementation does not
-     *  inherit annotations which may have been provided by the superclass
-     *
-     */
-    protected void registerHandlers() {
-        Map controllersMap = getApplicationContext().getBeansOfType(Controller.class);
+    @Override
+    protected String[] determineUrlsForHandler(String name) {
+        Class<?> ctrl = getApplicationContext().getType(name);
+        if (ctrl != null && ctrl.isAnnotationPresent(org.springframework.stereotype.Controller.class)) {
+            logger.info("processing controller: " + ctrl.getSimpleName());
 
-        for (Iterator it = controllersMap.values().iterator(); it.hasNext();) {
-            Controller ctrl = (Controller) it.next();
-            logger.info("processing controller: " + ctrl.getClass().getSimpleName());
+            // New annotation since spring 2.5.0
+            RequestMapping requestMappingAnn = getMapping(getApplicationContext(), name, ctrl, RequestMapping.class);
+            if (requestMappingAnn != null) {
+                if (requestMappingAnn.value().length > 0) {
+                    for(String url: requestMappingAnn.value()) {
+                        logger.info("URL: " + url + " | BEAN: " + name);
+                    }
+                    return requestMappingAnn.value();
+                }
+                else {
+                    String[] result = getDefaultUrlFromControllerName(ctrl);
+                    logger.info("URL: " + result[0] + " | BEAN: " + name);
+                    return result;
+                }
+            }
 
-            //check for DefaultUrlMapping
-            String defaultUrl = null;
-            if(ctrl.getClass().isAnnotationPresent(DefaultUrlMapping.class)){
-                defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
-            
-            } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(DefaultUrlMapping.class)) {
-                defaultUrl = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
-            
+            // For compatibility with the past
+
+            // check for DefaultUrlMapping
+            DefaultUrlMapping defaultMappingAnn = getMapping(getApplicationContext(), name, ctrl, DefaultUrlMapping.class);
+            if(defaultMappingAnn != null){
+                String[] result = getDefaultUrlFromControllerName(ctrl);
+                logger.info("URL: " + result[0] + " | BEAN: " + name);
+                return result;
             }
-            
-            if(defaultUrl != null){
-                registerUrlIfNotPresent(ctrl, defaultUrl);
-            }
-            
+
             //check for UrlMapping annotation
-            if (ctrl.getClass().isAnnotationPresent(UrlMapping.class)) {
-                UrlMapping urlMappingAnn = ctrl.getClass().getAnnotation(UrlMapping.class);
-                mapUrl(ctrl, urlMappingAnn, false);
-            } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(UrlMapping.class)) {
-                UrlMapping urlMappingAnn = ctrl.getClass().getSuperclass().getAnnotation(UrlMapping.class);
-                mapUrl(ctrl, urlMappingAnn, true);
+            UrlMapping urlMappingAnn = getMapping(getApplicationContext(), name, ctrl, UrlMapping.class);
+            if (urlMappingAnn != null) {
+                logger.info("URL: " + urlMappingAnn.value() + " | BEAN: " + name);
+                String[] result = {urlMappingAnn.value()};
+                return result;    
             }
 
 
             //check for MultiUrlMapping annotation
-            if (ctrl.getClass().isAnnotationPresent(MultiUrlMapping.class)) {
-                MultiUrlMapping multiUrlMappingAnn = ctrl.getClass().getAnnotation(MultiUrlMapping.class);
-
-                for (int i = 0; i < multiUrlMappingAnn.values().length; i++) {
-                    UrlMapping urlMapping = multiUrlMappingAnn.values()[i];
-                    mapUrl(ctrl, urlMapping, false);
-                }
-            } else if (ctrl.getClass().getSuperclass().isAnnotationPresent(MultiUrlMapping.class)) {
-                MultiUrlMapping multiUrlMappingAnn = ctrl.getClass().getSuperclass().getAnnotation(MultiUrlMapping.class);
-
-                for (int i = 0; i < multiUrlMappingAnn.values().length; i++) {
-                    UrlMapping urlMapping = multiUrlMappingAnn.values()[i];
-                    mapUrl(ctrl, urlMapping, true);
-                }
+            MultiUrlMapping multiUrlMappingAnn = getMapping(getApplicationContext(), name, ctrl, MultiUrlMapping.class);
+            if (multiUrlMappingAnn != null) {
+                String[] result = new String[multiUrlMappingAnn.values().length]; 
+                for(int i = 0; i < multiUrlMappingAnn.values().length; i++) {
+                    logger.info("URL: " + multiUrlMappingAnn.values()[i].value() + " | BEAN: " + name);
+                    result[i] =  multiUrlMappingAnn.values()[i].value();
+                } 
+                return result;   
             }
         }
+        return null;
     }
 
-    private void mapUrl(Controller ctrl, UrlMapping urlMappingAnn, boolean fromSuperclass) throws BeansException, IllegalStateException {
-        String url = urlMappingAnn.value();
-
-        if(url==null || url.trim().equals("")){
-            //there was no value on the annotation: default it
-            if(fromSuperclass){
-                url = getDefaultUrlFromControllerName(ctrl.getClass().getSuperclass().getSimpleName());
-            } else {
-                url = getDefaultUrlFromControllerName(ctrl.getClass().getSimpleName());
-            }
-                
-            logger.info("value from annotation was null or empty --> provided a default value");
+    private <A extends Annotation> A getMapping(ApplicationContext context, String beanName, Class<?> handlerType, Class<A> annotationType) {
+        A mapping = AnnotationUtils.findAnnotation(handlerType, annotationType);
+        
+        
+        if (mapping == null && context instanceof ConfigurableApplicationContext &&
+                        context.containsBeanDefinition(beanName)) {
+                ConfigurableApplicationContext cac = (ConfigurableApplicationContext) context;
+                BeanDefinition bd = cac.getBeanFactory().getMergedBeanDefinition(beanName);
+                if (bd instanceof AbstractBeanDefinition) {
+                        AbstractBeanDefinition abd = (AbstractBeanDefinition) bd;
+                        if (abd.hasBeanClass()) {
+                                Class<?> beanClass = abd.getBeanClass();
+                                mapping = AnnotationUtils.findAnnotation(beanClass, annotationType);
+                        }
+                }
         }
         
-        registerUrlIfNotPresent(ctrl, url);
-        
+        return mapping;
     }
     
-    private String getDefaultUrlFromControllerName(String ctrlName){
-        
-        String[] values = Utils.uncamelize(ctrlName);
+    private String[] getDefaultUrlFromControllerName(Class<?> handlerType){
+        String[] values = Utils.uncamelize(handlerType.getSimpleName());
         StringBuffer sb = new StringBuffer();
         
+        sb.append("/" + values[0]);
         //the last element of the array is the 'controller' string
         //and we don't want to put it in the mapping
-        for(int i=0; i<values.length - 1; i++){
-            sb.append("/");
+        for(int i=1; i<values.length - 1; i++){
+            sb.append("_");
             sb.append(values[i]);                    
         }
         sb.append("/*.").append(defaultExtension);
         
-        return sb.toString();
+        String[] url = {sb.toString()};
+        
+        return url;
         
     }
-
-    private void registerUrlIfNotPresent(Controller ctrl, String url) throws IllegalStateException, BeansException {
-
-        if (!this.getHandlerMap().containsKey(url)) {
-            logger.info("registering handler [" + ctrl.getClass().getSimpleName() + "] for url [" + url + "]");
-            registerHandler(url, ctrl);
-        }
-    }
-
+    
 }

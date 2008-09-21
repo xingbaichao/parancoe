@@ -29,6 +29,7 @@ import org.springframework.dao.support.DataAccessUtils;
  * Derived from http://www-128.ibm.com/developerworks/java/library/j-genericdao.html
  *
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */
 public class HibernateGenericDao <T, PK extends Serializable>
@@ -134,6 +135,13 @@ public class HibernateGenericDao <T, PK extends Serializable>
     public long countByCriteria(DetachedCriteria criteria){
        criteria.setProjection(Projections.rowCount());
        return DataAccessUtils.intResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+    
+    public void rollBackTransaction() {
+        if(getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction() != null 
+                && getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().isActive() 
+                && !getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().wasRolledBack()) 
+            getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().rollback();
     }
 
     public Class getType() {

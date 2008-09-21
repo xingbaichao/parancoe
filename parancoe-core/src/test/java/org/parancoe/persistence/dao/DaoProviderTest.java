@@ -57,7 +57,7 @@ public class DaoProviderTest extends DBTest {
      * Test the retrieval of the DAO map from the generic dao provider.
      */
     public void testGetDaoMapFromProvider() {
-        Daos baseDaoProvider = (Daos) getApplicationContext().getBean("daos");
+        TestDaos baseDaoProvider = (TestDaos) getApplicationContext().getBean("daos");
         assertNotNull(baseDaoProvider);
         Map daoMap = baseDaoProvider.getDaoMap();
         assertNotNull(daoMap);
@@ -68,7 +68,7 @@ public class DaoProviderTest extends DBTest {
      * Test the retrieval of a DAO from the generic dao provider.
      */
     public void testGetDaoFromProvider() {
-        Daos baseDaoProvider = (Daos) getApplicationContext().getBean("daos");
+        TestDaos baseDaoProvider = (TestDaos) getApplicationContext().getBean("daos");
         assertNotNull(baseDaoProvider);
         Object dao = baseDaoProvider.getDao("entityTCDao");
         assertNotNull(dao);
@@ -79,7 +79,7 @@ public class DaoProviderTest extends DBTest {
      * Test the retrieval of a DAO for an entity from the generic dao provider.
      */
     public void testGetDaoByEntityFromProvider() {
-        Daos baseDaoProvider = (Daos) getApplicationContext().getBean("daos");
+        TestDaos baseDaoProvider = (TestDaos) getApplicationContext().getBean("daos");
         assertNotNull(baseDaoProvider);
         Object dao = baseDaoProvider.getDao(EntityTC.class);
         assertNotNull(dao);
@@ -90,7 +90,7 @@ public class DaoProviderTest extends DBTest {
      * Test the retrieval of a DAO for an entity from the generic dao provider.
      */
     public void testGetDaoByMethodFromProvider() {
-        Daos baseDaoProvider = (Daos) (Daos) getApplicationContext().getBean("daos");
+        TestDaos baseDaoProvider = (TestDaos) getApplicationContext().getBean("daos");
         assertNotNull(baseDaoProvider);
         Object dao = baseDaoProvider.getEntityTCDao();
         assertNotNull(dao);

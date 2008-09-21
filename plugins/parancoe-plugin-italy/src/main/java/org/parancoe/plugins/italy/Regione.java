@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * POJO
@@ -48,6 +49,7 @@ public class Regione implements Serializable {
   }
 
   @OneToMany(mappedBy = "regione")
+  @ForeignKey(name="none")
   public List<Provincia> getProvincie() {
     return provincia;
   }

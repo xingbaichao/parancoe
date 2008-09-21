@@ -50,7 +50,7 @@ limitations under the License.
     <bean id="genericDaoProvider"
           class="org.parancoe.persistence.dao.BaseDaoProvider">
         <property name="daoMap">
-            <ref bean="daoMap"/>
+            <ref bean="daoMap" />
         </property>
     </bean>
     

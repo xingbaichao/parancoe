@@ -24,8 +24,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
- *
- * @author jacopo
+ * Common methods for Dao 
+ * 
+ * @author Jacopo Murador <jacopo.murador at seesaw.it> 
  */
 public interface GenericDaoBase<T, PK extends Serializable> {
 
@@ -57,6 +58,10 @@ public interface GenericDaoBase<T, PK extends Serializable> {
     int deleteAll();
 
     long count();
+    
+    long countByCriteria(DetachedCriteria criteria);
+    
+    void rollBackTransaction();
 
     HibernateTemplate getHibernateTemplate();
 

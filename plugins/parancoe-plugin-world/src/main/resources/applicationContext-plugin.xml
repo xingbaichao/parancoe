@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+    
+    <!-- Authomatic discovering of persistent classes -->
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.world"/>
+    <parancoe:define-daos basePackage="org.parancoe.plugins.world"/>
+    
+    <!-- ContextListener specifico per questo plugin -->
+    <bean id="pluginWorldContextListener" class="org.parancoe.plugins.world.WorldContextListener"/>
+    
+    <!--                           -->
+    <!-- Configurazione del plugin -->
+    <!--                           -->
+    <bean id="applicationContextPluginWorldConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+        <property name="name" value="parancoe-plugin-world"/>
+        <property name="contextLoaderListeners">
+            <list>
+                <ref bean="pluginWorldContextListener"/>
+            </list>
+        </property>
+        
+        <!-- fixtures da caricare all'avvio del plugin -->
+        <property name="fixtureClassNames">
+            <list>
+                <value>org.parancoe.plugins.world.Continent</value>
+                <value>org.parancoe.plugins.world.Country</value>
+            </list>
+        </property>
+    </bean>
+</beans>

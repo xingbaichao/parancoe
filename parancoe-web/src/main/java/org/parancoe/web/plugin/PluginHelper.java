@@ -30,6 +30,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * Questa classe è solo un helper non è configurato in spring
  * 
  * @author paolo.dona@seesaw.it
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
 public class PluginHelper {
     private ApplicationContext ctx;
@@ -40,9 +41,15 @@ public class PluginHelper {
         this.ctx = ctx;
     }
 
-    /* ritorna tutti i plugins configurati */
-    public Collection<Plugin> getPlugins() {
-        Map<String, Plugin> pluginMap = ctx.getBeansOfType(Plugin.class);
+    /* returns all web plugins */
+    public Collection<WebPlugin> getWebPlugins() {
+        Map<String, WebPlugin> pluginMap = ctx.getBeansOfType(WebPlugin.class);
+        return pluginMap.values();
+    }
+    
+    /* returns all application context plugins */
+    public Collection<ApplicationContextPlugin> getApplicationContextPlugins() {
+        Map<String, ApplicationContextPlugin> pluginMap = ctx.getBeansOfType(ApplicationContextPlugin.class);
         return pluginMap.values();
     }
 
@@ -52,7 +59,7 @@ public class PluginHelper {
      * @param evt
      */
     public void invokePluginContextInitialized(ServletContextEvent evt) {
-        for (Plugin plugin : getPlugins()) {
+        for (ApplicationContextPlugin plugin : getApplicationContextPlugins()) {
             for (ContextLoaderListener listener : plugin.getContextLoaderListeners()) {
                 try {
                     listener.contextInitialized(evt);
@@ -69,7 +76,7 @@ public class PluginHelper {
      * @param evt
      */
     public void invokePluginContextDestroyed(ServletContextEvent evt) {
-        for (Plugin plugin : getPlugins()) {
+        for (ApplicationContextPlugin plugin : getApplicationContextPlugins()) {
             for (ContextLoaderListener listener : plugin.getContextLoaderListeners()) {
                 try {
                     listener.contextDestroyed(evt);
@@ -86,7 +93,7 @@ public class PluginHelper {
      * @param evt
      */
     public boolean invokePluginPreHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
-        for (Plugin plugin : getPlugins()) {
+        for (WebPlugin plugin : getWebPlugins()) {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
                     boolean result = interceptor.preHandle(req, res, handler);
@@ -102,7 +109,7 @@ public class PluginHelper {
 
     public void invokePluginPostHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler, ModelAndView modelAndView) {
-        for (Plugin plugin : getPlugins()) {
+        for (WebPlugin plugin : getWebPlugins()) {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
                     interceptor.postHandle(request, response, handler, modelAndView);
@@ -115,7 +122,7 @@ public class PluginHelper {
 
     public void invokeAfterCompletion(HttpServletRequest request, HttpServletResponse response,
             Object handler, Exception exception) {
-        for (Plugin plugin : getPlugins()) {
+        for (WebPlugin plugin : getWebPlugins()) {
             for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
                 try {
                     interceptor.afterCompletion(request, response, handler, exception);
@@ -126,10 +133,18 @@ public class PluginHelper {
         }
     }
 
-    public void initPlugins() {
-        Collection<Plugin> plugins = new PluginHelper(ctx).getPlugins();
+    public void initWebPlugins() {
+        Collection<WebPlugin> plugins = new PluginHelper(ctx).getWebPlugins();
         log.info("Loaded " + plugins.size() + " plugins");
-        for (Plugin plugin : plugins) {
+        for (WebPlugin plugin : plugins) {
+            log.info("   - " + plugin.getName());
+        }
+    }
+    
+    public void initApplicationContextPlugins() {
+        Collection<ApplicationContextPlugin> plugins = new PluginHelper(ctx).getApplicationContextPlugins();
+        log.info("Loaded " + plugins.size() + " plugins");
+        for (ApplicationContextPlugin plugin : plugins) {
             log.info("   - " + plugin.getName());
         }
     }

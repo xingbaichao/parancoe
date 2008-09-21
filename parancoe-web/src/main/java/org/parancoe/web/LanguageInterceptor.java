@@ -17,13 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContext;
 
 /**
  * @author paolo.dona@seesaw.it
  */
-public class LanguageInterceptor extends HandlerInterceptorAdapter {
+public class LanguageInterceptor implements HandlerInterceptor {
     public static final Logger logger = Logger.getLogger(LanguageInterceptor.class);
 
 
@@ -38,5 +39,13 @@ public class LanguageInterceptor extends HandlerInterceptorAdapter {
         req.setAttribute("lang", rc.getLocale().getLanguage());
         logger.debug("LanguageInterceptor.preHandle()");
         return true;
+    }
+
+    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3) throws Exception {
+        
+    }
+
+    public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
+        
     }
 }
