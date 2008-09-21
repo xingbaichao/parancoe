@@ -5,42 +5,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
-  <!-- Authomatic discovering of persistent classes -->
-  <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.italy"/>
-  <parancoe:define-daos basePackage="org.parancoe.plugins.italy"/>
-
   <!-- Interceptor specifico per questo plugin -->
   <bean id="pluginItalyInterceptor" class="org.parancoe.plugins.italy.ItalyInterceptor"/>
-
-  <!-- ContextListener specifico per questo plugin -->
-  <bean id="pluginItalyContextListener" class="org.parancoe.plugins.italy.PopulateData"/>
 
   <!--                           -->
   <!-- Configurazione del plugin -->
   <!--                           -->
-  <bean id="pluginItalyConfig" class="org.parancoe.web.plugin.Plugin">
+  <bean id="pluginItalyConfig" class="org.parancoe.web.plugin.WebPlugin">
     <property name="name" value="parancoe-plugin-italy"/>
     <property name="interceptors">
       <list>
         <ref bean="pluginItalyInterceptor"/>
         <!-- <ref bean="pluginItalyInterceptor2"/> -->
-      </list>
-    </property>
-
-    <property name="contextLoaderListeners">
-      <list>
-        <ref bean="pluginItalyContextListener"/>
-        <!-- <ref bean="pluginItalyContextListener2"/> -->
-      </list>
-    </property>
-
-    <!-- fixtures da caricare all'avvio del plugin -->
-    <property name="fixtureClassNames">
-      <list>
-        <value>org.parancoe.plugins.italy.Regione</value>
-        <value>org.parancoe.plugins.italy.Provincia</value>
-        <value>org.parancoe.plugins.italy.Comune</value>
-        <value>org.parancoe.plugins.italy.Procura</value>
       </list>
     </property>
   </bean>

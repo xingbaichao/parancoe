@@ -1,8 +1,10 @@
 package org.parancoe.plugins.world;
 
 import java.util.List;
+import javax.annotation.Resource;
+import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
-import org.parancoe.web.plugin.Plugin;
+import org.parancoe.web.plugin.WebPlugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -10,12 +12,16 @@ public class SanityTest extends PluginTest {
 
     @Autowired
     @Qualifier("pluginWorldConfig")
-    private Plugin plugin;
+    private WebPlugin plugin;
     
     @Autowired
+    @Qualifier("applicationContextPluginWorldConfig")
+    private ApplicationContextPlugin contextPlugin;
+    
+    @Resource
     CountryDao countryDao;
     
-    @Autowired
+    @Resource
     ContinentDao continentDao;
 
     public SanityTest() {
@@ -23,9 +29,9 @@ public class SanityTest extends PluginTest {
 
     
     public void testPlugin() throws Exception {
-        assertEquals(2, plugin.getFixtureClasses().size());
-        assertEquals(Continent.class, plugin.getFixtureClasses().get(0));
-        assertEquals(Country.class, plugin.getFixtureClasses().get(1));
+        assertEquals(2, contextPlugin.getFixtureClasses().size());
+        assertEquals(Continent.class, contextPlugin.getFixtureClasses().get(0));
+        assertEquals(Country.class, contextPlugin.getFixtureClasses().get(1));
     }
 
     public void testContinentAssigned() {

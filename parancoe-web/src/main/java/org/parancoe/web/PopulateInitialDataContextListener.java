@@ -29,8 +29,9 @@ import org.parancoe.persistence.dao.generic.BusinessDao;
 import org.parancoe.persistence.dao.generic.GenericDao;
 import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.util.FixtureHelper;
+import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.plugin.PluginHelper;
-import org.parancoe.web.plugin.Plugin;
+import org.parancoe.web.plugin.WebPlugin;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
@@ -41,6 +42,7 @@ import org.springframework.web.context.WebApplicationContext;
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
  * @author Michele Franzin michele.franzin@seesaw.it
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
 public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
@@ -106,8 +108,8 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
     }
 
     private List<Class> getFixtureClasses() {
-        Collection<Plugin> plugins = new PluginHelper(ctx).getPlugins();
-        for (Plugin plugin : plugins) {
+        Collection<ApplicationContextPlugin> plugins = new PluginHelper(ctx).getApplicationContextPlugins();
+        for (ApplicationContextPlugin plugin : plugins) {
             try {
                 clazzToPopulate.addAll(plugin.getFixtureClasses());
             } catch (Exception e) {

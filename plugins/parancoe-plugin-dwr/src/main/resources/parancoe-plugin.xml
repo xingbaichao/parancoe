@@ -44,7 +44,7 @@ limitations under the License.
         <property name="interceptors">
             <list>
                 <!--  secured interceptor  -->
-                <ref bean="openSessionInViewInterceptor"/>
+                <ref bean="parancoeOpenSessionInViewInterceptor"/>
                 <ref bean="pluginInterceptor"/>
                 <ref bean="localeChangeInterceptor"/>
                 <ref bean="languageInterceptor"/>                
@@ -71,19 +71,12 @@ limitations under the License.
     <!--                           -->
     <!-- Plugin configuration      -->
     <!--                           -->
-    <bean id="parancoe-plugin-dwrPluginConfig" class="org.parancoe.web.plugin.Plugin">
+    <bean id="parancoe-plugin-dwrPluginConfig" class="org.parancoe.web.plugin.WebPlugin">
         <property name="name" value="parancoe-plugin-dwr"/>
         <property name="interceptors">
             <list>
                 <!--
                 <ref bean="parancoe-plugin-dwrSampleInterceptor"/>
-                -->
-            </list>
-        </property>
-        <property name="contextLoaderListeners">
-            <list>
-                <!--
-                <ref bean="parancoe-plugin-dwrSampleContextListener"/>
                 -->
             </list>
         </property>

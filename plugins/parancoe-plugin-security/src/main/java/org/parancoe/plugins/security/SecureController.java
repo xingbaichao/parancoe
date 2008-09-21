@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  */
 @Controller
 @RequestMapping("/*.secure")
-public class SecureController extends MultiActionController {
+public class SecureController {
 
     private static Logger logger = Logger.getLogger(SecureController.class);
 

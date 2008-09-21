@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * @author Poggiani Alberto poggialb@gmail.com
@@ -61,6 +62,7 @@ public class Provincia implements Serializable {
   }
 
   @OneToMany(mappedBy = "provincia")
+  @ForeignKey(name="none")
   public List<Comune> getComuni() {
     return comune;
   }
@@ -81,6 +83,7 @@ public class Provincia implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "codice_regione")
+  @ForeignKey(name="none")
   public Regione getRegione() {
     return regione;
   }

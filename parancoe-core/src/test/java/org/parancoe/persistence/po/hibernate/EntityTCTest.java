@@ -14,7 +14,7 @@
 package org.parancoe.persistence.po.hibernate;
 
 import java.util.List;
-import org.parancoe.persistence.dao.Daos;
+import org.parancoe.persistence.dao.TestDaos;
 import org.parancoe.persistence.dao.generic.EntityTCDao;
 import org.parancoe.persistence.util.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EntityTCTest extends BaseTest {
 
     @Autowired
-    protected Daos daos;
+    protected TestDaos daos;
 
     public void testDaoExists() {
         assertNotNull(this.daos);

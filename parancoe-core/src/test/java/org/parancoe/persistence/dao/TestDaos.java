@@ -23,7 +23,7 @@ import org.parancoe.persistence.dao.generic.VersionedEntityTCDao;
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
  * @version $Revision$
  */
-public interface Daos extends DaoProvider {
+public interface TestDaos extends DaoProvider {
     public EntityTCDao getEntityTCDao();
 
     public VersionedEntityTCDao getVersionedEntityTCDao();

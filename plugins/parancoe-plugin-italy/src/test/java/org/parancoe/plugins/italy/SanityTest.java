@@ -1,15 +1,15 @@
 package org.parancoe.plugins.italy;
 
+import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
-import org.parancoe.web.plugin.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 public class SanityTest extends PluginTest {
 
   @Autowired
-  @Qualifier("pluginItalyConfig")
-  private Plugin plugin;
+  @Qualifier("applicationContext-pluginItalyConfig")
+  private ApplicationContextPlugin plugin;
 
   public void testPlugin() throws Exception {
     assertEquals(4, plugin.getFixtureClasses().size());

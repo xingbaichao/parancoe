@@ -21,7 +21,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * Questa classe fa da proxy per tutti gli interceptor configurati nei plugins.
@@ -29,8 +29,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * interceptor dei plugin.
  * 
  * @author paolo.dona@seesaw.it
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
-public class PluginInterceptor extends HandlerInterceptorAdapter implements ApplicationContextAware {
+public class PluginInterceptor  implements HandlerInterceptor, ApplicationContextAware {
     private ApplicationContext ctx;
 
     private static final Logger logger = Logger.getLogger(PluginInterceptor.class);
@@ -53,21 +54,11 @@ public class PluginInterceptor extends HandlerInterceptorAdapter implements Appl
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception exception) throws Exception {
         new PluginHelper(ctx).invokeAfterCompletion(request, response, handler, exception); // To
-        // change
-        // body
-        // of
-        // overridden
-        // methods
-        // use
-        // File
-        // |
-        // Settings
-        // |
-        // File
-        // Templates.
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ctx = applicationContext;
     }
+    
+    
 }

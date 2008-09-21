@@ -13,7 +13,10 @@
 // limitations under the License.
 package org.parancoe.plugins.security;
 
-import org.parancoe.web.plugin.Plugin;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Resource;
+import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,20 +31,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class SecurityTest extends PluginTest {
 
     @Autowired
-    @Qualifier("pluginSecurityConfig")
-    private Plugin plugin;
-    @Autowired
+    @Qualifier("applicationContextpluginSecurityConfig")
+    private ApplicationContextPlugin plugin;
+    @Resource
     UserDao userDao;
-    @Autowired
-    UserAuthorityDao userAuthorityDao;
-    @Autowired
+    @Resource
     AuthorityDao authorityDao;
 
     public SecurityTest() {
     }
 
     public void testPlugin() throws Exception {
-        assertEquals(3, getFixtureClasses().length);
+        assertEquals(2, getFixtureClasses().length);
 
     }
 
@@ -52,18 +53,16 @@ public class SecurityTest extends PluginTest {
         userDao.store(pippo);
         Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
 
+        List<Authority> authorities = new ArrayList<Authority>();
+        authorities.add(parancoeAuthority);
+        pippo.setAuthorities(authorities);
 
-        UserAuthority ua = new UserAuthority();
-        ua.setAuthority(parancoeAuthority);
-        ua.setUser(pippo);
-
-        userAuthorityDao.store(ua);
+        userDao.store(pippo);
         assertNotNull(userDao.findByUsername("pippo").get(0));
-        assertNotNull(userAuthorityDao.findAll().size());
     }
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[]{User.class, Authority.class, UserAuthority.class};
+        return new Class[]{User.class, Authority.class};
     }
 }

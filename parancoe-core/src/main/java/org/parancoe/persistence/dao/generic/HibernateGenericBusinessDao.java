@@ -38,7 +38,7 @@ import org.springframework.dao.support.DataAccessUtils;
 
 /**
  *
- * @author jacopo
+ * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
 public class HibernateGenericBusinessDao<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDaoBase<T, PK>
          {
@@ -159,5 +159,13 @@ public class HibernateGenericBusinessDao<T, PK extends Serializable> extends Hib
        criteria.setProjection(Projections.rowCount());
        return DataAccessUtils.intResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+    public void rollBackTransaction() {
+        if(getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction() != null 
+                && getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().isActive() 
+                && !getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().wasRolledBack()) 
+            getHibernateTemplate().getSessionFactory().getCurrentSession().getTransaction().rollback();
+    }
+    
 
   }
