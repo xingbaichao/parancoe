@@ -1,6 +1,7 @@
 package org.parancoe.example.dao;
 
 import java.util.List;
+import javax.annotation.Resource;
 import org.parancoe.example.po.Person;
 import org.parancoe.example.test.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class PersonDaoTest extends BaseTest {
     
-    @Autowired
-    private PersonDao dao;
+    @Resource
+    private PersonDao personDao;
     
     /**
      * Test of findByLastName method, of class PersonDao.
      */
     public void testFindByLastName() {
-        List<Person> people = dao.findByLastName("Benfante");
+        List<Person> people = personDao.findByLastName("Benfante");
         assertEquals(8, people.size());
         for (Person p: people) {
             assertEquals("Benfante", p.getLastName());
@@ -26,7 +27,7 @@ public class PersonDaoTest extends BaseTest {
     }
 
     public void testFindByFirstName() {
-        List<Person> people = dao.findByFirstName("Ugo");
+        List<Person> people = personDao.findByFirstName("Ugo");
         assertEquals(2, people.size());
         for (Person p: people) {
             assertEquals("Ugo", p.getFirstName());

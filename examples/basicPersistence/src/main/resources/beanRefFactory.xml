@@ -20,9 +20,9 @@ limitations under the License.
         <constructor-arg>
             <list>
                 <value>org/parancoe/persistence/dao/generic/genericDao.xml</value>
+                <value>org/parancoe/persistence/applicationContextBase.xml</value>
                 <value>database.xml</value>
                 <value>applicationContext.xml</value>
-                <value>dao.xml</value>
             </list>
         </constructor-arg>
     </bean>
