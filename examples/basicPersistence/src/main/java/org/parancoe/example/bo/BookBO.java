@@ -13,6 +13,7 @@
 // limitations under the License.
 package org.parancoe.example.bo;
 
+import javax.annotation.Resource;
 import org.parancoe.example.dao.BookDao;
 import org.parancoe.example.po.Book;
 import org.parancoe.example.po.Person;
@@ -27,14 +28,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class BookBO {
-    @Autowired
-    private BookDao dao;
+    @Resource
+    private BookDao bookDao;
 
     public BookBO() {
     }
 
     public BookDao getDao() {
-        return dao;
+        return bookDao;
     }
     /**
      * This method is called when a book is returned to the library.
@@ -46,14 +47,14 @@ public class BookBO {
     @Transactional()
     public Person bookReturned(String author, String title)
     {
-    	Book book = dao.findByAuthorAndTitle(author, title).get(0);
+    	Book book = bookDao.findByAuthorAndTitle(author, title).get(0);
     	Person oldBorrower = book.getBorrower();
     	book.setBorrower(null);
-    	dao.store(book);
+    	bookDao.store(book);
     	return oldBorrower;
     }
 
     public void setDao(BookDao dao) {
-        this.dao = dao;
+        this.bookDao = dao;
     }
 }

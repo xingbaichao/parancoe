@@ -52,8 +52,8 @@ public abstract class BaseTest extends DBTest {
     protected String[] getConfigLocations() {
         return new String[]{
                     "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
+                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
                     "classpath:database_test.xml",
-                    "classpath:dao.xml",
                     "classpath:applicationContext.xml"
                 };
     }

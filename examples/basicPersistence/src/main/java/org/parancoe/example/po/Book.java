@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import org.hibernate.annotations.ForeignKey;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 
 /**
@@ -77,6 +78,7 @@ public class Book extends EntityBase {
 	}
         
 	@ManyToOne
+        @ForeignKey(name = "none")
 	public Person getBorrower() {
 		return borrower;
 	}

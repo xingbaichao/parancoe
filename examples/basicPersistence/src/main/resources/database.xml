@@ -26,8 +26,6 @@ limitations under the License.
 
     <tx:annotation-driven/>
     
-    
-    
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:exampleDB"/>
@@ -35,41 +33,14 @@ limitations under the License.
         <property name="password" value=""/>
     </bean>
     
-    <!--  
-       <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.gjt.mm.mysql.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/exampleDB"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>       
-    </bean>
-     -->
-    
-   
-    
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
-        <!-- <property name="configLocation" value="classpath:hibernate-mappings.cfg.xml"/>  -->
+    <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
-            <props>
+            <props  merge="true">
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-        <property name="eventListeners">
-            <map>
-                <entry key="merge">
-                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
-                </entry>
-            </map>
-        </property>
     </bean>
         
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <!-- Authomatic discovering of persistent classes -->
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.example"/>
     
 </beans>
