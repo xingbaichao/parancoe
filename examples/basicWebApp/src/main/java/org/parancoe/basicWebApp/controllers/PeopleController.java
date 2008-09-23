@@ -14,7 +14,6 @@
 package org.parancoe.basicWebApp.controllers;
 
 import java.text.ParseException;
-import org.parancoe.web.BaseMultiActionController;
 import org.parancoe.basicWebApp.po.Person;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,20 +22,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.HashMap;
+import javax.annotation.Resource;
 import org.parancoe.basicWebApp.blo.PersonBo;
 import org.parancoe.basicWebApp.dao.PersonDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/people/*.html")
-public class PeopleController extends BaseMultiActionController {
+public class PeopleController {
 
     private static Logger logger = Logger.getLogger(PeopleController.class);
-    @Autowired
+    @Resource
     private PersonDao personDao;
-    @Autowired
+    @Resource
     private PersonBo personBo;
 
     @RequestMapping
@@ -47,30 +46,22 @@ public class PeopleController extends BaseMultiActionController {
     }
 
     @RequestMapping
-    public ModelAndView populate(HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView populate(HttpServletRequest req, HttpServletResponse res) throws ParseException {
         Map params = new HashMap();
-        try {
-            personBo.populateArchive();
-        } catch (ParseException ex) {
-            return genericError(ex);
-        }
+        personBo.populateArchive();
         params.put("people", personDao.findAll());
         return new ModelAndView("people/list", params);
     }
 
     @RequestMapping
     public ModelAndView show(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            Long id = Long.parseLong(req.getParameter("id"));
-            logger.debug("got id " + id);
-            Map params = new HashMap();
-            Person p = personDao.read(id);
+        Long id = Long.parseLong(req.getParameter("id"));
+        logger.debug("got id " + id);
+        Map params = new HashMap();
+        Person p = personDao.read(id);
 
-            params.put("person", p);
-            return new ModelAndView("people/show", params);
-        } catch (Exception e) {
-            return genericError("Persona non trovata");
-        }
+        params.put("person", p);
+        return new ModelAndView("people/show", params);
     }
 
     public Logger getLogger() {

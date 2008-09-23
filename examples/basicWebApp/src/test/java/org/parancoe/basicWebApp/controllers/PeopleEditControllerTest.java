@@ -1,6 +1,7 @@
 package org.parancoe.basicWebApp.controllers;
 
 import java.util.List;
+import javax.annotation.Resource;
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.po.Person;
 import org.parancoe.web.test.ControllerTest;
@@ -12,11 +13,14 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.bind.support.SimpleSessionStatus;
+import org.springframework.web.servlet.HandlerAdapter;
 
 public class PeopleEditControllerTest extends ControllerTest {
 
     @Autowired
     private PeopleEditController controller;
+    @Resource
+    private HandlerAdapter methodHandler;
     @Autowired
     private PersonDao personDao;
 

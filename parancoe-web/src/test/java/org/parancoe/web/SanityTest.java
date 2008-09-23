@@ -24,8 +24,9 @@ public class SanityTest extends BaseTest {
     @Override
     protected String[] getConfigLocations() {
         return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
-                    "classpath:org/parancoe/web/parancoeBase.xml", "classpath:spring-test.xml"};
+                             "classpath:org/parancoe/persistence/applicationContextBase.xml",
+                             "classpath:org/parancoe/web/parancoeBase.xml", 
+                             "classpath:spring-test.xml"};
     }
     
 }

@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.parancoe.util.MemoryAppender;
-import org.parancoe.web.BaseMultiActionController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 //@DefaultUrlMapping
 @Controller
 @RequestMapping("/admin/*.html")
-public class AdminController extends BaseMultiActionController {
+public class AdminController {
     private static final Logger logger = Logger.getLogger(AdminController.class);
 
     @RequestMapping
