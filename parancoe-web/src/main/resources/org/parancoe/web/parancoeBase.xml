@@ -37,6 +37,8 @@ limitations under the License.
     <bean id="abstractMethodHandler" abstract="true" class="org.parancoe.web.annotation.ParancoeAnnotationMethodHandlerAdapter">
         <property name="validator" ref="validator"/>
     </bean>
+    
+    <bean id="methodHandler" parent="abstractMethodHandler" />
 
     <bean id="parancoeOpenSessionInViewInterceptor" class="org.parancoe.web.ParancoeOpenSessionInViewInterceptor" />
     <bean id="pluginInterceptor" class="org.parancoe.web.plugin.PluginInterceptor"/>
@@ -56,6 +58,8 @@ limitations under the License.
         </property>
         <property name="detectHandlersInAncestorContexts" value="true" />
     </bean>
+    
+    <bean id="handlerMapping" parent="abstractHandlerMapping" />
 
     <!-- i18n -->
     <bean id="messageSource"

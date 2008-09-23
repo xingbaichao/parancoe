@@ -17,6 +17,7 @@ import org.parancoe.basicWebApp.blo.SampleBlo;
 import org.parancoe.basicWebApp.blo.PersonBo;
 
 public class Blos {
+    
     public SampleBlo sample;
     public PersonBo person;
 

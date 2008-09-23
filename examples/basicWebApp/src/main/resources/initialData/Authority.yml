@@ -2,4 +2,3 @@
   role: ROLE_PARANCOE
 - &Authority-admin
   role: ROLE_ADMIN
-

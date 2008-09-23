@@ -20,13 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
-import org.parancoe.web.BaseMultiActionController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/home/*.html")
-public class HomeController extends BaseMultiActionController {
+public class HomeController {
     private static final Logger logger = Logger.getLogger(HomeController.class);
 
     // the simplest possible action
@@ -45,11 +44,7 @@ public class HomeController extends BaseMultiActionController {
     // how to handle exceptions
     @RequestMapping
     public ModelAndView pageThatRaiseAnException(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            throw new RuntimeException("BOOOM!!!");
-        } catch (Exception e) {
-            return genericError(e);
-        }
+        throw new RuntimeException("BOOOM!!!");
     }
 
     @RequestMapping

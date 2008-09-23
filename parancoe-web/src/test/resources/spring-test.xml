@@ -11,10 +11,6 @@
 
     <context:component-scan base-package="org.parancoe.web"/>  
     
-    <bean id="methodHandler" parent="abstractMethodHandler" />
-
-    <bean id="handlerMapping" parent="abstractHandlerMapping" />
-    
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:test"/>
