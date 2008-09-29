@@ -1,30 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-<beans xmlns:security="http://www.springframework.org/schema/security"
-    xmlns="http://www.springframework.org/schema/beans"
-    xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
-                        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd
-                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
     
-   <!-- ContextListener specifico per questo plugin -->
-   <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>
-	
+    <!-- ContextListener specifico per questo plugin -->
+    <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>
+    
+    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider"/>
+                <bean class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+                    <property name="key" value="changeThis"/>
+                </bean>
+                <bean class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
+                    <property name="key" value="changeThis"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+        <property name="decisionVoters">
+            <list>
+                <bean class="org.acegisecurity.vote.RoleVoter"/>
+                <bean class="org.acegisecurity.vote.AuthenticatedVoter"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <!-- TODO: commented for building after 2.0 merge. Please investigate!        
+        <property name="userCache">
+            <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+                <property name="cache">
+                    <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                        <property name="cacheManager">
+                            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                        </property>
+                        <property name="cacheName" value="userCache"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+        -->
+        <!-- password encoder -->
+        <property name="passwordEncoder">
+        	<bean class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"></bean>        
+        </property>
+        <property name="saltSource">
+        	<bean class="org.acegisecurity.providers.dao.salt.ReflectionSaltSource">
+        		<property name="userPropertyToUse" value="getUsername"></property>
+        	</bean>
+        </property>
+    </bean>
+    
+    <bean id="userDetailsService" class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <property name="usersByUsernameQuery">
+            <value>select username, password, enabled FROM psec_user WHERE username = ?</value>
+        </property>
+        <property name="authoritiesByUsernameQuery">
+            <value>select username, role from psec_user u, authority a, user_authority ua 
+            where u.username = ? and u.id = ua.user_id and a.id = ua.authority_id</value>
+        </property>
+    </bean>          
+    
+    <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>    
+    
     <!--                           -->
     <!-- Configurazione del plugin -->
     <!--                           -->
-   <bean id="applicationContextPluginSecurityConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+    <bean id="applicationContextpluginSecurityConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
         <property name="name" value="parancoe-plugin-security-encrypt"/>
         <property name="contextLoaderListeners">
             <list>
                 <ref bean="pluginSecurityContextListener"/>
             </list>
         </property>
-   </bean>
+    </bean>
+    
+    
+<!-- ======================== BEGIN - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
+		
+<!-- secured methods -->
+    <bean id="businessMethodSecurity" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager">
+            <ref bean="authenticationManager"/>
+        </property>
+        <property name="accessDecisionManager">
+            <ref bean="accessDecisionManager"/>
+        </property>
+        <property name="objectDefinitionSource">
+            <ref bean="objectDefinitionSource"/>
+        </property>
+    </bean>
 
+    <bean id="objectDefinitionSource" class="org.acegisecurity.intercept.method.MethodDefinitionAttributes">
+      <property name="attributes"><ref local="attributes"/></property>
+    </bean>
+    <bean id="attributes" class="org.acegisecurity.annotation.SecurityAnnotationAttributes"/>
+
+    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+      <property name="interceptorNames">
+        <list><value>businessMethodSecurity</value></list>
+      </property>
+      <property name="beanNames">
+             <ref bean="securedBeanNames"/>
+      </property>
+    </bean>    
+<!-- ======================== END - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
+    
 </beans>

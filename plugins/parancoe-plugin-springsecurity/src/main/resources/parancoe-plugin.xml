@@ -1,72 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
-
-<beans xmlns:security="http://www.springframework.org/schema/security"
-    xmlns="http://www.springframework.org/schema/beans"
-    xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd
-                        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd
-                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-
-    <!--  automatic discover of controller annotations -->
-    <context:component-scan base-package="org.parancoe.plugins.security"/>
-
-    <bean id="parancoeDelegate" class="org.springframework.web.filter.DelegatingFilterProxy"/>
-   
+    <!-- Authomatic discovering of persistent classes -->
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
+    
     <!-- Interceptor specifico per questo plugin -->
     <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.security.SecureInterceptor">
-       <property name="parancoeDelegate" ref="springSecurityFilterChain"></property>
+        <property name="delegate">
+            <ref bean="filterChainProxy"/>
+        </property>
     </bean>
     
-
-    <security:http auto-config="true">
-        <security:intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
-        <security:intercept-url pattern="/people/**" access="IS_AUTHENTICATED_REMEMBERED" />
-        <security:intercept-url pattern="/security/**" filters="none"/>
-        <security:form-login login-page="/security/login.html"  login-processing-url="/security/j_spring_security_check"/>
-        <!-- Disable web URI authorization, as we're using <global-method-security> and have @Secured the services layer instead
-        <intercept-url pattern="/listAccounts.html" access="IS_AUTHENTICATED_REMEMBERED" />
-        <intercept-url pattern="/post.html" access="ROLE_TELLER" />
-        -->
-        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-<!--
-        Uncomment to enable X509 client authentication support
-        <x509 /> 
--->
-
-        <!-- All of this is unnecessary if auto-config="true"
-        <form-login />
-        <anonymous />
-        <http-basic />
-        <logout />
-        <remember-me /> -->
-
-        <!-- Uncomment to limit the number of sessions a user can have
-        <concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true"/>
-		-->		
-    </security:http>
-
-    <!--
-    Usernames/Passwords are
-        rod/koala
-        dianne/emu
-        scott/wombat
-        peter/opal
-    -->
-    <security:authentication-provider>
-        <security:password-encoder hash="md5"/>
-        <security:user-service>
-            <security:user name="rod" password="a564de63c2d0da68cf47586ee05984d7" authorities="ROLE_PARANCOE, ROLE_ADMIN" />
-	        <security:user name="dianne" password="65d15fe9156f9c4bbffd98085992a44e" authorities="ROLE_PARANCOE, ROLE_ADMIN" />
-            <security:user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a" authorities="ROLE_PARANCOE" />
-            <security:user name="peter" password="22b5c9accc6e1ba628cedc63a72d57f8" authorities="ROLE_PARANCOE" />
-	</security:user-service>
-    </security:authentication-provider>
-	
-		
+    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+        <property name="filterInvocationDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+            </value>
+        </property>
+    </bean>    
+    
+    <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+    
+    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+        <property name="filterProcessesUrl" value="/logout.secure" />
+        <constructor-arg value="/"/> <!-- URL redirected to after logout -->
+        <constructor-arg>
+            <list>
+                <ref bean="rememberMeServices"/>
+                <bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationFailureUrl" value="/login.secure?login_error=1"/>
+        <property name="defaultTargetUrl" value="/"/>
+        <property name="filterProcessesUrl" value="/securityCheck.secure"/>
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+    </bean>
+    
+    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+    
+    <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+    </bean>
+    
+    <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        <property name="key" value="changeThis"/>
+        <property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+    </bean>
+    
+    <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint">
+            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+                <property name="loginFormUrl" value="/login.secure"/>
+                <property name="forceHttps" value="false"/>
+            </bean>
+        </property>
+        <property name="accessDeniedHandler">
+            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+                <property name="errorPage" value="/accessDenied.secure"/>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+      
+        <property name="objectDefinitionSource">
+            <ref bean="pluginSecurityFilterDefinitions"/>
+        </property>
+    </bean>
+    
+    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="key" value="changeThis"/>
+    </bean>
+    
     <!--                           -->
     <!-- Configurazione del plugin -->
     <!--                           -->
@@ -78,5 +99,5 @@
             </list>
         </property>
     </bean>
-
+    
 </beans>
