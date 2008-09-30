@@ -8,6 +8,7 @@
 </head>
 <body onload="parancoe.util.initDWR()">
 <jsp:include page="../header.jsp"/>
+<p:flash type="notice" />
 
 <h1>People</h1>
 

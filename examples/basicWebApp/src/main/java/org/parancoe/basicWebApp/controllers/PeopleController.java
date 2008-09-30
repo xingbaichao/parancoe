@@ -25,6 +25,7 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 import org.parancoe.basicWebApp.blo.PersonBo;
 import org.parancoe.basicWebApp.dao.PersonDao;
+import org.parancoe.web.util.FlashHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -50,6 +51,7 @@ public class PeopleController {
         Map params = new HashMap();
         personBo.populateArchive();
         params.put("people", personDao.findAll());
+        FlashHelper.setNotice(req, "Popolamento eseguito");
         return new ModelAndView("people/list", params);
     }
 
