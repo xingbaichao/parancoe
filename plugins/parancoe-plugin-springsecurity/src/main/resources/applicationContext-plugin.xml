@@ -11,35 +11,35 @@
     <!-- ContextListener specifico per questo plugin -->
     <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>
     
-    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+    <bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager">
         <property name="providers">
             <list>
                 <ref local="daoAuthenticationProvider"/>
-                <bean class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+                <bean class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
                     <property name="key" value="changeThis"/>
                 </bean>
-                <bean class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
+                <bean class="org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider">
                     <property name="key" value="changeThis"/>
                 </bean>
             </list>
         </property>
     </bean>
     
-    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+    <bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
             <list>
-                <bean class="org.acegisecurity.vote.RoleVoter"/>
-                <bean class="org.acegisecurity.vote.AuthenticatedVoter"/>
+                <bean class="org.springframework.security.vote.RoleVoter"/>
+                <bean class="org.springframework.security.vote.AuthenticatedVoter"/>
             </list>
         </property>
     </bean>
     
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService"/>
         <!-- TODO: commented for building after 2.0 merge. Please investigate!        
         <property name="userCache">
-            <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+            <bean class="org.springframework.security.providers.dao.cache.EhCacheBasedUserCache">
                 <property name="cache">
                     <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
                         <property name="cacheManager">
@@ -53,16 +53,16 @@
         -->
         <!-- password encoder -->
         <property name="passwordEncoder">
-        	<bean class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"></bean>        
+        	<bean class="org.springframework.security.providers.encoding.Md5PasswordEncoder"></bean>        
         </property>
         <property name="saltSource">
-        	<bean class="org.acegisecurity.providers.dao.salt.ReflectionSaltSource">
+        	<bean class="org.springframework.security.providers.dao.salt.ReflectionSaltSource">
         		<property name="userPropertyToUse" value="getUsername"></property>
         	</bean>
         </property>
     </bean>
     
-    <bean id="userDetailsService" class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
+    <bean id="userDetailsService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl">
         <property name="dataSource">
             <ref bean="dataSource" />
         </property>
@@ -76,7 +76,7 @@
     </bean>          
     
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>    
+    <bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener"/>    
     
     <!--                           -->
     <!-- Configurazione del plugin -->
@@ -91,34 +91,6 @@
     </bean>
     
     
-<!-- ======================== BEGIN - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
-		
-<!-- secured methods -->
-    <bean id="businessMethodSecurity" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
-        <property name="authenticationManager">
-            <ref bean="authenticationManager"/>
-        </property>
-        <property name="accessDecisionManager">
-            <ref bean="accessDecisionManager"/>
-        </property>
-        <property name="objectDefinitionSource">
-            <ref bean="objectDefinitionSource"/>
-        </property>
-    </bean>
 
-    <bean id="objectDefinitionSource" class="org.acegisecurity.intercept.method.MethodDefinitionAttributes">
-      <property name="attributes"><ref local="attributes"/></property>
-    </bean>
-    <bean id="attributes" class="org.acegisecurity.annotation.SecurityAnnotationAttributes"/>
-
-    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-      <property name="interceptorNames">
-        <list><value>businessMethodSecurity</value></list>
-      </property>
-      <property name="beanNames">
-             <ref bean="securedBeanNames"/>
-      </property>
-    </bean>    
-<!-- ======================== END - BUSINESS AUTHORIZATION ON METHODS  ======================= -->
     
 </beans>

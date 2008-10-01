@@ -17,7 +17,7 @@
         </property>
     </bean>
     
-    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+    <bean id="filterChainProxy" class="org.springframework.security.util.FilterChainProxy">
         <property name="filterInvocationDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -27,20 +27,20 @@
         </property>
     </bean>    
     
-    <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+    <bean id="httpSessionContextIntegrationFilter" class="org.springframework.security.context.HttpSessionContextIntegrationFilter"/>
     
-    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+    <bean id="logoutFilter" class="org.springframework.security.ui.logout.LogoutFilter">
         <property name="filterProcessesUrl" value="/logout.secure" />
         <constructor-arg value="/"/> <!-- URL redirected to after logout -->
         <constructor-arg>
             <list>
                 <ref bean="rememberMeServices"/>
-                <bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
+                <bean class="org.springframework.security.ui.logout.SecurityContextLogoutHandler"/>
             </list>
         </constructor-arg>
     </bean>
     
-    <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+    <bean id="authenticationProcessingFilter" class="org.springframework.security.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/login.secure?login_error=1"/>
         <property name="defaultTargetUrl" value="/"/>
@@ -48,33 +48,33 @@
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
     
-    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+    <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.wrapper.SecurityContextHolderAwareRequestFilter"/>
     
-    <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
+    <bean id="rememberMeProcessingFilter" class="org.springframework.security.ui.rememberme.RememberMeProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
     
-    <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+    <bean id="anonymousProcessingFilter" class="org.springframework.security.providers.anonymous.AnonymousProcessingFilter">
         <property name="key" value="changeThis"/>
         <property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
     </bean>
     
-    <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+    <bean id="exceptionTranslationFilter" class="org.springframework.security.ui.ExceptionTranslationFilter">
         <property name="authenticationEntryPoint">
-            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+            <bean class="org.springframework.security.ui.webapp.AuthenticationProcessingFilterEntryPoint">
                 <property name="loginFormUrl" value="/login.secure"/>
                 <property name="forceHttps" value="false"/>
             </bean>
         </property>
         <property name="accessDeniedHandler">
-            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+            <bean class="org.springframework.security.ui.AccessDeniedHandlerImpl">
                 <property name="errorPage" value="/accessDenied.secure"/>
             </bean>
         </property>
     </bean>
     
-    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+    <bean id="filterInvocationInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
       
@@ -83,7 +83,7 @@
         </property>
     </bean>
     
-    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
+    <bean id="rememberMeServices" class="org.springframework.security.ui.rememberme.TokenBasedRememberMeServices">
         <property name="userDetailsService" ref="userDetailsService"/>
         <property name="key" value="changeThis"/>
     </bean>

@@ -40,7 +40,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     public static final String USERNAME_LOG4J_MDC_KEY = "psec_username";
     private static final String STRATEGY_CLASS_NAME =
             "org.parancoe.plugins.security.ParancoeSecurityContextHolderStrategy";
-    private Filter parancoeDelegate;
+    private Filter delegate;
     private static final Logger logger =
             Logger.getLogger(SecureInterceptor.class);
 
@@ -63,7 +63,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
             Object handler) throws Exception {
-        parancoeDelegate.doFilter(req, res, new ParancoeFilterChain());
+        delegate.doFilter(req, res, new ParancoeFilterChain());
         populateLog4JMDC();
         req.getSession(false);
         if (res.isCommitted()) {
@@ -118,12 +118,12 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
         }
     }//end of inner class
 
-	public Filter getParancoeDelegate() {
-		return parancoeDelegate;
+	public Filter getDelegate() {
+		return delegate;
 	}
 
-	public void setParancoeDelegate(Filter parancoeDelegate) {
-		this.parancoeDelegate = parancoeDelegate;
+	public void setDelegate(Filter delegate) {
+		this.delegate = delegate;
 	}
 }//end of  class
 
