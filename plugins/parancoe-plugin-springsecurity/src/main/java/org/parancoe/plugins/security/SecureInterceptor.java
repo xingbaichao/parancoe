@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * Interceptor for secure features based on acegi framework.
+ * Interceptor for secure features based on springsecurity framework.
  * @author Enrico Giurin
  *
  */
