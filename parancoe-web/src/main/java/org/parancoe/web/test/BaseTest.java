@@ -52,9 +52,9 @@ public abstract class BaseTest extends DBTest {
         return new String[]{
                     "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
                     "classpath:org/parancoe/persistence/applicationContextBase.xml",
-                    "classpath:org/parancoe/web/parancoeBase.xml", "classpath:spring-test.xml", 
+                    "classpath:org/parancoe/web/parancoeBase.xml", "classpath:database-test.xml",
                     "file:" + applicationContext, "file:" + parancoeServlet,
-                    "classpath*:applicationContext-plugin.xml", "classpath*:parancoe-plugin.xml"
+                    "classpath*:applicationContext-plugin.xml", "classpath*:parancoe-plugin.xml", "classpath:spring-test.xml"
                 };
     }
 
