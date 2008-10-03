@@ -30,8 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SecurityTest extends PluginTest {
 
-    @Autowired
-    @Qualifier("applicationContextPluginSecurityConfig")
+	@Autowired
+    @Qualifier("applicationContextpluginSecurityConfig")
     private ApplicationContextPlugin plugin;
     @Resource
     UserDao userDao;
