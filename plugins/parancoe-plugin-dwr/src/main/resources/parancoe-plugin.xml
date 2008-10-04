@@ -34,6 +34,8 @@ limitations under the License.
     
     <dwr:annotation-config />
     
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+    
     <bean id="dwrHandlerMapping" class="org.directwebremoting.spring.DwrHandlerMapping">
         <property name="alwaysUseFullPath" value="true" />  
         <property name="urlMap">
