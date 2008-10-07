@@ -3,6 +3,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
     <listener>
         <listener-class>org.parancoe.web.ContextListener</listener-class>
     </listener>
@@ -19,40 +27,23 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-    
-<!--  begin temporarily added -->
-<filter>
-  <filter-name>springSecurityFilterChain</filter-name>
-  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-</filter>
-  
-<filter-mapping>
-  <filter-name>springSecurityFilterChain</filter-name>
-  <url-pattern>/*</url-pattern>
-</filter-mapping>   
-<!--  end temporarily added -->
-    
-
-   
-
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <url-pattern>/dog/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
-	 
-     
 
     <servlet>
         <servlet-name>parancoe</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>org.parancoe.web.ParancoeDispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 	
-	<!-- secure porpouse -->
-	<servlet-mapping>
+    <!-- begin secure porpouse -->
+    <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.secure</url-pattern>
     </servlet-mapping>
+     <!-- end secure porpouse -->
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.form</url-pattern>
