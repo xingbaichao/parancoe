@@ -1,6 +1,5 @@
 package org.parancoe.basicWebApp.controllers;
 
-import org.parancoe.web.BaseMultiActionController;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/italy/*.html")
-public class ItalyController extends BaseMultiActionController {
+public class ItalyController {
     private static final Logger logger = Logger.getLogger(ItalyController.class);
 
     @RequestMapping
