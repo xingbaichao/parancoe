@@ -34,7 +34,7 @@ public  class SecureController {
     
     @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
-        return new ModelAndView("acegilogin");
+        return new ModelAndView("login");
     }
     @RequestMapping
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
