@@ -4,7 +4,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.parancoe.example.po.Person;
 import org.parancoe.example.test.BaseTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *

@@ -13,16 +13,10 @@
 // limitations under the License.
 package org.parancoe.example.test;
 
-import java.util.Map;
 
 import org.parancoe.example.po.Book;
 import org.parancoe.example.po.Person;
-import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.test.DBTest;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
-import org.springframework.context.ApplicationContext;
 
 /**
  * A base class for basic persistence example tests.

@@ -15,12 +15,10 @@ package org.parancoe.example.app;
 
 import java.util.List;
 
-import org.parancoe.example.bo.BookBO;
 import org.parancoe.example.dao.BookDao;
 import org.parancoe.example.po.Book;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
+import org.parancoe.example.util.ApplicationContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A simple example of an application using Parancoe persistence module for Book entity.
@@ -30,32 +28,31 @@ import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
  */
 public class UseBookDAO {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance("beanRefFactory.xml");
-	    BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.example");
-	      
-	    //code added by enrico & emanuele
-	        
-	    BookBO bookBO =  (BookBO)bf.getFactory().getBean("bookBO");
-	    BookDao bookDao = bookBO.getDao();
-	    Book myBook = new Book("Parancoe Team", "Parancoe: the best framework");
-	        
-	    Book myBook2 = new Book("Mario Rossi", "My life");
-	    Book myBook3 = new Book("Parancoe Team", "Parancoe: tips & trick");
-	    Book myBook4 = new Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 320);
-	        
-	    bookDao.create(myBook);
-	    bookDao.create(myBook2);
-	    bookDao.create(myBook3);
-	    bookDao.create(myBook4);
-	        
-	    List<Book> myBooks= bookDao.findByAuthor("Parancoe Team");
-	    System.out.println(myBooks.size());
-	     
+    @Autowired
+    private BookDao bookDao;
 
-	}
+    public UseBookDAO() {
+        ApplicationContextHolder.autowireBeanProperties(this);
+    }
 
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        UseBookDAO app = new UseBookDAO();
+        Book myBook = new Book("Parancoe Team", "Parancoe: the best framework");
+
+        Book myBook2 = new Book("Mario Rossi", "My life");
+        Book myBook3 = new Book("Parancoe Team", "Parancoe: tips & trick");
+        Book myBook4 = new Book("The Hitchhiker's Guide to the Galaxy",
+                "Douglas Adams", 320);
+
+        app.bookDao.create(myBook);
+        app.bookDao.create(myBook2);
+        app.bookDao.create(myBook3);
+        app.bookDao.create(myBook4);
+
+        List<Book> myBooks = app.bookDao.findByAuthor("Parancoe Team");
+        System.out.println(myBooks.size());
+    }
 }
