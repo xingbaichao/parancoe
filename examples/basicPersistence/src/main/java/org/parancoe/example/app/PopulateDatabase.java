@@ -14,9 +14,8 @@
 package org.parancoe.example.app;
 
 import org.parancoe.example.bo.PersonBO;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
+import org.parancoe.example.util.ApplicationContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * A simple example of an application using Parancoe persistence module.
@@ -25,18 +24,23 @@ import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
  * @version $Revision$
  */
 public class PopulateDatabase {
-        
+
+    @Autowired
+    private PersonBO personBO;
+    
+    public PopulateDatabase() {
+        ApplicationContextHolder.autowireBeanProperties(this);
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        BeanFactoryLocator bfl = SingletonBeanFactoryLocator.getInstance("beanRefFactory.xml");
-        BeanFactoryReference bf = bfl.useBeanFactory("org.parancoe.example");
-        PersonBO personBO = (PersonBO)bf.getFactory().getBean("personBO");
+        PopulateDatabase app = new PopulateDatabase();
         // Popoulating the database
-        personBO.populateArchive();
+        app.personBO.populateArchive();
         // Print the person with id=1
-        personBO.printPerson(1L);
+        app.personBO.printPerson(1L);
     }
-    
+
 }

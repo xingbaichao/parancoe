@@ -17,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.annotation.Resource;
 import org.parancoe.example.dao.PersonDao;
 import org.parancoe.example.po.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +31,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class PersonBO {
-    @Resource
+
+    @Autowired
     private PersonDao personDao;
-    
-    /**
-     * Creates a new instance of PersonBO
-     */
-    public PersonBO() {
-    }
-    
-    public PersonDao getDao() {
-        return personDao;
-    }
-    
-    public void setDao(PersonDao dao) {
-        this.personDao = dao;
-    }
-    
+
     @Transactional()
     public void populateArchive() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -78,12 +64,13 @@ public class PersonBO {
             personDao.create(p);
         }
     }
-    
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     public void printPerson(Long id) {
-        Person p =personDao.read(id);
+        Person p = personDao.read(id);
         if (p != null) {
-            System.out.println(p.getFirstName()+" "+p.getLastName()+" "+p.getBirthDate());
+            System.out.println(p.getFirstName() + " " + p.getLastName() + " " +
+                    p.getBirthDate());
         } else {
             System.out.println("Person (1) not found");
         }
