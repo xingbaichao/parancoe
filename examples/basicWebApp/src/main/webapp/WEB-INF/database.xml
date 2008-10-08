@@ -13,9 +13,14 @@
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="hibernateProperties">
             <props merge="true">
+            	 
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                 
+                 <!--  
+                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                 -->
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>

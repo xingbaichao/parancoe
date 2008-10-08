@@ -12,10 +12,12 @@
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
     
     <context:component-scan base-package="org.parancoe.basicWebApp.blo"/>
-    <parancoe:define-daos basePackage="org.parancoe.basicWebApp"/>
-    <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.basicWebApp.po"/>
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
+    <parancoe:define-daos basePackage="org.parancoe.basicWebApp"/>   
+   
+   
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.basicWebApp.po"/>   
+   
+    
             
     <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>
     
