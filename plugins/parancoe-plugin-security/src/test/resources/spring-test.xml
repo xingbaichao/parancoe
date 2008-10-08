@@ -37,9 +37,10 @@
         </property>
     </bean>
 
+     <!--  
     <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security" />
     <parancoe:define-daos basePackage="org.parancoe.plugins.security" />
-
+     -->
     <!--   -->
     <bean name="pluginSecurityFilterDefinitions" class="java.lang.String">
         <constructor-arg>
