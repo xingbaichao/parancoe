@@ -82,8 +82,8 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>3.3.1.GA</version>
+            <artifactId>hibernate</artifactId>
+            <version>3.2.6.ga</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -95,10 +95,6 @@
             <artifactId>hibernate-commons-annotations</artifactId>
             <version>3.3.0.ga</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>hibernate</artifactId>
-                    <groupId>org.hibernate</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>persistence-api</artifactId>
                     <groupId>javax.persistence</groupId>
