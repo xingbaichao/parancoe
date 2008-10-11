@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book version="5.0" xml:id="spring-security-reference-guide" xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+    http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+    <bookinfo>
+        <title>Parancoe Meta-Framework</title>
+        <subtitle>Reference Guide</subtitle>
+        <authorgroup>
+            <author>
+                <firstname>Lucio</firstname>
+                <surname>Benfante</surname>
+            </author>
+        </authorgroup>
+        <releaseinfo>2.x</releaseinfo>
+        <legalnotice>
+            <para>Copies of this document may be made for your own use and for
+            distribution to others, provided that you do not charge any
+            fee for such copies and further provided that each copy
+            contains this Copyright Notice, whether distributed in print
+            or electronically.</para>
+        </legalnotice>
+    </bookinfo>
+    <toc/>
+    <preface xml:id="introduction">
+        <title>Introduction</title>
+        <para>Parancoe is a project aiming to simplify the release of web
+        applications promoting the convention over configuration philosophy
+        and the DRY principle. This project is promoted by the JUG Padova,
+        and everybody can partecipate.
+        </para>
+        <para>Parancoe is a Java meta-framework aggregating in an useful way
+        Hibernate/JPA, Spring 2, Spring MVC and, for the AJAX support, DWR.
+        </para>
+        <para>Parancoe purpose is to give to developers a set of libraries
+        ready to build standard web applications (which in most cases are just
+        crud applications) without worrying of long and harmful configurations
+        files. Parancoe will be composed of a full MVC stack.
+        </para>
+        <para>Parancoe is open source and is released under the Apache License,
+        Version 2.0.
+        </para>
+        <para>Are you interested in the parancoe word meaning? A “parancoa” is
+        a scaffolding in the dialect of the Venice (Italy) area.
+        </para>
+    </preface>
+    <part xml:id="getting-started">
+        <title>Getting Started</title>
+        <partintro>
+            <para>This part of this guid will introduce at using Parancoe,
+            in particular how to start a now web project, how to add a simple
+            controller and how to add a simple form to your application.
+            </para>
+        </partintro>
+        <xi:include href="startANewProject.xml" />
+    </part>
+</book>
