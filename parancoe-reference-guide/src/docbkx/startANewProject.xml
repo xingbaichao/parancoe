@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter version="5.0" xml:id="start-with-parancoe"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+    http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+    
+<title>Starting a new project with Parancoe</title>
+
+<sect1 xml:id="software-requisites">
+    <title>Software requisites</title>
+    
+    <para>For developing with Parancore you'll need:</para>
+        
+    <itemizedlist spacing="compact">
+        <listitem>
+            <para><link xlink:href="http://java.sun.com">Java SDK</link> 5+</para>
+        </listitem>
+        
+        <listitem>
+            <para><link xlink:href="http://maven.apache.org">Maven</link>
+            2.0.9+</para>
+        </listitem>
+        
+        <listitem>
+            <para>An IDE (<link xlink:href="http://www.netbeans.org">NetBeans</link>,
+            <link xlink:href="http://www.eclipse.org">Eclipse</link>, etc.)</para>
+        </listitem>
+        
+    </itemizedlist>
+    
+</sect1>
+
+<sect1 xml:id="starting-up-your-own-project">
+    <title>Starting up your own project</title>
+    
+    <para>You can start the development of a new Web application using the
+    Parancoe Web Application archetype:
+<programlisting>mvn archetype:create -DarchetypeGroupId=org.parancoe \     
+    -DarchetypeArtifactId=parancoe-webarchetype \
+    -DarchetypeVersion=2.0 \
+    -DgroupId=com.mycompany \
+    -DartifactId=testApp \
+    -DpackageName=com.mycompany.testapp
+</programlisting>
+    Of course you can personalize the groupId, artifactId and package. After the
+    execution you’ll have a complete web project with a common good layout,
+    configured authentication and authorization, some Parancoe examples.
+    Starting from this skeleton you can personalize it for developing your own
+    application.</para>
+</sect1>
+
+<sect1 xml:id="using-the-project-with-an-ide">
+    <title>Using the project with an IDE</title>
+    
+    <para>The Parancoe web application archetype produces a Maven 2 project.
+    Of course you can use it with your preferred IDE.</para>
+
+    <itemizedlist spacing="compact">
+    <listitem><para><link xlink:href="http://www.netbeans.org">NetBeans</link>:
+    install the
+    <link xlink:href="http://mevenide.codehaus.org/m2-site/index.html">Mevenide2 plug-in</link>
+    and use the project as a native NetBeans project. You'll find this plugin
+    already available in the NetBeans plugin link starting from NetBeans 6.0.</para></listitem>
+    <listitem><para><link xlink:href="http://www.eclipse.org">Eclipse</link>:
+    run <code>mvn eclipse:eclipse</code> and open the project with Eclipse.</para></listitem>
+    <listitem><para><link xlink:href="http://www.jetbrains.com/idea/">IntelliJ IDEA</link>:
+    run <code>mvn idea:idea</code> and open the project with IDEA.</para></listitem>
+    </itemizedlist>
+
+</sect1>
+    
+<sect1 xml:id="setting-up-your-maven-environment">
+    <title>Setting up your Maven environment</title>
+    
+    <para>The easyest way to develop a project with Parancoe is to use
+    <link xlink:href="http://maven.apache.org">Maven 2</link> as build tool.</para>
+
+    <para>Parancoe artifacts are distributed through the
+    <link xlink:href="http://repo1.maven.org/maven2/">Maven Central Repository</link>
+    and its mirrors. You don’t have to configure anything for using this repository.</para>
+
+    <para>If you are behind a proxy, check the
+    <link xlink:href="http://maven.apache.org/guides/mini/guide-proxies.html">Maven guide to using proxies</link>
+    to configure maven 2 with your proxy.</para>
+</sect1>
+
+</chapter>
