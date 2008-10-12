@@ -1,0 +1,12 @@
+- &User-parancoe
+  username: parancoe
+  password: d928b1a8468c96804da6fcc7bff826f
+  enabled: true
+  authorities: 
+    - *Authority-parancoe
+- &User-admin
+  username: admin
+  password: ceb4f32325eda6142bd65215f4c0f371
+  enabled: true
+  authorities: 
+    - *Authority-admin
