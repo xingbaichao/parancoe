@@ -28,7 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @Controller
-@RequestMapping("/security/*.html")
+@RequestMapping("/*.secure")
+
 public  class SecureController {
     private static Logger logger = Logger.getLogger(SecureController.class);
     
