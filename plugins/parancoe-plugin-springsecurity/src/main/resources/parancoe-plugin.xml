@@ -7,6 +7,10 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
         http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
+
+     
+     <!-- Authomatic discovering of controller classes -->
+    <context:component-scan base-package="org.parancoe.plugins.security"/>
     
     
     <!-- Interceptor specifico per questo plugin -->
@@ -91,7 +95,7 @@
     <!-- Configurazione del plugin -->
     <!--                           -->
     <bean id="pluginSecurityConfig" class="org.parancoe.web.plugin.WebPlugin">
-        <property name="name" value="parancoe-plugin-security-encrypt"/>
+        <property name="name" value="parancoe-plugin-security-springsecurity"/>
         <property name="interceptors">
             <list>
                 <ref bean="pluginSecurityInterceptor"/>
