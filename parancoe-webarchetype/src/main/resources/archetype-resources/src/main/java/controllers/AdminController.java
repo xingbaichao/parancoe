@@ -21,19 +21,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import ${package}.Blos;
-import ${package}.Daos;
 import org.parancoe.util.MemoryAppender;
-import org.parancoe.web.BaseMultiActionController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-public abstract class AdminController extends BaseMultiActionController {
+@Controller
+@RequestMapping("/admin/*.html")
+public class AdminController {
     private static final Logger logger = Logger.getLogger(AdminController.class);
 
+    @RequestMapping
     public ModelAndView index(HttpServletRequest req, HttpServletResponse res) {
         return new ModelAndView("admin/index", null);
     }
 
+    @RequestMapping
     public ModelAndView logs(HttpServletRequest req, HttpServletResponse res) {
         if ("true".equals(req.getParameter("clean"))) {
             MemoryAppender.clean();
@@ -50,10 +53,12 @@ public abstract class AdminController extends BaseMultiActionController {
         return new ModelAndView("admin/logs", params);
     }
 
+    @RequestMapping
     public ModelAndView conf(HttpServletRequest req, HttpServletResponse res) {
         return new ModelAndView("admin/conf", null);
     }
 
+    @RequestMapping
     public ModelAndView spring(HttpServletRequest req, HttpServletResponse res) {
         return new ModelAndView("admin/spring", null);
     }
@@ -70,10 +75,4 @@ public abstract class AdminController extends BaseMultiActionController {
         return StringUtils.join(lines);
     }
 
-
-    public Logger getLogger() {
-        return logger;
-    }
-    protected abstract Daos dao();
-    protected abstract Blos blo();
 }

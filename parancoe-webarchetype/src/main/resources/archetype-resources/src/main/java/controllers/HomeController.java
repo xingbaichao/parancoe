@@ -19,20 +19,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.parancoe.web.BaseMultiActionController;
-import ${package}.Daos;
-import ${package}.Blos;
 
-/**
- * 
- */
-public abstract class HomeController extends BaseMultiActionController {
+@Controller
+@RequestMapping("/home/*.html")
+public class HomeController {
     private static final Logger logger = Logger.getLogger(HomeController.class);
 
-    /**
-     * 
-     */
+    // EXAMPLE: the simplest possible action
+    @RequestMapping
     public ModelAndView welcome(HttpServletRequest req, HttpServletResponse res) {
         Map params = new HashMap();
         params.put("something", new Object());
@@ -42,6 +39,7 @@ public abstract class HomeController extends BaseMultiActionController {
     /**
      * Login action
      */
+    @RequestMapping
     public ModelAndView acegilogin(HttpServletRequest req, HttpServletResponse res) {
         Map params = new HashMap();
         return new ModelAndView("acegilogin", params);
@@ -50,26 +48,14 @@ public abstract class HomeController extends BaseMultiActionController {
     /**
      * Access denied
      */
+    @RequestMapping
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res) {
         Map params = new HashMap();
         return new ModelAndView("accessDenied", params);
     }
-    
 
-    /**
-     * 
-     */
-    public ModelAndView pageThatRaiseAnException(HttpServletRequest req, HttpServletResponse res) {
-        try {
-            throw new RuntimeException("BOOOM!!!");
-        } catch (Exception e) {
-            return genericError(e);
-        }
-    }
-
-    /**
-     * 
-     */
+    // EXAMPLE
+    @RequestMapping
     public ModelAndView pageThatRaiseAnUnHandledException(HttpServletRequest req, HttpServletResponse res){
         if (1 == 1){
             throw new RuntimeException("UNHANDLED BOOM!!!");
@@ -77,23 +63,4 @@ public abstract class HomeController extends BaseMultiActionController {
         return null;
     }
 
-    /**
-     * 
-     * @return 
-     */
-    public Logger getLogger() {return logger;}
-
-    /**
-     * You don't have to implement this. 
-     *
-     * @return The provider of DAOs
-     */
-    protected abstract Daos dao();
-
-    /**
-     * You don't have to implement this. 
-     * 
-     * @return The provider of business logic objects
-     */
-    protected abstract Blos blo();
 }

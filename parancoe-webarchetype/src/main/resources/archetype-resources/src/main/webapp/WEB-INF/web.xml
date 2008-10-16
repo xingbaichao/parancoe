@@ -1,15 +1,23 @@
+
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
-    
+    <!-- Prevents this problem 'Choose unique values for the 'webAppRootKey' context-param in your web.xml files!' -->
+    <context-param>
+        <param-name>log4jExposeWebAppRoot</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
     <listener>
         <listener-class>org.parancoe.web.ContextListener</listener-class>
     </listener>
     <listener>
-        <listener-class>org.parancoe.web.PopulateInitialDataContextListener</listener-class>
+        <listener-class>${package}.PopulateInitialDataContextListener</listener-class>
     </listener>
-    
+
     <!-- set requests encoding to UTF8 (needs to be the firs filter) -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -19,18 +27,21 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
     <servlet>
         <servlet-name>parancoe</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>org.parancoe.web.ParancoeDispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>    
-    
+    </servlet>
+	
+    <!-- secure porpouse -->
+    <servlet-mapping>
+        <servlet-name>parancoe</servlet-name>
+        <url-pattern>*.secure</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.form</url-pattern>
@@ -38,14 +49,6 @@
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>parancoe</servlet-name>
-        <url-pattern>*.secure</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>parancoe</servlet-name>
-        <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
@@ -56,7 +59,7 @@
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/jsp/500.jsp</location> 
+        <location>/WEB-INF/jsp/500.jsp</location>
     </error-page>
     <mime-mapping>
         <extension>css</extension>

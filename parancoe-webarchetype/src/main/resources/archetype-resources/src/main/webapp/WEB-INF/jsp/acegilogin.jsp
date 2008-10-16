@@ -16,6 +16,7 @@
                     <div id="loginBox">
                         <div id="loginTitle"><spring:message code="loginTitle"/></div>
                         <div id="loginMessageBox">
+                            Try <b>parancoe/parancoe</b> and <b>admin/admin</b>.<br/>
                             <c:if test="${not empty param.login_error}">
                                 <font color="red">
                                     Your login attempt was not successful, try again.<br/>
