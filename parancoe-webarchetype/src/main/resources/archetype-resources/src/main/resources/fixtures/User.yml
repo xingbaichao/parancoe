@@ -1,8 +1,0 @@
-- &User-parancoe
-  username: parancoe
-  password: parancoe
-  enabled: true
-- &User-admin
-  username: admin
-  password: admin
-  enabled: true
