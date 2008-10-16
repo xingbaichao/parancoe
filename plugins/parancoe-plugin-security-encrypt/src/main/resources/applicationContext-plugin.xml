@@ -8,7 +8,8 @@
         http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
     
-    <!-- Authomatic discovering of persistent classes -->
+    <!-- Authomatic discovering of persistent classes and DAOs -->
+    <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
     <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
     
     <!-- ContextListener specifico per questo plugin -->
