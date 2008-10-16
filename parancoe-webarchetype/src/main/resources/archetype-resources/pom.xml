@@ -51,15 +51,82 @@
             <name>Java.net Repository for Maven</name>
             <url>http://download.java.net/maven/2/</url>
             <layout>default</layout>
-        </repository> 
+        </repository>
     </repositories>
     <dependencies>
         <!-- The Parancoe framework -->
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-web</artifactId>
-            <version>0.3.4</version>
+            <version>2.0-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Parancoe Plugins -->
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-security-encrypt</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-hibernate3</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-mock</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-remoting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- common db driver(s) -->
+        <!-- HSQLDB -->
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.7</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Servlet/JSP APIs provided by your container -->
@@ -74,46 +141,6 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- Parancoe Plugins -->
-        <dependency>
-            <groupId>org.parancoe</groupId>
-            <artifactId>parancoe-plugin-security</artifactId>
-            <version>0.3.4</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- common db driver(s) -->
-        <!-- HSQLDB -->
-        <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>1.8.0.4</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- MySQL db -->	
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.0.5</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        <!-- PostgreSQLmysql db -->	
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>8.2-507.jdbc3</version>
-            <scope>provided</scope>
-        </dependency>        
-
-        <!-- AJAX framework -->
-        <dependency>
-            <groupId>org.directwebremoting</groupId>
-            <artifactId>dwr</artifactId>
-            <version>2.0.1</version>
         </dependency>
 
         <!-- Only for tests of your application (if any ;) )-->

@@ -1,34 +1,29 @@
 <archetype>
     <id>parancoe-webarchetype</id>
     <sources>
-        <source>src/main/java/Blos.java</source>
         <source>src/main/java/Conf.java</source>
         <source>src/main/java/Daos.java</source>
-        <source>src/main/java/blo/PersonBo.java</source>
-        <source>src/main/java/blo/SampleBlo.java</source>
+        <source>src/main/java/PopulateInitialDataContextListener.java</source>
+        <source filtered="false">src/main/java/blo/README.TXT</source>
         <source>src/main/java/controllers/AdminController.java</source>
+        <source>src/main/java/controllers/AppBindingInitializer.java</source>
         <source>src/main/java/controllers/HomeController.java</source>
-        <source>src/main/java/controllers/PeopleController.java</source>
-        <source>src/main/java/controllers/PeopleEditController.java</source>
-        <source>src/main/java/dao/PersonDao.java</source>
-        <source>src/main/java/dao/SampleDao.java</source>
-        <source>src/main/java/po/Person.java</source>
-        <source>src/main/java/po/PersonValidator.java</source>
+        <source>src/main/java/dao/README.TXT</source>
+        <source>src/main/java/po/README.TXT</source>
     </sources>
     <resources>
         <resource>src/main/resources/development.properties</resource>
-        <resource>src/main/resources/hibernate-mappings.cfg.xml</resource>
         <resource>src/main/resources/log4j.properties</resource>
         <resource>src/main/resources/production.properties</resource>
         <resource>src/main/resources/test.properties</resource>      
-        <resource>src/main/resources/fixtures/Authority.yml</resource>      
-        <resource>src/main/resources/fixtures/User.yml</resource>      
-        <resource>src/main/resources/fixtures/UserAuthority.yml</resource>      
+        <resource>src/main/resources/initialData/Authority.yml</resource>      
+        <resource>src/main/resources/initialData/User.yml</resource>      
         <resource>src/main/webapp/index.jsp</resource>
         <resource>src/main/webapp/logs.jsp</resource>
         <resource>src/main/webapp/test.jsp</resource>
         <resource>src/main/webapp/META-INF/MANIFEST.MF</resource>
         <resource>src/main/webapp/META-INF/context.xml</resource>
+        <resource>src/main/webapp/WEB-INF/applicationContext.xml</resource>
         <resource>src/main/webapp/WEB-INF/database.xml</resource>
         <resource>src/main/webapp/WEB-INF/messages.properties</resource>
         <resource>src/main/webapp/WEB-INF/messages_en.properties</resource>
@@ -55,9 +50,6 @@
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/index.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/logs.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/spring.jsp</resource>
-        <resource filtered="false">src/main/webapp/WEB-INF/jsp/people/edit.jsp</resource>
-        <resource filtered="false">src/main/webapp/WEB-INF/jsp/people/list.jsp</resource>
-        <resource filtered="false">src/main/webapp/WEB-INF/jsp/people/show.jsp</resource>
         <resource filtered="false">src/main/webapp/images/applicationLogo.png</resource>
         <resource filtered="false">src/main/webapp/images/applicationLogo.svg</resource>
         <resource filtered="false">src/main/webapp/images/background.gif</resource>
@@ -73,6 +65,9 @@
         <source>src/test/java/controllers/HomeControllerTest.java</source>
     </testSources>
     <testResources>
+        <resource>src/test/resources/database-test.xml</resource>
         <resource>src/test/resources/spring-test.xml</resource>
+        <resource>src/test/resources/fixtures/Authority.yml</resource>
+        <resource>src/test/resources/fixtures/User.yml</resource>
     </testResources>
 </archetype>

@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.parancoe</groupId>
     <artifactId>parancoe-webarchetype</artifactId>
-    <name>Archetype - parancoe-webarchetype</name>
+    <name>Parancoe Web Archetype</name>
     <version>2.0-SNAPSHOT</version>
     <url>http://www.parancoe.org</url>
     <repositories>

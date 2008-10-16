@@ -13,7 +13,6 @@
 // limitations under the License.
 package ${package};
 
-import ${package}.dao.PersonDao;
 import org.parancoe.persistence.dao.DaoProvider;
 
 /**
@@ -22,5 +21,4 @@ import org.parancoe.persistence.dao.DaoProvider;
  * The convention for the methods is get<dao_bean_id>.
  */
 public interface Daos extends DaoProvider {
-    public PersonDao getPersonDao();    
 }
