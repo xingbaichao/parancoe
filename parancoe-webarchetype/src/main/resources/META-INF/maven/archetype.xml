@@ -5,7 +5,11 @@
         <source>src/main/java/Daos.java</source>
         <source>src/main/java/PopulateInitialDataContextListener.java</source>
         <source filtered="false">src/main/java/blo/README.TXT</source>
+        <source>src/main/java/beans/AuthorityCheckBox.java</source>
+        <source>src/main/java/beans/UserBean.java</source>
+        <source>src/main/java/beans/UserBeanAuthoritiesValidator.java</source>
         <source>src/main/java/controllers/AdminController.java</source>
+        <source>src/main/java/controllers/AdminUsersController.java</source>
         <source>src/main/java/controllers/AppBindingInitializer.java</source>
         <source>src/main/java/controllers/HomeController.java</source>
         <source>src/main/java/dao/README.TXT</source>
@@ -50,6 +54,8 @@
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/index.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/logs.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/spring.jsp</resource>
+        <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/users/edit.jsp</resource>
+        <resource filtered="false">src/main/webapp/WEB-INF/jsp/admin/users/list.jsp</resource>
         <resource filtered="false">src/main/webapp/images/applicationLogo.png</resource>
         <resource filtered="false">src/main/webapp/images/applicationLogo.svg</resource>
         <resource filtered="false">src/main/webapp/images/background.gif</resource>
