@@ -1,6 +1,6 @@
 - &User-parancoe
   username: parancoe
-  password: d928b1a8468c96804da6fcc7bff826f
+  password: d928b1a8468c96804da6fcc70bff826f
   enabled: true
   authorities: 
     - *Authority-parancoe
