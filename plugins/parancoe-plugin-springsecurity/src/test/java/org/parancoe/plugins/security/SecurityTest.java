@@ -15,11 +15,9 @@ package org.parancoe.plugins.security;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Resource;
 
-import org.hibernate.CacheMode;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +71,7 @@ public class SecurityTest extends PluginTest {
     	assertTrue(rp.getUsers().size()==1);          	 
     	userDao.delete(userDao.findByUsername("parancoe").get(0));       	
     	assertTrue(userDao.findByUsername("parancoe").size()==0);    
-    	//need to evict rp to unbind it from hibernate (thanks to Lucio)
+    	//need to evict rp to unbind it from hibernate session (thanks to Lucio)
     	userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().evict(rp);    	
     	assertTrue(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size()==0);   	
     }
