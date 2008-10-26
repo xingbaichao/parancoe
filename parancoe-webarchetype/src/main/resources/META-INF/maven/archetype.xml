@@ -37,7 +37,7 @@
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/404.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/500.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/accessDenied.jsp</resource>
-        <resource filtered="false">src/main/webapp/WEB-INF/jsp/acegilogin.jsp</resource>
+        <resource filtered="false">src/main/webapp/WEB-INF/jsp/login.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/common.jspf</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/debug.jsp</resource>
         <resource filtered="false">src/main/webapp/WEB-INF/jsp/footer.jsp</resource>

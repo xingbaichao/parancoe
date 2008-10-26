@@ -1,7 +1,7 @@
 <%@ include file="common.jspf" %>
-<%@ page import="org.acegisecurity.ui.AbstractProcessingFilter" %>
-<%@ page import="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter" %>
-<%@ page import="org.acegisecurity.AuthenticationException" %>
+<%@ page import="org.springframework.security.ui.AbstractProcessingFilter" %>
+<%@ page import="org.springframework.security.ui.webapp.AuthenticationProcessingFilter" %>
+<%@ page import="org.springframework.security.AuthenticationException" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -20,13 +20,13 @@
                             <c:if test="${not empty param.login_error}">
                                 <font color="red">
                                     Your login attempt was not successful, try again.<br/>
-                                    Bad username or password.
+                                    Reason: <%= ((AuthenticationException) session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY)).getMessage() %>
                                 </font>
                             </c:if>
                         </div>
                         <form name="loginForm" action="<c:url value='/securityCheck.secure'/>" method="POST">
                             <label class="loginLabel" for="username"><spring:message code="username"/></label>
-                            <input id="username" class="loginField" type='text' name='j_username' tabindex="1" <c:if test="${not empty param.login_error}">value='<%= session.getAttribute(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY) %>'</c:if>/><br/>
+                            <input id="username" class="loginField" type='text' name='j_username' tabindex="1" <c:if test="${not empty param.login_error}">value='<%= session.getAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY) %>'</c:if>/><br/>
                             <label class="loginLabel" for="password"><spring:message code="password"/></label>
                             <input id="password" class="loginField" type='password' name='j_password' tabindex="2"/><br/>
                             <label class="loginLabel" for="remember">&nbsp;</label>
