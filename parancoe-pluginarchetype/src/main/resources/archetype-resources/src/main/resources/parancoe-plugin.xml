@@ -7,24 +7,17 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
         http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
     
-    <!-- Authomatic discovering of components, persistent classes and DAOs -->
+    <!-- Authomatic discovering of components -->
     <context:component-scan base-package="${package}"/>
-    <parancoe:discover-persistent-classes basePackage="${package}"/>
-    <parancoe:define-daos basePackage="${package}"/>
     
     <!--                           -->
     <!-- Plugin configuration      -->
     <!--                           -->
-    <bean id="${artifactId}PluginConfig" class="org.parancoe.web.plugin.Plugin">
+    <bean id="${artifactId}PluginConfig" class="org.parancoe.web.plugin.WebPlugin">
         <property name="name" value="${artifactId}"/>
         <property name="interceptors">
             <list>
                 <ref bean="${artifactId}SampleInterceptor"/>
-            </list>
-        </property>
-        <property name="contextLoaderListeners">
-            <list>
-                <ref bean="${artifactId}SampleContextListener"/>
             </list>
         </property>
     </bean>
