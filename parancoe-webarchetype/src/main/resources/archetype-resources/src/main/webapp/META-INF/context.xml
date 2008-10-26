@@ -8,5 +8,5 @@
         password=""
         username="sa"
         url="jdbc:hsqldb:mem:${artifactId}"
-        maxActive="3"/>
+        maxActive="5"/>
 </Context>
