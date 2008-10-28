@@ -54,27 +54,36 @@ public class SecurityTest extends PluginTest {
         User pippo = SecureUtility.newUserToValidate("pippo");
         userDao.store(pippo);
         Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
-
-
         List<Authority> authorities = new ArrayList<Authority>();
         authorities.add(parancoeAuthority);
         pippo.setAuthorities(authorities);
-
         userDao.store(pippo);
-        assertNotNull(userDao.findByUsername("pippo").get(0));
+        assertNotNull(userDao.findByUsername("pippo"));
     }
 
     @Transactional
     public void testDeleteUser()
     {
     	Authority rp = authorityDao.findByRole("ROLE_PARANCOE");   	
-    	assertTrue(rp.getUsers().size()==1);          	 
-    	userDao.delete(userDao.findByUsername("parancoe").get(0));       	
-    	assertTrue(userDao.findByUsername("parancoe").size()==0);    
+    	assertEquals(rp.getUsers().size(), 2);          	 
+    	userDao.delete(userDao.findByUsername("parancoe")); 
+    	
+    	//TODO understand why if we remove this row the test at the last
+    	//row of the code fails, 2 instead of 1
+    	assertNull(userDao.findByUsername("parancoe"));
     	//need to evict rp to unbind it from hibernate session (thanks to Lucio)
     	userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().evict(rp);    	
-    	assertTrue(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size()==0);   	
+    	assertEquals(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size(), 1);   	
     }
+    @Transactional
+    public void testFindAuthoritiesByPartialUsername()
+    {
+    	List<Authority> authorities = userDao.findAuthoritiesByPartialUsername("%pecI%");
+    	assertEquals(authorities.size(), 2);
+    	authorities = userDao.findAuthoritiesByPartialUsername("admin");
+    	assertEquals(authorities.size(), 1);
+    }
+    
     
     @Override
     public Class[] getFixtureClasses() {
