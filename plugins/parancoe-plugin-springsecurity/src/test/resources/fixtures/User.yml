@@ -10,3 +10,10 @@
   enabled: true
   authorities: 
     - *Authority-admin
+- &User-special
+  username: special
+  password: special
+  enabled: true
+  authorities: 
+    - *Authority-admin
+    - *Authority-parancoe
