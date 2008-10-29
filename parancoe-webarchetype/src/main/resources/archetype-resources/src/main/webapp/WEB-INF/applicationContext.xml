@@ -12,7 +12,7 @@
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
 
     <context:component-scan base-package="${package}.blo"/>
-    <parancoe:define-daos basePackage="${package}.dao"/>
+    <parancoe:define-daos basePackage="${package}"/>
     <parancoe:discover-persistent-classes basePackage="${package}.po"/>
 
     <bean id="conf" class="${package}.Conf" parent="abstractConf"/>
