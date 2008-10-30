@@ -87,7 +87,7 @@ public class HibernateGenericDao <T, PK extends Serializable>
     }    
     
     @SuppressWarnings("unchecked")
-    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion) {
+    public Page<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion) {
         Criteria crit = getSession().createCriteria(getType());
         Criteria count = getSession().createCriteria(getType());
         for (Criterion c: criterion) {
@@ -101,11 +101,11 @@ public class HibernateGenericDao <T, PK extends Serializable>
         
         crit.setFirstResult((page-1)*pageSize);
         crit.setMaxResults(pageSize);
-        return new HibernatePage<T>(crit.list(), page, pageSize, rowCount);
+        return new PageDefaultImpl<T>(crit.list(), page, pageSize, rowCount);
     }
     
     @SuppressWarnings("unchecked")
-    public HibernatePage<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria) {
+    public Page<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria) {
         // Row count
         criteria.setProjection(Projections.rowCount());
         int rowCount = ((Integer)getHibernateTemplate().
@@ -116,7 +116,7 @@ public class HibernateGenericDao <T, PK extends Serializable>
         List<T> list = getHibernateTemplate().
                 findByCriteria(criteria, (page-1)*pageSize, pageSize);
         
-        return new HibernatePage<T>(list, page, pageSize,rowCount);
+        return new PageDefaultImpl<T>(list, page, pageSize,rowCount);
     }
     
     public int deleteAll() {

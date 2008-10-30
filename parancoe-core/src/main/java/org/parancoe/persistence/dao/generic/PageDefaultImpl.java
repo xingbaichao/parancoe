@@ -6,16 +6,16 @@ import java.util.Collections;
 /**
  * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
-public class HibernatePage<T> {
+public class PageDefaultImpl<T> implements Page<T> {
 
     private List results;
     private int pageSize;
     private int page;
     private int rowCount;
 
-    public static HibernatePage EMPTY = new HibernatePage(Collections.EMPTY_LIST, 1, 1, 0);  
+    public static PageDefaultImpl EMPTY = new PageDefaultImpl(Collections.EMPTY_LIST, 1, 1, 0);
 
-    public HibernatePage(List<T> list, int page, int pageSize, int rowCount) {
+    public PageDefaultImpl(List<T> list, int page, int pageSize, int rowCount) {
         this.page = page;
         this.pageSize = pageSize;
         this.rowCount = rowCount;
