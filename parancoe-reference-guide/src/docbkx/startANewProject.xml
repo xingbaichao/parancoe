@@ -7,84 +7,554 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
     http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
     
-<title>Starting a new project with Parancoe</title>
+    <title>Starting a new project with Parancoe</title>
 
-<sect1 xml:id="software-requisites">
-    <title>Software requisites</title>
+    <sect1 xml:id="software-requisites">
+        <title>Software requisites</title>
     
-    <para>For developing with Parancore you'll need:</para>
+        <para>For developing with Parancore you'll need:</para>
         
-    <itemizedlist spacing="compact">
-        <listitem>
-            <para><link xlink:href="http://java.sun.com">Java SDK</link> 5+</para>
-        </listitem>
+        <itemizedlist spacing="compact">
+            <listitem>
+                <para>
+                    <link xlink:href="http://java.sun.com">Java SDK</link> 5+
+                </para>
+            </listitem>
         
-        <listitem>
-            <para><link xlink:href="http://maven.apache.org">Maven</link>
-            2.0.9+</para>
-        </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://maven.apache.org">Maven</link>
+            2.0.9+
+                </para>
+            </listitem>
         
-        <listitem>
-            <para>An IDE (<link xlink:href="http://www.netbeans.org">NetBeans</link>,
-            <link xlink:href="http://www.eclipse.org">Eclipse</link>, etc.)</para>
-        </listitem>
+            <listitem>
+                <para>An IDE (
+                    <link xlink:href="http://www.netbeans.org">NetBeans</link>,
+                    <link xlink:href="http://www.eclipse.org">Eclipse</link>, etc.)
+                </para>
+            </listitem>
         
-    </itemizedlist>
+        </itemizedlist>
     
-</sect1>
+    </sect1>
 
-<sect1 xml:id="starting-up-your-own-project">
-    <title>Starting up your own project</title>
+    <sect1 xml:id="starting-up-your-own-project">
+        <title>Starting up your own project</title>
     
-    <para>You can start the development of a new Web application using the
+        <para>You can start the development of a new Web application using the
     Parancoe Web Application archetype:
-<programlisting>mvn archetype:create -DarchetypeGroupId=org.parancoe \     
+            <programlisting>mvn archetype:create -DarchetypeGroupId=org.parancoe \
     -DarchetypeArtifactId=parancoe-webarchetype \
     -DarchetypeVersion=2.0 \
     -DgroupId=com.mycompany \
     -DartifactId=testApp \
     -DpackageName=com.mycompany.testapp
-</programlisting>
+            </programlisting>
     Of course you can personalize the groupId, artifactId and package. After the
     execution you’ll have a complete web project with a common good layout,
     configured authentication and authorization, some Parancoe examples.
     Starting from this skeleton you can personalize it for developing your own
-    application.</para>
-</sect1>
+    application.
+        </para>
+    </sect1>
 
-<sect1 xml:id="using-the-project-with-an-ide">
-    <title>Using the project with an IDE</title>
+    <sect1 xml:id="using-the-project-with-an-ide">
+        <title>Using the project with an IDE</title>
     
-    <para>The Parancoe web application archetype produces a Maven 2 project.
-    Of course you can use it with your preferred IDE.</para>
+        <para>The Parancoe web application archetype produces a Maven 2 project.
+    Of course you can use it with your preferred IDE.
+        </para>
 
-    <itemizedlist spacing="compact">
-    <listitem><para><link xlink:href="http://www.netbeans.org">NetBeans</link>:
+        <itemizedlist spacing="compact">
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.netbeans.org">NetBeans</link>:
     install the
-    <link xlink:href="http://mevenide.codehaus.org/m2-site/index.html">Mevenide2 plug-in</link>
+                    <link xlink:href="http://mevenide.codehaus.org/m2-site/index.html">Mevenide2 plug-in</link>
     and use the project as a native NetBeans project. You'll find this plugin
-    already available in the NetBeans plugin link starting from NetBeans 6.0.</para></listitem>
-    <listitem><para><link xlink:href="http://www.eclipse.org">Eclipse</link>:
-    run <code>mvn eclipse:eclipse</code> and open the project with Eclipse.</para></listitem>
-    <listitem><para><link xlink:href="http://www.jetbrains.com/idea/">IntelliJ IDEA</link>:
-    run <code>mvn idea:idea</code> and open the project with IDEA.</para></listitem>
-    </itemizedlist>
+    already available in the NetBeans plugin link starting from NetBeans 6.0.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.eclipse.org">Eclipse</link>:
+    run
+                    <code>mvn eclipse:eclipse</code> and open the project with Eclipse.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="http://www.jetbrains.com/idea/">IntelliJ IDEA</link>:
+    run
+                    <code>mvn idea:idea</code> and open the project with IDEA.
+                </para>
+            </listitem>
+        </itemizedlist>
 
-</sect1>
+    </sect1>
     
-<sect1 xml:id="setting-up-your-maven-environment">
-    <title>Setting up your Maven environment</title>
+    <sect1 xml:id="setting-up-your-maven-environment">
+        <title>Setting up your Maven environment</title>
     
-    <para>The easyest way to develop a project with Parancoe is to use
-    <link xlink:href="http://maven.apache.org">Maven 2</link> as build tool.</para>
+        <para>The easyest way to develop a project with Parancoe is to use
+            <link xlink:href="http://maven.apache.org">Maven 2</link> as build tool.
+        </para>
 
-    <para>Parancoe artifacts are distributed through the
-    <link xlink:href="http://repo1.maven.org/maven2/">Maven Central Repository</link>
-    and its mirrors. You don’t have to configure anything for using this repository.</para>
+        <para>Parancoe artifacts are distributed through the
+            <link xlink:href="http://repo1.maven.org/maven2/">Maven Central Repository</link>
+    and its mirrors. You don’t have to configure anything for using this repository.
+        </para>
 
-    <para>If you are behind a proxy, check the
-    <link xlink:href="http://maven.apache.org/guides/mini/guide-proxies.html">Maven guide to using proxies</link>
-    to configure maven 2 with your proxy.</para>
-</sect1>
+        <para>If you are behind a proxy, check the
+            <link xlink:href="http://maven.apache.org/guides/mini/guide-proxies.html">Maven guide to using proxies</link>
+    to configure maven 2 with your proxy.
+        </para>
+    </sect1>
 
+    <sect1 xml:id="adding-a-crud">
+        <title>Adding a CRUD to your application</title>
+
+        <para>In the following
+            <filename>$PRG</filename> indicates the directory in wich you created the project.
+        </para>
+        <sect2 xml:id="crud-add-entity">
+            <title>Add the entity</title>
+
+            <para>Add to the
+                <filename>$PRG/src/main/java/com/mycompany/testapp/po</filename>
+         directory the 
+                <filename>Person.java</filename> file with the following content:
+            </para>
+
+            <programlisting><![CDATA[package com.mycompany.testapp.po;
+
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.parancoe.persistence.po.hibernate.EntityBase;
+
+@Entity
+public class Person extends EntityBase {
+
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String email;
+
+    @Temporal(TemporalType.DATE)
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}]]>
+            </programlisting>
+        </sect2>
+
+        <sect2 xml:id="crud-add-dao">
+            <title>Add the DAO</title>
+
+            <para>Add to the
+                <filename>$PRG/src/main/java/com/mycompany/testapp/dao</filename>
+        directory the 
+                <filename>PersonDao.java</filename> file with the following content:
+            </para>
+
+            <programlisting><![CDATA[package com.mycompany.testapp.dao;
+
+import com.mycompany.testapp.po.Person;
+import org.parancoe.persistence.dao.generic.Dao;
+import org.parancoe.persistence.dao.generic.GenericDao;
+
+@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+}]]>
+            </programlisting>
+        </sect2>
+
+        <sect2 xml:id="crud-add-controller">
+            <title>Add the controller</title>
+
+            <para>Add to the
+                <filename>$PRG/src/main/java/com/mycompany/testapp/controllers</filename>
+        directory the 
+                <filename>PersonController.java</filename> file with the following content:
+            </para>
+
+            <programlisting><![CDATA[package com.mycompany.testapp.controllers;
+
+import com.mycompany.testapp.dao.PersonDao;
+import com.mycompany.testapp.po.Person;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
+@Controller
+@RequestMapping({"/person/*.form", "/person/*.html"})
+@SessionAttributes(PersonController.PERSON_ATTR_NAME)
+public class PersonController {
+
+    public static final String PERSON_ATTR_NAME = "person";
+    public static final String EDIT_VIEW = "person/edit";
+    public static final String LIST_VIEW = "person/list";
+    @Autowired
+    private PersonDao personDao;
+
+    @RequestMapping
+    public String edit(@RequestParam("id") Long id, Model model) {
+        Person person = personDao.get(id);
+        if (person == null) {
+            throw new RuntimeException("Person not found");
+        }
+        model.addAttribute(PERSON_ATTR_NAME, person);
+        return EDIT_VIEW;
+    }
+
+    @RequestMapping
+    public String save(@ModelAttribute(PERSON_ATTR_NAME) Person person,
+            BindingResult result, SessionStatus status) {
+        personDao.store(person);
+        status.setComplete();
+        return "redirect:list.html";
+    }
+
+    @RequestMapping
+    public String list(Model model) {
+        List<Person> people = personDao.findAll();
+        model.addAttribute("people", people);
+        return LIST_VIEW;
+    }
+
+    @RequestMapping
+    public String create(Model model) {
+        Person person = new Person();
+        model.addAttribute(PERSON_ATTR_NAME, person);
+        return EDIT_VIEW;
+    }
+
+    @RequestMapping
+    public String delete(@RequestParam("id") Long id, Model model) {
+        Person person = personDao.get(id);
+        if (person == null) {
+            throw new RuntimeException("Person not found");
+        }
+        personDao.delete(person);
+        return "redirect:list.html";
+    }
+}]]>
+            </programlisting>
+        </sect2>
+
+        <sect2 xml:id="crud-add-views">
+            <title>Add the views (JSP)</title>
+
+            <para>Create the
+                <filename>$PRG/src/main/webapp/WEB-INF/jsp/person</filename>
+        directory.
+            </para>
+
+            <para>Add to the
+                <filename>$PRG/src/main/webapp/WEB-INF/jsp/person</filename>
+        directory the 
+                <filename>list.jsp</filename> file with the following content:
+            </para>
+
+            <programlisting><![CDATA[<%@ include file="../common.jspf" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <%@ include file="../head.jspf" %>
+    </head>
+    <body>
+        <div id="nonFooter">
+            <jsp:include page="../header.jsp"/>
+            <div id="content">
+                <div id="content_main">
+                    <h1>People</h1>
+                    <table>
+                        <c:forEach var="person" items="${people}">
+                            <tr>
+                                <td>${person.firstName}</td>
+                                <td>${person.lastName}</td>
+                                <td>${person.birthDate}</td>
+                                <td>${person.email}</td>
+                                <td>
+                                    <a href="edit.form?id=${person.id}">Edit</a>
+                                    <a href="delete.html?id=${person.id}">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <c:if test="${empty people}">
+                        No people in the DB
+                    </c:if>
+                    <a href="create.html">New</a>
+                </div>
+                <jsp:include page="../menu.jsp"/>
+            </div>
+        </div>
+        <jsp:include page="../footer.jsp"/>
+    </body>
+</html>]]>
+            </programlisting>
+
+            <para>Add to the
+                <filename>$PRG/src/main/webapp/WEB-INF/jsp/person</filename>
+        directory the 
+                <filename>edit.jsp</filename> file with the following content:
+            </para>
+
+            <programlisting><![CDATA[<%@ include file="../common.jspf" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <%@ include file="../head.jspf" %>
+    </head>
+    <body>
+        <div id="nonFooter">
+            <jsp:include page="../header.jsp"/>
+            <div id="content">
+                <div id="content_main">
+                    <h1>Edit person</h1>
+                    <form:form commandName="person" method="POST"
+                            action="${cp}/person/save.form">
+                        <table>
+                        <tr>
+                            <td>First name:</td>
+                            <td><form:input path="firstName"/></td>
+                        </tr>
+                        <tr>
+                            <td>Last name:</td>
+                            <td><form:input path="lastName"/></td>
+                        </tr>
+                        <tr>
+                            <td>Birth date:</td>
+                            <td><form:input path="birthDate"/> (dd/MM/yyyy)</td>
+                        </tr>
+                        <tr>
+                            <td>E-mail:</td>
+                            <td><form:input path="email"/></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><input type="submit" value="Submit"/><br/><br/></td>
+                        </tr>
+                        </table>
+                        <form:errors path="*" cssClass="errorBox"/>
+                    </form:form>
+                </div>
+                <jsp:include page="../menu.jsp"/>
+            </div>
+        </div>
+        <jsp:include page="../footer.jsp"/>
+    </body>
+</html>]]>
+            </programlisting>
+
+            <para>Add an item to the page menu in the
+                <filename>$PRG/src/main/webapp/WEB-INF/jsp/menu.jsp</filename> file:
+            </para>
+
+            <programlisting><![CDATA[<%@ include file="common.jspf" %>
+<div id="content_menu">
+    <p class="menuTitle"><spring:message code="label_menu"/></p>
+    <p class="menuLevel0"><a href="${cp}/"><spring:message code="menu_home"/></a></p>
+    <p class="menuLevel0"><a href="${cp}/person/list.html">People</a></p>
+    <p class="menuLevel0">
+        <a href="${cp}/admin/index.html"><spring:message code="menu_administration"/></a>
+    </p>
+    <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE">
+        <p class="menuLevel0"><a href="${cp}/logout.secure">Logout</a></p>
+    </authz:authorize>
+</div>]]>
+            </programlisting>
+        </sect2>
+
+        <sect2 xml:id="crud-add-validation">
+            <title>Add the validation</title>
+
+            <para>Add the validation rules to your form bean (in this example it's also
+        the persistence entity) in the
+                <filename>$PRG/src/main/java/com/mycompany/testapp/po/Person.java</filename>.
+        The rules are expressed through annotations.
+            </para>
+
+            <programlisting><![CDATA[package com.mycompany.testapp.po;
+
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.Email;
+import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+
+@Entity
+public class Person extends EntityBase {
+
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    private Date birthDate;
+    @Email
+    private String email;
+
+    @Temporal(TemporalType.DATE)
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}]]>
+            </programlisting>
+
+            <para>Add the
+                <classname>@Validation</classname> annotation to the
+                <methodname>save</methodname> method of the
+                <classname>PersonController</classname> class:
+            </para>
+
+            <programlisting><![CDATA[@RequestMapping
+@Validation(view=EDIT_VIEW)
+public String save(@ModelAttribute(PERSON_ATTR_NAME) Person person,
+        BindingResult result, SessionStatus status) {
+    personDao.store(person);
+    status.setComplete();
+    return "redirect:list.html";
+}]]>
+            </programlisting>
+
+        </sect2>
+
+    </sect1>
+
+    <sect1 xml:id="database-configuration">
+        <title>Configure your database</title>
+
+        <para>The application generated by the Parancoe Web Application has its database
+    configuration in the
+            <filename>$PRG/src/main/webapp/WEB-INF/database.xml</filename> file:
+        </para>
+
+        <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:comp/env/jdbc/testAppDS"/>
+  </bean>
+
+  <bean id="sessionFactory" parent="abstractSessionFactory">
+    <property name="hibernateProperties">
+      <props merge="true">
+        <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+    <property name="eventListeners">
+      <map>
+        <entry key="merge">
+          <bean class=
+   "org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+</beans>]]>
+        </programlisting>
+            
+        <para>As you see in the previous file, the database connection is configured
+            through a datasource, so you just need to define a datasource with that
+            name in your application server. If you are using Tomcat, you can define
+            the datasource in the 
+            <filename>$PRG/src/main/webapp/META-INF/context.xml</filename> file:
+        </para>
+
+        <programlisting><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/testApp" reloadable="true">
+  <Resource name="jdbc/testAppDS"
+            type="javax.sql.DataSource"
+            auth="Container"
+            driverClassName="org.hsqldb.jdbcDriver"
+            url="jdbc:hsqldb:mem:testApp"
+            username="sa"
+            password=""
+            maxActive="5"
+            />
+</Context>]]>
+        </programlisting>
+
+        <para>For ease of configuration, the default database is an HSQL in-memory database.
+        Of course you need to change it to a database with real persistence.</para>
+
+        <para>When yo change your database, you need to change your datasource and
+        the Hibernate dialect (if you aren't using an HSQL database server).</para>
+    </sect1>
 </chapter>

@@ -4,6 +4,7 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+    http://www.w3.org/2001/XInclude http://www.w3.org/2001/XInclude.xsd
     http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
     <bookinfo>
         <title>Parancoe Meta-Framework</title>
@@ -46,14 +47,7 @@
         a scaffolding in the dialect of the Venice (Italy) area.
         </para>
     </preface>
-    <part xml:id="getting-started">
-        <title>Getting Started</title>
-        <partintro>
-            <para>This part of this guid will introduce at using Parancoe,
-            in particular how to start a now web project, how to add a simple
-            controller and how to add a simple form to your application.
-            </para>
-        </partintro>
         <xi:include href="startANewProject.xml" />
-    </part>
+        <xi:include href="persistence.xml" />
+        <xi:include href="plugins.xml" />
 </book>
