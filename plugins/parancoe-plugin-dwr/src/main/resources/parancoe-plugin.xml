@@ -21,7 +21,7 @@ limitations under the License.
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd
         http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
     
     <!-- Authomatic discovering of components, persistent classes and DAOs -->
@@ -31,9 +31,9 @@ limitations under the License.
 
     <!-- begin dwr section -->    
     <dwr:controller id="dwrController" debug="true"/>
-    
+        
     <dwr:annotation-config />
-    
+
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
     
     <bean id="dwrHandlerMapping" class="org.directwebremoting.spring.DwrHandlerMapping">
