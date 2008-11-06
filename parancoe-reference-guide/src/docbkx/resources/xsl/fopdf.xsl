@@ -41,6 +41,9 @@
                             <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
                                 <xsl:value-of select="bookinfo/releaseinfo"/>
                             </fo:block>
+                            <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
+                                <xsl:apply-templates select="bookinfo/address/ulink"/>
+                            </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
