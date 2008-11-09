@@ -15,10 +15,8 @@ package org.parancoe.plugins.security;
 
 import java.util.List;
 
-import org.parancoe.persistence.dao.generic.Compare;
 import org.parancoe.persistence.dao.generic.Dao;
 import org.parancoe.persistence.dao.generic.GenericDao;
-import org.parancoe.persistence.dao.generic.CompareType;
 
 /**
  * The DAO interface for the UserProfile entity.
@@ -47,7 +45,7 @@ public interface UserDao extends GenericDao<User, Long> {
      * @param username
      * @return
      */
-    List<User> findByPartialUsername(@Compare(CompareType.ILIKE) String username);
+    List<User> findByPartialUsername(String username);
     /**
      *  Returns all the authorities associated to a partial username.
      * @param username compare upper-case and like mode

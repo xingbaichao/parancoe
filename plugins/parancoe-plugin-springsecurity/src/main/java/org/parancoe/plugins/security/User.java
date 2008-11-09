@@ -15,13 +15,11 @@ package org.parancoe.plugins.security;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.ForeignKey;
 import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
@@ -36,8 +34,12 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  */
 @javax.persistence.Entity
 @javax.persistence.Table(name="PSEC_USER")
-@NamedQueries(value = {@NamedQuery(name = "User.findAuthoritiesByPartialUsername", query =
-    "SELECT u.authorities from User u where upper(u.username) like upper(?)")})
+@NamedQueries(value = {
+    @NamedQuery(name = "User.findAuthoritiesByPartialUsername", query =
+    "SELECT u.authorities from User u where upper(u.username) like upper(?)"),
+    @NamedQuery(name = "User.findByPartialUsername", query =
+    "from User u where upper(u.username) like concat(concat('%', upper(?)), '%')")    
+})
 public class User extends EntityBase {
 
     private static final long serialVersionUID = 832363948575562242L;
