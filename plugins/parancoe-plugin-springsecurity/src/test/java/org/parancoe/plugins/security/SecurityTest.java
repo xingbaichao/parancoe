@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Test based on PluginTest.
@@ -48,7 +47,7 @@ public class SecurityTest extends PluginTest {
 
     }
 
-    @Transactional
+  
     public void testInsertUser() {
         // creates entities
         User pippo = SecureUtility.newUserToValidate("pippo");
@@ -61,7 +60,7 @@ public class SecurityTest extends PluginTest {
         assertNotNull(userDao.findByUsername("pippo"));
     }
 
-    @Transactional
+    
     public void testDeleteUser()
     {
     	Authority rp = authorityDao.findByRole("ROLE_PARANCOE");   	
@@ -75,7 +74,7 @@ public class SecurityTest extends PluginTest {
     	userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().evict(rp);    	
     	assertEquals(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size(), 1);   	
     }
-    @Transactional
+    
     public void testFindAuthoritiesByPartialUsername()
     {
     	List<Authority> authorities = userDao.findAuthoritiesByPartialUsername("%pecI%");
@@ -83,7 +82,7 @@ public class SecurityTest extends PluginTest {
     	authorities = userDao.findAuthoritiesByPartialUsername("admin");
     	assertEquals(authorities.size(), 1);
     }
-    @Transactional
+   
     public void testFindByPartialUsername() {
     	List<User> user = userDao.findByPartialUsername("%aranc%");
     	assertEquals(1, user.size());    	
