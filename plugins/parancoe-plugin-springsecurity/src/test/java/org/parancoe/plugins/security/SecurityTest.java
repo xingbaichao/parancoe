@@ -83,6 +83,11 @@ public class SecurityTest extends PluginTest {
     	authorities = userDao.findAuthoritiesByPartialUsername("admin");
     	assertEquals(authorities.size(), 1);
     }
+    @Transactional
+    public void testFindByPartialUsername() {
+    	List<User> user = userDao.findByPartialUsername("%aranc%");
+    	assertEquals(1, user.size());    	
+    }
     
     
     @Override
