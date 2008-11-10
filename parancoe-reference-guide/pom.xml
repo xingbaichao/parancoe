@@ -79,6 +79,7 @@
     </dependencies>
     <properties>
         <docbook.source>${basedir}/src/docbkx</docbook.source>
+        <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
         <docbook.target>${basedir}/target/site/guide</docbook.target>        
     </properties>    
 </project>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<sect2 version="5.0" xml:id="plugins-dwr"
+<sect2 xml:id="plugins-dwr"
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -11,6 +11,173 @@
     
 <title>DWR</title>
 
-<para>TBW</para>
+<para>This plugin provides an easy integration of the <ulink url="http://directwebremoting.org/">Direct Web Remoting (<acronym>DWR</acronym>)</ulink> framework, version 3.
+DWR is a framework for easily implement AJAX functionalities in a Java application.</para>
+
+<sect3>
+    <title>How to add the plugin to your application</title>
+    <para>For adding the DWR plugin to your application, if your are using Maven,
+    simply add the plugin dependency to your <filename>pom.xml</filename></para>
+    
+    <example>
+        <title>DWR plugin dependency</title>
+        <programlisting><![CDATA[<dependency>
+    <groupId>org.parancoe</groupId>
+    <artifactId>parancoe-plugin-dwr</artifactId>
+    <version>2.0.1</version>
+</dependency>]]></programlisting>
+    </example>
+    
+    <para>The plugin adds a controller for the DWR Ajax calls. It is mapped on the <filename>/dwr/*</filename> URLs.
+    So add that URL to the mapping of the <classname>parancoe</classname> servlet
+    in your deployment descriptor (<filename>$PRJ/src/main/webapp/WEB-INF/web.xml</filename>):</para>
+    
+    <programlisting><![CDATA[
+    <servlet-mapping>
+        <servlet-name>parancoe</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+    ]]></programlisting>
+    
+    <para>For testing if the plugin is correctly installed, build and deploy you
+    application, and point your browser to the <filename>&lt;base_address&gt;/dwr/index.html</filename>
+    address (your base address will be something similar to <filename>http://localhost:8080/myapp</filename>).
+    You should see the following page:</para>
+    
+    <figure><title>The empty DWR Test Page</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../resources/images/plugin_dwr_empty_dwr_test_page.png" width="10cm"/>
+      </imageobject>
+      <textobject><phrase>The empty DWR Test Page</phrase></textobject>
+    </mediaobject>
+    </figure>
+
+    <para>Of course, just after the installation you'll have no classes known to DWR.</para>
+</sect3>
+
+<sect3>
+    <title>A simple example</title>
+    
+    <para>As a simple example we will implement a search page for searching the users of your application.
+    The page will contain a single text field for typing the partial username to search. Every second, if
+    the content of the text field has changed, an AJAX call will search the user database, and will build a
+    list of the results in the page (of course without the need of a full refresh of the page).</para>
+    
+    <para>Let's start writing the Java server-side code that will produce the results:</para>
+    
+    <example>
+        <title>UserSearch.java</title>
+        <programlisting><![CDATA[package com.mycompany.testapp.ajax;
+
+import java.util.List;
+import org.directwebremoting.annotations.RemoteMethod;
+import org.directwebremoting.annotations.RemoteProxy;
+import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.security.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+@RemoteProxy(name = "userSearch")
+public class UserSearch {
+
+    @Autowired
+    private UserDao userDao;
+
+    @RemoteMethod
+    public String[] search(String partialUsername) {
+        List<User> users =
+                userDao.findByPartialUsername(partialUsername);
+        String[] usernames = new String[users.size()];
+        int i = 0;
+        for (User user : users) {
+            usernames[i++] = user.getUsername();
+        }
+        return usernames;
+    }
+}
+        ]]></programlisting>
+    </example>
+    
+    <para>Add the scanning of the package of this class in your
+    <filename>parancoe-servlet.xml</filename> file, if it's not already included:</para>
+    
+    <programlisting><![CDATA[<context:component-scan base-package="com.mycompany.testapp.ajax"/>]]></programlisting>
+
+    <figure><title>The not empty DWR Test Page</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../resources/images/plugin_dwr_not_empty_dwr_test_page.png" width="10cm"/>
+      </imageobject>
+      <textobject><phrase>The not empty DWR Test Page</phrase></textobject>
+    </mediaobject>
+    </figure>
+    
+    <para>You can try to ajax-call your method in the class test page:</para>
+    
+    <figure><title>The UserSearch DWR Test Page</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../resources/images/plugin_dwr_userSearch_dwr_test_page.png" width="10cm"/>
+      </imageobject>
+      <textobject><phrase>The UserSearch DWR Test Page</phrase></textobject>
+    </mediaobject>
+    </figure>
+    
+    <para>Now you can use that call in your pages. For example, add the <filename>$PRJ/src/main/webapp/userSearch.jsp</filename> page:</para>
+
+    <example>
+        <title>userSearch.jsp</title>
+        <programlisting><![CDATA[<%@ include file="WEB-INF/jsp/common.jspf" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <%@ include file="WEB-INF/jsp/head.jspf" %>
+        <script src="${cp}/dwr/interface/userSearch.js" type="text/javascript"></script>
+        <script src="${cp}/dwr/engine.js" type="text/javascript" ></script>
+        <script src="${cp}/dwr/util.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h1>Search Users</h1>
+        
+        <div>                    
+            <form id="userSearchForm" action="" method="get">
+                <label>Username:</label><input id="username" name="username" type="text"/>
+            </form>
+        </div>
+        
+        <div style="clear: both;"><ul id ="userSearch_result"></ul></div>
+        
+        <script type="text/javascript">
+            new Form.Observer('userSearchForm', 1, function(el, value) {
+                var formValues = value.parseQuery();
+                userSearch.search(formValues.username, function(users) {
+                    $('userSearch_result').update('');
+                    users.each(function(user) {
+                        $('userSearch_result').insert('<li>'+user+'</li>');
+                    });
+                });
+            });
+        </script>                    
+    </body>
+</html>]]></programlisting>
+    </example>
+    
+    <para>Pointing you browser to that page you'll see the desired result:</para>
+    
+    <figure><title>The userSearch.jsp page in action</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="../resources/images/plugin_dwr_userSearch_page.png" width="10cm"/>
+      </imageobject>
+      <textobject><phrase>The userSearch.jsp page in action</phrase></textobject>
+    </mediaobject>
+    </figure>
+    
+    <para>TBC</para>
+</sect3>
+
 
 </sect2>
