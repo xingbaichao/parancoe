@@ -20,18 +20,22 @@
     put its <filename>JAR</filename> in your application classpath, or, if you are
     using Maven, to add the plugin in your application dependencies. The plugin will be
     automatically discovered, and its features will be ready to be used in your application.</para>
-</sect1>
-
-<sect1 xml:id="plugins-available">
-    <title>Available plugins</title>
 
     <para>At present the following plugins are available.</para>
+    
+    <itemizedlist>
+        <listitem>DWR</listitem>
+        <listitem>Italy</listitem>
+        <listitem>Security Encrypted</listitem>
+        <listitem>Spring Security</listitem>
+        <listitem>World</listitem>
+    </itemizedlist>
+</sect1>
 
     <xi:include href="plugins/dwr.xml" />
     <xi:include href="plugins/italy.xml" />
     <xi:include href="plugins/securityEncrypted.xml" />
     <xi:include href="plugins/springSecurity.xml" />
     <xi:include href="plugins/world.xml" />
-</sect1>
 
 </chapter>
