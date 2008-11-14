@@ -70,9 +70,9 @@ public class ContextListener implements ServletContextListener {
         config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
         config.add("classpath:org/parancoe/persistence/applicationContextBase.xml");
         config.add("WEB-INF/database.xml");
-        config.add("WEB-INF/applicationContext.xml");
         // load all plugin configurations at once
         config.add("classpath*:applicationContext-plugin.xml");
+        config.add("WEB-INF/applicationContext.xml");
         XmlWebApplicationContext ctx = new XmlWebApplicationContext();
         ctx.setServletContext(servletContext);
         ctx.setConfigLocations(config.toArray(new String[config.size()]));

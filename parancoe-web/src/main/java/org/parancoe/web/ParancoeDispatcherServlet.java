@@ -35,7 +35,7 @@ public class ParancoeDispatcherServlet extends DispatcherServlet {
     @Override
     protected WebApplicationContext createWebApplicationContext(WebApplicationContext ctx) throws BeansException {
         if (getContextConfigLocation() == null) {
-            setContextConfigLocation("classpath:org/parancoe/web/parancoeBase.xml,WEB-INF/"+getServletName()+"-servlet.xml,classpath*:parancoe-plugin.xml");
+            setContextConfigLocation("classpath:org/parancoe/web/parancoeBase.xml,classpath*:parancoe-plugin.xml,WEB-INF/"+getServletName()+"-servlet.xml");
         }
         return super.createWebApplicationContext(ctx);
     }
