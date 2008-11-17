@@ -11,7 +11,7 @@
     <groupId>org.parancoe.doc.reference</groupId>
     <artifactId>parancoe-reference-guide</artifactId>
     <name>Parancoe Reference Guide</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <url>http://www.parancoe.org</url>
     <packaging>pom</packaging>
     <build>

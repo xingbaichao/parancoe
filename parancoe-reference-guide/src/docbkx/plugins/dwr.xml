@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<sect1 xml:id="plugins-dwr"
+<section xml:id="plugins-dwr"
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -14,7 +14,7 @@
 <para>This plugin provides an easy integration of the <ulink url="http://directwebremoting.org/">Direct Web Remoting (<acronym>DWR</acronym>)</ulink> framework, version 3.
 DWR is a framework for easily implement AJAX functionalities in a Java application.</para>
 
-<sect2>
+<section>
     <title>How to add the plugin to your application</title>
     <para>For adding the DWR plugin to your application, if your are using Maven,
     simply add the plugin dependency to your <filename>pom.xml</filename></para>
@@ -27,9 +27,9 @@ DWR is a framework for easily implement AJAX functionalities in a Java applicati
     <version>2.0.1</version>
 </dependency>]]></programlisting>
     </example>
-    
-    <para>The plugin adds a controller for the DWR Ajax calls. It is mapped on the <filename>/dwr/*</filename> URLs.
-    So add that URL to the mapping of the <classname>parancoe</classname> servlet
+        
+    <para>The DWR controller is mapped on the <filename>/dwr/*</filename> URLs.
+    So add that URL pattern to the mapping of the <classname>parancoe</classname> servlet
     in your deployment descriptor (<filename>$PRJ/src/main/webapp/WEB-INF/web.xml</filename>):</para>
     
     <programlisting><![CDATA[
@@ -57,9 +57,9 @@ DWR is a framework for easily implement AJAX functionalities in a Java applicati
     </figure>
 
     <para>Of course, just after the installation you'll have no classes known to DWR.</para>
-</sect2>
+</section>
 
-<sect2>
+<section>
     <title>A simple example</title>
     
     <para>As a simple example we will implement a search page for searching the users of your application.
@@ -220,16 +220,22 @@ public class UserSearch {
     
     <programlisting>$('userSearch_result').insert('&lt;li&gt;'+user<emphasis role="strong">.username</emphasis>+'&lt;/li&gt;');</programlisting>
     
-    <para>Finally, for passing User objects, you need to declare it in your DRW configuration
+    <para>Finally, for passing User objects, you need to declare it in your DWR configuration
     in your <filename>parancoe-servlet.xml</filename> file:</para>
     
     <programlisting><![CDATA[<dwr:configuration>
     <dwr:convert type="bean" class="org.parancoe.plugins.security.User" />
     <dwr:convert type="bean" class="org.parancoe.plugins.security.Authority" />
 </dwr:configuration>]]></programlisting>
+
+    <para>When you'll put the application in production, probably you'll want the DWR
+    Test Page being accessible no more. For disabling it, override the DWR
+    controller in your <filename>parancoe-servlet.xml</filename>, setting the
+    <code>debug</code> attribute to <code>false</code>:</para>
     
+    <programlisting><![CDATA[<dwr:controller id="dwrController" debug="false">]]></programlisting>
     
-</sect2>
+</section>
 
 
-</sect1>
+</section>
