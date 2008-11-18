@@ -46,7 +46,7 @@
     Parancoe Web Application archetype:
             <programlisting>mvn archetype:create -DarchetypeGroupId=org.parancoe \
     -DarchetypeArtifactId=parancoe-webarchetype \
-    -DarchetypeVersion=2.0.1 \
+    -DarchetypeVersion=2.0.3 \
     -DgroupId=com.mycompany \
     -DartifactId=testApp \
     -DpackageName=com.mycompany.testapp
