@@ -112,6 +112,7 @@ public class HibernateDaoInstrumentation {
                 try {
                     result = pjp.proceed(args);
                 } catch (Throwable throwable) {
+                    // TODO: enhance the exception management. For example: capture the AOP-related exceptions, and rethrows the DAO implementation-related ones (for example Hibernate/SQL exceptions)
                     errorMessages.append("Method not starting with \"findBy\".").append("Trying to call ").append(method.getName()).append(" method, but the method doesn't exist in the object (").append(target.getClass().getName()).append(").");
                     logger.error(errorMessages.toString(), throwable);
                 }
