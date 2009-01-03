@@ -112,6 +112,7 @@
         <module>parancoe-plugin-security-encrypt</module>
         <module>parancoe-plugin-sample</module>
         <module>parancoe-plugin-dwr</module> 
-        <module>parancoe-plugin-springsecurity</module> 
+        <module>parancoe-plugin-springsecurity</module>
+        <module>parancoe-plugin-tiles</module>
   </modules>
 </project>
