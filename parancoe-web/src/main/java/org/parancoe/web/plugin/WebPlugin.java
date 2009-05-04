@@ -1,10 +1,8 @@
 package org.parancoe.web.plugin;
 
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import java.util.List;
 import java.util.ArrayList;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * Define the basic properties of a plugin
@@ -16,7 +14,7 @@ import java.util.ArrayList;
  */
 public class WebPlugin {
     private String name = "no name given";
-    private List<HandlerInterceptorAdapter> interceptors = new ArrayList<HandlerInterceptorAdapter>();
+    private List<HandlerInterceptor> interceptors = new ArrayList<HandlerInterceptor>();
    
     public String getName() {
         return name;
@@ -26,11 +24,11 @@ public class WebPlugin {
         this.name = name;
     }
 
-    public List<HandlerInterceptorAdapter> getInterceptors() {
+    public List<HandlerInterceptor> getInterceptors() {
         return interceptors;
     }
 
-    public void setInterceptors(List<HandlerInterceptorAdapter> interceptors) {
+    public void setInterceptors(List<HandlerInterceptor> interceptors) {
         this.interceptors = interceptors;
     }
 
