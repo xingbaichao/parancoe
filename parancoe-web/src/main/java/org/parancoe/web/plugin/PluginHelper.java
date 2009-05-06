@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * Questa classe è solo un helper non è configurato in spring
@@ -94,7 +94,7 @@ public class PluginHelper {
      */
     public boolean invokePluginPreHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
         for (WebPlugin plugin : getWebPlugins()) {
-            for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
+            for (HandlerInterceptor interceptor : plugin.getInterceptors()) {
                 try {
                     boolean result = interceptor.preHandle(req, res, handler);
                     if (result == false)
@@ -110,7 +110,7 @@ public class PluginHelper {
     public void invokePluginPostHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler, ModelAndView modelAndView) {
         for (WebPlugin plugin : getWebPlugins()) {
-            for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
+            for (HandlerInterceptor interceptor : plugin.getInterceptors()) {
                 try {
                     interceptor.postHandle(request, response, handler, modelAndView);
                 } catch (Exception e) {
@@ -123,7 +123,7 @@ public class PluginHelper {
     public void invokeAfterCompletion(HttpServletRequest request, HttpServletResponse response,
             Object handler, Exception exception) {
         for (WebPlugin plugin : getWebPlugins()) {
-            for (HandlerInterceptorAdapter interceptor : plugin.getInterceptors()) {
+            for (HandlerInterceptor interceptor : plugin.getInterceptors()) {
                 try {
                     interceptor.afterCompletion(request, response, handler, exception);
                 } catch (Exception e) {
