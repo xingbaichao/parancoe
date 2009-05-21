@@ -29,9 +29,9 @@ limitations under the License.
     <!--parancoe:discover-persistent-classes basePackage="org.parancoe.plugin.dwr"/-->
     <!--parancoe:define-daos basePackage="org.parancoe.plugin.dwr"/-->
 
-    <!-- begin dwr section -->    
+    <!-- begin dwr section -->
     <dwr:controller id="dwrController" debug="true"/>
-        
+
     <dwr:annotation-config />
 
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
