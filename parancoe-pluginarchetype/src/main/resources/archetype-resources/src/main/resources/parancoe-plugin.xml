@@ -9,6 +9,8 @@
     
     <!-- Authomatic discovering of components -->
     <context:component-scan base-package="${package}"/>
+    <parancoe:define-daos basePackage="${package}"/>
+    <parancoe:discover-persistent-classes basePackage="${package}"/>
     
     <!--                           -->
     <!-- Plugin configuration      -->
