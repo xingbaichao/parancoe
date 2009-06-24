@@ -87,5 +87,15 @@ public class HibernateGenericDaoTest extends BaseTest {
             assertEquals(elem.getFieldTwo(), "TWOTWO");
         }
     }
-    
+
+    public void testCountByNamedQuery() {
+        Long result = this.entityTCDao.countByFieldOne("one3");
+        assertEquals(Long.valueOf(2), result);
+    }
+
+    public void testMaxByNamedQuery() {
+        Long result = this.entityTCDao.maxByFieldOne("one3");
+        assertEquals(Long.valueOf(5), result);
+    }
+
 }
