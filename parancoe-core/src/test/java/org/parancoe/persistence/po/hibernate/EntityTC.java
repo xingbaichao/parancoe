@@ -26,11 +26,14 @@ import javax.persistence.NamedQuery;
 @Entity()
 @NamedQueries({
 @NamedQuery(name="EntityTC.findByFieldOne", query="from EntityTC where fieldOne = ?"),
-@NamedQuery(name="EntityTC.searchAllOrderByFieldOne", query="from EntityTC order by fieldOne")})
+@NamedQuery(name="EntityTC.searchAllOrderByFieldOne", query="from EntityTC order by fieldOne"),
+@NamedQuery(name="EntityTC.countByFieldOne", query="select count(etc) from EntityTC etc where etc.fieldOne = ?"),
+@NamedQuery(name="EntityTC.maxByFieldOne", query="select max(etc.numericField) from EntityTC etc where etc.fieldOne = ?")})
 public class EntityTC extends EntityBase {
     private String fieldOne;
     private String fieldTwo;
     private String fieldThree;
+    private Long numericField;
     
     /**
      * Creates a new instance of EntityTC
@@ -60,6 +63,14 @@ public class EntityTC extends EntityBase {
 
     public void setFieldThree(String fieldThree) {
         this.fieldThree = fieldThree;
+    }
+
+    public Long getNumericField() {
+        return numericField;
+    }
+
+    public void setNumericField(Long numericField) {
+        this.numericField = numericField;
     }
     
 }
