@@ -13,18 +13,23 @@
 // limitations under the License.
 package org.parancoe.persistence.dao;
 
+import org.parancoe.persistence.dao.generic.CachedEntityTCDao;
 import org.parancoe.persistence.dao.generic.EntityTCDao;
 import org.parancoe.persistence.dao.generic.VersionedEntityTCDao;
 
 /**
  * Interface for the DAO Provider. Doesn't require an implementation. Simply add
  * methods for the DAOs you need to use. The convention for the methods is get<dao_bean_id>.
- * 
+ *
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
+ * @author Federico Russo <chiccorusso@gmail.com>
  * @version $Revision$
  */
 public interface TestDaos extends DaoProvider {
+
     public EntityTCDao getEntityTCDao();
+
+    public CachedEntityTCDao getCachedEntityTCDao();
 
     public VersionedEntityTCDao getVersionedEntityTCDao();
 }

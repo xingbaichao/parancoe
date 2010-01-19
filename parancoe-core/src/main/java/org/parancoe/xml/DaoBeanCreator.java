@@ -28,6 +28,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.xml.BeanDefinitionParserDelegate;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
@@ -41,15 +42,15 @@ import org.w3c.dom.Element;
  * <a href="http://chris-richardson.blog-city.com/simpler_xml_configuration_files_for_spring_dependency_inject.htm">http://chris-richardson.blog-city.com/simpler_xml_configuration_files_for_spring_dependency_inject.htm</a>
  */
 public class DaoBeanCreator {
-    
+
     private ResourcePatternResolver rl;
-    
+
     private BeanDefinitionRegistry registry;
-    
+
     private BeanDefinitionParserDelegate delegate;
-    
+
     private final ReaderContext readerContext;
-    
+
     public DaoBeanCreator(ResourcePatternResolver resourcePatternResolver,
             BeanDefinitionRegistry beanDefinitionRegistry,
             BeanDefinitionParserDelegate parserDelegate, ReaderContext readerContext) {
@@ -58,18 +59,18 @@ public class DaoBeanCreator {
         this.registry = beanDefinitionRegistry;
         this.delegate = parserDelegate;
     }
-    
+
     void createBeans(Element element, String packageName, String genericDaoName) {
         List<Class> allClasses = getAllClasses(packageName);
         List<Class> persistentClasses = getPersistentClasses(allClasses);
         List<Class> daoInterfaces = getDaoInterfaces(allClasses);
         createBeanDefinitions(persistentClasses, daoInterfaces, genericDaoName);
-    }    
-    
+    }
+
     private void fatal(Throwable e) {
         readerContext.fatal(e.getMessage(), null, e);
     }
-    
+
     /**
      * Return all classes in the package subtree.
      *
@@ -89,7 +90,8 @@ public class DaoBeanCreator {
                         fileName.indexOf(packagePart),
                         fileName.length() - ".class".length())
                         .replace('/', '.');
-                Class<?> type = Class.forName(className);
+                Class<?> type = ClassUtils.getDefaultClassLoader().loadClass(className);
+//                Class<?> type = Class.forName(className);
                 result.add(type);
             }
         } catch (IOException e) {
@@ -101,16 +103,16 @@ public class DaoBeanCreator {
         }
         return result;
     }
-    
+
     boolean isConcreteClass(Class<?> type) {
         return !type.isInterface() && !isAbstract(type);
     }
-    
+
     boolean isAbstract(Class<?> type) {
         return (type.getModifiers() ^ Modifier.ABSTRACT) == 0;
     }
-    
-    
+
+
     /**
      * Filter the list of classes extracting only the classes annotated with a
      * specific annotation.
@@ -128,7 +130,7 @@ public class DaoBeanCreator {
         }
         return result;
     }
-    
+
     /**
      * Filter the list of classes extracting only the DAO interfaces
      *
@@ -138,7 +140,7 @@ public class DaoBeanCreator {
     List<Class> getPersistentClasses(List<Class> classes) {
         return getClassesByAnnotation(classes, Entity.class);
     }
-    
+
     /**
      * Filter the list of classes extracting only the DAO interfaces
      *
@@ -148,14 +150,14 @@ public class DaoBeanCreator {
     List<Class> getDaoInterfaces(List<Class> classes) {
         return getClassesByAnnotation(classes, Dao.class);
     }
-    
+
     void createBeanDefinitions(List<Class> persistentClasses, List<Class> daoInterfaces, String genericDaoName) {
         for (Class pClass : persistentClasses) {
             Class daoInterface = findDaoInterface(pClass, daoInterfaces);
             createBeanDefinition(pClass, daoInterface, genericDaoName);
         }
     }
-    
+
     void createBeanDefinition(Class persistentClass, Class daoInterface, String genericDaoName) {
         BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder
                 .rootBeanDefinition(ProxyFactoryBean.class);
@@ -168,7 +170,7 @@ public class DaoBeanCreator {
         String id = StringUtils.uncapitalize(StringUtils.unqualify(persistentClass.getName()))+"Dao";
         registry.registerBeanDefinition(id, beanDefinitionBuilder.getBeanDefinition());
     }
-    
+
     /**
      * Find the defined dao interface for the persistent class.
      */
@@ -185,5 +187,5 @@ public class DaoBeanCreator {
         }
         return result;
     }
-    
+
 }

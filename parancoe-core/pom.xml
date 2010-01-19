@@ -43,47 +43,47 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>2.5.5</version>
-        </dependency>        
+            <version>${parancoe.spring.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>2.5.5</version>
+            <version>${parancoe.spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.6.ga</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>${parancoe.hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -91,7 +91,7 @@
             <version>3.4.0.GA</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>hibernate-core</artifactId>
+                    <artifactId>hibernate</artifactId>
                     <groupId>org.hibernate</groupId>
                 </exclusion>
             </exclusions>
@@ -102,7 +102,7 @@
             <version>3.3.0.ga</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>hibernate-core</artifactId>
+                    <artifactId>hibernate</artifactId>
                     <groupId>org.hibernate</groupId>
                 </exclusion>
                 <exclusion>
@@ -168,51 +168,14 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>2.5.5</version>
-            <type>jar</type>
+            <version>${parancoe.spring.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.2</version>
-            <type>jar</type>
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <useFile>false</useFile>
-                    <reportFormat>plain</reportFormat>
-                    <systemProperties>
-                        <property>
-                            <name>file.encoding</name>
-                            <value>UTF-8</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

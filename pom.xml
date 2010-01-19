@@ -12,8 +12,43 @@
         <module>parancoe-core</module>
         <module>parancoe-yaml</module>
     </modules>
+    <properties>
+        <parancoe.spring.version>2.5.6.SEC01</parancoe.spring.version>
+        <parancoe.hibernate.version>3.3.2.GA</parancoe.hibernate.version>
+    </properties>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <useFile>false</useFile>
+                    <reportFormat>plain</reportFormat>
+                    <systemProperties>
+                        <property>
+                            <name>file.encoding</name>
+                            <value>UTF-8</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -22,20 +57,6 @@
                         <descriptor>src/assembly/bin.xml</descriptor>
                         <descriptor>src/assembly/bin-with-dependencies.xml</descriptor>
                     </descriptors>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
@@ -220,3 +241,5 @@
         </developer>
     </developers>
 </project>
+
+
