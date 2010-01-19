@@ -21,13 +21,19 @@ limitations under the License.
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-    
+
     <aop:aspectj-autoproxy/>
-    
+
     <!-- Generic Dao -->
-    
+
     <bean id="hibernateGenericDaoInstrumentationAspect"
-          class="org.parancoe.persistence.dao.generic.HibernateDaoInstrumentation" />
+          class="org.parancoe.persistence.dao.generic.HibernateDaoInstrumentation" >
+        <property name="exceptionManager">
+            <ref bean="exceptionManager" />
+        </property>
+    </bean>
+
+    <bean id="exceptionManager" class="org.parancoe.persistence.dao.generic.LoggingExceptionManager"/>
 
     <bean id="hibernateGenericDao"
           class="org.parancoe.persistence.dao.generic.HibernateGenericDao" abstract="true">
@@ -35,7 +41,7 @@ limitations under the License.
             <ref bean="sessionFactory"/>
         </property>
     </bean>
-    
+
     <bean id="abstractDao"
           class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
     </bean>
@@ -44,16 +50,16 @@ limitations under the License.
 
     <bean id="daoProviderInstrumentationAspect"
           class="org.parancoe.persistence.dao.DaoProviderInstrumentation" />
-    
+
     <bean id="daoMap" class="java.util.HashMap"></bean>
-    
+
     <bean id="genericDaoProvider"
           class="org.parancoe.persistence.dao.BaseDaoProvider">
         <property name="daoMap">
             <ref bean="daoMap" />
         </property>
     </bean>
-    
+
     <bean id="abstractDaoProvider"
           class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
     </bean>
