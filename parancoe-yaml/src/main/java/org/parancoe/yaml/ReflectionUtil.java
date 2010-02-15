@@ -274,7 +274,7 @@ class ReflectionUtil {
             return Byte.TYPE;
         else if (Long.TYPE.getName().equals(name))
             return Long.TYPE;
-        else if (Long.TYPE.getName().equals(name))
+        else if (Short.TYPE.getName().equals(name))
             return Short.TYPE;
         else
             throw new YamlParserException(name + " is not a primitive type.");
@@ -347,7 +347,7 @@ class ReflectionUtil {
     }
 
     public static boolean isSimpleType(Class c) {
-        return c.isPrimitive() || c == String.class || c == Integer.class || c == Long.class
+        return c.isPrimitive() || c == String.class || c == Integer.class || c == Long.class || c == Short.class
                 || c == Double.class || c == Float.class || c == Boolean.class || c == BigInteger.class
                 || c == BigDecimal.class || c == Date.class || c.isEnum() || c == File.class;
     }
