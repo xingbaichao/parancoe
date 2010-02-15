@@ -182,6 +182,8 @@ abstract class State {
             return (String) value;
         } else if (type == Long.class || type == Long.TYPE)
             return new Long(value.toString());
+        else if (type == Short.class || type == Short.TYPE)
+            return new Short(value.toString());
         else if (type == Double.class || type == Double.TYPE)
             return new Double(value.toString());
         else if (type == Boolean.class || type == Boolean.TYPE)
