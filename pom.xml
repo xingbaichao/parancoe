@@ -89,9 +89,9 @@
         </repository>
     </distributionManagement>
     <scm>
-        <connection>scm:svn:http://parancoe.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://parancoe.googlecode.com/svn/trunk</developerConnection>
-        <url>http://parancoe.googlecode.com/svn/trunk</url>
+        <connection>scm:hg:https://parancoe.googlecode.com/hg/parancoe</connection>
+        <developerConnection>scm:hg:https://parancoe.googlecode.com/hg/parancoe</developerConnection>
+        <url>http://code.google.com/p/parancoe/source/browse/parancoe</url>
     </scm>
     <issueManagement>
         <system>Google Code Issues</system>
