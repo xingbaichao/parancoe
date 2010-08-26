@@ -16,7 +16,7 @@
  */
 package org.parancoe.web.test.controller;
 
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * A simple bean used as model for testing a controller.

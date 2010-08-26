@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * An persistent object to be used for the tests M:N relationships.

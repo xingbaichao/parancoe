@@ -1,9 +1,8 @@
 package org.parancoe.plugins.italy;
 
-import org.parancoe.persistence.dao.generic.Dao;
-import org.parancoe.persistence.dao.generic.GenericDao;
-
 import java.util.List;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
 
 @Dao(entity = Provincia.class)
 public interface ProvinciaDao extends GenericDao<Provincia, String> {

@@ -15,6 +15,7 @@ package org.parancoe.web.test.controller;
 
 
 
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.parancoe.web.validation.Validation;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,11 @@ public class TestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @Validation(view="test/form")
-    public String submit(@ModelAttribute("something") TestControllerModel tcm,
+    public String submit(@ModelAttribute("something") @Valid TestControllerModel tcm,
             BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "test/form";
+        }
         // doing what you need with tcm and the other parameters
         status.setComplete();
         return "redirect:/test/done.html";

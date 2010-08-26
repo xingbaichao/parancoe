@@ -13,13 +13,12 @@
 // limitations under the License.
 package org.parancoe.example.po;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.ForeignKey;
-import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * Represents a book entity.

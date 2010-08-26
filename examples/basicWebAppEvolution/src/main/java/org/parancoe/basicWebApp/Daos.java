@@ -13,8 +13,8 @@
 // limitations under the License.
 package org.parancoe.basicWebApp;
 
+import org.lambico.dao.DaoProvider;
 import org.parancoe.basicWebApp.dao.PersonDao;
-import org.parancoe.persistence.dao.DaoProvider;
 
 /**
  * Interface for the DAO Provider. Doesn't require an implementation.

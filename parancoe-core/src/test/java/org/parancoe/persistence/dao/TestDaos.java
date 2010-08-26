@@ -13,9 +13,8 @@
 // limitations under the License.
 package org.parancoe.persistence.dao;
 
-import org.parancoe.persistence.dao.generic.CachedEntityTCDao;
+import org.lambico.dao.DaoProvider;
 import org.parancoe.persistence.dao.generic.EntityTCDao;
-import org.parancoe.persistence.dao.generic.VersionedEntityTCDao;
 
 /**
  * Interface for the DAO Provider. Doesn't require an implementation. Simply add
@@ -29,7 +28,4 @@ public interface TestDaos extends DaoProvider {
 
     public EntityTCDao getEntityTCDao();
 
-    public CachedEntityTCDao getCachedEntityTCDao();
-
-    public VersionedEntityTCDao getVersionedEntityTCDao();
 }

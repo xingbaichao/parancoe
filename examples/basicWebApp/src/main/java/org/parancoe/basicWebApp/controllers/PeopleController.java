@@ -50,9 +50,8 @@ public class PeopleController {
     public ModelAndView populate(HttpServletRequest req, HttpServletResponse res) throws ParseException {
         Map params = new HashMap();
         personBo.populateArchive();
-        params.put("people", personDao.findAll());
-        FlashHelper.setNotice(req, "Popolamento eseguito");
-        return new ModelAndView("people/list", params);
+        FlashHelper.setRedirectNotice(req, "Popolamento eseguito");
+        return new ModelAndView("redirect:list.html", params);
     }
 
     @RequestMapping

@@ -14,9 +14,9 @@
 package org.parancoe.example.test;
 
 
+import org.lambico.test.spring.hibernate.DBTest;
 import org.parancoe.example.po.Book;
 import org.parancoe.example.po.Person;
-import org.parancoe.test.DBTest;
 
 /**
  * A base class for basic persistence example tests.
@@ -45,8 +45,8 @@ public abstract class BaseTest extends DBTest {
     @Override
     protected String[] getConfigLocations() {
         return new String[]{
-                    "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
+                    "classpath:org/lambico/spring/dao/hibernate/genericDao.xml",
+                    "classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml",
                     "classpath:database_test.xml",
                     "classpath:applicationContext.xml"
                 };

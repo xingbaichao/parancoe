@@ -14,3 +14,6 @@ syntag: regexp
 ^plugins/parancoe-plugin-sample/target
 ^plugins/parancoe-plugin-italy/target
 ^plugins/parancoe-plugin-dwr/target
+^examples/basicPersistence/target
+^examples/basicWebApp/target
+^examples/basicWebAppEvolution/target

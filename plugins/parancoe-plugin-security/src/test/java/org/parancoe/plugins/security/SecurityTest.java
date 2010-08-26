@@ -18,8 +18,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.parancoe.web.plugin.WebPlugin;
 import org.parancoe.web.test.PluginTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

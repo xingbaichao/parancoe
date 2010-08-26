@@ -17,8 +17,7 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * An example of a persistent object containing personal data.
@@ -28,10 +27,11 @@ import org.parancoe.persistence.po.hibernate.EntityBase;
  */
 @javax.persistence.Entity()
 public class Person extends EntityBase {
+
     private String firstName;
     private String lastName;
     private Date birthDate;
-            
+
     /** Creates a new instance of Person */
     public Person() {
     }
@@ -62,6 +62,7 @@ public class Person extends EntityBase {
     }
 
     public String toString() {
-        return this.firstName + " "+this.lastName+" ("+this.birthDate+")";
+        return this.firstName + " " + this.lastName + " (" + this.birthDate
+                + ")";
     }
 }

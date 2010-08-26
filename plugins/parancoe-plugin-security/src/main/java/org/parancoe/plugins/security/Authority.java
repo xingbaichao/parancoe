@@ -15,9 +15,8 @@ package org.parancoe.plugins.security;
 
 import java.util.List;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.ForeignKey;
-import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * A PO for Authority table.

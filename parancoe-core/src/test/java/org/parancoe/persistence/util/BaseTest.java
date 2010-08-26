@@ -13,17 +13,10 @@
 // limitations under the License.
 package org.parancoe.persistence.util;
 
-import java.util.Map;
-
-import org.parancoe.persistence.dao.DaoUtils;
+import org.lambico.test.spring.hibernate.DBTest;
 import org.parancoe.persistence.po.hibernate.AuthorTC;
 import org.parancoe.persistence.po.hibernate.BookTC;
 import org.parancoe.persistence.po.hibernate.EntityTC;
-import org.parancoe.test.DBTest;
-import org.springframework.beans.factory.access.BeanFactoryLocator;
-import org.springframework.beans.factory.access.BeanFactoryReference;
-import org.springframework.beans.factory.access.SingletonBeanFactoryLocator;
-import org.springframework.context.ApplicationContext;
 
 /**
  * A base class for Parancoe-core tests.
@@ -32,8 +25,8 @@ import org.springframework.context.ApplicationContext;
  */
 public abstract class BaseTest extends DBTest {
 
-	@Override
-	public Class[] getFixtureClasses() {
-		return new Class[] { EntityTC.class, AuthorTC.class, BookTC.class};
-	}
+    @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{EntityTC.class, AuthorTC.class, BookTC.class};
+    }
 }

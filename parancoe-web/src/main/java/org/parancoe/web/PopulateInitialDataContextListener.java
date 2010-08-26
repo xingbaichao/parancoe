@@ -13,8 +13,6 @@
 // limitations under the License.
 package org.parancoe.web;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import javax.servlet.ServletContextEvent;
@@ -24,16 +22,12 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.parancoe.persistence.dao.DaoProvider;
-import org.parancoe.persistence.dao.generic.BusinessDao;
-import org.parancoe.persistence.dao.generic.GenericDao;
-import org.parancoe.persistence.dao.generic.GenericDaoBase;
+import org.lambico.dao.DaoProvider;
+import org.lambico.dao.generic.GenericDaoBase;
 import org.parancoe.util.FixtureHelper;
 import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.plugin.PluginHelper;
-import org.parancoe.web.plugin.WebPlugin;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.web.context.ContextLoaderListener;

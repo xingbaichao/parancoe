@@ -13,14 +13,14 @@
     <url>http://www.parancoe.org</url>
     <dependencies>
         <dependency>
-            <groupId>org.parancoe</groupId>
-            <artifactId>parancoe-yaml</artifactId>
-            <version>3.0-SNAPSHOT</version>
+            <groupId>org.lambico</groupId>
+            <artifactId>lambico-spring-hibernate</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.8.0.7</version>
+            <version>1.8.0.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -40,6 +40,7 @@
             <version>1.5</version>
             <scope>compile</scope>
         </dependency>
+<!--
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
@@ -111,6 +112,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        -->
         <!--
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -118,6 +120,7 @@
             <version>1.0</version>
         </dependency>
         -->
+        <!--
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -138,13 +141,8 @@
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <scope>compile</scope>
-            <!-- necessary if you want to export EnhancedTest -->
-        </dependency>
+        -->
+        <!--
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -171,11 +169,37 @@
             <version>${parancoe.spring.version}</version>
             <scope>provided</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.2</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Tests dependencies -->
+        <dependency>
+            <groupId>org.lambico</groupId>
+            <artifactId>lambico-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${parancoe.spring.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-yaml</artifactId>
+            <version>3.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

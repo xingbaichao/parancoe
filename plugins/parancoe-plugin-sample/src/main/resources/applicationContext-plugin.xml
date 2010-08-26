@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd">
 
-  <!-- Authomatic discovering of persistent classes -->
-  <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.sample"/>
-  <parancoe:define-daos basePackage="org.parancoe.plugins.sample"/>
+    <!-- Authomatic discovering of persistent classes -->
+    <lambico:discover-persistent-classes basePackage="org.parancoe.plugins.sample"/>
+    <!-- Authomatic DAO definition from persistent classes -->
+    <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.sample" />
 
-  <!-- ContextListener specifico per questo plugin -->
-  <bean id="pluginSampleContextListener" class="org.parancoe.plugins.sample.SampleContextListener"/>
+    <!-- ContextListener specifico per questo plugin -->
+    <bean id="pluginSampleContextListener" class="org.parancoe.plugins.sample.SampleContextListener"/>
 
-  <!--                           -->
-  <!-- Configurazione del plugin -->
-  <!--                           -->
-  <bean id="applicationContext-pluginSampleConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
-    <property name="name" value="parancoe-plugin-sample"/>
-    <property name="contextLoaderListeners">
-      <list>
-        <ref bean="pluginSampleContextListener"/>
-        <!-- <ref bean="pluginSampleContextListener2"/> -->
-      </list>
-    </property>
+    <!--                           -->
+    <!-- Configurazione del plugin -->
+    <!--                           -->
+    <bean id="applicationContext-pluginSampleConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+        <property name="name" value="parancoe-plugin-sample"/>
+        <property name="contextLoaderListeners">
+            <list>
+                <ref bean="pluginSampleContextListener"/>
+            <!-- <ref bean="pluginSampleContextListener2"/> -->
+            </list>
+        </property>
 
-    <!-- fixtures da caricare all'avvio del plugin -->
-    <property name="fixtureClassNames">
-      <list>
-       <!-- <value>org.parancoe.plugins.sample.Sample</value>  -->
-        <!--
-        <value>Sample2</value>
-        <value>Sample3</value>
-        -->
-      </list>
-    </property>
-  </bean>
+        <!-- fixtures da caricare all'avvio del plugin -->
+        <property name="fixtureClassNames">
+            <list>
+           <!-- <value>org.parancoe.plugins.sample.Sample</value>  -->
+            <!--
+            <value>Sample2</value>
+            <value>Sample3</value>
+            -->
+            </list>
+        </property>
+    </bean>
 </beans>

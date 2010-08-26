@@ -14,9 +14,8 @@
 package org.parancoe.plugins.security;
 
 import java.util.List;
-
-import org.parancoe.persistence.dao.generic.Dao;
-import org.parancoe.persistence.dao.generic.GenericDao;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
 
 /**
  * The DAO interface for the UserProfile entity.
@@ -27,25 +26,29 @@ import org.parancoe.persistence.dao.generic.GenericDao;
  */
 @Dao(entity = User.class)
 public interface UserDao extends GenericDao<User, Long> {
-	/**
-	 * Returns the unique user identified by username and password.
-	 * @param username
-	 * @param password
-	 * @return
-	 */
+
+    /**
+     * Returns the unique user identified by username and password.
+     * @param username
+     * @param password
+     * @return
+     */
     User findByUsernameAndPassword(String username, String password);
+
     /**
      * Returns the unique user identified by username.
      * @param username
      * @return
      */
     User findByUsername(String username);
+
     /**
      * Returns all the users identified by partial username.
      * @param username
      * @return
      */
     List<User> findByPartialUsername(String username);
+
     /**
      *  Returns all the authorities associated to a partial username.
      * @param username compare upper-case and like mode

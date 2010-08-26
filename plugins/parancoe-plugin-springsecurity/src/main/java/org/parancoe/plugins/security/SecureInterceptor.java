@@ -21,13 +21,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContextHolder;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -44,7 +41,6 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     private static final Logger logger =
             Logger.getLogger(SecureInterceptor.class);
 
-   
     /**
      * Costructor. In the costructor strategy of SecurityContextHolder
      * has set.
@@ -76,7 +72,8 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest req,
-            HttpServletResponse res, Object handler, Exception e) throws Exception {
+            HttpServletResponse res, Object handler, Exception e) throws
+            Exception {
         cleanLog4JMDC();
     }
 
@@ -87,8 +84,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     private void populateLog4JMDC() {
         String username = "unknown";
         Authentication authentication =
-        	org.springframework.security.context.SecurityContextHolder.getContext().
-                getAuthentication();
+                SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             username = authentication.getName();
         }
@@ -112,19 +108,19 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
             logger.debug("Instantiated");
         }
 
-        public void doFilter(ServletRequest arg0, ServletResponse arg1) throws IOException,
+        public void doFilter(ServletRequest arg0, ServletResponse arg1) throws
+                IOException,
                 ServletException {
-        // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
         }
     }//end of inner class
 
-	public Filter getDelegate() {
-		return delegate;
-	}
+    public Filter getDelegate() {
+        return delegate;
+    }
 
-	public void setDelegate(Filter delegate) {
-		this.delegate = delegate;
-	}
+    public void setDelegate(Filter delegate) {
+        this.delegate = delegate;
+    }
 }//end of  class
-
 

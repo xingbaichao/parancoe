@@ -1,11 +1,10 @@
 package org.parancoe.web.test;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import org.parancoe.util.BaseConf;
 import org.apache.log4j.Logger;
 import javax.sql.DataSource;
-import org.parancoe.test.DBTest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lambico.test.spring.hibernate.DBTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
@@ -21,15 +20,18 @@ public abstract class PluginTest extends DBTest {
 
     private static final Logger log = Logger.getLogger(PluginTest.class);
 
-    @Autowired
-    protected BaseConf conf;
-
-    @Autowired
+    @Resource
     protected DataSource dataSource;
     
     @Override
     protected String[] getConfigLocations() {
-        return new String[] {"classpath:org/parancoe/persistence/dao/generic/genericDao.xml", "classpath:org/parancoe/persistence/applicationContextBase.xml","classpath:org/parancoe/web/parancoeBase.xml", "classpath:spring-test.xml", "classpath*:parancoe-plugin.xml", "classpath*:applicationContext-plugin.xml"};
+        return new String[] {
+            "classpath:org/lambico/spring/dao/hibernate/genericDao.xml",
+            "classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml",
+            "classpath:org/parancoe/web/parancoeBase.xml",
+            "classpath:spring-test.xml",
+            "classpath*:parancoe-plugin.xml",
+            "classpath*:applicationContext-plugin.xml"};
     }
     
     @Override

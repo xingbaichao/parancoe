@@ -13,12 +13,12 @@
 // limitations under the License.
 package org.parancoe.basicWebApp.controllers;
 
+import javax.annotation.Resource;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.po.Person;
 import org.springframework.stereotype.Controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,20 +33,18 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("person")
 public class PeopleEditController {
 
-    @Autowired
+    @Resource
     private PersonDao personDao;
-    @Autowired
-    @Qualifier("validator")
+    @Resource
     Validator validator;
     private final static Logger logger = Logger.getLogger(
             PeopleEditController.class);
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
     @RequestMapping
-    protected String update(@ModelAttribute("person") Person person,
+    protected String update(@ModelAttribute("person") @Valid Person person,
             BindingResult result, SessionStatus status) {
         try {
-            validator.validate(person, result);
             if (result.hasErrors()) {
                 logger.error("Result of validation has errors (" +
                         result.getAllErrors().toString() + ")");

@@ -17,20 +17,19 @@ limitations under the License.
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
     
     
     <context:component-scan base-package="org.parancoe.persistence.dao.generic"/>       
     <context:component-scan base-package="org.parancoe.example"/>
     <!-- Authomatic discovering of persistent classes -->
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.example"/>
+    <lambico:discover-persistent-classes basePackage="org.parancoe.example.po"/>
     <!-- Authomatic DAO definition from persistent classes -->
-    <parancoe:define-daos basePackage="org.parancoe.example"/>
- 
+    <lambico:define-daos baseInterfacePackage="org.parancoe.example.dao" />
    
 </beans>

@@ -17,11 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import org.lambico.dao.spring.hibernate.HibernateGenericDao;
 
 import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.test.PluginTest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * Test based on PluginTest.
@@ -31,8 +30,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public class SecurityTest extends PluginTest {
 
-	@Autowired
-    @Qualifier("applicationContextpluginSecurityConfig")
+    @Resource(name="applicationContextpluginSecurityConfig")
     private ApplicationContextPlugin plugin;
     @Resource
     UserDao userDao;
@@ -47,7 +45,6 @@ public class SecurityTest extends PluginTest {
 
     }
 
-  
     public void testInsertUser() {
         // creates entities
         User pippo = SecureUtility.newUserToValidate("pippo");
@@ -60,37 +57,36 @@ public class SecurityTest extends PluginTest {
         assertNotNull(userDao.findByUsername("pippo"));
     }
 
-    
-    public void testDeleteUser()
-    {
-    	Authority rp = authorityDao.findByRole("ROLE_PARANCOE");   	
-    	assertEquals(rp.getUsers().size(), 2);          	 
-    	userDao.delete(userDao.findByUsername("parancoe")); 
-    	
-    	//TODO understand why if we remove this row the test at the last
-    	//row of the code fails, 2 instead of 1
-    	assertNull(userDao.findByUsername("parancoe"));
-    	//need to evict rp to unbind it from hibernate session (thanks to Lucio)
-    	userDao.getHibernateTemplate().getSessionFactory().getCurrentSession().evict(rp);    	
-    	assertEquals(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size(), 1);   	
+    public void testDeleteUser() {
+        Authority rp = authorityDao.findByRole("ROLE_PARANCOE");
+        assertEquals(rp.getUsers().size(), 2);
+        userDao.delete(userDao.findByUsername("parancoe"));
+
+        //TODO understand why if we remove this row the test at the last
+        //row of the code fails, 2 instead of 1
+        assertNull(userDao.findByUsername("parancoe"));
+        //need to evict rp to unbind it from hibernate session (thanks to Lucio)
+        ((HibernateGenericDao) userDao).getHibernateTemplate().getSessionFactory().
+                getCurrentSession().evict(rp);
+        assertEquals(authorityDao.findByRole("ROLE_PARANCOE").getUsers().size(),
+                1);
     }
-    
-    public void testFindAuthoritiesByPartialUsername()
-    {
-    	List<Authority> authorities = userDao.findAuthoritiesByPartialUsername("%pecI%");
-    	assertEquals(authorities.size(), 2);
-    	authorities = userDao.findAuthoritiesByPartialUsername("admin");
-    	assertEquals(authorities.size(), 1);
+
+    public void testFindAuthoritiesByPartialUsername() {
+        List<Authority> authorities = userDao.findAuthoritiesByPartialUsername(
+                "%pecI%");
+        assertEquals(authorities.size(), 2);
+        authorities = userDao.findAuthoritiesByPartialUsername("admin");
+        assertEquals(authorities.size(), 1);
     }
-   
+
     public void testFindByPartialUsername() {
-    	List<User> user = userDao.findByPartialUsername("%aranc%");
-    	assertEquals(1, user.size());    	
+        List<User> user = userDao.findByPartialUsername("%aranc%");
+        assertEquals(1, user.size());
     }
-    
-    
+
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[]{ Authority.class, User.class, };
+        return new Class[]{Authority.class, User.class,};
     }
 }

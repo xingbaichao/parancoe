@@ -17,14 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import org.parancoe.persistence.dao.DaoProvider;
-import org.parancoe.persistence.dao.DaoUtils;
 import org.parancoe.persistence.po.hibernate.AuthorTC;
 import org.parancoe.persistence.po.hibernate.AuthorTCDao;
 import org.parancoe.persistence.po.hibernate.BookTC;
 import org.parancoe.persistence.po.hibernate.BookTCDao;
 import org.parancoe.persistence.util.BaseTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Tests fixture load with M:N relationships

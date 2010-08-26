@@ -26,31 +26,6 @@ limitations under the License.
        http://www.springmodules.org/validation/bean/validator http://www.springmodules.org/validation/bean/validator.xsd
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
 
-    <bean id="abstractSessionFactory" abstract="true" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"/>
-        <property name="eventListeners">
-                <map merge="true">
-                        <entry key="merge">
-                                <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
-                        </entry>
-                </map>
-        </property>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <!-- is used by population data -->
-    <bean id="daos" parent="abstractDaoProvider">
-        <property name="proxyInterfaces">
-            <value>org.parancoe.persistence.dao.Daos</value>
-        </property>
-        <property name="target">
-            <bean parent="genericDaoProvider"/>
-        </property>
-    </bean>
     
     <!-- environments configuration -->
     <bean id="abstractConf" abstract="true">
@@ -71,5 +46,4 @@ limitations under the License.
         </property>
     </bean>
     
-    <bean id="conf" class="org.parancoe.util.BaseConf" parent="abstractConf"/>
 </beans>

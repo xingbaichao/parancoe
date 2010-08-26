@@ -5,7 +5,7 @@
     <artifactId>basicPersistence</artifactId>
     <packaging>jar</packaging>
     <name>Parancoe Example - Basic Persistence</name>
-    <version>2.0-SNAPSHOT</version>
+    <version>3.0-SNAPSHOT</version>
     <url>http://www.parancoe.org</url>
     <repositories>
         <repository>
@@ -19,12 +19,24 @@
         <dependency>
             <groupId>org.parancoe</groupId>
             <artifactId>parancoe-core</artifactId>
-            <version>2.0</version>
+            <version>3.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.8.0.4</version>
+            <version>1.8.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lambico</groupId>
+            <artifactId>lambico-test</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -33,8 +45,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
         </plugins>
