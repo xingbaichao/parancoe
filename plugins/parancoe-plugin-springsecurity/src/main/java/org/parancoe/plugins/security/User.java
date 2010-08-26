@@ -21,9 +21,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import org.hibernate.annotations.ForeignKey;
-import org.parancoe.persistence.po.hibernate.EntityBase;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
-
+import org.hibernate.validator.constraints.NotBlank;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * A PO for UserProfile table.
@@ -33,39 +32,35 @@ import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank
  * @version $Revision$
  */
 @javax.persistence.Entity
-@javax.persistence.Table(name="PSEC_USER")
+@javax.persistence.Table(name = "PSEC_USER")
 @NamedQueries(value = {
     @NamedQuery(name = "User.findAuthoritiesByPartialUsername", query =
     "SELECT u.authorities from User u where upper(u.username) like upper(?)"),
-    @NamedQuery(name = "User.findByPartialUsername", query =
-    "from User u where upper(u.username) like concat(concat('%', upper(?)), '%')")    
+    @NamedQuery(name = "User.findByPartialUsername",
+    query =
+    "from User u where upper(u.username) like concat(concat('%', upper(?)), '%')")
 })
 public class User extends EntityBase {
 
     private static final long serialVersionUID = 832363948575562242L;
-    @NotBlank
     private String username = null;
-    @NotBlank
     private String password = null;
     private String oldPassword = null;
-
     private boolean enabled = true;
+
     /**
      * Empty constructor
      *
      */
-    public User()
-    {
-    	
+    public User() {
     }
-    
-
     private List<Authority> authorities = new ArrayList<Authority>();
 
     public boolean isEnabled() {
         return enabled;
     }
 
+    @NotBlank
     public String getPassword() {
         return password;
     }
@@ -74,6 +69,7 @@ public class User extends EntityBase {
         this.password = password;
     }
 
+    @NotBlank
     public String getUsername() {
         return username;
     }
@@ -88,9 +84,11 @@ public class User extends EntityBase {
 
     @ManyToMany
     @ForeignKey(name = "none", inverseName = "none")
-    @JoinTable(name="USER_AUTHORITY", 
-               joinColumns={@JoinColumn(name="USER_ID")},
-               inverseJoinColumns={@JoinColumn(name="AUTHORITY_ID")})
+    @JoinTable(name = "USER_AUTHORITY",
+    joinColumns = {
+        @JoinColumn(name = "USER_ID")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "AUTHORITY_ID")})
     public List<Authority> getAuthorities() {
         return authorities;
     }
@@ -99,18 +97,17 @@ public class User extends EntityBase {
         this.authorities = authorities;
     }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "username: "+username+" - password: <XXX> - enabled: "+enabled;
-	}
+    @Override
+    public String toString() {
+        return "username: " + username + " - password: <XXX> - enabled: "
+                + enabled;
+    }
 
-	public String getOldPassword() {
-		return oldPassword;
-	}
+    public String getOldPassword() {
+        return oldPassword;
+    }
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-    
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 }

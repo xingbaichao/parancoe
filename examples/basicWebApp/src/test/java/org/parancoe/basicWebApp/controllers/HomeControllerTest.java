@@ -5,25 +5,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.parancoe.web.test.ControllerTest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerAdapter;
 
 public class HomeControllerTest extends ControllerTest {
 
-    
-
-    
-    
-    @Autowired
-    private HomeController controller;
     @Resource
+    private HomeController controller;
+    @Resource(name="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter#0")
     private HandlerAdapter methodHandler;
 
     public void testConfiguration() {
         assertNotNull(controller);
         assertNotNull(methodHandler);
     }
-    
+
     public void testWelcome() throws Exception {
         resetRequestAndResponse();
         req.setMethod("GET");
@@ -33,6 +28,4 @@ public class HomeControllerTest extends ControllerTest {
         assertEquals("welcome", mv.getViewName());
         assertNotNull(mv.getModel().get("something"));
     }
-    
-    
 }

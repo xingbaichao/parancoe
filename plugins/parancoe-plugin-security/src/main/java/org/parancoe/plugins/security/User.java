@@ -15,14 +15,12 @@ package org.parancoe.plugins.security;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import org.hibernate.annotations.ForeignKey;
-import org.parancoe.persistence.po.hibernate.EntityBase;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
+import org.hibernate.validator.constraints.NotBlank;
+import org.lambico.po.hibernate.EntityBase;
 
 
 /**

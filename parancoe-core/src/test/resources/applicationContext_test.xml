@@ -19,12 +19,11 @@ limitations under the License.
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.parancoe.org/schema/parancoe
-       http://www.parancoe.org/schema/parancoe.xsd">
+       http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd">
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
@@ -49,10 +48,11 @@ limitations under the License.
     </bean>
 
     <context:component-scan base-package="org.parancoe.persistence.dao.generic"/>
-    <!-- Authomatic DAO definition from persistent classes -->
-    <parancoe:define-daos basePackage="org.parancoe.persistence"/>
 
-    <parancoe:discover-persistent-classes basePackage="org.parancoe.persistence" />
+    <!-- Authomatic discovering of persistent classes -->
+    <lambico:discover-persistent-classes basePackage="org.parancoe.persistence"/>
+    <!-- Authomatic DAO definition from persistent classes -->
+    <lambico:define-daos baseInterfacePackage="org.parancoe.persistence" />
 
     <bean id="daos" parent="abstractDaoProvider">
         <property name="proxyInterfaces">
@@ -63,6 +63,6 @@ limitations under the License.
         </property>
     </bean>
 
-    <bean id="exceptionManager" class="org.parancoe.persistence.dao.generic.BypassingExceptionManager"/>
+    <bean id="daoExceptionManager" class="org.lambico.dao.BypassingExceptionManager"/>
 
 </beans>

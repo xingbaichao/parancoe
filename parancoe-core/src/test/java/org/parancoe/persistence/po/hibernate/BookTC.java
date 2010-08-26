@@ -20,6 +20,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * An persistent object to be used for the tests M:N relationships.

@@ -33,7 +33,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
      */
     public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res,
             Object object, Exception e) {
-        Map<Object, Object> params = new HashMap<Object, Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("messageCode", "error.generic");
         params.put("exception", e);
         return new ModelAndView("genericError", params);

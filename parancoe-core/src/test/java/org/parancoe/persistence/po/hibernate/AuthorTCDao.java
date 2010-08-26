@@ -14,9 +14,8 @@
 package org.parancoe.persistence.po.hibernate;
 
 import java.util.List;
-
-import org.parancoe.persistence.dao.generic.Dao;
-import org.parancoe.persistence.dao.generic.GenericDao;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
 
 /**
  * A DAO to be used for the tests M:N relationships.

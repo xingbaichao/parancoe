@@ -17,7 +17,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.parancoe.persistence.dao.generic.GenericDaoBase;
 import org.parancoe.yaml.Yaml;
 import org.springframework.core.io.ClassPathResource;
 
@@ -29,6 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.lambico.dao.generic.GenericDaoBase;
+import org.lambico.dao.spring.hibernate.HibernateGenericDao;
 
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
@@ -204,7 +205,7 @@ public class FixtureHelper {
         try {
             for (Object entity : fixtures) {
                 dao.store(entity);
-                dao.getHibernateTemplate().flush();
+                ((HibernateGenericDao)dao).getHibernateTemplate().flush();
             }
         } catch (Exception e) {
             logger.error("Error populating rows in " + getModelName(model)
@@ -223,7 +224,7 @@ public class FixtureHelper {
             if (dao == null) {
                 throw new IllegalArgumentException("Dao associated to " + model.getName() + " PO is null!");
             }
-            int deleted = dao.getHibernateTemplate().bulkUpdate("DELETE FROM " + org.hibernate.cfg.DefaultComponentSafeNamingStrategy.INSTANCE.tableName(model.getSimpleName()));
+            int deleted = ((HibernateGenericDao)dao).getHibernateTemplate().bulkUpdate("DELETE FROM " + org.hibernate.cfg.DefaultComponentSafeNamingStrategy.INSTANCE.tableName(model.getSimpleName()));
 //                                deleteAll();
         } catch (Exception e) {
             logger.error("Error deleting rows in " + getModelName(model)

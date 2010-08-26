@@ -15,7 +15,6 @@ public class ParancoeTest extends BaseTest {
         assertNotNull(getApplicationContext().getBean("transactionManager"));
         assertNotNull(getApplicationContext().getBean("conf"));
         assertNotNull(getApplicationContext().getBean("sessionFactory"));
-        assertNotNull(getApplicationContext().getBean("methodHandler"));
         assertNotNull(getApplicationContext().getBean("messageSource"));
         assertNotNull(getApplicationContext().getBean(
                 "hibernateGenericDaoInstrumentationAspect"));

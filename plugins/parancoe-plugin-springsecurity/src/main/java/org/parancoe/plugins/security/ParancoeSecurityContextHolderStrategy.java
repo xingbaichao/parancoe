@@ -11,14 +11,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 package org.parancoe.plugins.security;
 
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolderStrategy;
-import org.springframework.security.context.SecurityContextImpl;
 import org.apache.log4j.Logger;
-
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.core.context.SecurityContextImpl;
 
 /**
  * A Parancoe <code>ThreadLocal</code>-based implementation of {@link
@@ -30,28 +28,34 @@ import org.apache.log4j.Logger;
  * @see java.lang.ThreadLocal
  * @see org.springframework.security.context.HttpSessionContextIntegrationFilter
  */
-public class ParancoeSecurityContextHolderStrategy implements SecurityContextHolderStrategy {
-	private static Logger logger = Logger.getLogger(ParancoeSecurityContextHolderStrategy.class);
+public class ParancoeSecurityContextHolderStrategy implements
+        SecurityContextHolderStrategy {
 
-
+    private static Logger logger = Logger.getLogger(
+            ParancoeSecurityContextHolderStrategy.class);
     private static ThreadLocal contextHolder = new ThreadLocal();
-    
-    //~ Methods ========================================================================================================
 
+    @Override
     public void clearContext() {
         logger.debug("This method has void implementation!");
     }
 
+    @Override
     public SecurityContext getContext() {
         if (contextHolder.get() == null) {
-            contextHolder.set(new SecurityContextImpl());
+            contextHolder.set(createEmptyContext());
         }
 
         return (SecurityContext) contextHolder.get();
     }
 
+    @Override
     public void setContext(SecurityContext context) {
-       
         contextHolder.set(context);
+    }
+
+    @Override
+    public SecurityContext createEmptyContext() {
+        return new SecurityContextImpl();
     }
 }

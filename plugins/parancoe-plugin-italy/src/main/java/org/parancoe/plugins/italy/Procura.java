@@ -4,23 +4,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
-import org.parancoe.persistence.po.hibernate.EntityBase;
+import org.lambico.po.hibernate.EntityBase;
 
 @Entity
 @NamedQueries({
-@NamedQuery(name = "Procura.findByComune",
-        query = "from Procura p where upper(p.comune) = upper(?) order by p.comune asc"),
-@NamedQuery(name = "Procura.findByPartialComune",
-        query = "from Procura p where upper(p.comune) like (upper(?) || '%') order by p.comune asc")
-        })
+    @NamedQuery(name = "Procura.findByComune",
+    query =
+    "from Procura p where upper(p.comune) = upper(?) order by p.comune asc"),
+    @NamedQuery(name = "Procura.findByPartialComune",
+    query =
+    "from Procura p where upper(p.comune) like (upper(?) || '%') order by p.comune asc")
+})
 /**
  * @author paolo.dona@seesaw.it
  */
 public class Procura extends EntityBase {
 
     private static final long serialVersionUID = 171932473369840618L;
-
     private String nome;
     private String indirizzo;
     private String cap;
@@ -35,7 +35,8 @@ public class Procura extends EntityBase {
     public Procura() {
     }
 
-    public Procura(String nome, String indirizzo, String cap, String comune, String provincia, String telefono, String mail, String fax) {
+    public Procura(String nome, String indirizzo, String cap, String comune,
+            String provincia, String telefono, String mail, String fax) {
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.cap = cap;
@@ -111,7 +112,6 @@ public class Procura extends EntityBase {
         this.fax = fax;
     }
 
-
     public String getTitoloReferente() {
         return titoloReferente;
     }
@@ -129,12 +129,8 @@ public class Procura extends EntityBase {
     }
 
     public String toString() {
-        return "Procura{" +
-                "nome='" + nome + '\'' +
-                ", indirizzo='" + indirizzo + '\'' +
-                ", cap='" + cap + '\'' +
-                ", comune='" + comune + '\'' +
-                ", provincia='" + provincia + '\'' +
-                '}';
+        return "Procura{" + "nome='" + nome + '\'' + ", indirizzo='" + indirizzo
+                + '\'' + ", cap='" + cap + '\'' + ", comune='" + comune + '\''
+                + ", provincia='" + provincia + '\'' + '}';
     }
 }

@@ -17,9 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
-import org.parancoe.util.BaseConf;
-import org.parancoe.test.DBTest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lambico.test.spring.hibernate.DBTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
@@ -34,8 +32,8 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 public abstract class BaseTest extends DBTest {
 
     private static final Logger log = Logger.getLogger(BaseTest.class);
-    @Autowired
-    protected BaseConf conf;
+//    @Autowired
+//    protected BaseConf conf;
 
     @Override
     protected String[] getConfigLocations() {
@@ -50,8 +48,9 @@ public abstract class BaseTest extends DBTest {
             throw new RuntimeException("Unable to get parancoe-servlet", ex);
         }
         return new String[]{
-                    "classpath:org/parancoe/persistence/dao/generic/genericDao.xml",
-                    "classpath:org/parancoe/persistence/applicationContextBase.xml",
+                    "classpath:org/lambico/spring/dao/hibernate/genericDao.xml",
+                    "classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml",
+                    "classpath:org/parancoe/core/applicationContextBase.xml",
                     "classpath:org/parancoe/web/parancoeBase.xml", "classpath:database-test.xml",
                     "file:" + applicationContext, "file:" + parancoeServlet,
                     "classpath*:applicationContext-plugin.xml", "classpath*:parancoe-plugin.xml", "classpath:spring-test.xml"

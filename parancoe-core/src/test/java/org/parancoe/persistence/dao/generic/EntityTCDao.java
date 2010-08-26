@@ -14,6 +14,12 @@
 package org.parancoe.persistence.dao.generic;
 
 import java.util.List;
+import org.lambico.dao.generic.Compare;
+import org.lambico.dao.generic.CompareType;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.FirstResult;
+import org.lambico.dao.generic.GenericDao;
+import org.lambico.dao.generic.MaxResults;
 
 import org.parancoe.persistence.po.hibernate.EntityTC;
 

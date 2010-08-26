@@ -13,8 +13,8 @@
 // limitations under the License.
 package org.parancoe.plugins.security;
 
-import org.parancoe.persistence.dao.generic.Dao;
-import org.parancoe.persistence.dao.generic.GenericDao;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
 
 /**
  * The DAO interface for the User entity.

@@ -17,11 +17,10 @@ import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import org.lambico.test.spring.hibernate.DBTest;
 
 import org.parancoe.persistence.po.hibernate.AuthorTC;
 import org.parancoe.persistence.po.hibernate.BookTC;
-import org.parancoe.test.DBTest;
-import org.parancoe.test.EnhancedTestCase;
 import org.parancoe.util.FixtureHelper;
 import org.springframework.util.CollectionUtils;
 
@@ -86,7 +85,6 @@ public class FixtureHelperTest extends DBTest {
     // assertFalse(FixtureHelper.hasUTF8preamble(stripped));
     // assertEquals(stringWithPreamble.length, stripped.length + 3);
     // }
-
     // TODO Completare il test
     // public void testPrependUTF8preamble() {
     // byte[] stringWithoutPreamble = Utils
@@ -125,15 +123,16 @@ public class FixtureHelperTest extends DBTest {
         assertEquals(2, objects.size());
         assertEquals(3, objects.get(BookTC.class).length);
         assertEquals(4, objects.get(AuthorTC.class).length);
-        assertBookAuthorsAreIdentical(objects.get(BookTC.class), objects.get(AuthorTC.class));
+        assertBookAuthorsAreIdentical(objects.get(BookTC.class), objects.get(
+                AuthorTC.class));
     }
-    
-    private void assertBookAuthorsAreIdentical(Object[] books, Object[] authors) {        
-        for (int i=0; i < books.length; i++) {
+
+    private void assertBookAuthorsAreIdentical(Object[] books, Object[] authors) {
+        for (int i = 0; i < books.length; i++) {
             BookTC currentBook = (BookTC) books[i];
-            for (AuthorTC author: currentBook.getAuthors()) {
+            for (AuthorTC author : currentBook.getAuthors()) {
                 boolean found = false;
-                for (int j=0; j < authors.length; j++) {
+                for (int j = 0; j < authors.length; j++) {
                     if (author == authors[j]) {
                         found = true;
                         break;

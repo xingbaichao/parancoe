@@ -13,7 +13,7 @@
         <module>parancoe-yaml</module>
     </modules>
     <properties>
-        <parancoe.spring.version>2.5.6.SEC01</parancoe.spring.version>
+        <parancoe.spring.version>3.0.3.RELEASE</parancoe.spring.version>
         <parancoe.hibernate.version>3.3.2.GA</parancoe.hibernate.version>
     </properties>
     <build>
@@ -22,8 +22,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
@@ -80,6 +80,12 @@
             <url>http://repository.jboss.com/maven2/</url>
             <layout>default</layout>            
         </repository>        
+        <repository>
+            <id>jboss-maven2-nexus-repository</id>
+            <name>JBoss Repository for Maven</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
     <distributionManagement>
         <repository>

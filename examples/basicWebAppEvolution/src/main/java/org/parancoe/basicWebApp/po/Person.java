@@ -17,29 +17,25 @@ import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.lambico.po.hibernate.EntityBase;
 
-import org.parancoe.persistence.po.hibernate.EntityBase;
 import org.parancoe.util.BaseConf;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.InThePast;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.Length;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotBlank;
-import org.springmodules.validation.bean.conf.loader.annotation.handler.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @javax.persistence.Entity()
 public class Person extends EntityBase {
    
     private boolean test = BaseConf.isDevelopment();
     
-    @NotBlank
-    @Length(min=2, max=7, applyIf="test == true")
     private String firstName;
     
-    @NotBlank
-    @Length(min=2, max=10)
     private String lastName;
     
-    @NotNull
-    @InThePast
+    @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date birthDate;
 
     /** Creates a new instance of Person */
@@ -52,6 +48,8 @@ public class Person extends EntityBase {
         this.birthDate = birthDate;
     }
 
+    @NotBlank
+    @Length(min=2, max=7)
     public String getFirstName() {
         return firstName;
     }
@@ -60,6 +58,8 @@ public class Person extends EntityBase {
         this.firstName = firstName;
     }
 
+    @NotBlank
+    @Length(min=2, max=10)
     public String getLastName() {
         return lastName;
     }
@@ -69,6 +69,8 @@ public class Person extends EntityBase {
     }
 
     @Temporal(TemporalType.DATE)
+    @NotNull
+    @Past
     public Date getBirthDate() {
         return birthDate;
     }

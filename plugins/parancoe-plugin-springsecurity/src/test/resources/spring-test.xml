@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-                           http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
     
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>        
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
         <property name="url" value="jdbc:hsqldb:mem:test"/>
         <property name="username" value="sa"/>
         <property name="password" value=""/>
@@ -17,11 +17,11 @@
     
     <bean id="sessionFactory" parent="abstractSessionFactory">
         <property name="eventListeners">
-                <map>
-                        <entry key="merge">
-                                <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
-                        </entry>
-                </map>
+            <map>
+                <entry key="merge">
+                    <bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+                </entry>
+            </map>
         </property>
         <property name="hibernateProperties">
             <props merge="true">
@@ -32,20 +32,12 @@
         </property>
     </bean>
 
+
+    <sec:filter-security-metadata-source id="pluginSecurityFilterDefinitions" lowercase-comparisons="true" path-type="ant">
+        <sec:intercept-url pattern="/people/**" access="ROLE_ADMIN, ROLE_PARANCOE"/>
+        <sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    </sec:filter-security-metadata-source>
    
-    <bean name="pluginSecurityFilterDefinitions" class="java.lang.String">
-        <constructor-arg>
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /people/**=ROLE_ADMIN, ROLE_PARANCOE
-                /event/edit*=ROLE_ADMIN, ROLE_JUGGER
-                /event/delete*=ROLE_ADMIN, ROLE_JUGGER
-                /event/participants*=ROLE_ADMIN, ROLE_JUGGER
-                /admin/**=ROLE_ADMIN
-                /**=IS_AUTHENTICATED_ANONYMOUSLY
-            </value>
-        </constructor-arg>
-    </bean>    
 </beans>
 

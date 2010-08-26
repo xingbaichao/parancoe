@@ -22,7 +22,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
-import org.parancoe.persistence.dao.DaoUtils;
+import org.lambico.spring.dao.DaoUtils;
 import org.parancoe.util.BaseConf;
 import org.parancoe.util.MemoryAppender;
 import org.parancoe.web.plugin.PluginHelper;
@@ -67,8 +67,9 @@ public class ContextListener implements ServletContextListener {
     private void loadApplicationContext() {
         List<String> config = new ArrayList<String>();
         // generici
-        config.add("classpath:org/parancoe/persistence/dao/generic/genericDao.xml");
-        config.add("classpath:org/parancoe/persistence/applicationContextBase.xml");
+        config.add("classpath:org/lambico/spring/dao/hibernate/genericDao.xml");
+        config.add("classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml");
+        config.add("classpath:org/parancoe/core/applicationContextBase.xml");
         config.add("WEB-INF/database.xml");
         // load all plugin configurations at once
         config.add("classpath*:applicationContext-plugin.xml");

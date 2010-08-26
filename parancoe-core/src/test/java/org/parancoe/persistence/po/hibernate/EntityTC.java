@@ -16,6 +16,7 @@ package org.parancoe.persistence.po.hibernate;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import org.lambico.po.hibernate.EntityBase;
 
 /**
  * An persistent object to be used for the tests of the generic DAO.

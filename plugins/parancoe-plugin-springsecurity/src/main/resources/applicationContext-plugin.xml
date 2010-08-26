@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     
-  <!-- Authomatic discovering of persistent classes -->
-  <parancoe:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
-  <parancoe:define-daos basePackage="org.parancoe.plugins.security"/>
+    <!-- Authomatic discovering of persistent classes -->
+    <lambico:discover-persistent-classes basePackage="org.parancoe.plugins.security"/>
+    <!-- Authomatic DAO definition from persistent classes -->
+    <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.security" />
     
     <!-- ContextListener specifico per questo plugin -->
     <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>
     
-    <bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager">
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
         <property name="providers">
             <list>
                 <ref local="daoAuthenticationProvider"/>
-                <bean class="org.springframework.security.providers.anonymous.AnonymousAuthenticationProvider">
+                <bean class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
                     <property name="key" value="changeThis"/>
                 </bean>
-                <bean class="org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider">
+                <bean class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
                     <property name="key" value="changeThis"/>
                 </bean>
             </list>
         </property>
     </bean>
     
-    <bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
             <list>
-                <bean class="org.springframework.security.vote.RoleVoter"/>
-                <bean class="org.springframework.security.vote.AuthenticatedVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
             </list>
         </property>
     </bean>
     
-    <bean id="daoAuthenticationProvider" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService"/>
         <!-- TODO: commented for building after 2.0 merge. Please investigate!        
         <property name="userCache">
@@ -57,16 +58,16 @@
         -->
         <!-- password encoder -->
         <property name="passwordEncoder">
-        	<bean class="org.springframework.security.providers.encoding.Md5PasswordEncoder"></bean>        
+            <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"></bean>
         </property>
         <property name="saltSource">
-        	<bean class="org.springframework.security.providers.dao.salt.ReflectionSaltSource">
-        		<property name="userPropertyToUse" value="getUsername"></property>
-        	</bean>
+            <bean class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+                <property name="userPropertyToUse" value="getUsername"></property>
+            </bean>
         </property>
     </bean>
     
-    <bean id="userDetailsService" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl">
+    <bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
         <property name="dataSource">
             <ref bean="dataSource" />
         </property>
@@ -74,13 +75,14 @@
             <value>select username, password, enabled FROM psec_user WHERE username = ?</value>
         </property>
         <property name="authoritiesByUsernameQuery">
-            <value>select username, role from psec_user u, authority a, user_authority ua 
-            where u.username = ? and u.id = ua.user_id and a.id = ua.authority_id</value>
+            <value>select username, role from psec_user u, authority a, user_authority ua
+            where u.username = ? and u.id = ua.user_id and a.id = ua.authority_id
+            </value>
         </property>
-    </bean>          
+    </bean>
     
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-    <bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener"/>    
+    <bean id="loggerListener" class="org.springframework.security.authentication.event.LoggerListener"/>
     
     <!--                           -->
     <!-- Configurazione del plugin -->
