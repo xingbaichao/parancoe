@@ -9,11 +9,11 @@
 <jsp:include page="../header.jsp"/>
 
 
-<h1>People</h1>
+<h1><spring:message code="People" text="?People?"/></h1>
 
 <h2>Edit Person</h2>
 
-<form:form commandName="person" method="POST" action="${cp}/people/update.form">
+<form:form commandName="person" method="POST" action="${cpr}/person/${person.id}">
     <form:hidden path="id"/>
     <table>
     <tr>

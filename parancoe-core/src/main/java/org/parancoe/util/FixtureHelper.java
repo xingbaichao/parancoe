@@ -117,16 +117,16 @@ public class FixtureHelper {
                     // Mantiene l'ordine di inserimento
                     fixtures.put(model, null);
                 } else {
-                    logger.warn("Non ho trovato fixtures per "
-                            + getModelName(model) + " dentro il file '"
+                    logger.warn("No fixtures for "
+                            + getModelName(model) + " in the file '"
                             + fixtureFileName + "' ?");
                 }
             } catch (FileNotFoundException e) {
-                logger.warn("Non ho trovato il file di fixtures per "
-                        + getModelName(model) + ", hai creato il file '"
+                logger.warn("Fixture file not found for "
+                        + getModelName(model) + ", did you created the file '"
                         + fixtureFileName + "' ?");
             } catch (IOException e) {
-                logger.error("Fallito il caricamento delle fixtures per "
+                logger.error("Loading of fixtures failed for "
                         + getModelName(model), e);
             } finally {
                 IOUtils.closeQuietly(stream);
@@ -144,9 +144,9 @@ public class FixtureHelper {
 
         if (logger.isDebugEnabled()) {
             logger
-                    .debug("### Inizio Yaml generato dal merge delle fixtures ###\n"
+                    .debug("### Start of Yaml generated merging the fixtures ###\n"
                             + sb.toString()
-                            + "\n### Fine Yaml generato dal merge delle fixtures ###");
+                            + "\n### End of Yaml generated merging the fixtures ###");
         }
 
         // Debug file output
@@ -197,8 +197,8 @@ public class FixtureHelper {
                                           GenericDaoBase dao) {
         logger.debug("Populating table for " + getModelName(model));
         if (fixtures == null) {
-            logger.warn("Non ci sono fixtures per " + getModelName(model)
-                    + ", hai creato il file '" + getFixtureFileName(model)
+            logger.warn("No fixtures for " + getModelName(model)
+                    + ", did you created the file '" + getFixtureFileName(model)
                     + "'?");
             return;
         }
