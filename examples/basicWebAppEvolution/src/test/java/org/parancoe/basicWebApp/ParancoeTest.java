@@ -1,15 +1,24 @@
 package org.parancoe.basicWebApp;
 
+import javax.annotation.Resource;
 import org.parancoe.basicWebApp.blo.PersonBo;
 import org.parancoe.basicWebApp.controllers.HomeController;
-import org.parancoe.basicWebApp.controllers.PeopleController;
+import org.parancoe.basicWebApp.controllers.PersonController;
 import org.parancoe.plugins.italy.ComuneDao;
 import org.parancoe.web.test.BaseTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class ParancoeTest extends BaseTest {
 
-    /* test everything has been loaded properly */
+    @Resource
+    private ComuneDao comuneDao;
+    @Resource
+    private PersonBo personBo;
+    @Resource
+    private HomeController homeController;
+    @Resource
+    private PersonController personController;
+
+    /** test everything has been loaded properly */
     public void testSanity() {
         assertNotNull(getApplicationContext().getBean("dataSource"));
         assertNotNull(getApplicationContext().getBean("transactionManager"));
@@ -23,27 +32,17 @@ public class ParancoeTest extends BaseTest {
         assertNotNull(getApplicationContext().getBean("exceptionResolver"));
         assertNotNull(getApplicationContext().getBean("multipartResolver"));
     }
-    @Autowired
-    ComuneDao comuneDao;
 
     public void testItalyPlugin() {
         assertNotNull(comuneDao);
     }
-    @Autowired
-    PersonBo personBo;
 
     public void testBo() {
         assertNotNull(personBo);
     }
-    
-    @Autowired
-    HomeController homeController;
-    
-    @Autowired
-    PeopleController peopleController;
-    
+
     public void testController() {
         assertNotNull(homeController);
-        assertNotNull(peopleController);
+        assertNotNull(personController);
     }
 }

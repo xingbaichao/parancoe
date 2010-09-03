@@ -88,6 +88,6 @@ public class Person extends EntityBase {
     }
     
     public String toString() {
-        return firstName + " " + lastName + " nato il " +  birthDate ;
+        return firstName + " " + lastName + ", " +  birthDate ;
     }
 }
