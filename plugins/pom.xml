@@ -7,6 +7,34 @@
     <version>3.0-SNAPSHOT</version>
     <name>Parancoe Plugins</name>
     <url>http://www.parancoe.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.basedir>${basedir}</main.basedir>
+        <year>2006-2010</year>
+
+        <!-- NetBeans IDE properties -->
+        <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>4</org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>100</org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>true</org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsKeyword>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsKeyword>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>100</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsKeyword>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsKeyword>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsList>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsList>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapFor>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapFor>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapArrayInit>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapArrayInit>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsList>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsList>
+    </properties>
     <build>
         <finalName>parancoe-plugins</finalName>
         <plugins>
@@ -59,6 +87,42 @@
                     </descriptors>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <header>${main.basedir}/LICENSE_HEADER</header>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>m2-target/**</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>LICENSE_HEADER</exclude>
+                        <exclude>nb-configuration.xml</exclude>
+                        <exclude>nbactions.xml</exclude>
+                        <exclude>profiles.xml</exclude>
+                        <exclude>**/*.svg</exclude>
+                    </excludes>
+                    <properties>
+                        <name>${project.name}</name>
+                        <year>${year}</year>
+                        <holder>The Parancoe Team</holder>
+                        <contact>info@parancoe.org</contact>
+                    </properties>
+                    <encoding>UTF-8</encoding>
+                    <mapping>
+                        <yml>SCRIPT_STYLE</yml>
+                        <jspf>DYNASCRIPT_STYLE</jspf>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -109,10 +173,9 @@
         <module>parancoe-plugin-italy</module>
         <module>parancoe-plugin-world</module>
         <module>parancoe-plugin-security</module>
-        <module>parancoe-plugin-security-encrypt</module>
         <module>parancoe-plugin-sample</module>
-        <module>parancoe-plugin-dwr</module> 
+        <module>parancoe-plugin-dwr</module>
         <module>parancoe-plugin-springsecurity</module>
         <module>parancoe-plugin-tiles</module>
-  </modules>
+    </modules>
 </project>

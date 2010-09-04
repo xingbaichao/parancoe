@@ -11,6 +11,9 @@
     <name>Parancoe Plugin DWR</name>
     <version>3.0-SNAPSHOT</version>
     <url>http://www.parancoe.org</url>
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.directwebremoting</groupId>
