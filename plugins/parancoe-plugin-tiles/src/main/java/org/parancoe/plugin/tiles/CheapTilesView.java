@@ -1,11 +1,13 @@
-/*
- * Copyright 2009 the original author or authors.
+/**
+ * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+ *
+ * This file is part of parancoe-plugin-tiles Parancoe Plugin.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *  http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,26 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.parancoe.plugin.tiles;
 
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
-import org.apache.tiles.TilesContainer;
 import org.apache.tiles.TilesException;
 import org.apache.tiles.access.TilesAccess;
 
 import org.apache.tiles.mgmt.MutableTilesContainer;
-import org.springframework.web.servlet.support.JstlUtils;
-import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.view.tiles2.TilesView;
-import org.springframework.web.util.WebUtils;
 
 /**
  * An extension of {@link org.springframework.web.servlet.view.tiles2.TilesView}
