@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 package ${package};
 
 import org.parancoe.web.test.BaseTest;
@@ -10,7 +13,6 @@ public class ParancoeTest extends BaseTest {
         assertNotNull(getApplicationContext().getBean("transactionManager"));
         assertNotNull(getApplicationContext().getBean("conf"));
         assertNotNull(getApplicationContext().getBean("sessionFactory"));
-        assertNotNull(getApplicationContext().getBean("handlerMapping"));
         assertNotNull(getApplicationContext().getBean("messageSource"));
         assertNotNull(getApplicationContext().getBean("hibernateGenericDaoInstrumentationAspect"));
 

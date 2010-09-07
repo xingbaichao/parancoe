@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <%@ include file="../../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +13,7 @@
             <div id="content"> 
                 <div id="content_main">
                     <h1>Edit user</h1>
-                    <form:form commandName="userBean" method="POST" action="${cp}/admin/users/save.form">
+                    <form:form commandName="userBean" method="POST" action="${symbol_dollar}{cpr}/admin/users/${symbol_dollar}{user.id}">
                         <table>
                         <tr>
                             <td>Username:</td>
@@ -28,12 +31,12 @@
                             <td>Authorities:</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <c:forEach items="${userBean.authorityCheckBoxes}" var="authorityCheckBox" varStatus="loopStatus">
+                        <c:forEach items="${symbol_dollar}{userBean.authorityCheckBoxes}" var="authorityCheckBox" varStatus="loopStatus">
                             <tr><td>&nbsp;</td>
                                 <td>
-                                <spring:bind path="userBean.authorityCheckBoxes[${loopStatus.index}].checked"> 
-                                    <input type="hidden" name="_<c:out value="${status.expression}"/>">
-                                    <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true" <c:if test="${status.value}">checked</c:if>/> ${authorityCheckBox.authority.role}
+                                <spring:bind path="userBean.authorityCheckBoxes[${symbol_dollar}{loopStatus.index}].checked"> 
+                                    <input type="hidden" name="_<c:out value="${symbol_dollar}{status.expression}"/>">
+                                    <input type="checkbox" name="<c:out value="${symbol_dollar}{status.expression}"/>" value="true" <c:if test="${symbol_dollar}{status.value}">checked</c:if>/> ${symbol_dollar}{authorityCheckBox.authority.role}
                                 </spring:bind>
                                 </td>
                             </tr>

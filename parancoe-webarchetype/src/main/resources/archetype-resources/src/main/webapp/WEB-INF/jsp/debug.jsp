@@ -1,7 +1,10 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="org.parancoe.util.MemoryAppender"%>
-<div style="clear: left;"><a href="#" onclick="Element.toggle('debug');"> debug </a></div>
+<div style="clear: left;"><a href="${symbol_pound}" onclick="Element.toggle('debug');"> debug </a></div>
 
 <div id="debug" style="display: none;">
     <h2>Request Params</h2>

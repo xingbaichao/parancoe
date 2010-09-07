@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,16 +30,34 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
+
+    <!-- required to enable Spring 3.0 REST support -->
+    <filter>
+        <filter-name>httpMethodFilter</filter-name>
+        <filter-class>org.parancoe.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>httpMethodFilter</filter-name>
+        <servlet-name>parancoe</servlet-name>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>parancoe</servlet-name>
         <servlet-class>org.parancoe.web.ParancoeDispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-	
+
+    <!-- REST purpouse -->
+    <servlet-mapping>
+        <servlet-name>parancoe</servlet-name>
+        <url-pattern>/r/*</url-pattern>
+    </servlet-mapping>
     <!-- secure porpouse -->
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
