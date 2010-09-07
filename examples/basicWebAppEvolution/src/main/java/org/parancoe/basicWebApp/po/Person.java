@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2010 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,14 +23,11 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.lambico.po.hibernate.EntityBase;
 
-import org.parancoe.util.BaseConf;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @javax.persistence.Entity()
 public class Person extends EntityBase {
-   
-    private boolean test = BaseConf.isDevelopment();
-    
+       
     private String firstName;
     
     private String lastName;
@@ -78,15 +75,8 @@ public class Person extends EntityBase {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
-
-    public void setTest(boolean test){
-        this.test = test;
-    }
     
-    public boolean isTest(){
-        return test;
-    }
-    
+    @Override
     public String toString() {
         return firstName + " " + lastName + ", " +  birthDate ;
     }

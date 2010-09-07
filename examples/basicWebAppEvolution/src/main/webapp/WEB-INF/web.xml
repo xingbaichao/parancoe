@@ -57,11 +57,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 	
-    <!-- secure porpouse -->
+    <!-- REST purpouse -->
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>/r/*</url-pattern>
     </servlet-mapping>
+    <!-- secure porpouse -->
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.secure</url-pattern>
