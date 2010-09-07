@@ -1,12 +1,7 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/${artifactId}" reloadable="true">
-    <Resource
-        auth="Container"
-        name="jdbc/${artifactId}DS"
-        type="javax.sql.DataSource"
-        driverClassName="org.hsqldb.jdbcDriver"
-        password=""
-        username="sa"
-        url="jdbc:hsqldb:mem:${artifactId}"
-        maxActive="5"/>
+  <Resource auth="Container" driverClassName="org.hsqldb.jdbcDriver" maxActive="5" name="jdbc/${artifactId}DS" password="" type="javax.sql.DataSource" url="jdbc:hsqldb:mem:${artifactId}" username="sa"/>
 </Context>

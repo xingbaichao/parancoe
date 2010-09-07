@@ -1,4 +1,4 @@
-<title>${artifactId}</title>
+<title>parancoewebproject</title>
 <%@ include file="meta.jspf" %>
 <%@ include file="stylesheets.jspf" %>
 <%@ include file="javascripts.jspf" %>

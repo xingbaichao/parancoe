@@ -1,16 +1,6 @@
-// Copyright 2006-2007 The Parancoe Team
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 package ${package}.controllers;
 
 import java.util.HashMap;
@@ -66,10 +56,10 @@ public class AdminController {
     private String colourLog(String log) {
         String lines[];
         if (log == null) lines = new String[]{""};
-        else lines = log.split("[\\n\\r]");
+        else lines = log.split("[${symbol_escape}${symbol_escape}n${symbol_escape}${symbol_escape}r]");
         for (int i = 0; i < lines.length; i++) {
-            if (lines[i].indexOf("[ERROR]") != -1) lines[i] = "<span class=\"log_error\">" + lines[i] + "</span>";
-            if (lines[i].indexOf("[WARN]") != -1) lines[i] = "<span class=\"log_warn\">" + lines[i] + "</span>";
+            if (lines[i].indexOf("[ERROR]") != -1) lines[i] = "<span class=${symbol_escape}"log_error${symbol_escape}">" + lines[i] + "</span>";
+            if (lines[i].indexOf("[WARN]") != -1) lines[i] = "<span class=${symbol_escape}"log_warn${symbol_escape}">" + lines[i] + "</span>";
             if (StringUtils.isNotBlank(lines[i])) lines[i] += "<br/>";
         }
         return StringUtils.join(lines);

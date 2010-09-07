@@ -1,35 +1,24 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
-       xmlns:parancoe-web="http://www.parancoe.org/schema/parancoe-web"
+       xmlns:sec="http://www.springframework.org/schema/security"
        xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd
-       http://www.parancoe.org/schema/parancoe-web http://www.parancoe.org/schema/parancoe-web.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
     
     <context:component-scan base-package="${package}.controllers"/>
- 
-    <bean id="methodHandler" parent="abstractMethodHandler">
-        <property name="webBindingInitializer">
-            <bean class="${package}.controllers.AppBindingInitializer"/>
-        </property>
-    </bean>
-    
-    <!-- begin security section -->
-    <bean name="pluginSecurityFilterDefinitions" class="java.lang.String">
-        <constructor-arg>
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /admin/**=ROLE_ADMIN
-                /**=IS_AUTHENTICATED_ANONYMOUSLY
-            </value>
-        </constructor-arg>
-    </bean>
+
+     <!-- begin security section -->
+    <sec:filter-security-metadata-source id="pluginSecurityFilterDefinitions" lowercase-comparisons="true" path-type="ant">
+        <sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    </sec:filter-security-metadata-source>
     <!-- end security section -->
         
 </beans>

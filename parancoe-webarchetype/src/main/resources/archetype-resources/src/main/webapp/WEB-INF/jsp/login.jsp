@@ -1,7 +1,9 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <%@ include file="common.jspf" %>
-<%@ page import="org.springframework.security.ui.AbstractProcessingFilter" %>
-<%@ page import="org.springframework.security.ui.webapp.AuthenticationProcessingFilter" %>
-<%@ page import="org.springframework.security.AuthenticationException" %>
+<%@ page import="org.springframework.security.web.WebAttributes" %>
+<%@ page import="org.springframework.security.core.AuthenticationException" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -17,16 +19,16 @@
                         <div id="loginTitle"><spring:message code="loginTitle"/></div>
                         <div id="loginMessageBox">
                             Try <b>parancoe/parancoe</b> and <b>admin/admin</b>.<br/>
-                            <c:if test="${not empty param.login_error}">
+                            <c:if test="${symbol_dollar}{not empty param.login_error}">
                                 <font color="red">
                                     Your login attempt was not successful, try again.<br/>
-                                    Reason: <%= ((AuthenticationException) session.getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY)).getMessage() %>
+                                    Reason: <%= ((AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).getMessage() %>
                                 </font>
                             </c:if>
                         </div>
                         <form name="loginForm" action="<c:url value='/securityCheck.secure'/>" method="POST">
                             <label class="loginLabel" for="username"><spring:message code="username"/></label>
-                            <input id="username" class="loginField" type='text' name='j_username' tabindex="1" <c:if test="${not empty param.login_error}">value='<%= session.getAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY) %>'</c:if>/><br/>
+                            <input id="username" class="loginField" type='text' name='j_username' tabindex="1" <c:if test="${symbol_dollar}{not empty param.login_error}">value='<%= session.getAttribute(WebAttributes.LAST_USERNAME) %>'</c:if>/><br/>
                             <label class="loginLabel" for="password"><spring:message code="password"/></label>
                             <input id="password" class="loginField" type='password' name='j_password' tabindex="2"/><br/>
                             <label class="loginLabel" for="remember">&nbsp;</label>

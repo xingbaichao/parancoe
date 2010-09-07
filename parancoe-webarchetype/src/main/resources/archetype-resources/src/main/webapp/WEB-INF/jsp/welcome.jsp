@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <%@ include file="common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +13,7 @@
             <div id="content"> 
                 <div id="content_main">
                     <c:choose>
-                        <c:when test="${requestScope.lang eq 'it'}">
+                        <c:when test="${symbol_dollar}{requestScope.lang eq 'it'}">
                             Questa &egrave; l'applicazione template per il framework
                             <a href="http://wwww.parancoe.org">Parancoe</a>.<br/>
                             <br/>

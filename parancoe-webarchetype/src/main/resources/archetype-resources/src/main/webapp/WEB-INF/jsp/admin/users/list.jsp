@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <%@ include file="../../common.jspf" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,19 +15,19 @@
                     <h1>Users</h1>
                     
                     <table>
-                        <c:forEach var="user" items="${users}">
+                        <c:forEach var="user" items="${symbol_dollar}{users}">
                             <tr>
-                                <td>${user.username}</td>
+                                <td>${symbol_dollar}{user.username}</td>
                                 <td>
-                                    <a href="edit.form?id=${user.id}">Edit</a>
-                                    <a href="delete.html?id=${user.id}">Delete</a>
+                                    <a href="${symbol_dollar}{cpr}/admin/users/${symbol_dollar}{user.id}/edit">Edit</a>
+                                    <a href="${symbol_dollar}{cpr}/admin/users/${symbol_dollar}{user.id}?_method=DELETE">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </table>
-                    <a href="create.html">New</a>                            
+                    <a href="${symbol_dollar}{cpr}/admin/users/new">New</a>
                     
-                    <c:if test="${empty users}">
+                    <c:if test="${symbol_dollar}{empty users}">
                         No users in the DB
                     </c:if>
                 </div>
