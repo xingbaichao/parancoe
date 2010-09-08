@@ -18,6 +18,7 @@
 
 package org.parancoe.plugin.tiles;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -114,6 +115,12 @@ public class CheapTilesView extends TilesView {
     public static final String DEFAULT_DEFAULT_SUFFIX = ".jsp";
     public static final String KEY_DEFAULT_SUFFIX =
             CheapTilesView.class.getName() + ".DEFAULT_SUFFIX";
+
+    @Override
+    public boolean checkResource(Locale locale) throws Exception {
+        return true;
+    }
+
 
     @Override
     protected void renderMergedOutputModel(Map model, HttpServletRequest request,
