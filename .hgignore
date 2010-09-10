@@ -17,3 +17,4 @@ syntag: regexp
 ^examples/basicPersistence/target
 ^examples/basicWebApp/target
 ^examples/basicWebAppEvolution/target
+^parancoe-advancedarchetype/target
