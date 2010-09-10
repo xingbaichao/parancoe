@@ -1,0 +1,14 @@
+syntag: regexp
+^nbactions.xml
+^nb-configuration.xml
+^profiles.xml
+^target
+^ternion-core/target
+^ternion-core/nbactions.xml
+^ternion-web/target
+^ternion-web/nbactions.xml
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
