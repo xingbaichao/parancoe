@@ -1,0 +1,182 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <packaging>pom</packaging>
+    <version>${version}</version>
+    <name>${artifactId}</name>
+    <url>http://www.${artifactId}.com</url>
+    <inceptionYear>2010</inceptionYear>
+    <properties>
+        <main.basedir>${symbol_dollar}{basedir}</main.basedir>
+        <year>2010</year>
+        <app.parancoe.version>3.0-SNAPSHOT</app.parancoe.version>
+        <app.lambico.version>1.0-SNAPSHOT</app.lambico.version>
+        <app.springsecurity.version>3.0.3.RELEASE</app.springsecurity.version>
+        <app.hibernate.version>3.3.2.GA</app.hibernate.version>
+        <app.log4j.version>1.2.14</app.log4j.version>
+        <app.junit3.version>3.8.2</app.junit3.version>
+        <app.hsqldb.version>1.8.0.10</app.hsqldb.version>
+
+        <!-- ${artifactId} default configuration -->
+        <app.datasource>java:comp/env/jdbc/${artifactId}-webDS</app.datasource>
+        <app.datasource.driver>org.hsqldb.jdbcDriver</app.datasource.driver>
+        <app.datasource.url>jdbc:hsqldb:mem:${artifactId}-web</app.datasource.url>
+        <app.datasource.username>sa</app.datasource.username>
+        <app.datasource.password></app.datasource.password>
+        <app.hibernate.show_sql>true</app.hibernate.show_sql>
+        <app.log.console.level>INFO</app.log.console.level>
+        <app.log.file.level>DEBUG</app.log.file.level>
+        <app.log.rootdir>/tmp/log-${artifactId}</app.log.rootdir>
+        <log4j.logger.org.parancoe>INFO</log4j.logger.org.parancoe>
+        <log4j.logger.${package}.web>DEBUG</log4j.logger.${package}.web>
+
+        <!-- NetBeans IDE properties -->
+        <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>4</org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>100</org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>true</org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapBinaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsKeyword>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsKeyword>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotationArgs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>100</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapTernaryOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodParams>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsKeyword>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsKeyword>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsList>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapExtendsImplementsList>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAssignOps>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapMethodCallArgs>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapChainedMethodCalls>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapFor>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapFor>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapArrayInit>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapArrayInit>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsList>WRAP_IF_LONG</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapThrowsList>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/bin.xml</descriptor>
+                        <descriptor>src/assembly/bin-with-dependencies.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <useFile>true</useFile>
+                    <forkMode>once</forkMode> <!-- pertest once or never -->
+                    <!-- <reportFormat>plain</reportFormat> -->
+                    <!--argLine>-Xmx512M</argLine--> <!-- don't use if you want to debug tests in NetBeans -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <header>${symbol_dollar}{main.basedir}/LICENSE_HEADER</header>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>m2-target/**</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>LICENSE_HEADER</exclude>
+                        <exclude>nb-configuration.xml</exclude>
+                        <exclude>nbactions.xml</exclude>
+                        <exclude>profiles.xml</exclude>
+                        <exclude>**/*.svg</exclude>
+                        <exclude>src/main/webapp/javascripts/builder.js</exclude>
+                        <exclude>src/main/webapp/javascripts/effects.js</exclude>
+                        <exclude>src/main/webapp/javascripts/parancoe.js</exclude>
+                        <exclude>src/main/webapp/javascripts/dragdrop.js</exclude>
+                        <exclude>src/main/webapp/javascripts/prototype.js</exclude>
+                        <exclude>src/main/webapp/javascripts/slider.js</exclude>
+                        <exclude>src/main/webapp/javascripts/sound.js</exclude>
+                        <exclude>src/main/webapp/javascripts/scriptaculous.js</exclude>
+                        <exclude>src/main/webapp/javascripts/controls.js</exclude>
+                        <exclude>src/main/webapp/templates/clarity/**</exclude>
+                        <exclude>src/main/webapp/WEB-INF/tiles/templates/clarity_main.jsp</exclude>
+                        <exclude>src/main/webapp/images/silk/**</exclude>
+                    </excludes>
+                    <properties>
+                        <name>${symbol_dollar}{project.name}</name>
+                        <year>${symbol_dollar}{project.inceptionYear}</year>
+                        <holder>${artifactId}</holder>
+                        <contact>info@${artifactId}.com</contact>
+                    </properties>
+                    <encoding>UTF-8</encoding>
+                    <mapping>
+                        <yml>SCRIPT_STYLE</yml>
+                        <jspf>DYNASCRIPT_STYLE</jspf>
+                    </mapping>
+                </configuration>
+                <!-- Uncomment the executions section if you want to check the license at every build -->
+                <!--
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                -->
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <configLocation>${symbol_dollar}{main.basedir}/${artifactId}_checks.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jboss-maven2-repository</id>
+            <name>JBoss Repository for Maven</name>
+            <url>http://repository.jboss.com/maven2/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <organization>
+        <name>${artifactId} Team</name>
+        <url>http://www.${artifactId}.com</url>
+    </organization>
+</project>
