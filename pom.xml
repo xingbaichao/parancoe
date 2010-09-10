@@ -107,6 +107,7 @@
                         <exclude>parancoe-pluginarchetype/**</exclude>
                         <exclude>parancoe-reference-guide/**</exclude>
                         <exclude>parancoe-webarchetype/**</exclude>
+                        <exclude>parancoe-advancedarchetype/**</exclude>
                         <exclude>plugins/**</exclude>
                         <exclude>www/**</exclude>
                     </excludes>
