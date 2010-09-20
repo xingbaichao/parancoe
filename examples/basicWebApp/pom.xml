@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.parancoe</groupId>
+    <artifactId>basicWebApp</artifactId>
+    <packaging>war</packaging>
+    <version>3.0-SNAPSHOT</version>
+    <name>Parancoe Example - Basic WebApp</name>
+    <url>http://www.parancoe.org</url>
+    <build>
+        <finalName>basicWebApp</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                    <useFile>true</useFile>
+                    <forkMode>once</forkMode> <!-- pertest once or never -->
+                    <!-- <reportFormat>plain</reportFormat> -->
+                    <!--argLine>-Xmx512M</argLine-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>parancoe-org-repository</id>
+            <name>Parancoe Repository for Maven</name>
+            <url>http://maven2.parancoe.org/repo/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- The Parancoe framework -->
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-web</artifactId>
+            <version>3.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Plugins -->
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-italy</artifactId>
+            <version>3.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-security</artifactId>
+            <version>3.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-plugin-dwr</artifactId>
+            <version>3.0-SNAPSHOT</version>
+        </dependency>
+                
+        <!-- Servlet/JSP APIs provided by your container -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- db driver -->
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.3</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <properties>
+        <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
+    </properties>
+</project>

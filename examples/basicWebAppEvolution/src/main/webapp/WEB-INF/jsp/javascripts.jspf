@@ -1,0 +1,5 @@
+<script src="${cp}/javascripts/prototype.js" type="text/javascript"></script>
+<script src="${cp}/javascripts/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="${cp}/javascripts/parancoe.js" type="text/javascript"></script>
+<script src="${cp}/dwr/engine.js" type="text/javascript"></script>
+<script src="${cp}/dwr/util.js" type="text/javascript"></script>
