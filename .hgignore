@@ -18,3 +18,8 @@ syntag: regexp
 ^examples/basicWebApp/target
 ^examples/basicWebAppEvolution/target
 ^parancoe-advancedarchetype/target
+\.orig\..*$
+\.orig$
+\.chg\..*$
+\.rej$
+\.conflict\~$
