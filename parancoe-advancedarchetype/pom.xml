@@ -54,6 +54,13 @@
                 <version>2.0-alpha-5</version>
                 <extensions>true</extensions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
