@@ -124,7 +124,6 @@ public class Provincia implements Serializable {
             "id='" + id + '\'' +
             ", targa='" + targa + '\'' +
             ", nome='" + nome + '\'' +
-            ", comune=" + comune +
             ", regione=" + regione +
             '}';
   }
