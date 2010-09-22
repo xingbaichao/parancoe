@@ -90,7 +90,6 @@ public class Regione implements Serializable {
     return "Regione{" +
             "id='" + id + '\'' +
             ", nome='" + nome + '\'' +
-            ", provincia=" + provincia +
             '}';
   }
 }
