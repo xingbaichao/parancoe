@@ -80,15 +80,16 @@ public class PluginHelper {
      * @param evt
      */
     public void invokePluginContextDestroyed(ServletContextEvent evt) {
-        for (ApplicationContextPlugin plugin : getApplicationContextPlugins()) {
-            for (ContextLoaderListener listener : plugin.getContextLoaderListeners()) {
-                try {
-                    listener.contextDestroyed(evt);
-                } catch (Exception e) {
-                    log.error("error in contextDestroyed for plugin '" + plugin.getName() + "'", e);
-                }
-            }
-        }
+        // Already destroyed.
+//        for (ApplicationContextPlugin plugin : getApplicationContextPlugins()) {
+//            for (ContextLoaderListener listener : plugin.getContextLoaderListeners()) {
+//                try {
+//                    listener.contextDestroyed(evt);
+//                } catch (Exception e) {
+//                    log.error("error in contextDestroyed for plugin '" + plugin.getName() + "'", e);
+//                }
+//            }
+//        }
     }
 
     /**
