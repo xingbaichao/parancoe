@@ -34,7 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestControllerTest extends ControllerTest {
 
     @Autowired
-    private TestController controller;
+    private ForTestController controller;
     @Autowired
     private HandlerAdapter handler;
 
@@ -53,7 +53,7 @@ public class TestControllerTest extends ControllerTest {
         assertEquals("redirect:/test/done.html", mv.getViewName());
         Object oSomething = mv.getModel().get("something");
         assertNotNull(oSomething);
-        assertEquals("modified value", ((TestControllerModel) oSomething).
+        assertEquals("modified value", ((ForTestControllerModel) oSomething).
                 getValue());
         Object sSomething = req.getSession().getAttribute("something");
         assertNull(
@@ -80,13 +80,13 @@ public class TestControllerTest extends ControllerTest {
         Object oSomething = mv.getModel().get("something");
         assertNotNull(oSomething);
         assertTrue("The object is not of type TestControllerModel",
-                oSomething instanceof TestControllerModel);
+                oSomething instanceof ForTestControllerModel);
         Object sSomething = req.getSession().getAttribute("something");
         assertNotNull(sSomething);
         assertTrue("The object is not of type TestControllerModel",
-                sSomething instanceof TestControllerModel);
+                sSomething instanceof ForTestControllerModel);
         assertSame(oSomething, sSomething);
-        assertEquals("initial value", ((TestControllerModel) oSomething).
+        assertEquals("initial value", ((ForTestControllerModel) oSomething).
                 getValue());
         assertEquals("test/form", mv.getViewName());
     }

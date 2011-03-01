@@ -25,12 +25,12 @@ import org.hibernate.validator.constraints.NotBlank;
  * 
  * @author Lucio
  */
-public class TestControllerModel {
+public class ForTestControllerModel {
 
     @NotBlank
     private String value;
 
-    public TestControllerModel(String value) {
+    public ForTestControllerModel(String value) {
         this.value = value;
     }
 
