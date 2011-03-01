@@ -62,12 +62,14 @@
     
     <!-- sends exceptions to genericError.jsp -->
     <bean id="exceptionResolver" class="org.parancoe.web.ExceptionResolver"/>
-    
+
+<!--
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="-1"/>
     </bean>
-    
+-->
+
     <!-- locale change -->
     <bean id="localeResolver"
            class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/>

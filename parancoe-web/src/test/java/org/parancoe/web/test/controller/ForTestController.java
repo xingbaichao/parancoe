@@ -48,20 +48,20 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @RequestMapping("/test/controller.form")
 @SessionAttributes("something")
-public class TestController {
+public class ForTestController {
 
-    private static final Logger logger = Logger.getLogger(TestController.class);
+    private static final Logger logger = Logger.getLogger(ForTestController.class);
 
     @RequestMapping(method = RequestMethod.GET)
     public String form(@RequestParam("value") String value,
             Model model) {
-        TestControllerModel tcm = new TestControllerModel(value);
+        ForTestControllerModel tcm = new ForTestControllerModel(value);
         model.addAttribute("something", tcm);
         return "test/form";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submit(@ModelAttribute("something") @Valid TestControllerModel tcm,
+    public String submit(@ModelAttribute("something") @Valid ForTestControllerModel tcm,
             BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "test/form";

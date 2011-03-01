@@ -21,7 +21,6 @@ public class ParancoeTest extends BaseTest {
 
         assertNotNull(getApplicationContext().getBean("viewResolver"));
         assertNotNull(getApplicationContext().getBean("exceptionResolver"));
-        assertNotNull(getApplicationContext().getBean("multipartResolver"));
     }
     @Autowired
     ComuneDao comuneDao;
