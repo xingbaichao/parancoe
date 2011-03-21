@@ -1,5 +1,4 @@
 - &Person-rossi
-  id: 1
   firstName: Mario
   lastName: Rossi
   birthDate: 04/25/1970
