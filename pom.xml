@@ -17,8 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.basedir>${basedir}</main.basedir>
         <year>2006-2010</year>
-        <parancoe.spring.version>3.0.3.RELEASE</parancoe.spring.version>
-        <parancoe.hibernate.version>3.3.2.GA</parancoe.hibernate.version>
+        <parancoe.spring.version>3.0.5.RELEASE</parancoe.spring.version>
+        <parancoe.hibernate.version>3.6.2.Final</parancoe.hibernate.version>
 
         <!-- NetBeans IDE properties -->
         <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
