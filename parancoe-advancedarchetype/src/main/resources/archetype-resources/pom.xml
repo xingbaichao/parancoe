@@ -13,11 +13,11 @@
     <inceptionYear>2010</inceptionYear>
     <properties>
         <main.basedir>${symbol_dollar}{basedir}</main.basedir>
-        <year>2010</year>
+        <year>2011</year>
         <app.parancoe.version>3.0-SNAPSHOT</app.parancoe.version>
         <app.lambico.version>1.0-SNAPSHOT</app.lambico.version>
-        <app.springsecurity.version>3.0.3.RELEASE</app.springsecurity.version>
-        <app.hibernate.version>3.3.2.GA</app.hibernate.version>
+        <app.springsecurity.version>3.0.5.RELEASE</app.springsecurity.version>
+        <app.hibernate.version>3.6.2.Final</app.hibernate.version>
         <app.log4j.version>1.2.14</app.log4j.version>
         <app.junit3.version>3.8.2</app.junit3.version>
         <app.hsqldb.version>1.8.0.10</app.hsqldb.version>
