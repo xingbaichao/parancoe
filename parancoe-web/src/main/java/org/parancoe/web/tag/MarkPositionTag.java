@@ -26,12 +26,17 @@ import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 /**
+ * Tag implementation: mark the position (URL) of a page in the session.
+ * It's intended to be used in conjunction with the {@link MarkedPositionTag}.
  *
- * @author Jacopo Murador <jacopo.murador at seesaw.it>
+ * @author Lucio Benfante <lucio.benfante@gmail.com>
  */
 public class MarkPositionTag extends RequestContextAwareTag {
 
     public static final String PREFIX = "MarkPosition_";
+    /**
+     * The identifier of the path in which the position has been marked.
+     */
     protected String pathId = null;
 
     public String getPathId() {
