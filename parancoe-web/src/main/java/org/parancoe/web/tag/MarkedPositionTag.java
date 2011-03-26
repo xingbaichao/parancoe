@@ -23,12 +23,20 @@ import javax.servlet.jsp.JspException;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 /**
+ * Tag implementation: retrieve a marked position from the session.
+ * It's intended to be used in conjunction with the {@link MarkPositionTag}.
  *
- * @author Jacopo Murador <jacopo.murador at seesaw.it>
+ * @author Lucio Benfante <lucio.benfante@gmail.com>
  */
 public class MarkedPositionTag extends RequestContextAwareTag {
 
+    /**
+     * The identifier of the path in which the position has been marked.
+     */
     protected String pathId;
+    /**
+     * A default position, used if the position hasn't been marked.
+     */
     protected String defaultUrl;
 
     public String getPathId() {
