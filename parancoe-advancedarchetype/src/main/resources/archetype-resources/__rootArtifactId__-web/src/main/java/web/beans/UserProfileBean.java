@@ -4,7 +4,7 @@
 package ${package}.web.beans;
 
 import ${package}.core.po.User;
-import ${package}.web.validation.NewPassword;
+import org.parancoe.validator.constraints.NewPassword;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
