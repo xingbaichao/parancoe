@@ -34,7 +34,7 @@ public class UserBeanTest extends BaseTest {
         userBean.setConfirmPassword("different");
         Set<ConstraintViolation<UserBean>> result = validator.validate(userBean);
         assertSize(1, result);
-        assertEquals("{${package}.validation.newpassword}", result.
+        assertEquals("{org.parancoe.validator.constraints.NewPassword.message}", result.
                 iterator().next().getMessageTemplate());
     }
 
