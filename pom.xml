@@ -170,6 +170,7 @@
                         <exclude>parancoe-advancedarchetype/**</exclude>
                         <exclude>plugins/**</exclude>
                         <exclude>www/**</exclude>
+						<exclude>.idea/**</exclude>
                     </excludes>
                     <properties>
                         <name>${project.name}</name>
