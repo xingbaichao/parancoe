@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+    
+    <!-- Authomatic discovering of components -->
+  <!--  <context:component-scan base-package="com.mycompany.testapp"/>
+    <parancoe:define-daos basePackage="com.mycompany.testapp"/>
+    <parancoe:discover-persistent-classes basePackage="com.mycompany.testapp"/>-->
+    
+    <!--                           -->
+    <!-- Plugin configuration      -->
+    <!--                           -->
+    <bean id="parancoe-plugin-springsecurity-evolutionPluginConfig" class="org.parancoe.web.plugin.WebPlugin">
+        <property name="name" value="parancoe-plugin-springsecurity-evolution"/>
+        <property name="interceptors">
+            <list>
+                <ref bean="parancoe-plugin-springsecurity-evolutionSampleInterceptor"/>
+            </list>
+        </property>
+    </bean>
+</beans>
