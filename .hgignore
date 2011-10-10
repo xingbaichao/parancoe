@@ -9,6 +9,7 @@ syntag: regexp
 ^plugins/parancoe-plugin-world/target
 ^plugins/parancoe-plugin-tiles/target
 ^plugins/parancoe-plugin-springsecurity/target
+^plugins/parancoe-plugin-springsecurity-evolution/target
 ^plugins/parancoe-plugin-security/target
 ^plugins/parancoe-plugin-security-encrypt/target
 ^plugins/parancoe-plugin-sample/target
@@ -27,4 +28,5 @@ syntag: regexp
 \.rej$
 \.conflict\~$
 ^.idea
+.idea
 .iml

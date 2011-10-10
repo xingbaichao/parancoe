@@ -194,5 +194,6 @@
         <module>parancoe-plugin-dwr</module>
         <module>parancoe-plugin-springsecurity</module>
         <module>parancoe-plugin-tiles</module>
-    </modules>
+    <module>parancoe-plugin-springsecurity-evolution</module>
+  </modules>
 </project>
