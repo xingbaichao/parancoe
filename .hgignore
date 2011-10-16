@@ -30,3 +30,7 @@ syntag: regexp
 ^.idea
 .idea
 .iml
+.project
+.classpath
+.settings
+
