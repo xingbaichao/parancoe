@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Plugin Spring Security.
+ * This file is part of Parancoe Plugin Spring Security Evolution.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
