@@ -88,4 +88,20 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>            
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/META-INF/spring.handlers</exclude>
+                        <exclude>**/META-INF/spring.schemas</exclude>
+                        <exclude>**/META-INF/parancoe.tld</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

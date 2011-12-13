@@ -14,6 +14,7 @@
     <url>http://www.parancoe.org</url>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
+        <parancoe.springsecurity.version>3.0.3.RELEASE</parancoe.springsecurity.version>
     </properties>
     <build>
         <finalName>parancoe-plugin-springsecurity</finalName>
@@ -23,7 +24,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>3.0.3.RELEASE</version>
+            <version>${parancoe.springsecurity.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -71,7 +72,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>3.0.3.RELEASE</version>
+            <version>${parancoe.springsecurity.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -119,7 +120,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>3.0.3.RELEASE</version>
+            <version>${parancoe.springsecurity.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>

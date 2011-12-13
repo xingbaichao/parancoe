@@ -28,7 +28,7 @@
             attributeFormDefault="unqualified">
     
     <xsd:import namespace="http://www.springframework.org/schema/beans"
-            schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+            schemaLocation="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
     />
     
     <xsd:element name="define-controllers">
