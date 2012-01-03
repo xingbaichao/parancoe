@@ -180,10 +180,14 @@ abstract class State {
             return new Long(value.toString());
         else if (type == Short.class || type == Short.TYPE)
             return new Short(value.toString());
+        else if (type == Byte.class || type == Byte.TYPE)
+            return new Byte(value.toString());
         else if (type == Double.class || type == Double.TYPE)
             return new Double(value.toString());
+        else if (type == Float.class || type == Float.TYPE)
+            return new Float(value.toString());
         else if (type == Boolean.class || type == Boolean.TYPE)
-            return new Boolean(value.toString());
+            return Boolean.parseBoolean(value.toString());
         else if (type == BigDecimal.class)
             return new BigDecimal((String) value);
         else if (type == BigInteger.class)
