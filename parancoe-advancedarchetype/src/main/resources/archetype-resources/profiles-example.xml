@@ -1,0 +1,83 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Project-local overrides to the build process based on detected or user-provided environmental parameters.
+-->
+<profilesXml xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/profiles-1.0.0.xsd">
+   <profiles>
+       <profile>
+           <id>${artifactId}_base</id>
+           <activation>
+               <activeByDefault>false</activeByDefault>
+           </activation>
+           <properties>
+               <app.datasource.driver>org.hsqldb.jdbcDriver</app.datasource.driver>
+               <app.datasource.url>jdbc:hsqldb:mem:${artifactId}-web</app.datasource.url>
+               <app.datasource.username>sa</app.datasource.username>
+               <app.datasource.password></app.datasource.password>
+               <app.hibernate.show_sql>true</app.hibernate.show_sql>
+               <app.log.console.level>INFO</app.log.console.level>
+               <app.log.file.level>DEBUG</app.log.file.level>
+               <app.log.rootdir>/tmp/log-${artifactId}</app.log.rootdir>
+               <log4j.logger.org.parancoe>INFO</log4j.logger.org.parancoe>
+               <log4j.logger.${package}.web>DEBUG</log4j.logger.${package}.web>
+           </properties>
+       </profile>
+       <profile>
+           <id>${artifactId}_log_unix</id>
+           <activation>
+               <activeByDefault>false</activeByDefault>
+           </activation>
+           <properties>
+               <app.log.rootdir>/tmp/log-${artifactId}</app.log.rootdir>
+           </properties>
+       </profile>
+       <profile>
+           <id>${artifactId}_log_windows</id>
+           <activation>
+               <activeByDefault>false</activeByDefault>
+           </activation>
+           <properties>
+               <app.log.rootdir>c:/temp/log-${artifactId}</app.log.rootdir>
+           </properties>
+       </profile>
+       <profile>
+           <id>${artifactId}_log</id>
+           <activation>
+               <activeByDefault>true</activeByDefault>
+           </activation>
+           <properties>
+               <app.log.file.${artifactId}-web>${symbol_dollar}{app.log.rootdir}/${artifactId}-web.log</app.log.file.${artifactId}-web>
+           </properties>
+       </profile>
+       <profile>
+           <id>jboss_deploy</id>
+           <activation>
+               <activeByDefault>false</activeByDefault>
+           </activation>
+           <properties>
+               <app.datasource>java:jdbc/${artifactId}-webDS</app.datasource>
+           </properties>
+       </profile>
+       <profile>
+           <id>tomcat_deploy</id>
+           <activation>
+               <activeByDefault>false</activeByDefault>
+           </activation>
+           <properties>
+               <app.datasource>java:comp/env/jdbc/${artifactId}-webDS</app.datasource>
+           </properties>
+       </profile>
+   </profiles>
+
+   <activeProfiles>
+       <activeProfile>${artifactId}_base</activeProfile>
+       <activeProfile>${artifactId}_log_unix</activeProfile>
+       <activeProfile>tomcat_deploy</activeProfile>
+   </activeProfiles>
+
+</profilesXml>

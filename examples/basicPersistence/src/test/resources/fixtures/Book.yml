@@ -1,0 +1,15 @@
+- &Book-Concurrent
+  author: "Doug Lea"
+  title: "Concurrent programming in java second edition"
+  borrower: *Person-ugo
+  numPages: 411
+- &Book-Pensieri
+  author: "Marco Rossi"
+  title: "Pensieri in libertà"
+  borrower: *Person-ugo
+  numPages: 200
+- &Book-LaBicicletta
+  author: "Dino Donanti"
+  title: "Risparmiare usando la bici"
+  borrower: *Person-lucio
+  numPages: 234
