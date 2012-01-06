@@ -34,23 +34,16 @@
     <!-- Authomatic DAO definition from persistent classes -->
     <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.securityevolution"/>
 
-    <!-- ContextListener specifico per questo plugin -->
-    <!--<bean id="pluginSecurityContextListener" class="org.parancoe.plugins.security.PopulateData"/>-->
 
     <http auto-config="true">
         <intercept-url pattern="/*" access="ROLE_USER"/>
     </http>
-    <!-- <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user authorities="ROLE_USER" name="guest" password="guest"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager> -->
+
     
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref = "userDetailsService" />
     </authentication-manager>
+    <beans:bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
     
     
 
@@ -72,16 +65,7 @@
             </beans:list>
         </beans:property>
     </beans:bean>
-    
-    <!-- to check -->
-    
-    <beans:bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
-<!--  usato da benfante -->
-<!--     
-<beans:bean id="authenticationUserDetailsService"
-        class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
-        <beans:property name="userDetailsService" ref="userDetailsService"/>
-    </beans:bean> 
-    -->
+
+
     
 </beans:beans>
