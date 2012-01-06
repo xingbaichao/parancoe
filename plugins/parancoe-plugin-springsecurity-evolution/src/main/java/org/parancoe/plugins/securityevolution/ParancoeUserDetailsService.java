@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,12 +45,13 @@ public class ParancoeUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(java.lang.String username)
 			throws UsernameNotFoundException, DataAccessException {
 		
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		
 		org.parancoe.plugins.securityevolution.User user = userDao.findByUsername(username);
 		if (user == null)
 			throw new UsernameNotFoundException("username "+username+" not found in the system");
-		// TODO Auto-generated method stub
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), false, false, false, authorities);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new GrantedAuthorityImpl("ROLE_PARANCOE"));
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, !user.isLocked(), authorities);
 	}
 
 }

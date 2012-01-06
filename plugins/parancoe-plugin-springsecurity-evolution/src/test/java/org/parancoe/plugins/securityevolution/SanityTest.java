@@ -37,10 +37,10 @@ public class SanityTest extends PluginTest {
 
         assertNotNull(applicationContextPlugin);
         String[] beansDefinition = applicationContext.getBeanDefinitionNames();
-       /* for(String s:beansDefinition)
+       for(String s:beansDefinition)
         {
             System.out.println("bean: "+s);
-        }*/
+        }
     }
     
     @Override

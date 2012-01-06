@@ -46,6 +46,8 @@ public class User extends EntityBase {
     private String password = null;
     private String oldPassword = null;
     private boolean enabled = true;
+    
+    private boolean locked = true;
 
     /**
      * Empty constructor
@@ -98,4 +100,17 @@ public class User extends EntityBase {
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
+
+
+	
+
+
+	public boolean isLocked() {
+		return locked;
+	}
+
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
 }
