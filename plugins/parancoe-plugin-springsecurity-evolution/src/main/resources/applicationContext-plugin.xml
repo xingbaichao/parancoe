@@ -33,7 +33,14 @@
     <lambico:discover-persistent-classes basePackage="org.parancoe.plugins.securityevolution"/>
     <!-- Authomatic DAO definition from persistent classes -->
     <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.securityevolution"/>
-
+    
+    <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
+    
+    <beans:bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
+                <beans:property name="userPropertyToUse" value="getUsername"/>
+     </beans:bean>
+     
+     <beans:bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
 
     <http auto-config="true">
         <intercept-url pattern="/*" access="ROLE_USER"/>
@@ -41,9 +48,13 @@
 
     
     <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref = "userDetailsService" />
+        <authentication-provider user-service-ref = "userDetailsService" >
+        	<password-encoder ref="passwordEncoder">
+        		<salt-source ref="saltSource" />
+        	</password-encoder>
+        </authentication-provider>
     </authentication-manager>
-    <beans:bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
+    
     
     
 
