@@ -17,6 +17,8 @@
  */
 package org.parancoe.plugins.securityevolution;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -31,19 +33,34 @@ import org.springframework.security.core.Authentication;
 public class EntitiesTest extends PluginTest {
 	@Resource
 	private GroupDao groupDao;
+	@Resource
+	private AuthorityDao authorityDao;
 	
 	@Test
 	public void testGroup() {		
 		Group groupBasic = groupDao.findByName("basic");
 		assertEquals(3, groupBasic.getUsers().size());
+		assertEquals(1, groupBasic.getAuthorities().size());
 		Group groupAdmin = groupDao.findByName("admin");
 		assertEquals(1, groupAdmin.getUsers().size());
+		assertEquals(2, groupAdmin.getAuthorities().size());			
+	}
+	
+	@Test
+	public void testFindAllAuthoritiesAssociatedToUsername() {		
+		List<Authority> authorities = authorityDao.findAllAuthoritiesAssociatedToUsername("parancoe");
+		assertEquals(1, authorities.size());
+		assertEquals("ROLE_READ", authorities.get(0).getRole());
+		
+		authorities = authorityDao.findAllAuthoritiesAssociatedToUsername("admin");
+		assertEquals(2, authorities.size());
+		
 	}
 
 	@Override
 	public Class[] getFixtureClasses() {
 		// TODO Auto-generated method stub
-		return new Class[]{Group.class, User.class};
+		return new Class[]{Authority.class, Group.class, User.class};
 	}
 
 }

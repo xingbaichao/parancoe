@@ -17,11 +17,16 @@
  */
 package org.parancoe.plugins.securityevolution;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -44,10 +49,14 @@ public class ParancoeUserDetailsServiceTest  extends PluginTest {
 	 */
 	@Test
 	public void testLoadUserByUsername() {
-		UserDetails enricoUD = parancoeUserDetailsService.loadUserByUsername(USERNAME);
-		assertEquals(USERNAME, enricoUD.getUsername());
+		UserDetails parancoeUD = parancoeUserDetailsService.loadUserByUsername(USERNAME);
+		assertEquals(USERNAME, parancoeUD.getUsername());
 		//assertEquals(PWD, enricoUD.getPassword());
-		assertTrue(enricoUD.isEnabled());
+		assertTrue(parancoeUD.isEnabled());
+		
+		List<GrantedAuthority> listGA = new ArrayList<GrantedAuthority>(parancoeUD.getAuthorities());	
+		assertEquals(1, listGA.size());
+		assertEquals("ROLE_READ", listGA.get(0).getAuthority());
 	}
 	
 	@Test
@@ -63,8 +72,9 @@ public class ParancoeUserDetailsServiceTest  extends PluginTest {
 	}
 	
 	@Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{User.class,};
-    }
+	public Class[] getFixtureClasses() {
+		// TODO Auto-generated method stub
+		return new Class[]{Authority.class, Group.class, User.class};
+	}
 
 }

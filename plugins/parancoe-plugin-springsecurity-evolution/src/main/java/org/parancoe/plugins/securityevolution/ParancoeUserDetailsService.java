@@ -18,6 +18,7 @@
 package org.parancoe.plugins.securityevolution;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,26 +33,46 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author EGiurin
- *
+ * 
  */
 public class ParancoeUserDetailsService implements UserDetailsService {
 	@Resource
 	private UserDao userDao;
+	@Resource
+	private AuthorityDao authorityDao;
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.security.core.userdetails.UserDetailsService#
+	 * loadUserByUsername(java.lang.String)
 	 */
 	@Override
 	public UserDetails loadUserByUsername(java.lang.String username)
 			throws UsernameNotFoundException, DataAccessException {
-		
-		
-		org.parancoe.plugins.securityevolution.User user = userDao.findByUsername(username);
+
+		org.parancoe.plugins.securityevolution.User user = userDao
+				.findByUsername(username);
 		if (user == null)
-			throw new UsernameNotFoundException("username "+username+" not found in the system");
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		authorities.add(new GrantedAuthorityImpl("ROLE_PARANCOE"));
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, !user.isLocked(), authorities);
+			throw new UsernameNotFoundException("username " + username
+					+ " not found in the system");
+		List<Authority> authorities = authorityDao
+				.findAllAuthoritiesAssociatedToUsername(username);
+		return new User(user.getUsername(), user.getPassword(),
+				user.isEnabled(), true, true, !user.isLocked(),
+				authorities2GrantedAuthorities(authorities));
+	}
+
+	// TODO evaluate if there is a smarter way to convert a list...
+	private List<GrantedAuthority> authorities2GrantedAuthorities(
+			List<Authority> authorites) {
+		List<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
+		if ((authorites == null) || (authorites.size() == 0))
+			return result;
+		for (Authority a : authorites) {
+			result.add(new GrantedAuthorityImpl(a.getRole()));
+		}
+		return result;
 	}
 
 }

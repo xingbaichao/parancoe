@@ -16,16 +16,8 @@
 # limitations under the License.
 #
 
-- &Group-basic
-  name: basic
-  description: authenticated users with basic roles
-  authorities: 
-    - *Authority-read
-
-- &Group-admin
-  name: admin
-  description: authenticated users with admin roles
-  authorities: 
-    - *Authority-read
-    - *Authority-write
+- &Authority-read
+  role: ROLE_READ
   
+- &Authority-write
+  role: ROLE_WRITE
