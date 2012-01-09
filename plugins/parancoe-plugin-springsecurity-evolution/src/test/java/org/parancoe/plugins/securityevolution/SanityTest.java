@@ -17,6 +17,7 @@
  */
 package org.parancoe.plugins.securityevolution;
 
+import org.apache.log4j.Logger;
 import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.plugin.WebPlugin;
 import org.parancoe.web.test.PluginTest;
@@ -26,6 +27,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import javax.annotation.Resource;
 
 public class SanityTest extends PluginTest {
+	private static Logger logger = Logger.getLogger(
+			SanityTest.class);
 
 
 
@@ -34,12 +37,10 @@ public class SanityTest extends PluginTest {
         
     /* test everything has been loaded properly */
     public void testSanity() {
-
-        assertNotNull(applicationContextPlugin);
-        String[] beansDefinition = applicationContext.getBeanDefinitionNames();
-       for(String s:beansDefinition)
+       assertNotNull(applicationContextPlugin);       
+       for(String s:applicationContext.getBeanDefinitionNames())
         {
-            System.out.println("bean: "+s);
+    	   logger.debug("bean: "+s);
         }
     }
     

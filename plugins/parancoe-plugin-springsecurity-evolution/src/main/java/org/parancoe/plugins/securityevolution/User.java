@@ -39,10 +39,10 @@ import org.lambico.po.hibernate.EntityBase;
 @javax.persistence.Entity
 @javax.persistence.Table(name = "psec_user")
 @NamedQueries(value = {
-    @NamedQuery(name = "User.findByPartialUsername",
-    query =
-    "from User u where upper(u.username) like concat(concat('%', upper(?)), '%')")
-})
+	    @NamedQuery(name = "User.findByPartialUsername",
+	    query =
+	    "from User u where upper(u.username) like concat(concat('%', upper(?)), '%')")
+	})
 public class User extends EntityBase {
 
     private static final long serialVersionUID = 832363948575562242L;
@@ -120,7 +120,7 @@ public class User extends EntityBase {
 
 	@ManyToMany
     @ForeignKey(name = "none", inverseName = "none")
-    @JoinTable(name = "user_group",
+    @JoinTable(name = "psec_user_group",
     joinColumns = {
         @JoinColumn(name = "user_id")},
     inverseJoinColumns = {

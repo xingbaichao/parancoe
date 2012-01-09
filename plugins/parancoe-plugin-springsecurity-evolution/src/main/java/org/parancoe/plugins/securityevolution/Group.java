@@ -37,14 +37,27 @@ import org.lambico.po.hibernate.EntityBase;
 public class Group extends EntityBase {
 
 	
+	public Group(String name) {
+		super();
+		this.name = name;
+	}
+	
+	public Group() {
+		super();
+		
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5108134108202277240L;
 	
-	private List<User> users = new ArrayList<User>();
+	
+	
 	private String name;
 	private String description;
+	private List<User> users = new ArrayList<User>();
+	private List<Authority> authorities = new ArrayList<Authority>();
 	
 	@ManyToMany(mappedBy="groups")
 	@ForeignKey(name = "none", inverseName = "none")
@@ -70,6 +83,21 @@ public class Group extends EntityBase {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@ManyToMany
+    @ForeignKey(name = "none", inverseName = "none")
+    @JoinTable(name = "psec_group_authority",
+    joinColumns = {
+        @JoinColumn(name = "group_id")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "authority_id")})
+	public List<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 }
