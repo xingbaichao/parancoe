@@ -50,8 +50,7 @@
                 </prop>
                 <prop key="hibernate.hbm2ddl.auto">create
                 </prop>
-                <prop key="hibernate.show_sql">false
-                </prop>
+                <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
     </bean>
