@@ -17,6 +17,10 @@
  */
 package org.parancoe.plugins.securityevolution;
 
+import java.util.List;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,9 +49,9 @@ public class User extends EntityBase {
     private String username = null;
     private String password = null;
     private String oldPassword = null;
-    private boolean enabled = true;
-    
+    private boolean enabled = true;    
     private boolean locked = true;
+    private List<Group> groups;
 
     /**
      * Empty constructor
@@ -112,5 +116,21 @@ public class User extends EntityBase {
 
 	public void setLocked(boolean locked) {
 		this.locked = locked;
+	}
+
+	@ManyToMany
+    @ForeignKey(name = "none", inverseName = "none")
+    @JoinTable(name = "user_group",
+    joinColumns = {
+        @JoinColumn(name = "user_id")},
+    inverseJoinColumns = {
+        @JoinColumn(name = "group_id")})
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
 	}
 }
