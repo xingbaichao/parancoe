@@ -14,7 +14,7 @@
   <url>http://www.parancoe.org</url>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
-        <parancoe.springsecurity.version>3.0.7.RELEASE</parancoe.springsecurity.version>
+        <parancoe.springsecurity.version>3.1.0.RELEASE</parancoe.springsecurity.version>
     </properties>
   <dependencies>
     <dependency>
