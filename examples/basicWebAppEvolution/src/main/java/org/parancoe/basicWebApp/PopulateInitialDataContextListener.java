@@ -5,8 +5,8 @@ package org.parancoe.basicWebApp;
  * and open the template in the editor.
  */
 
-import org.parancoe.plugins.security.Authority;
-import org.parancoe.plugins.security.User;
+import org.parancoe.plugins.securityevolution.Authority;
+import org.parancoe.plugins.securityevolution.User;
 
 /**
  *
