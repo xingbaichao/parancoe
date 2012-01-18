@@ -22,7 +22,7 @@
   enabled: true  
   locked: false
   groups: 
-    - *Group-basic
+    - *Group-user
 
   
 - &User-locked
@@ -31,7 +31,7 @@
   enabled: true
   locked: true 
   groups: 
-    - *Group-basic
+    - *Group-user
    
 - &User-admin
   username: admin
@@ -39,6 +39,5 @@
   enabled: true
   locked: true 
   groups: 
-    - *Group-basic
-    - *Group-admin
+    - *Group-administrator
     
