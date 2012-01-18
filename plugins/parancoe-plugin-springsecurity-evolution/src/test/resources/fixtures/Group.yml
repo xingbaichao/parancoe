@@ -16,16 +16,16 @@
 # limitations under the License.
 #
 
-- &Group-basic
-  name: basic
+- &Group-user
+  name: user
   description: authenticated users with basic roles
   authorities: 
-    - *Authority-read
+    - *Authority-user
 
-- &Group-admin
-  name: admin
+- &Group-administrator
+  name: administrator
   description: authenticated users with admin roles
   authorities: 
-    - *Authority-read
-    - *Authority-write
+    - *Authority-user
+    - *Authority-admin
   
