@@ -87,7 +87,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.6</version>
+                <version>5.1.13</version>
             </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>
@@ -151,7 +151,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>

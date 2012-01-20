@@ -23,6 +23,7 @@ import org.parancoe.web.plugin.WebPlugin;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import javax.annotation.Resource;
 
@@ -38,9 +39,11 @@ public class SanityTest extends PluginTest {
     /* test everything has been loaded properly */
     public void testSanity() {
        assertNotNull(applicationContextPlugin);       
+       
+       
        for(String s:applicationContext.getBeanDefinitionNames())
         {
-    	   logger.debug("bean: "+s);
+    	   logger.debug("bean: "+s+" - class: "+applicationContext.getType(s));
         }
     }
     
