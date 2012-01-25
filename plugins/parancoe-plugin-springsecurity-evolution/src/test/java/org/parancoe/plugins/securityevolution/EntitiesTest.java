@@ -38,10 +38,10 @@ public class EntitiesTest extends PluginTest {
 	
 	@Test
 	public void testGroup() {		
-		Group groupBasic = groupDao.findByName("basic");
-		assertEquals(3, groupBasic.getUsers().size());
+		Group groupBasic = groupDao.findByName("user");
+		assertEquals(2, groupBasic.getUsers().size());
 		assertEquals(1, groupBasic.getAuthorities().size());
-		Group groupAdmin = groupDao.findByName("admin");
+		Group groupAdmin = groupDao.findByName("administrator");
 		assertEquals(1, groupAdmin.getUsers().size());
 		assertEquals(2, groupAdmin.getAuthorities().size());			
 	}
@@ -50,7 +50,7 @@ public class EntitiesTest extends PluginTest {
 	public void testFindAllAuthoritiesAssociatedToUsername() {		
 		List<Authority> authorities = authorityDao.findAllAuthoritiesAssociatedToUsername("parancoe");
 		assertEquals(1, authorities.size());
-		assertEquals("ROLE_READ", authorities.get(0).getRole());
+		assertEquals("ROLE_USER", authorities.get(0).getRole());
 		
 		authorities = authorityDao.findAllAuthoritiesAssociatedToUsername("admin");
 		assertEquals(2, authorities.size());

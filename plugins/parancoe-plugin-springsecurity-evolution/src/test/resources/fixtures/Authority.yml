@@ -16,8 +16,8 @@
 # limitations under the License.
 #
 
-- &Authority-read
-  role: ROLE_READ
+- &Authority-user
+  role: ROLE_USER
   
-- &Authority-write
-  role: ROLE_WRITE
+- &Authority-admin
+  role: ROLE_ADMIN

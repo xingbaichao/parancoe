@@ -18,15 +18,15 @@
     limitations under the License.
 
 -->
-<beans:beans xmlns:="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
+<beans xmlns:="http://www.springframework.org/schema/beans"
+             xmlns:security="http://www.springframework.org/schema/security"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:lambico="http://www.lambico.org/schema/lambico"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-        http://www.springframework.org/schema/security 	http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+        http://www.springframework.org/schema/security 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
     <!-- Authomatic discovering of persistent classes -->
@@ -34,26 +34,46 @@
     <!-- Authomatic DAO definition from persistent classes -->
     <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.securityevolution"/>
     
-    <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
     
-    <beans:bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
-                <beans:property name="userPropertyToUse" value="getUsername"/>
-     </beans:bean>
+    
+    <!-- Security configuration -->
+    
+    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
+    
+    <bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
+                <property name="userPropertyToUse" value="getUsername"/>
+     </bean>
      
-     <beans:bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
-
-    <http auto-config="true">
-        <intercept-url pattern="/*" access="ROLE_USER"/>
-    </http>
-
+    <bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
     
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref = "userDetailsService" >
-        	<password-encoder ref="passwordEncoder">
-        		<salt-source ref="saltSource" />
-        	</password-encoder>
-        </authentication-provider>
-    </authentication-manager>
+
+     <!-- <security:http auto-config="true" pattern="/admin/**"  use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
+        <security:intercept-url pattern="*" access="hasRole('ROLE_ADMIN')"/>
+    </security:http> -->
+
+	<!--  
+     <security:http auto-config="true" pattern="/pages/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
+        <security:intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
+    </security:http> -->
+    
+  
+  
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref = "userDetailsService" >
+        	<security:password-encoder ref="passwordEncoder">
+        		<security:salt-source ref="saltSource" />
+        	</security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean class="org.springframework.security.access.vote.UnanimousBased" id="accessDecisionManager">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="webExpressionVoter"/>				
+			</list>
+		</property>
+	</bean>
+	<bean id="webExpressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter" />
     
     
     
@@ -65,18 +85,18 @@
     <!--                           -->
 
     <!-- ContextListener specifico per questo plugin -->
-    <beans:bean id="pluginSecurityContextListener" class="org.parancoe.plugins.securityevolution.PopulateData"/>
+    <bean id="pluginSecurityContextListener" class="org.parancoe.plugins.securityevolution.PopulateData"/>
 
 
-    <beans:bean id="applicationContextpluginSecurityEvolutionConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
-        <beans:property name="name" value="parancoe-plugin-spingsecurityevolution"/>
-        <beans:property name="contextLoaderListeners">
-            <beans:list>
-                <beans:ref bean="pluginSecurityContextListener"/>
-            </beans:list>
-        </beans:property>
-    </beans:bean>
+    <bean id="applicationContextpluginSecurityEvolutionConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+        <property name="name" value="parancoe-plugin-spingsecurityevolution"/>
+        <property name="contextLoaderListeners">
+            <list>
+                <ref bean="pluginSecurityContextListener"/>
+            </list>
+        </property>
+    </bean>
 
 
     
-</beans:beans>
+</beans>
