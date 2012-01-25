@@ -7,15 +7,18 @@
     <groupId>org.parancoe</groupId>
     <version>3.0-SNAPSHOT</version>
   </parent>
-  <groupId>org.parancoe.plugins.securityevolution</groupId>
+  <groupId>org.parancoe</groupId>
   <artifactId>parancoe-plugin-springsecurity-evolution</artifactId>
   <version>3.0-SNAPSHOT</version>
   <name>Parancoe Plugin Spring Security Evolution</name>
   <url>http://www.parancoe.org</url>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
-        <parancoe.springsecurity.version>3.0.7.RELEASE</parancoe.springsecurity.version>
+        <parancoe.springsecurity.version>3.1.0.RELEASE</parancoe.springsecurity.version>
     </properties>
+    <build>
+        <finalName>parancoe-plugin-springsecurity-evolution</finalName>
+    </build>
   <dependencies>
     <dependency>
             <groupId>org.springframework.security</groupId>

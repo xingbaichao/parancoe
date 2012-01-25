@@ -8,7 +8,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-       http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+       http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.1.xsd
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
     
     <context:component-scan base-package="org.parancoe.basicWebApp.ajaxblo"/>
@@ -21,12 +21,21 @@
     </bean>-->
      
     <!-- begin security section -->
+    <sec:http auto-config="true" pattern="/people/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
+        <sec:intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
+    </sec:http>
+    
+    <sec:http auto-config="true" pattern="/admin/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
+        <sec:intercept-url pattern="*" access="hasRole('ROLE_ADMIN')"/>
+    </sec:http>
+    <!-- 
     <sec:filter-security-metadata-source id="pluginSecurityFilterDefinitions" lowercase-comparisons="true" path-type="ant">
         <sec:intercept-url pattern="/r/person/**" access="ROLE_ADMIN, ROLE_PARANCOE"/>
         <sec:intercept-url pattern="/people/**" access="ROLE_ADMIN, ROLE_PARANCOE"/>
         <sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
         <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
     </sec:filter-security-metadata-source>
+     -->
     <!-- end security section -->
         
     <!-- begin dwr section -->

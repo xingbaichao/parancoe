@@ -56,7 +56,7 @@ public class ParancoeUserDetailsServiceTest  extends PluginTest {
 		
 		List<GrantedAuthority> listGA = new ArrayList<GrantedAuthority>(parancoeUD.getAuthorities());	
 		assertEquals(1, listGA.size());
-		assertEquals("ROLE_READ", listGA.get(0).getAuthority());
+		assertEquals("ROLE_USER", listGA.get(0).getAuthority());
 	}
 	
 	@Test
