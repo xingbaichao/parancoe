@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xml:id="plugins-italy"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+    http://www.w3.org/2001/XInclude http://www.w3.org/2001/XInclude.xsd
+    http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+    <title>Italy</title>
+    <para>This plugin provides the data of the italian regions, provinces and municipalities.</para>
+    <section>
+        <title>How to add the plugin to your application</title>
+        <para>For adding the Italy plugin to your application, if your are using Maven,
+    simply add the plugin dependency to your
+            <filename>pom.xml</filename>
+        </para>
+        <example>
+            <title>Italy plugin dependency</title>
+            <programlisting><![CDATA[<dependency>
+    <groupId>org.parancoe</groupId>
+    <artifactId>parancoe-plugin-italy</artifactId>
+    <version>2.0.1</version>
+</dependency>]]>
+            </programlisting>
+        </example>
+    </section>
+    <section>
+        <title>A simple example</title>
+        <para>The plugin provides persistent classes and a DAOs for accessing the italian data.
+        For example, for retrieving the list of all italian regions:
+        </para>
+        <example>
+            <title>A class using the RegioneDao</title>
+            <programlisting><![CDATA[package com.mycompany.testapp.blo;
+
+import java.util.List;
+import javax.annotation.Resource;
+import org.parancoe.plugins.italy.Regione;
+import org.parancoe.plugins.italy.RegioneDao;
+import org.springframework.stereotype.Component;
+
+@Component
+public class RegionalBusiness {
+
+    @Resource
+    private RegioneDao regioneDao;
+
+    public List<Regione> retriveAllRegions() {
+        return regioneDao.findAll();
+    }
+}]]>
+            </programlisting>
+        </example>
+        <para>For checking if the plugin is working, you can write a simple test of the previous class:</para>
+        <example>
+            <title>A test for the class of the example</title>
+            <programlisting><![CDATA[package com.mycompany.testapp.blo;
+
+import java.util.List;
+import org.parancoe.plugins.italy.Comune;
+import org.parancoe.plugins.italy.Procura;
+import org.parancoe.plugins.italy.Provincia;
+import org.parancoe.plugins.italy.Regione;
+import org.parancoe.web.test.BaseTest;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class RegionalBusinessTest extends BaseTest {
+
+    @Autowired
+    private RegionalBusiness regionalBusiness;
+
+    public void testRetriveAllRegions() {
+        List<Regione> result = regionalBusiness.retriveAllRegions();
+        assertSize(20, result);
+    }
+
+    @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{Regione.class, Provincia.class, Comune.class,
+                    Procura.class
+                };
+    }
+}]]>
+            </programlisting>
+        </example>
+    </section>
+</section>
