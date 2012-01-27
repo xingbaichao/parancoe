@@ -1,0 +1,3 @@
+# MICHELE :
+- Non funziona con le inner classes !!
+- Se il documento è vuoto non ritorna il tipo indicato nella prima riga ma un'hashmap

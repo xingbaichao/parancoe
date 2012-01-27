@@ -1,0 +1,1658 @@
+#
+# Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+#
+# This file is part of Parancoe Plugin Italy.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+-
+  cap: 60121
+  comune: ANCONA
+  indirizzo: "Corso Mazzini, 95"
+  mail: procura.ancona@giustizia.it
+  nome: ANCONA
+  provincia: AN
+  telefono: "071 - 5062059"
+  referente: "Cancelliere Cice Loriana"
+-
+  cap: 63100
+  comune: ASCOLI PICENO
+  indirizzo: "Piazza Orlini, 1"
+  mail: procura.ascolipiceno@giustizia.it
+  nome: ASCOLI PICENO
+  provincia: AP
+  telefono: "0736 - 271297"
+
+-
+  cap: 62032
+  comune: CAMERINO
+  indirizzo: "Piazza Mazzini, 6"
+  mail: procura.camerino@giustizia.it
+  nome: CAMERINO
+  provincia: MC
+  telefono: "0737 - 6351 (centralino), 0737 - 635250 (ufficio informazioni)"
+
+
+-
+  cap: 63023
+  comune: FERMO
+  indirizzo: "Corso Cavour, 51"
+  mail: procura.fermo@giustizia.it
+  nome: FERMO
+  provincia: AP
+  telefono: "0734 - 282208"
+
+
+-
+  cap: 62100
+  comune: MACERATA
+  indirizzo: "Via Pesaro, 6"
+  mail: procura.macerata@giustizia.it
+  nome: MACERATA
+  provincia: MC
+  telefono: "0733 - 2521"
+
+-
+  cap: 61100
+  comune: PESARO
+  indirizzo: "Piazzale Carducci, 12"
+  mail: procura.pesaro@giustizia.it
+  nome: PESARO
+  provincia: PS
+  telefono: "0721 - 6971 (centralino) , 0721-697272 (ricezione atti) , 0721 - 697344 (casellario giudiziale)"
+
+-
+  cap: 61029
+  comune: URBINO
+  indirizzo: "Via Raffaello, 28"
+  mail: procura.urbino@giustizia.it
+  nome: URBINO
+  provincia: PS
+  telefono: "0722 - 2963"
+
+
+-
+  cap: 70100
+  comune: BARI
+  indirizzo: "Via Nazariantz, 1"
+  mail: procura.bari@giustizia.it
+  nome: BARI
+  provincia: BA
+  telefono: "080 - 5270111 (centralino)"
+  referente: "Sig.ra Cipolla"
+-
+  cap: 71100
+  comune: FOGGIA
+  indirizzo: "Viale I Maggio"
+  mail: procura.foggia@giustizia.it
+  nome: FOGGIA
+  provincia: FG
+  telefono: "0881 - 660111 (centralino)"
+  titoloReferente: Ufficio Casellario Giudiziale
+  referente: "Sig.ra Maraschiello"
+-
+  cap: 71036
+  comune: LUCERA
+  indirizzo: "Piazza Tribunali, 1"
+  mail: procura.lucera@giustizia.it
+  nome: LUCERA
+  provincia: FG
+  telefono: "0881 - 544216 / 223"
+
+-
+  cap: 70059
+  comune: TRANI
+  indirizzo: "Piazza Duomo, 10"
+  mail: procura.trani@giustizia.it
+  nome: TRANI
+  provincia: BA
+  telefono: "0883 - 505111"
+
+-
+  cap: 40137
+  comune: BOLOGNA
+  indirizzo: "Piazza Trento e Trieste, 3"
+  mail: procura.bologna@giustizia.it
+  nome: BOLOGNA
+  provincia: BO
+  telefono: "051 - 201111"
+  titoloReferente: Segreteria Civile
+
+-
+  cap: 44100
+  comune: FERRARA
+  indirizzo: "Via Mentessi, 9"
+  mail: procura.ferrara@giustizia.it
+  nome: FERRARA
+  provincia: FE
+  telefono: "0532 - 232700 (centralino)"
+
+
+-
+  cap: 47100
+  comune: FORLI'
+  indirizzo: "Piazza Cesare Beccaria, 1"
+  mail: procura.forli@giustizia.it
+  nome: FORLI'
+  provincia: FO
+  telefono: "0543 - 717111"
+
+  referente: "Dott. Zinti"
+-
+  cap: 41100
+  comune: MODENA
+  indirizzo: "Corso Canal Grande, 77"
+  mail: procura.modena@giustizia.it
+  nome: MODENA
+  provincia: MO
+  telefono: "059 - 2131111"
+
+-
+  cap: 43100
+  comune: PARMA
+  indirizzo: "Vicolo san Marcellino, 5"
+  mail: procura.parma@giustizia.it
+  nome: PARMA
+  provincia: PR
+  telefono: "0521 - 031400 / 491"
+
+  referente: "Dott. Gelli"
+-
+  cap: 29100
+  comune: PIACENZA
+  indirizzo: "Via del Consiglio, 15"
+  mail: procura.piacenza@giustizia.it
+  nome: PIACENZA
+  provincia: PC
+  telefono: "0523 - 347611 (centralino)"
+
+-
+  cap: 48100
+  comune: RAVENNA
+  indirizzo: "Viale Giovanni Falcone, 67"
+  mail: procura.ravenna@giustizia.it
+  nome: RAVENNA
+  provincia: RA
+  telefono: "0544 - 511611"
+
+-
+  cap: 42100
+  comune: REGGIO NELL'EMILIA
+  indirizzo: "Via Paterlini, 1"
+  mail: procura.reggioemilia@giustizia.it
+  nome: REGGIO NELL'EMILIA
+  provincia: RE
+  telefono: "0522 - 510611 (centralino)"
+  titoloReferente: Ufficio Dirigente della Procura
+
+-
+  cap: 47900
+  comune: RIMINI
+  indirizzo: "Via C.A. Dalla Chiesa, 11"
+  mail: procura.rimini@giustizia.it
+  nome: RIMINI
+  provincia: RN
+  telefono: "0541 - 763411"
+
+  referente: "Cancelliere Nicolini"
+-
+  cap: 24100
+  comune: BERGAMO
+  indirizzo: "Piazza Dante Alighieri"
+  mail: procura.bergamo@giustizia.it
+  nome: BERGAMO
+  provincia: BG
+  telefono: "035 - 390111"
+
+
+-
+  cap: 25100
+  comune: BRESCIA
+  indirizzo: "Via Moretto, 78"
+  mail: procura.brescia@giustizia.it
+  nome: BRESCIA
+  provincia: BS
+  telefono: "030 - 3770157"
+
+  referente: "Elia Diodati"
+-
+  cap: 26013
+  comune: CREMA
+  indirizzo: "Via Macalle', 11/C"
+  mail: procura.crema@giustizia.it
+  nome: CREMA
+  provincia: CR
+  telefono: "0373 - 256492"
+
+
+-
+  cap: 26100
+  comune: CREMONA
+  indirizzo: "Via Jacini, 6/A"
+  mail: procura.cremona@giustizia.it
+  nome: CREMONA
+  provincia: CR
+  telefono: "0372 - 548233"
+
+
+-
+  cap: 46100
+  comune: MANTOVA
+  indirizzo: "Via Carlo Poma, 11"
+  mail: procura.mantova@giustizia.it
+  nome: MANTOVA
+  provincia: MN
+  telefono: "0376 - 3391 (centralino)"
+  titoloReferente: Servizi Affari Generali
+
+-
+  cap: 09125
+  comune: CAGLIARI
+  indirizzo: "Piazza Repubblica, 18"
+  mail: procura.cagliari@giustizia.it
+  nome: CAGLIARI
+  provincia: CA
+  telefono: "070 - 60221 (centralino)"
+
+  referente: "Cancelliere Onano"
+-
+  cap: 08045
+  comune: LANUSEI
+  indirizzo: "Via Marconi, 9"
+  mail: procura.lanusei@giustizia.it
+  nome: LANUSEI
+  provincia: OG
+  telefono: "0782 - 40157 (centralino)"
+
+
+-
+  cap: 09170
+  comune: ORISTANO
+  indirizzo: "Piazza Aldo Moro, s.n.c."
+  mail: procura.oristano@giustizia.it
+  nome: ORISTANO
+  provincia: OR
+  telefono: "0783 - 792399 (centralino)"
+
+
+-
+  cap: 93100
+  comune: CALTANISSETTA
+  indirizzo: "Via Libertà, 5 - Piazza Iacono"
+  mail: procura.caltanissetta@giustizia.it
+  nome: CALTANISSETTA
+  provincia: CL
+  telefono: "0934 - 71111 (centralino)"
+
+
+-
+  cap: 94100
+  comune: ENNA
+  indirizzo: "Via A. Diaz, 80"
+  mail: procura.enna@giustizia.it
+  nome: ENNA
+  provincia: EN
+  telefono: "0935 - 529111"
+
+  referente: "Dott. Manganaro"
+-
+  cap: 93012
+  comune: GELA
+  indirizzo: "Viale Mediterraneo,41"
+  mail: procura.gela@giustizia.it
+  nome: GELA
+  provincia: CL
+  telefono: "0933 - 923276"
+
+
+-
+  cap: 94014
+  comune: NICOSIA
+  indirizzo: "Via IV Novembre"
+  mail: procura.nicosia@giustizia.it
+  nome: NICOSIA
+  provincia: EN
+  telefono: "0935 - 632186"
+
+
+-
+  cap: 86100
+  comune: CAMPOBASSO
+  indirizzo: "Piazza Vittorio Emanuele"
+  mail: procura.campobasso@giustizia.it
+  nome: CAMPOBASSO
+  provincia: CB
+  telefono: "0874 - 4001 (centralino)"
+
+
+-
+  cap: 86019
+  comune: ISERNIA
+  indirizzo: "Palazzo di Giustizia - piazza Tedeschi, 50"
+  mail: procura.isernia@giustizia.it
+  nome: ISERNIA
+  provincia: IS
+  telefono: "0865 - 50906"
+
+
+-
+  cap: 86035
+  comune: LARINO
+  indirizzo: "Piazza del Popolo"
+  mail: procura.larino@giustizia.it
+  nome: LARINO
+  provincia: CB
+  telefono: "0874 - 821250 / 41"
+
+
+-
+  cap: 95041
+  comune: CALTAGIRONE
+  indirizzo: "Via Mario Milazzo"
+  mail: procura.caltagirone@giustizia.it
+  nome: CALTAGIRONE
+  provincia: CT
+  telefono: "0933 - 21073"
+
+
+-
+  cap: 95100
+  comune: CATANIA
+  indirizzo: "Piazza Verga"
+  mail: procura.catania@giustizia.it
+  nome: CATANIA
+  provincia: CT
+  telefono: "095 - 366111"
+
+  referente: "Cancelliere Carbone"
+-
+  cap: 97014
+  comune: MODICA
+  indirizzo: "Via Aldo Moro"
+  mail: procura.modica@giustizia.it
+  nome: MODICA
+  provincia: RG
+  telefono: "0932 - 458111 / 20 (centralino)"
+
+
+-
+  cap: 97100
+  comune: RAGUSA
+  indirizzo: "Via Natalelli"
+  mail: procura.ragusa@giustizia.it
+  nome: RAGUSA
+  provincia: RG
+  telefono: "0932 - 678111"
+
+  referente: "Dott. Parrino"
+-
+  cap: 96100
+  comune: SIRACUSA
+  indirizzo: "Viale S. Panagia"
+  mail: procura.siracusa@giustizia.it
+  nome: SIRACUSA
+  provincia: SR
+  telefono: "0931 - 752111"
+
+  referente: "Bordonali"
+-
+  cap: 87012
+  comune: CASTROVILLARI
+  indirizzo: "Via XX Settembre"
+  mail: procura.castrovillari@giustizia.it
+  nome: CASTROVILLARI
+  provincia: CS
+  telefono: "0981 - 2326411 (centralino), 0981 - 26910"
+
+  referente: "Sig.ra Mazzei"
+-
+  cap: 88100
+  comune: CATANZARO
+  indirizzo: "Via Falcone e Borsellino"
+  mail: procura.catanzaro@giustizia.it
+  nome: CATANZARO
+  provincia: CZ
+  telefono: "0961 - 885111 (centralino), 0961 - 724117 / 885282 (Dirigente) , 0961 - 885219 (segreteria)"
+
+
+-
+  cap: 87100
+  comune: COSENZA
+  indirizzo: "Piazza Gullo, s.n.c."
+  mail: procura.cosenza@giustizia.it
+  nome: COSENZA
+  provincia: CS
+  telefono: "0984 - 487111"
+
+
+-
+  cap: 88900
+  comune: CROTONE
+  indirizzo: "Via Vittorio Veneto"
+  mail: procura.crotone@giustizia.it
+  nome: CROTONE
+  provincia: KR
+  telefono: "0962 - 920111 (centralino)"
+
+
+-
+  cap: 88046
+  comune: LAMEZIA TERME
+  indirizzo: "Piazza della Repubblica"
+  mail: procura.lameziaterme@giustizia.it
+  nome: LAMEZIA TERME
+  provincia: CZ
+  telefono: "0968 - 23075"
+
+
+-
+  cap: 87027
+  comune: PAOLA
+  indirizzo: "Via Falcone e Borsellino"
+  mail: procura.paola@giustizia.it
+  nome: PAOLA
+  provincia: CS
+  telefono: "0982 - 622111"
+
+
+-
+  cap: 87067
+  comune: ROSSANO
+  indirizzo: "Viale S. Stefano"
+  mail: procura.rossano@giustizia.it
+  nome: ROSSANO
+  provincia: CS
+  telefono: "0983 - 525008"
+
+
+-
+  cap: 89900
+  comune: VIBO VALENTIA
+  indirizzo: "Corso Umberto I"
+  mail: procura.vibovalentia@giustizia.it
+  nome: VIBO VALENTIA
+  provincia: VV
+  telefono: "0963 - 473111"
+
+
+-
+  cap: 52100
+  comune: AREZZO
+  indirizzo: "Via degli Albergotti"
+  mail: procura.arezzo@giustizia.it
+  nome: AREZZO
+  provincia: AR
+  telefono: "0575 - 354181"
+
+
+-
+  cap: 50100
+  comune: FIRENZE
+  indirizzo: "Via Strozzi"
+  mail: procura.firenze@giustizia.it
+  nome: FIRENZE
+  provincia: FI
+  telefono: "055 - 26041"
+
+  referente: "Dott. Gandon"
+-
+  cap: 58100
+  comune: GROSSETO
+  indirizzo: "Via Monterosa, 47"
+  mail: procura.grosseto@giustizia.it
+  nome: GROSSETO
+  provincia: GR
+  telefono: "0564 - 477111"
+
+
+-
+  cap: 57123
+  comune: LIVORNO
+  indirizzo: "Via Falcone e Borsellino, 1"
+  mail: procura.livorno@giustizia.it
+  nome: LIVORNO
+  provincia: LI
+  telefono: "0586 - 252111"
+
+
+-
+  cap: 55100
+  comune: LUCCA
+  indirizzo: "Via Galli Tassi, 61 - Viale Carducci, 307"
+  mail: procura.lucca@giustizia.it
+  nome: LUCCA
+  provincia: LU
+  telefono: "0583 - 5221 (via Galli Tassi), 0583 - 3131 (viale Carducci)"
+  titoloReferente: Ufficio Casellario Giudiziale
+
+-
+  cap: 53045
+  comune: MONTEPULCIANO
+  indirizzo: "Via Voltaia nel Corso, 57"
+  mail: procura.montepulciano@giustizia.it
+  nome: MONTEPULCIANO
+  provincia: SI
+  telefono: "0578 - 756453 / 55 (Dirigente segreteria)"
+
+
+-
+  cap: 56127
+  comune: PISA
+  indirizzo: "Via Beccaria, 18"
+  mail: procura.pisa@giustizia.it
+  nome: PISA
+  provincia: PI
+  telefono: "050 - 9710411"
+
+
+-
+  cap: 51100
+  comune: PISTOIA
+  indirizzo: "Piazza Duomo"
+  mail: procura.pistoia@giustizia.it
+  nome: PISTOIA
+  provincia: PT
+  telefono: "0573 - 35711"
+  titoloReferente: Segreteria Dirigente Amministrativo
+
+-
+  cap: 59100
+  comune: PRATO
+  indirizzo: "Piazza Falcone e Borsellino, 8"
+  mail: procura.prato@giustizia.it
+  nome: PRATO
+  provincia: PO
+  telefono: "0574 - 5791 (centralino)"
+
+
+-
+  cap: 53100
+  comune: SIENA
+  indirizzo: "Via Rinaldo Franci, 26"
+  mail: procura.siena@giustizia.it
+  nome: SIENA
+  provincia: SI
+  telefono: "0577 - 21341 (centralino)"
+
+  referente: "Dott.ssa Palazzolo"
+-
+  cap: 16043
+  comune: CHIAVARI
+  indirizzo: "Piazza Mazzini, 20"
+  mail: procura.chiavari@giustizia.it
+  nome: CHIAVARI
+  provincia: GE
+  telefono: "0185 - 36121"
+
+
+-
+  cap: 16121
+  comune: GENOVA
+  indirizzo: "Piazza Portoria, 1"
+  mail: procura.genova@giustizia.it
+  nome: GENOVA
+  provincia: GE
+  telefono: "010 - 5691 (centralino), 010 - 5692787 / 88 / 89 / 90 (U.R.P.)"
+  titoloReferente: Segreteria Civile
+
+-
+  cap: 18100
+  comune: IMPERIA
+  indirizzo: "Via XXV Aprile, 67"
+  mail: procura.imperia@giustizia.it
+  nome: IMPERIA
+  provincia: IM
+  telefono: "0183 - 2772"
+
+  referente: "Dott. Bertora"
+-
+  cap: 19100
+  comune: LA SPEZIA
+  indirizzo: "Viale Italia, 142"
+  mail: procura.laspezia@giustizia.it
+  nome: LA SPEZIA
+  provincia: SP
+  telefono: "0187 - 595111"
+
+
+-
+  cap: 54100
+  comune: MASSA
+  indirizzo: "Piazza De Gasperi, 1"
+  mail: procura.massa@giustizia.it
+  nome: MASSA
+  provincia: MS
+  telefono: "0585 - 818222"
+
+
+-
+  cap: 18038
+  comune: SANREMO
+  indirizzo: "Via Anselmi, 3"
+  mail: procura.sanremo@giustizia.it
+  nome: SANREMO
+  provincia: IM
+  telefono: "0184 - 58711"
+
+
+-
+  cap: 17100
+  comune: SAVONA
+  indirizzo: "Via XX Settembre, 1"
+  mail: procura.savona@giustizia.it
+  nome: SAVONA
+  provincia: SV
+  telefono: "019 - 83161 (centralino)"
+
+
+-
+  cap: 67051
+  comune: AVEZZANO
+  indirizzo: "Via Corradini, 148"
+  mail: procura.avezzano@giustizia.it
+  nome: AVEZZANO
+  provincia: AQ
+  telefono: "0863 - 43181"
+
+  referente: "Dott.ssa Daniela Rosa"
+-
+  cap: 66100
+  comune: CHIETI
+  indirizzo: "Via Bertrando Spaventa, 4"
+  mail: procura.chieti@giustizia.it
+  nome: CHIETI
+  provincia: CH
+  telefono: "0871 - 42381"
+
+
+-
+  cap: 67100
+  comune: L'AQUILA
+  indirizzo: "Via XX Settembre, 66"
+  mail: procura.laquila@giustizia.it
+  nome: L'AQUILA
+  provincia: AQ
+  telefono: "0862 - 6321 (centralino)"
+
+  referente: "Dott.ssa Giuseppina Troiani"
+-
+  cap: 66034
+  comune: LANCIANO
+  indirizzo: "Via Fiume, 14"
+  mail: procura.lanciano@giustizia.it
+  nome: LANCIANO
+  provincia: CH
+  telefono: "0872 - 713524"
+
+
+-
+  cap: 65129
+  comune: PESCARA
+  indirizzo: "Via Antonio Lo Feudo, 1"
+  mail: procura.pescara@giustizia.it
+  nome: PESCARA
+  provincia: PE
+  telefono: "085 - 45321 (centralino)"
+
+
+-
+  cap: 67039
+  comune: SULMONA
+  indirizzo: "Piazza Capograssi, 1"
+  mail: procura.sulmona@giustizia.it
+  nome: SULMONA
+  provincia: AQ
+  telefono: "0864 - 2453416 / 2453415 (Dirigente), 0864 - 2453409 (segreteria)"
+
+
+-
+  cap: 64100
+  comune: TERAMO
+  indirizzo: "Via Fonte Regina, 54 e Via C. Beccaria, 1"
+  mail: procura.teramo@giustizia.it
+  nome: TERAMO
+  provincia: TE
+  telefono: "0861 - 3261 (centralino)"
+
+  referente: "Dott. Bonifaci"
+-
+  cap: 66054
+  comune: VASTO
+  indirizzo: "Via Bachelet"
+  mail: procura.vasto@giustizia.it
+  nome: VASTO
+  provincia: CH
+  telefono: "0873 - 367116 / 297"
+
+
+-
+  cap: 72100
+  comune: BRINDISI
+  indirizzo: "Via Lanzellotti, 3"
+  mail: procura.brindisi@giustizia.it
+  nome: BRINDISI
+  provincia: BR
+  telefono: "0831 - 534111 (centralino)"
+
+  referente: "Dott. Gonnella"
+-
+  cap: 73100
+  comune: LECCE
+  indirizzo: "Viale Michele De Pietro, s.n.c."
+  mail: procura.lecce@giustizia.it
+  nome: LECCE
+  provincia: LE
+  telefono: "0832 - 660111 (centralino)"
+  titoloReferente: Ufficio Economo
+
+-
+  cap: 98051
+  comune: BARCELLONA POZZO DI GOTTO
+  indirizzo: "Via Camarda, 48"
+  mail: procura.barcellona@giustizia.it
+  nome: BARCELLONA POZZO DI GOTTO
+  provincia: ME
+  telefono: "090 - 97921"
+
+
+-
+  cap: 98100
+  comune: MESSINA
+  indirizzo: "Via Tommaso Cannizzaro"
+  mail: procura.messina@giustizia.it
+  nome: MESSINA
+  provincia: ME
+  telefono: "090 - 77661 (centralino)"
+
+  referente: "Dott. Runcio"
+-
+  cap: 98073
+  comune: MISTRETTA
+  indirizzo: "Via Libertà"
+  mail: procura.mistretta@giustizia.it
+  nome: MISTRETTA
+  provincia: ME
+  telefono: "0921 - 381276"
+
+
+-
+  cap: 98066
+  comune: PATTI
+  indirizzo: "Via Molino Croce"
+  mail: penale.procura.patti@giustizia.it
+  nome: PATTI
+  provincia: ME
+  telefono: "0941 - 245263 / 2451"
+
+
+-
+  cap: 21052
+  comune: BUSTO ARSIZIO
+  indirizzo: "Largo Giardino, 4"
+  mail: procura.bustoarsizio@giustizia.it
+  nome: BUSTO ARSIZIO
+  provincia: VA
+  telefono: "0331 - 650011 (centralino)"
+
+
+-
+  cap: 22100
+  comune: COMO
+  indirizzo: "Viale Spallino, 6"
+  mail: procura.como@giustizia.it
+  nome: COMO
+  provincia: CO
+  telefono: "031 - 231111"
+
+
+-
+  cap: 23900
+  comune: LECCO
+  indirizzo: "Via Cornelio, 2"
+  mail: procura.lecco@giustizia.it
+  nome: LECCO
+  provincia: LC
+  telefono: "0341 - 379111 / 2 (centralino), 0341 - 379555 (diretto)"
+
+
+-
+  cap: 26900
+  comune: LODI
+  indirizzo: "Viale Milano, 2"
+  mail: procura.lodi@giustizia.it
+  nome: LODI
+  provincia: LO
+  telefono: "0371 - 4991 (centralino)"
+
+
+-
+  cap: 20122
+  comune: MILANO
+  indirizzo: "Via Freguglia, 1"
+  mail: procura.milano@giustizia.it
+  nome: MILANO
+  provincia: MI
+  telefono: "02 - 54361 (centralino)"
+
+  referente: "Dott. Boni"
+-
+  cap: 20052
+  comune: MONZA
+  indirizzo: "Piazza Garibaldi, 10"
+  mail: procuramonza@giustizia.it
+  nome: MONZA
+  provincia: MI
+  telefono: "039 - 23721"
+
+
+-
+  cap: 27100
+  comune: PAVIA
+  indirizzo: "Piazza del Tribunale, 1"
+  mail: procura.pavia@giustizia.it
+  nome: PAVIA
+  provincia: PV
+  telefono: "0382 - 3981 (centralino)"
+
+
+-
+  cap: 23100
+  comune: SONDRIO
+  indirizzo: "Via Mazzini, 14"
+  mail: procura.sondrio@giustizia.it
+  nome: SONDRIO
+  provincia: SO
+  telefono: "0342 - 529111 (centralino)"
+
+
+-
+  cap: 21100
+  comune: VARESE
+  indirizzo: "Piazza Cacciatori delle Alpi, 1"
+  mail: procura.varese@giustizia.it
+  nome: VARESE
+  provincia: VA
+  telefono: "0332 - 804311"
+
+
+-
+  cap: 27029
+  comune: VIGEVANO
+  indirizzo: "Piazza Lavezzani, 1"
+  mail: procura.vigevano@giustizia.it
+  nome: VIGEVANO
+  provincia: PV
+  telefono: "0381 - 2921"
+
+
+-
+  cap: 27058
+  comune: VOGHERA
+  indirizzo: "Via Plana, 66"
+  mail: procura.voghera@giustizia.it
+  nome: VOGHERA
+  provincia: PV
+  telefono: "0383 - 338110"
+
+
+-
+  cap: 83031
+  comune: ARIANO IRPINO
+  indirizzo: "Piazza S. Mancini"
+  mail: procura.arianoirpino@giustizia.it
+  nome: ARIANO IRPINO
+  provincia: AV
+  telefono: "0825 - 8291 (centralino)"
+
+
+-
+  cap: 83100
+  comune: AVELLINO
+  indirizzo: "Piazza d'Armi"
+  mail: procura.avellino@giustizia.it
+  nome: AVELLINO
+  provincia: AV
+  telefono: "0825 - 7971 (centralino)"
+  titoloReferente: Ufficio Misure di Prevenzione
+
+-
+  cap: 82100
+  comune: BENEVENTO
+  indirizzo: "Viale Raffaele De Caro"
+  mail: procura.benevento@giustizia.it
+  nome: BENEVENTO
+  provincia: BN
+  telefono: "0824 - 309111 (centralino)"
+
+  referente: "Sig.ra Soricelli"
+-
+  cap: 80100
+  comune: NAPOLI
+  indirizzo: "Centro Direzionale di Napoli"
+  mail: procura.napoli@giustizia.it
+  nome: NAPOLI
+  provincia: NA
+  telefono: "081 - 2236111"
+
+
+-
+  cap: 80035
+  comune: NOLA
+  indirizzo: "Piazza G. Bruno - Palazzo Orsini"
+  mail: procura.nola@giustizia.it
+  nome: NOLA
+  provincia: NA
+  telefono: "081 - 5119111"
+
+
+-
+  cap: 83054
+  comune: SANT'ANGELO DEI LOMBARDI
+  indirizzo: "Via Petrile, s.n.c."
+  mail: procura.santangelodeilombardi@giustizia.it
+  nome: SANT'ANGELO DEI LOMBARDI
+  provincia: AV
+  telefono: "0827 - 202111 / 23152 (centralino)"
+
+
+-
+  cap: 81055
+  comune: SANTA MARIA CAPUA VETERE
+  indirizzo: "Piazza Resistenza"
+  mail: procura.santamariacapuavetere@giustizia.it
+  nome: SANTA MARIA CAPUA VETERE
+  provincia: CE
+  telefono: "0823 - 792111"
+
+
+-
+  cap: 80058
+  comune: TORRE ANNUNZIATA
+  indirizzo: "Corso Umberto I"
+  mail: procura.torreannunziata@giustizia.it
+  nome: TORRE ANNUNZIATA
+  provincia: NA
+  telefono: "081 - 8573205"
+
+  referente: "Cancelliere Ilario"
+-
+  cap: 92100
+  comune: AGRIGENTO
+  indirizzo: "Via Mazzini"
+  mail: procura.agrigento@giustizia.it
+  nome: AGRIGENTO
+  provincia: AG
+
+
+  telefono: "0922 - 527111 (centralino), 0922 - 527275 / 239 (segreteria del Procuratore), 0922 - 527213 (Dirigente), 0922 - 527247 (cancelleria penale)"
+
+  referente: "Sig.ra Maria Paci"
+-
+  cap: 91025
+  comune: MARSALA
+  indirizzo: "Piazza Borsellino, 1"
+  mail: procura.marsala@giustizia.it
+  nome: MARSALA
+  provincia: TP
+  telefono: "0923 - 717411"
+
+
+-
+  cap: 90138
+  comune: PALERMO
+  indirizzo: "Piazza Vittorio Emanuele Orlando"
+  mail: procura.palermo@giustizia.it
+  nome: PALERMO
+  provincia: PA
+  telefono: "091 - 7421111 (centralino), 091 - 6110175"
+
+
+-
+  cap: 92019
+  comune: SCIACCA
+  indirizzo: "Via Quasimodo, 1"
+  mail: procura.sciacca@giustizia.it
+  nome: SCIACCA
+  provincia: AG
+  telefono: "0925 - 964111"
+
+
+-
+  cap: 90018
+  comune: TERMINI IMERESE
+  indirizzo: "Piazza F. Ugo Di Blasi, 1"
+  mail: procura.terminiimerese@giustizia.it
+  nome: TERMINI IMERESE
+  provincia: PA
+  telefono: "091 - 8152111"
+
+
+-
+  cap: 91100
+  comune: TRAPANI
+  indirizzo: "Via San Giovanni Bosco, 10"
+  mail: procura.trapani@giustizia.it
+  nome: TRAPANI
+  provincia: TP
+  telefono: "0923 - 802111"
+
+
+-
+  cap: 05018
+  comune: ORVIETO
+  indirizzo: "Piazza Corsica, 2"
+  mail: procura.orvieto@giustizia.it
+  nome: ORVIETO
+  provincia: TR
+  telefono: "0763 - 3971 (centralino)"
+
+
+-
+  cap: 06121
+  comune: PERUGIA
+  indirizzo: "Via Fiorenzo di Lorenzo, 22-24"
+  mail: procura.perugia@giustizia.it
+  nome: PERUGIA
+  provincia: PG
+  telefono: "075 - 54491"
+
+
+-
+  cap: 06049
+  comune: SPOLETO
+  indirizzo: "Corso Mazzini, 14"
+  mail: procura.spoleto@giustizia.it
+  nome: SPOLETO
+  provincia: PG
+  telefono: "0743 - 219501"
+
+
+-
+  cap: 05100
+  comune: TERNI
+  indirizzo: "Via Bramante, 39 scala A"
+  mail: procura.terni@giustizia.it
+  nome: TERNI
+  provincia: TR
+  telefono: "0744 - 3981 (centralino)"
+
+
+-
+  cap: 85042
+  comune: LAGONEGRO
+  indirizzo: "Via Napoli"
+  mail: procura.lagonegro@giustizia.it
+  nome: LAGONEGRO
+  provincia: PZ
+  telefono: "0973 - 41380"
+
+
+-
+  cap: 75100
+  comune: MATERA
+  indirizzo: "Via Aldo Moro, 26"
+  mail: procura.matera@giustizia.it
+  nome: MATERA
+  provincia: MT
+  telefono: "0835 - 334615"
+
+
+-
+  cap: 85025
+  comune: MELFI
+  indirizzo: "Piazza San Pietro"
+  mail: procura.melfi@giustizia.it
+  nome: MELFI
+  provincia: PZ
+  telefono: "0972 - 774111"
+
+
+-
+  cap: 85100
+  comune: POTENZA
+  indirizzo: "Via Nazario Sauro,71"
+  mail: procura.potenza@giustizia.it
+  nome: POTENZA
+  provincia: PZ
+  telefono: "0971 - 491696"
+
+
+-
+  cap: 89044
+  comune: LOCRI
+  indirizzo: "Piazza Nuovo Tribunale"
+  mail: procura.locri@giustizia.it
+  nome: LOCRI
+  provincia: RC
+  telefono: "0964 - 3981"
+
+
+-
+  cap: 89015
+  comune: PALMI
+  indirizzo: "Piazzale Amendola"
+  mail: procura.palmi@giustizia.it
+  nome: PALMI
+  provincia: RC
+  telefono: "0966 - 4161"
+
+
+-
+  cap: 89128
+  comune: REGGIO DI CALABRIA
+  indirizzo: "Via S. Anna 2° tr. - Palazzo CE.DIR."
+  mail: procura.reggiocalabria@giustizia.it
+  nome: REGGIO DI CALABRIA
+  provincia: RC
+  telefono: "0965 - 8571 (centralino)"
+  titoloReferente: Casellario Giudiziale
+
+-
+  cap: 03043
+  comune: CASSINO
+  indirizzo: "Piazza Labriola, 10"
+  mail: procura.cassino@giustizia.it
+  nome: CASSINO
+  provincia: FR
+  telefono: "0776 - 32091 (centralino)"
+
+  referente: "Cancelliere Di Duca"
+-
+  cap: 00053
+  comune: CIVITAVECCHIA
+  indirizzo: "Via Terme di Traiano"
+  mail: procura.civitavecchia@giustizia.it
+  nome: CIVITAVECCHIA
+  provincia: RM
+  telefono: "0766 - 215205 / 210 / 220 (segr. Sostituti Procuratori) , 0766 - 215207 (casellario)"
+
+
+-
+  cap: 03100
+  comune: FROSINONE
+  indirizzo: "Via Fedele Calvosa, s.n.c."
+  mail: procura.frosinone@giustizia.it
+  nome: FROSINONE
+  provincia: FR
+  telefono: "0775 - 3601 (centralino)"
+
+
+-
+  cap: 04100
+  comune: LATINA
+  indirizzo: "Via Ezio, s.n.c."
+  mail: procura.latina@giustizia.it
+  nome: LATINA
+  provincia: LT
+  telefono: "0773 - 4471"
+
+  referente: "Dott. Di Crosta"
+-
+  cap: 02100
+  comune: RIETI
+  indirizzo: "Largo Bachelet"
+  mail: procura.rieti@giustizia.it
+  nome: RIETI
+  provincia: RI
+  telefono: "0746 - 2081"
+
+
+-
+  cap: 00195
+  comune: ROMA (RM)
+  indirizzo: "Piazzale Clodio"
+  mail: procura.roma@giustizia.it
+  nome: ROMA
+  provincia: RM
+  telefono: "06 - 38701 / 38703254 (box informazioni-Piazzale Clodio), 06 - 39975350 (box informazioni-Via Gregorio VII)"
+  titoloReferente: Ufficio Concorsi
+
+-
+  cap: 00019
+  comune: TIVOLI
+  indirizzo: "Viale Arnaldi, 19"
+  mail: procura.tivoli@giustizia.it
+  nome: TIVOLI
+  provincia: RM
+  telefono: "0774 - 4511 (centralino)"
+
+
+-
+  cap: 00049
+  comune: VELLETRI
+  indirizzo: "Piazza Giovanni Falcone"
+  mail: procura.velletri@giustizia.it
+  nome: VELLETRI
+  provincia: RM
+  telefono: "06 - 9642262 (segreteria amministrativa) ,  06 - 961502226 (segreteria Procuratore)"
+  titoloReferente: Segreteria Amministrativa
+  referente: "Sig.ra Rossi"
+-
+  cap: 01100
+  comune: VITERBO
+  indirizzo: "Via G. Falcone e P. Borsellino, 41"
+  mail: procura.viterbo@giustizia.it
+  nome: VITERBO
+  provincia: VT
+  telefono: "0761 - 3511 (centralino)"
+
+
+-
+  cap: 84014
+  comune: NOCERA INFERIORE
+  indirizzo: "Via Falcone, 1"
+  mail: procura.nocerainferiore@giustizia.it
+  nome: NOCERA INFERIORE
+  provincia: SA
+  telefono: "081 - 3239333"
+  titoloReferente: Segreteria Amministrativa
+
+-
+  cap: 84036
+  comune: SALA CONSILINA
+  indirizzo: "Via De Marsico"
+  mail: procura.salaconsilina@giustizia.it
+  nome: SALA CONSILINA
+  provincia: SA
+  telefono: "0975 - 520326"
+
+
+-
+  cap: 84100
+  comune: SALERNO
+  indirizzo: "Corso Garibaldi - Palazzo di Giustizia"
+  mail: procura.salerno@giustizia.it
+  nome: SALERNO
+  provincia: SA
+  telefono: "089 - 5645428"
+
+
+-
+  cap: 84078
+  comune: VALLO DELLA LUCANIA
+  indirizzo: "Piazza dei Martiri,1"
+  mail: procura.vallodellalucania@giustizia.it
+  nome: VALLO DELLA LUCANIA
+  provincia: SA
+  telefono: "0974 - 713111"
+  titoloReferente: Segreteria Civile
+
+-
+  cap: 15011
+  comune: ACQUI TERME
+  indirizzo: "Corso Italia, 28"
+  mail: procura.acqui@giustizia.it
+  nome: ACQUI TERME
+  provincia: AL
+  telefono: "0144 - 328300"
+
+
+-
+  cap: 12051
+  comune: ALBA
+  indirizzo: "Piazza Medford, 1"
+  mail: procura.alba@giustizia.it
+  nome: ALBA
+  provincia: CN
+  telefono: "0173 - 445310 (centralino)"
+
+
+-
+  cap: 15100
+  comune: ALESSANDRIA
+  indirizzo: "Corso Crimea, 81"
+  mail: procura.alessandria@giustizia.it
+  nome: ALESSANDRIA
+  provincia: AL
+  telefono: "0131 - 284311 / 121"
+
+
+-
+  cap: 11100
+  comune: AOSTA
+  indirizzo: "Via Ollietti, 1"
+  mail: procura.aosta@giustizia.it
+  nome: AOSTA
+  provincia: AO
+  telefono: "0165 - 306201 / 237"
+
+
+-
+  cap: 14100
+  comune: ASTI
+  indirizzo: "Via Govone, 9"
+  mail: procura.asti@giustizia.it
+  nome: ASTI
+  provincia: AT
+  telefono: "0141 - 388111 (centralino), 0141 - 388387 (segreteria Procuratore)"
+
+
+-
+  cap: 13051
+  comune: BIELLA
+  indirizzo: "Via Marconi, 28"
+  mail: procura.biella@giustizia.it
+  nome: BIELLA
+  provincia: BI
+  telefono: "015 - 2452511 (centralino)"
+
+
+-
+  cap: 15033
+  comune: CASALE MONFERRATO
+  indirizzo: "Piazza Bernotti, 2"
+  mail: penale.procura.monferrato@giustizia.it
+  nome: CASALE MONFERRATO
+  provincia: AL
+  telefono: "0142 - 334345"
+
+
+-
+  cap: 12100
+  comune: CUNEO
+  indirizzo: "Piazza Galimberti, 7"
+  mail: procura.cuneo@giustizia.it
+  nome: CUNEO
+  provincia: CN
+  telefono: "0171 - 607721"
+
+
+-
+  cap: 10015
+  comune: IVREA
+  indirizzo: "Via Patrioti, 12"
+  mail: procura.ivrea@giustizia.it
+  nome: IVREA
+  provincia: TO
+  telefono: "0125 - 416237"
+
+
+-
+  cap: 12084
+  comune: MONDOVI'
+  indirizzo: "Via Vasco, 2"
+  mail: procura.mondovi@giustizia.it
+  nome: MONDOVI'
+  provincia: CN
+  telefono: "0174 - 488325"
+
+
+-
+  cap: 28100
+  comune: NOVARA
+  indirizzo: "Via Canobio, 4"
+  mail: procura.novara@giustizia.it
+  nome: NOVARA
+  provincia: NO
+  telefono: "0321 - 675811"
+
+
+-
+  cap: 10064
+  comune: PINEROLO
+  indirizzo: "Via Convento di S. Francesco, 1"
+  mail: procura.pinerolo@giustizia.it
+  nome: PINEROLO
+  provincia: TO
+  telefono: "0121 - 391595"
+
+
+-
+  cap: 12037
+  comune: SALUZZO
+  indirizzo: "Corso Roma, 1"
+  mail: procura.saluzzo@giustizia.it
+  nome: SALUZZO
+  provincia: CN
+  telefono: "0175 - 43204"
+
+
+-
+  cap: 10138
+  comune: TORINO
+  indirizzo: "Corso Vittorio Emanuele II, 130"
+  mail: procura.torino@giustizia.it
+  nome: TORINO
+  provincia: TO
+  telefono: "011 - 4327111 (centralino)"
+  titoloReferente: Ufficio Affari Generali
+
+-
+  cap: 15057
+  comune: TORTONA
+  indirizzo: "Piazza delle Erbe, 32"
+  mail: procura.tortona@giustizia.it
+  nome: TORTONA
+  provincia: AL
+  telefono: "0131 - 820193"
+
+
+-
+  cap: 28922
+  comune: VERBANIA
+  indirizzo: "Corso Europa, 3"
+  mail: procura.verbania@giustizia.it
+  nome: VERBANIA
+  provincia: VB
+  telefono: "0323 - 555711"
+
+
+-
+  cap: 13100
+  comune: VERCELLI
+  indirizzo: "Piazza Amedeo IX, 2"
+  mail: procura.vercelli@giustizia.it
+  nome: VERCELLI
+  provincia: VC
+  telefono: "0161 - 269011"
+
+  referente: "Dott. Furbatto"
+-
+  cap: 38068
+  comune: ROVERETO
+  indirizzo: "Corso Antonio Rosmini, 65"
+  mail: procura.rovereto@giustizia.it
+  nome: ROVERETO
+  provincia: TN
+  telefono: "0464 - 451685 (centralino)"
+
+
+-
+  cap: 38100
+  comune: TRENTO
+  indirizzo: "Largo Pigarelli, 1"
+  mail: procura.trento@giustizia.it
+  nome: TRENTO
+  provincia: TN
+  telefono: "0461 - 200111 (centralino), 0461 - 200332"
+  titoloReferente: Segreteria Civile
+
+-
+  cap: 34170
+  comune: GORIZIA
+  indirizzo: "Via Nazario Sauro, 1"
+  mail: procura.gorizia@giustizia.it
+  nome: GORIZIA
+  provincia: GO
+  telefono: "0481-593823 (segreteria Procuratore della Repubblica), 0481-593826/30 (segreteria Sostituto Procuratore della Repubblica), 0481-593903 (anticamera Procuratore Repubblica), 0481-593827 (Direttore di cancelleria), 0481-593826 (segreteria penale), 0481-593830 / 919 (ufficio dibattimento), 0481-593916 (segreteria civile), 0481-593915 (ufficio esecuzioni), 0481-593829 (servizi contabili), 0481-593911 (casellario giudiziario), 0481-593917 (ricezione atti)"
+
+
+-
+  cap: 33170
+  comune: PORDENONE
+  indirizzo: "Piazza Giustiniano, 1"
+  mail: procura.pordenone@giustizia.it
+  nome: PORDENONE
+  provincia: PN
+  telefono: "0434 - 501515 / 507"
+
+
+-
+  cap: 33028
+  comune: TOLMEZZO
+  indirizzo: "Piazza Centa, 12"
+  mail: procura.tolmezzo@giustizia.it
+  nome: TOLMEZZO
+  provincia: UD
+  telefono: "0433 - 485611 / 485599 (centralino)"
+
+
+-
+  cap: 34100
+  comune: TRIESTE
+  indirizzo: "Via Foro Ulpiano, 1"
+  mail: procura.trieste@giustizia.it
+  nome: TRIESTE
+  provincia: TS
+  telefono: "040 - 7792547 / 459 / 512"
+
+
+-
+  cap: 33100
+  comune: UDINE
+  indirizzo: "Via Lovaria, 4"
+  mail: procura.udine@giustizia.it
+  nome: UDINE
+  provincia: UD
+  telefono: "0432 - 517688 (ufficio ricezione atti e informazioni), 0432 - 517646 (ufficio carichi pendenti), 0432 - 517603 (ufficio casellario giudiziale)"
+
+
+-
+  cap: 36061
+  comune: BASSANO DEL GRAPPA
+  indirizzo: "Via Marinali, 32"
+  mail: procura.bassanodelgrappa@giustizia.it
+  nome: BASSANO DEL GRAPPA
+  provincia: VI
+  telefono: "0424 - 528451"
+
+
+-
+  cap: 32100
+  comune: BELLUNO
+  indirizzo: "Via G. Segato"
+  mail: procura.belluno@giustizia.it
+  nome: BELLUNO
+  provincia: BL
+  telefono: "800 - 653399"
+
+
+-
+  cap: 35131
+  comune: PADOVA
+  indirizzo: "Via Nicolò Tommaseo, 55"
+  mail: procura.padova@giustizia.it
+  nome: PADOVA
+  provincia: PD
+  telefono: "049 - 8236264"
+  titoloReferente: Ufficio Casellario Giudiziale
+  referente: "Dott.ssa Angela Pedatella"
+-
+  cap: 45100
+  comune: ROVIGO
+  indirizzo: "Via G. Verdi, 2"
+  mail: procura.rovigo@giustizia.it
+  nome: ROVIGO
+  provincia: RO
+  telefono: "0425 - 428207"
+
+
+-
+  cap: 31100
+  comune: TREVISO
+  indirizzo: "Viale G. Verdi, 18"
+  mail: procura.treviso@giustizia.it
+  nome: TREVISO
+  provincia: TV
+  telefono: "0422 - 418111"
+
+
+-
+  cap: 30125
+  comune: VENEZIA
+  indirizzo: "San Polo, 185"
+  mail: procura.venezia@giustizia.it
+  nome: VENEZIA
+  provincia: VE
+  telefono: "041 - 2402280"
+
+  referente: "Dott.Mielli"
+-
+  cap: 37100
+  comune: VERONA
+  indirizzo: "Via dello Zappatore, 1"
+  mail: procura.verona@giustizia.it
+  nome: VERONA
+  provincia: VR
+  telefono: "045 - 8085599 (centralino)"
+
+
+-
+  cap: 36100
+  comune: VICENZA
+  indirizzo: "Corso Palladio, 159"
+  mail: procura.vicenza@giustizia.it
+  nome: VICENZA
+  provincia: VI
+  telefono: "0444 - 398111"
+
+
+-
+  cap: 39100
+  comune: BOLZANO
+  indirizzo: "Piazza Tribunale, 1"
+  mail: procura.bolzano@giustizia.it
+  nome: BOLZANO
+  provincia: BZ
+  telefono: "0471 - 226111 (centralino)"
+
+
+-
+  cap: 08100
+  comune: NUORO
+  indirizzo: "Via Leonardo Da Vinci, 17"
+  mail: procura.nuoro@giustizia.it
+  nome: NUORO
+  provincia: NU
+  telefono: "0784 - 216200 (centralino)"
+
+
+-
+  cap: 07100
+  comune: SASSARI
+  indirizzo: "Via Roma, 49"
+  mail: procura.sassari@giustizia.it
+  nome: SASSARI
+  provincia: SS
+  telefono: "079 - 204500 (centralino)"
+
+  referente: "Cancelliere Pisu"
+-
+  cap: 07029
+  comune: TEMPIO PAUSANIA
+  indirizzo: "Via Limbara, 9"
+  mail: procura.tempiopausania@giustizia.it
+  nome: TEMPIO PAUSANIA
+  provincia: OT
+  telefono: "079 - 678900"
+
+
+-
+  cap: 74100
+  comune: TARANTO
+  indirizzo: "Via Marche, s.n.c."
+  mail: procura.taranto@giustizia.it
+  nome: TARANTO
+  provincia: TA
+  telefono: "099 - 7343111 (centralino)"
