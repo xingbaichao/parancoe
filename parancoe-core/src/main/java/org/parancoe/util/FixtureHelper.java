@@ -121,13 +121,13 @@ public class FixtureHelper {
                     // Mantiene l'ordine di inserimento
                     fixtures.put(model, null);
                 } else {
-                    logger.warn("No fixtures for "
+                    logger.warn("No fixture for "
                             + getModelName(model) + " in the file '"
                             + fixtureFileName + "' ?");
                 }
             } catch (FileNotFoundException e) {
                 logger.warn("Fixture file not found for "
-                        + getModelName(model) + ", did you created the file '"
+                        + getModelName(model) + ", did you create the file '"
                         + fixtureFileName + "' ?");
             } catch (IOException e) {
                 logger.error("Loading of fixtures failed for "
@@ -201,8 +201,8 @@ public class FixtureHelper {
                                           GenericDaoBase dao) {
         logger.debug("Populating table for " + getModelName(model));
         if (fixtures == null) {
-            logger.warn("No fixtures for " + getModelName(model)
-                    + ", did you created the file '" + getFixtureFileName(model)
+            logger.warn("No fixture for " + getModelName(model)
+                    + ", did you create the file '" + getFixtureFileName(model)
                     + "'?");
             return;
         }
