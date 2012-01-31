@@ -320,7 +320,7 @@ public class YamlEncoder {
     }
 
     void writeSimpleValue(Object value, Class expectedType, String indent) {
-        if (value instanceof String)
+        if (value instanceof String || value instanceof Character)
             out.println(stringify(value, indent));
         else {
             if ((expectedType == null || !isMinimalOutput())
