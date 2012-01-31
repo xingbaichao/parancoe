@@ -172,6 +172,8 @@ abstract class State {
     static Object convertType(Object value, Class type) {
         if ("~".equals(value))
             return null;
+        else if (type == Character.class || type == Character.TYPE)
+            return Character.valueOf(value.toString().charAt(0));
         else if (type == Integer.class || type == Integer.TYPE)
             return new Integer(value.toString());
         else if (type == String.class) {
