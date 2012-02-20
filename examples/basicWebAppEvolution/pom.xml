@@ -31,7 +31,7 @@
             </plugin>
 		<!-- copied from http://blog.synyx.de/2011/10/testing-webapp-startup-on-jenkins-with-maven-tomcat-and-web-driver/ -->
 
-		<plugin>
+		<!-- <plugin>
 		    <groupId>org.codehaus.mojo</groupId>
 		    <artifactId>tomcat-maven-plugin</artifactId>
 		    <version>1.1</version>
@@ -55,7 +55,7 @@
 			    </goals>
 			</execution>
 		    </executions>
-		</plugin>				
+		</plugin>		 -->		
 		</plugins>
 	    </build>
 		    <repositories>

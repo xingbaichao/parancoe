@@ -15,7 +15,7 @@
                 <!-- <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop> -->
                 
                   
-                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                 
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.show_sql">true</prop>
