@@ -36,9 +36,7 @@ import java.io.IOException;
 public class SecureInterceptor extends HandlerInterceptorAdapter {
 
     public static final String USERNAME_LOG4J_MDC_KEY = "psec_username";
-    private static final String STRATEGY_CLASS_NAME =
-            "org.parancoe.plugins.securityevolution.ParancoeSecurityContextHolderStrategy";
-    private Filter delegate;
+   
     private static final Logger logger =
             Logger.getLogger(SecureInterceptor.class);
 
@@ -47,28 +45,19 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
      * has set.
      *
      */
-    public SecureInterceptor() {
-
-        SecurityContextHolder.setStrategyName(STRATEGY_CLASS_NAME);
+    public SecureInterceptor() {       
         logger.info("SecureInterceptor set up");
-
     }
 
     /**
      * Delegates request to filter chain.
      */
+    
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
-            Object handler) throws Exception {
-        delegate.doFilter(req, res, new ParancoeFilterChain());
-        populateLog4JMDC();
-        req.getSession(false);
-        if (res.isCommitted()) {
-            logger.debug("Response is committed!");
-            return false;
-        }
+            Object handler) throws Exception {       
+        populateLog4JMDC();        
         return true;
-
     }
 
     @Override
@@ -99,29 +88,6 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
         MDC.remove(USERNAME_LOG4J_MDC_KEY);
     }
 
-    /**
-     * Inner class for basic implementation of FilterChain.
-     *
-     */
-    private class ParancoeFilterChain implements FilterChain {
-
-        public ParancoeFilterChain() {
-            logger.debug("Instantiated");
-        }
-
-        public void doFilter(ServletRequest arg0, ServletResponse arg1) throws
-                IOException,
-                ServletException {
-            // TODO Auto-generated method stub
-        }
-    }//end of inner class
-
-    public Filter getDelegate() {
-        return delegate;
-    }
-
-    public void setDelegate(Filter delegate) {
-        this.delegate = delegate;
-    }
+   
 }//end of  class
 
