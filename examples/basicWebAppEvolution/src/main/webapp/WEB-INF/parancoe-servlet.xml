@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:security="http://www.springframework.org/schema/security"
        xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -14,28 +14,15 @@
     <context:component-scan base-package="org.parancoe.basicWebApp.ajaxblo"/>
     <context:component-scan base-package="org.parancoe.basicWebApp.controllers"/>
 
-<!--    <mvc:resources mapping="/resources/**" location="/resources/" />-->
 
-<!--    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-        <property name="alwaysUseFullPath" value="false"/>
-    </bean>-->
      
     <!-- begin security section -->
-   <!--  <sec:http auto-config="true" pattern="/people/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
-        <sec:intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
-    </sec:http>
-    
-    <sec:http auto-config="true" pattern="/admin/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
-        <sec:intercept-url pattern="*" access="hasRole('ROLE_ADMIN')"/>
-    </sec:http> -->
-    <!-- 
-    <sec:filter-security-metadata-source id="pluginSecurityFilterDefinitions" lowercase-comparisons="true" path-type="ant">
-        <sec:intercept-url pattern="/r/person/**" access="ROLE_ADMIN, ROLE_PARANCOE"/>
-        <sec:intercept-url pattern="/people/**" access="ROLE_ADMIN, ROLE_PARANCOE"/>
-        <sec:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-        <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-    </sec:filter-security-metadata-source>
-     -->
+     
+	<!--     
+    <security:http auto-config="true"    pattern="/admin/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
+        <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')"/>
+    </security:http> 
+    -->
     <!-- end security section -->
         
     <!-- begin dwr section -->
