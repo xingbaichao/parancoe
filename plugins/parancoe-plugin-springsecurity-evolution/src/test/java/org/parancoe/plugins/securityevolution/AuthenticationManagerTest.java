@@ -19,7 +19,7 @@ package org.parancoe.plugins.securityevolution;
 
 import javax.annotation.Resource;
 
-import org.junit.Test;
+
 import org.mockito.Mock;
 import org.parancoe.web.test.PluginTest;
 import org.springframework.security.authentication.AnonymousAuthenticationProvider;
@@ -45,14 +45,14 @@ public class AuthenticationManagerTest extends PluginTest {
 	/**
 	 * Test method for {@link org.springframework.security.authentication.AuthenticationManager#authenticate(org.springframework.security.core.Authentication)}.
 	 */
-	@Test
+
 	public void testAuthenticate() {		
 		authentication =  new UsernamePasswordAuthenticationToken("parancoe", "parancoe");
 		Authentication result = authenticationManager.authenticate(authentication);
 		assertTrue(result.isAuthenticated());	
 	}
 	
-	@Test
+
 	public void testAuthenticateWithUserLocked() {		
 		authentication =  new UsernamePasswordAuthenticationToken("locked", "locked");		
 		try {
@@ -63,7 +63,7 @@ public class AuthenticationManagerTest extends PluginTest {
 		}			
 	}
 	
-	@Test
+
 	public void testAuthenticateWithBadCredentials() {		
 		authentication =  new UsernamePasswordAuthenticationToken("parancoe", "wrongPassword");		
 		try {
