@@ -21,7 +21,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.junit.Test;
+
 import org.parancoe.web.test.PluginTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,7 +36,7 @@ public class EntitiesTest extends PluginTest {
 	@Resource
 	private AuthorityDao authorityDao;
 	
-	@Test
+
 	public void testGroup() {		
 		Group groupBasic = groupDao.findByName("user");
 		assertEquals(2, groupBasic.getUsers().size());
@@ -46,7 +46,7 @@ public class EntitiesTest extends PluginTest {
 		assertEquals(2, groupAdmin.getAuthorities().size());			
 	}
 	
-	@Test
+
 	public void testFindAllAuthoritiesAssociatedToUsername() {		
 		List<Authority> authorities = authorityDao.findAllAuthoritiesAssociatedToUsername("parancoe");
 		assertEquals(1, authorities.size());

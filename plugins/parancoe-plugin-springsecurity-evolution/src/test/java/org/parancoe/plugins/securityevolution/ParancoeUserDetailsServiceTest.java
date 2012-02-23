@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.junit.Test;
+
 import org.parancoe.web.test.PluginTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,7 +47,7 @@ public class ParancoeUserDetailsServiceTest  extends PluginTest {
 	 * Test method for {@link org.parancoe.plugins.securityevolution.ParancoeUserDetailsService#loadUserByUsername(java.lang.String)}.
 	 * Trying using TDD approach
 	 */
-	@Test
+
 	public void testLoadUserByUsername() {
 		UserDetails parancoeUD = parancoeUserDetailsService.loadUserByUsername(USERNAME);
 		assertEquals(USERNAME, parancoeUD.getUsername());
@@ -59,7 +59,7 @@ public class ParancoeUserDetailsServiceTest  extends PluginTest {
 		assertEquals("ROLE_USER", listGA.get(0).getAuthority());
 	}
 	
-	@Test
+
 	public void testLoadUserByUsernameWithNoExisingUser() {
 		try {
 			parancoeUserDetailsService.loadUserByUsername(INVALID_USERNAME);
