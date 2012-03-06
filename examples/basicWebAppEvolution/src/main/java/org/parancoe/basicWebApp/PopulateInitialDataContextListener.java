@@ -6,6 +6,7 @@ package org.parancoe.basicWebApp;
  */
 
 import org.parancoe.plugins.securityevolution.Authority;
+import org.parancoe.plugins.securityevolution.Group;
 import org.parancoe.plugins.securityevolution.User;
 
 /**
@@ -16,6 +17,7 @@ public class PopulateInitialDataContextListener extends org.parancoe.web.Populat
     
     public PopulateInitialDataContextListener() {
         clazzToPopulate.add(Authority.class);
+        clazzToPopulate.add(Group.class);
         clazzToPopulate.add(User.class);
     }
     
