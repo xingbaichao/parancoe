@@ -78,10 +78,10 @@
         <url-pattern>/r/*</url-pattern>
     </servlet-mapping>
     <!-- secure porpouse -->
-    <servlet-mapping>
+    <!-- <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.secure</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.form</url-pattern>
@@ -97,7 +97,7 @@
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

@@ -30,12 +30,11 @@
       </font>
     </c:if>
 
-    <form action="<c:url value='securityCheck.secure'/>" method="POST">
+    <form action="<c:url value='j_spring_security_check'/>" method="POST">
       <table>
-        <tr><td>User:</td><td><input type='text' name='j_username' <c:if test="${not empty param.login_error}">value='<%= session.getAttribute(WebAttributes.LAST_USERNAME) %>'</c:if>></td></tr>
+        <tr><td>User:</td><td><input type='text' name='j_username' /></td></tr>
         <tr><td>Password:</td><td><input type='password' name='j_password'></td></tr>
-        <tr><td><input type="checkbox" name="_acegi_security_remember_me"></td><td>Don't ask for my password for two weeks</td></tr>
-
+       
         <tr><td colspan='2'><input name="submit" type="submit"></td></tr>
         <tr><td colspan='2'><input name="reset" type="reset"></td></tr>
       </table>
