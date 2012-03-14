@@ -16,19 +16,21 @@
 	<P>Valid users:
 	<P>
 	<P>username <b>admin</b>, password <b>admin</b> (supervisor)
-	<P>username <b>parancoe</b>, password <b>parancoe</b> (normal user)
-	
+	<P>username <b>parancoe</b>, password <b>parancoe</b> (normal user)	
 	<p>
 	
     <%-- this form-login-page form is also used as the 
          form-error-page to ask for a login again.
          --%>
-    <c:if test="${not empty param.login_error}">
-      <font color="red">
-        Your login attempt was not successful, try again.<BR><BR>
-        Reason: <%= ((AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION)).getMessage() %>
-      </font>
-    </c:if>
+   <c:if test="${not empty param.login_error}">
+     <font color="red">
+        Your login attempt was not successful, try again.<br />
+        Reason: <%= session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION").toString() %>
+        		
+    </font>
+</c:if>
+
+
 
     <form action="<c:url value='j_spring_security_check'/>" method="POST">
       <table>

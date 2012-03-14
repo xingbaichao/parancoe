@@ -5,8 +5,8 @@
         <a href="${cp}/admin/index.html">Admin</a> |
         <a href="${cpr}/person">People</a> |
         <a href="${cp}/italy/index.html">Italy Plugin</a> |
-        <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_PARANCOE">
-            <a href="${cp}/logout.secure">Logout</a>
+        <authz:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+            <a href="${cp}/logout.html">Logout</a>
         </authz:authorize>    
          
     </span>
