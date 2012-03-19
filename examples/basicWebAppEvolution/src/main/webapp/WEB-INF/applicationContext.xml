@@ -34,6 +34,12 @@
         <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')"/>	
         <security:form-login login-page="/login.html" authentication-failure-url="/login.html?login_error=1" />
         <security:access-denied-handler  error-page="/accessDenied.html" />
+        <security:openid-login authentication-failure-url="/login.html?login_error=1"
+        user-service-ref="openIDUserService">
+        	<security:attribute-exchange identifier-match="https://www.google.com/.*">
+                <security:openid-attribute name="email" type="http://schema.openid.net/contact/email" required="true" />                
+             </security:attribute-exchange>
+        </security:openid-login>
     </security:http>     
     
 

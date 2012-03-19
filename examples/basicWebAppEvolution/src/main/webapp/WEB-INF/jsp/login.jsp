@@ -34,13 +34,20 @@
 
     <form action="<c:url value='j_spring_security_check'/>" method="POST">
       <table>
-        <tr><td>User:</td><td><input type='text' name='j_username' value=''  /></td></tr>
-        <tr><td>Password:</td><td><input type='password' name='j_password' value=''/></td></tr>
+        <tr><td>User:</td><td><input type='text' name='j_username' autofocus="autofocus" /></td></tr>
+        <tr><td>Password:</td><td><input type='password' name='j_password'  /></td></tr>
        
         <tr><td colspan='2'><input name="submit" type="submit"></td></tr>
         <tr><td colspan='2'><input name="reset" type="reset"></td></tr>
       </table>
-
+    </form>
+    
+    
+    <h1>Register with Google OpenID support</h1>
+    <form action="j_spring_openid_security_check" method="post">
+    	<input name="openid_identifier" size="50" maxlength="100" 
+    		type="hidden" value=" https://www.google.com/accounts/o8/id" />
+    	<input type="submit" value="Sign in with Google" />
     </form>
   <jsp:include page="footer.jsp"/>
   </body>

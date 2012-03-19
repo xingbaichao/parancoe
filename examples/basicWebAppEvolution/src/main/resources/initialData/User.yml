@@ -37,7 +37,16 @@
   username: admin
   password: d928b1a8468c96804da6fcc70bff826f
   enabled: true
-  locked: true 
+  locked: false 
+  groups: 
+    - *Group-administrator
+
+
+- &User-enrico-google-openId
+  username: enricogiurin@gmail.com
+  password: aaa
+  enabled: true
+  locked: false 
   groups: 
     - *Group-administrator
     
