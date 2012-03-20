@@ -26,14 +26,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 import org.hibernate.annotations.ForeignKey;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.lambico.po.hibernate.EntityBase;
 
 /**
  * A PO for UserProfile table.
- *
- * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
  * @version $Revision$
  */
 @javax.persistence.Entity
@@ -46,9 +44,14 @@ import org.lambico.po.hibernate.EntityBase;
 public class User extends EntityBase {
 
     private static final long serialVersionUID = 832363948575562242L;
+    @NotBlank
     private String username = null;
+    @NotBlank
     private String password = null;
     private String oldPassword = null;
+
+    @Email
+    private String contactEmail;
     private boolean enabled = true;    
     private boolean locked = true;
     private List<Group> groups;
@@ -132,5 +135,15 @@ public class User extends EntityBase {
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
+	}
+
+
+	public String getContactEmail() {
+		return contactEmail;
+	}
+
+
+	public void setContactEmail(String contactEmail) {
+		this.contactEmail = contactEmail;
 	}
 }
