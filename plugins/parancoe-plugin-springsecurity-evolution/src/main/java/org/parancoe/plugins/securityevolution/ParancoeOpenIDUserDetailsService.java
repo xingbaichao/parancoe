@@ -36,6 +36,8 @@ public class ParancoeOpenIDUserDetailsService implements
 		AuthenticationUserDetailsService<OpenIDAuthenticationToken> {
 	@Resource
 	private UserDetailsService userDetailsService;
+	@Resource
+	private UserDao userDao;
 	
 	 public UserDetails loadUserDetails(OpenIDAuthenticationToken token) {
 	        String id = token.getIdentityUrl();
@@ -52,8 +54,13 @@ public class ParancoeOpenIDUserDetailsService implements
 	        {
 	        	throw new UsernameNotFoundException("There is no email associated to this openID token: "+id);
 	        }
-	        
-	        return userDetailsService.loadUserByUsername(email);
+	        List<User> users = userDao.findByContactEmail(email);
+	        //we have to make sure that email is bound to a single user
+	        if(users.size() != 1)
+	        {
+	        	throw new UsernameNotFoundException("Found "+users.size()+" users having contactEmail: "+email);
+	        }
+	        return userDetailsService.loadUserByUsername(users.get(0).getUsername());
 
 }
 	 } 

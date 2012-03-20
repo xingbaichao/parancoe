@@ -52,6 +52,8 @@ public interface UserDao extends GenericDao<User, Long> {
      * @return
      */
     List<User> findByPartialUsername(String username);
+    
+    List<User> findByContactEmail(String contactEmail);
 
     
 }
