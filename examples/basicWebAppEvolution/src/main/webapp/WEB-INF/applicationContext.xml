@@ -42,6 +42,8 @@
         </security:openid-login>
     </security:http>     
     
+    <!-- LDAP integration -->
+	<security:ldap-server ldif="classpath:ldap/parancoe-ldap.ldif" id="ldapLocal" root="dc=parancoe,dc=org"/>
 
     
     <!-- end security section -->
