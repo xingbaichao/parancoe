@@ -31,11 +31,11 @@
     
     
     <!-- Interceptor specifico per questo plugin -->
-    <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.securityevolution.SecureInterceptor">
+  <!--   <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.securityevolution.SecureInterceptor"/> -->
         <!-- <property name="delegate">
             <ref bean="filterChainProxy"/>
         </property> -->
-    </bean>  
+    
     
     <!-- <bean id="filterChainProxy" class="org.springframework.web.filter.DelegatingFilterProxy" /> -->
 
@@ -48,7 +48,7 @@
         <property name="name" value="parancoe-plugin-security-springsecurityevolution"/>
         <property name="interceptors">
             <list>
-                <ref bean="pluginSecurityInterceptor"/>
+              <!--   <ref bean="pluginSecurityInterceptor"/> -->
             </list>
         </property>
     </bean>
