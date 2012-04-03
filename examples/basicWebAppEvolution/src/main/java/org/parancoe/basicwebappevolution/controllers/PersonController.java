@@ -11,17 +11,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp.controllers;
+package org.parancoe.basicwebappevolution.controllers;
 
 import java.text.ParseException;
-import org.parancoe.basicWebApp.po.Person;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.parancoe.basicWebApp.blo.PersonBo;
-import org.parancoe.basicWebApp.dao.PersonDao;
+
+import org.parancoe.basicwebappevolution.blo.PersonBo;
+import org.parancoe.basicwebappevolution.dao.PersonDao;
+import org.parancoe.basicwebappevolution.po.Person;
 import org.parancoe.web.util.FlashHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

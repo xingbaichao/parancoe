@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.parancoe.basicWebApp.controllers;
+package org.parancoe.basicwebappevolution.controllers;
 
 
 import java.text.SimpleDateFormat;

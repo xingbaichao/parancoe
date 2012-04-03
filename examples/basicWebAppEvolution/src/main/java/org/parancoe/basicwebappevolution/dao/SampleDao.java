@@ -11,10 +11,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp.blo;
+package org.parancoe.basicwebappevolution.dao;
 
-public class SampleBlo {
+public class SampleDao {
+
     public void doSomething(){
-        // this is a business logic object sample
+        // this is a fake dao
     }
 }

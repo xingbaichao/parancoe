@@ -1,9 +1,10 @@
-package org.parancoe.basicWebApp;
+package org.parancoe.basicwebappevolution;
 
 import javax.annotation.Resource;
-import org.parancoe.basicWebApp.blo.PersonBo;
-import org.parancoe.basicWebApp.controllers.HomeController;
-import org.parancoe.basicWebApp.controllers.PersonController;
+
+import org.parancoe.basicwebappevolution.blo.PersonBo;
+import org.parancoe.basicwebappevolution.controllers.HomeController;
+import org.parancoe.basicwebappevolution.controllers.PersonController;
 import org.parancoe.plugins.italy.ComuneDao;
 import org.parancoe.web.test.BaseTest;
 

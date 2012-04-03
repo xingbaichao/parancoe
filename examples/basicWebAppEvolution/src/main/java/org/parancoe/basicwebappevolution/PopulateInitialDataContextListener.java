@@ -1,5 +1,5 @@
 
-package org.parancoe.basicWebApp;
+package org.parancoe.basicwebappevolution;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

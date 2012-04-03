@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp;
+package org.parancoe.basicwebappevolution;
 
-import org.parancoe.basicWebApp.blo.SampleBlo;
-import org.parancoe.basicWebApp.blo.PersonBo;
+import org.parancoe.basicwebappevolution.blo.PersonBo;
+import org.parancoe.basicwebappevolution.blo.SampleBlo;
 
 public class Blos {
     

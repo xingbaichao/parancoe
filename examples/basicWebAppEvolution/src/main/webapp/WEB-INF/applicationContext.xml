@@ -10,13 +10,13 @@
        http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.1.xsd
        ">
     
-    <context:component-scan base-package="org.parancoe.basicWebApp.blo"/>
+    <context:component-scan base-package="org.parancoe.basicwebappevolution.blo"/>
     <!-- Authomatic discovering of persistent classes -->
-    <lambico:discover-persistent-classes basePackage="org.parancoe.basicWebApp.po"/>
+    <lambico:discover-persistent-classes basePackage="org.parancoe.basicwebappevolution.po"/>
     <!-- Authomatic DAO definition from persistent classes -->
-    <lambico:define-daos baseInterfacePackage="org.parancoe.basicWebApp.dao" />
+    <lambico:define-daos baseInterfacePackage="org.parancoe.basicwebappevolution.dao" />
                    
-    <bean id="conf" class="org.parancoe.basicWebApp.Conf" parent="abstractConf"/>
+    <bean id="conf" class="org.parancoe.basicwebappevolution.Conf" parent="abstractConf"/>
     
     <!-- begin security section -->	  
     
@@ -43,7 +43,7 @@
     </security:http>     
     
     <!-- LDAP integration -->
-<!-- 	<security:ldap-server ldif="classpath:ldap/parancoe-ldap.ldif" id="ldapLocal" root="dc=parancoe,dc=org"/> -->
+	<!-- <security:ldap-server ldif="classpath:ldap/parancoe-ldap.ldif" id="ldapLocal" root="dc=parancoe,dc=org"/> -->
 
     
     <!-- end security section -->

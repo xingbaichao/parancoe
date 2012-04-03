@@ -1,4 +1,4 @@
-// Copyright 2006-2007 The Parancoe Team
+// Copyright 2006-2010 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,16 +11,21 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp;
+package org.parancoe.basicwebappevolution.dao;
 
-import org.parancoe.util.BaseConf;
+import org.parancoe.basicwebappevolution.po.Person;
 
-/**
- * here you can put configuration specific getters
- */
-public class Conf extends BaseConf  {
+import java.util.List;
+import java.util.Date;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
 
-    public String getMyParam() {
-        return getConfiguration().getString("myparam");
-    }
+@Dao(entity = Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+
+    List<Person> findByLastName(String lastName);
+
+    List<Person> findByFirstNameAndLastName(String firstName, String lastName);
+
+    List<Person> findByBirthDate(Date birthDate);
 }
