@@ -202,14 +202,14 @@
 			<artifactId>spring-security-ldap</artifactId>
 		</dependency>
 		<!-- maven dependencies needed for apache ldap -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.directory.server</groupId>
 			<artifactId>apacheds-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.directory.server</groupId>
 			<artifactId>apacheds-server-jndi</artifactId>
-		</dependency>
+		</dependency> -->
 		
 
 	</dependencies>

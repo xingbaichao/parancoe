@@ -11,8 +11,8 @@
        http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.1.xsd
        http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
     
-    <context:component-scan base-package="org.parancoe.basicWebApp.ajaxblo"/>
-    <context:component-scan base-package="org.parancoe.basicWebApp.controllers"/>
+    <context:component-scan base-package="org.parancoe.basicwebappevolution.ajaxblo"/>
+    <context:component-scan base-package="org.parancoe.basicwebappevolution.controllers"/>
 
 
      
@@ -26,7 +26,7 @@
     <dwr:controller id="dwrController" debug="true"/>
     
     <dwr:configuration>
-        <dwr:convert type="bean" class="org.parancoe.basicWebApp.po.Person" />
+        <dwr:convert type="bean" class="org.parancoe.basicwebappevolution.po.Person" />
     </dwr:configuration>
 
     <!-- end dwr section -->
