@@ -1,4 +1,4 @@
-package org.parancoe.basicWebApp.controllers;
+package org.parancoe.basicwebappevolution.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;

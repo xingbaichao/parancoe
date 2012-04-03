@@ -11,19 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp;
+package org.parancoe.basicwebappevolution.blo;
 
-import org.lambico.dao.DaoProvider;
-import org.parancoe.basicWebApp.dao.PersonDao;
-
-/**
- * Interface for the DAO Provider. Doesn't require an implementation.
- * Simply add methods for the DAOs you need to use.
- * The convention for the methods is get<dao_bean_id>.
- *
- * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
- * @version $Revision$
- */
-public interface Daos extends DaoProvider {
-    public PersonDao getPersonDao();    
+public class SampleBlo {
+    public void doSomething(){
+        // this is a business logic object sample
+    }
 }

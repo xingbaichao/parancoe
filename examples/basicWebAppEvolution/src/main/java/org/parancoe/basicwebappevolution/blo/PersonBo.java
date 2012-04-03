@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp.blo;
+package org.parancoe.basicwebappevolution.blo;
 
-import org.parancoe.basicWebApp.po.Person;
-import org.parancoe.basicWebApp.dao.PersonDao;
+import org.parancoe.basicwebappevolution.dao.PersonDao;
+import org.parancoe.basicwebappevolution.po.Person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

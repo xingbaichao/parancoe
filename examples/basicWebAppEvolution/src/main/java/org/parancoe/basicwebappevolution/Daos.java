@@ -1,4 +1,4 @@
-// Copyright 2006-2010 The Parancoe Team
+// Copyright 2006-2007 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,20 +11,19 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.basicWebApp.dao;
+package org.parancoe.basicwebappevolution;
 
-import org.parancoe.basicWebApp.po.Person;
-import java.util.List;
-import java.util.Date;
-import org.lambico.dao.generic.Dao;
-import org.lambico.dao.generic.GenericDao;
+import org.lambico.dao.DaoProvider;
+import org.parancoe.basicwebappevolution.dao.PersonDao;
 
-@Dao(entity = Person.class)
-public interface PersonDao extends GenericDao<Person, Long> {
-
-    List<Person> findByLastName(String lastName);
-
-    List<Person> findByFirstNameAndLastName(String firstName, String lastName);
-
-    List<Person> findByBirthDate(Date birthDate);
+/**
+ * Interface for the DAO Provider. Doesn't require an implementation.
+ * Simply add methods for the DAOs you need to use.
+ * The convention for the methods is get<dao_bean_id>.
+ *
+ * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
+ * @version $Revision$
+ */
+public interface Daos extends DaoProvider {
+    public PersonDao getPersonDao();    
 }

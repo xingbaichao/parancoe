@@ -1,9 +1,11 @@
-package org.parancoe.basicWebApp.controllers;
+package org.parancoe.basicwebappevolution.controllers;
 
 import java.util.List;
 import javax.annotation.Resource;
-import org.parancoe.basicWebApp.dao.PersonDao;
-import org.parancoe.basicWebApp.po.Person;
+
+import org.parancoe.basicwebappevolution.controllers.PersonController;
+import org.parancoe.basicwebappevolution.dao.PersonDao;
+import org.parancoe.basicwebappevolution.po.Person;
 import org.parancoe.web.test.ControllerTest;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;

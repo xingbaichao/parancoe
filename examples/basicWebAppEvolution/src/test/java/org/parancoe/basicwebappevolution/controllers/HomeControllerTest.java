@@ -1,9 +1,10 @@
-package org.parancoe.basicWebApp.controllers;
+package org.parancoe.basicwebappevolution.controllers;
 
 import javax.annotation.Resource;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.parancoe.basicwebappevolution.controllers.HomeController;
 import org.parancoe.web.test.ControllerTest;
 import org.springframework.web.servlet.HandlerAdapter;
 
