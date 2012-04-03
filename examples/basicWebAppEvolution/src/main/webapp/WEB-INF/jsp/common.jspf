@@ -1,0 +1,24 @@
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
+<%@ page import="org.parancoe.basicWebApp.Conf" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="authz" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="p" uri="http://www.parancoe.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
+<% String cp = request.getContextPath();
+    pageContext.setAttribute("cp", cp);
+    pageContext.setAttribute("cpr", cp+"/r");
+
+    ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(application);
+
+    Conf conf = (Conf) ctx.getBean("conf");
+    pageContext.setAttribute("conf", conf);  
+%>
+
+
+
