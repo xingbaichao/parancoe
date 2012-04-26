@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
+
+    
+    <!-- Authomatic discovering of persistent classes and DAOs -->
+    <parancoe:define-daos basePackage="${package}"/>
+    <parancoe:discover-persistent-classes basePackage="${package}"/>
+    
+    <!-- ContextListener specifico per questo plugin -->
+    <bean id="${artifactId}ContextListener" class="${package}.SampleContextListener"/>
+    
+    <!--                           -->
+    <!-- Configurazione del plugin -->
+    <!--                           -->
+    <bean id="applicationContext-${artifactId}Config" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+        <property name="name" value="${artifactId}"/>
+        <property name="contextLoaderListeners">
+            <list>
+                <ref bean="${artifactId}ContextListener"/>
+            </list>
+        </property>
+
+        <!-- fixtures to load on starting of the plugin -->
+        <property name="fixtureClassNames">
+            <list>
+                <value>${package}.Sample</value>
+            </list>
+        </property>
+    </bean>
+</beans>
