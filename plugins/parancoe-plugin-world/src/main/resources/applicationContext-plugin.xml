@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+    Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
 
     This file is part of Parancoe Plugin World.
 
@@ -18,7 +18,6 @@
     limitations under the License.
 
 -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:lambico="http://www.lambico.org/schema/lambico"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
