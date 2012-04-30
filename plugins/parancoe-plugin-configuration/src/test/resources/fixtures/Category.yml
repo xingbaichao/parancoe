@@ -16,7 +16,9 @@
 # limitations under the License.
 #
 
-- &Sample-01
-  name: 01
-- &Sample-02
-  name: 02
+- &Category-first
+  name: first_category
+  description: the first category
+- &Category-second
+  name: second_category
+  description: the second category

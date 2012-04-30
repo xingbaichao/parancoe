@@ -15,20 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.plugin.configuration;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.parancoe.plugin.configuration.po;
 
-import org.lambico.po.hibernate.EntityBase;
-
-@javax.persistence.Entity
-public class Sample extends EntityBase {
-
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+/**
+ *
+ * @author Lucio Benfante <lucio@benfante.com>
+ */
+public enum PropertyType {
+    STRING, TEXT, INTEGER, REAL, BOOLEAN
 }
