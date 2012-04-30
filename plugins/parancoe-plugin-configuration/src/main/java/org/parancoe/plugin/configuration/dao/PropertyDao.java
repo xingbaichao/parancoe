@@ -15,26 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.plugin.configuration;
+package org.parancoe.plugin.configuration.dao;
 
-import java.util.List;
-import org.parancoe.web.test.PluginTest;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.lambico.dao.generic.Dao;
+import org.lambico.dao.generic.GenericDao;
+import org.parancoe.plugin.configuration.po.Property;
 
-public class SampleDaoTest extends PluginTest {
-    
-    @Autowired
-    private SampleDao sampleDao;
-    
-    /* test everything has been loaded properly */
-    public void testFindAll() {
-        List<Sample> results = sampleDao.findAll();
-        assertSize(2, results);
-    }
-    
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{Sample.class};
-    }
-    
+@Dao(entity=Property.class)
+public interface PropertyDao extends GenericDao<Property, Long> {
+    Property findByNameAndCategoryId(String name, Long categoryId);
 }

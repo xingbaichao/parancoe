@@ -17,42 +17,25 @@
  */
 package org.parancoe.plugin.configuration;
 
+import java.util.List;
 import org.parancoe.plugin.configuration.dao.CategoryDao;
-import org.parancoe.plugin.configuration.dao.PropertyDao;
-import org.parancoe.web.plugin.WebPlugin;
-import org.parancoe.web.test.PluginTest;
+import org.parancoe.plugin.configuration.po.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-public class SanityTest extends PluginTest {
-
-    @Autowired
-    @Qualifier("parancoe-plugin-configurationPluginConfig")
-    private WebPlugin plugin;
-    
-    @Autowired
-    private SampleContextListener sampleContextListener;
-    
-    @Autowired
-    private SampleInterceptor sampleInterceptor;
+public class CategoryDaoTest extends BaseTest {
     
     @Autowired
     private CategoryDao categoryDao;
-    @Autowired
-    private PropertyDao propertyDao;
     
-    /* test everything has been loaded properly */
-    public void testSanity() {
-        assertNotNull(plugin);
-        assertNotNull(sampleContextListener);
-        assertNotNull(sampleInterceptor);
-        assertNotNull(categoryDao);
-        assertNotNull(propertyDao);
+    public void testFindAll() {
+        List<Category> results = categoryDao.findAll();
+        assertSize(2, results);
     }
     
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{};
+    public void testFindByName() {
+        Category result = categoryDao.findByName("first_category");
+        assertNotNull(result);
+        assertEquals("first_category", result.getName());
+        assertSize(1, result.getProperties());
     }
-    
 }

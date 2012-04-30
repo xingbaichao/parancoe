@@ -15,6 +15,9 @@
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
     </properties>
+    <build>
+        <finalName>parancoe-plugin-configuration</finalName>
+    </build>
     <dependencies>
         <dependency>
             <groupId>commons-dbcp</groupId>

@@ -15,11 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.plugin.configuration;
+package org.parancoe.plugin.configuration.dao;
 
 import org.lambico.dao.generic.Dao;
 import org.lambico.dao.generic.GenericDao;
+import org.parancoe.plugin.configuration.po.Category;
 
-@Dao(entity=Sample.class)
-public interface SampleDao extends GenericDao<Sample, Long> {
+@Dao(entity=Category.class)
+public interface CategoryDao extends GenericDao<Category, Long> {
+    Category findByName(String name);
 }
