@@ -17,6 +17,7 @@
  */
 package org.parancoe.plugin.configuration.dao;
 
+import java.util.List;
 import org.lambico.dao.generic.Dao;
 import org.lambico.dao.generic.GenericDao;
 import org.parancoe.plugin.configuration.po.Category;
@@ -24,4 +25,5 @@ import org.parancoe.plugin.configuration.po.Category;
 @Dao(entity=Category.class)
 public interface CategoryDao extends GenericDao<Category, Long> {
     Category findByName(String name);
+    List<Category> findByOrderByName();
 }

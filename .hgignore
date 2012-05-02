@@ -35,3 +35,4 @@ syntag: regexp
 .classpath
 .settings
 
+^plugins/parancoe-plugin-configuration/nbactions\.xml$
