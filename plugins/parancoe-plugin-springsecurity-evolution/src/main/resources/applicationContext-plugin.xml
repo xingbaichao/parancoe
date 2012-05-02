@@ -18,7 +18,7 @@
     limitations under the License.
 
 -->
-<beans xmlns:="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
              xmlns:security="http://www.springframework.org/schema/security"
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:lambico="http://www.lambico.org/schema/lambico"

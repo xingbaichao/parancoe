@@ -17,4 +17,11 @@
     limitations under the License.
 
 --%>
-<h1>Hello World! Nel plugin</h1>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<h1><spring:message code="PluginConfiguration_ConfigurationProperties" text="?PluginConfiguration_ConfigurationProperties?"/></h1>
+<c:forEach items="${pluginConfigurationCategories}" var="category">
+    <h2><spring:message code="${category.name}" text="?${category.name}?" /></h2>
+</c:forEach>

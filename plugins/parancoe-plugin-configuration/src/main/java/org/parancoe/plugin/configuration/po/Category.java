@@ -20,7 +20,9 @@ package org.parancoe.plugin.configuration.po;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.lambico.po.hibernate.EntityBase;
 
@@ -75,7 +77,8 @@ public class Category extends EntityBase {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch= FetchType.EAGER)
+    @OrderBy("name ASC")
     public List<Property> getProperties() {
         return properties;
     }

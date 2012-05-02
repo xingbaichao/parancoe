@@ -18,10 +18,14 @@
 package org.parancoe.plugin.configuration.controllers;
 
 
+import java.util.List;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.parancoe.plugin.configuration.bo.ConfigurationManager;
+import org.parancoe.plugin.configuration.po.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +37,14 @@ public class ConfigurationController {
 
     private static final Logger logger = Logger.getLogger(ConfigurationController.class);
 
-    // EXAMPLE: the simplest possible action
+    @Resource
+    private ConfigurationManager configurationManager;
+    
     @RequestMapping(value="/index", method= RequestMethod.GET)
     public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
         logger.info("Executing index in the ConfigurationController");
-        model.addAttribute("something", new Object());
+        List<Category> categories = configurationManager.loadCategories();
+        model.addAttribute("pluginConfigurationCategories", categories);
         return "plugin/configuration/index";
     }
 
