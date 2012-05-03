@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+ * Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
  *
  * This file is part of Parancoe Plugin DWR.
  *
@@ -15,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.parancoe.plugin.dwr;
 
 import org.parancoe.web.plugin.WebPlugin;

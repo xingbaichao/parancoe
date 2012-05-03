@@ -15,6 +15,7 @@ syntag: regexp
 ^plugins/parancoe-plugin-sample/target
 ^plugins/parancoe-plugin-italy/target
 ^plugins/parancoe-plugin-dwr/target
+^plugins/parancoe-plugin-configuration/target
 ^examples/basicPersistence/target
 ^examples/basicWebApp/target
 ^examples/basicWebAppEvolution/target
@@ -34,3 +35,4 @@ syntag: regexp
 .classpath
 .settings
 
+^plugins/parancoe-plugin-configuration/nbactions\.xml$
