@@ -55,7 +55,7 @@ public class ContextListener implements ServletContextListener {
             log.info("loading custom Spring WebApplicationContext");
             loadApplicationContext();
             PluginHelper helper = new PluginHelper(applicationContext);
-            helper.initApplicationContextPlugins(); // deve essere DOPO loadApplicationContext()
+            helper.initApplicationContextPlugins(evt); // deve essere DOPO loadApplicationContext()
             helper.invokePluginContextInitialized(evt);
             log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");        
         } catch (Exception e) {

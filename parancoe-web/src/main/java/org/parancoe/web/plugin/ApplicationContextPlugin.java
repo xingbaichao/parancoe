@@ -31,6 +31,8 @@ public class ApplicationContextPlugin {
     private List<ContextLoaderListener> contextLoaderListeners =
             new ArrayList<ContextLoaderListener>();
     private List<String> fixtureClassNames = new ArrayList<String>();
+    private String jspPrefix = "/WEB-INF/jsp";
+    private List<String> jspResources = new ArrayList<String>();
 
     public String getName() {
         return name;
@@ -62,5 +64,21 @@ public class ApplicationContextPlugin {
             classes.add(Class.forName(className));
         }
         return classes;
+    }
+
+    public String getJspPrefix() {
+        return jspPrefix;
+    }
+
+    public void setJspPrefix(String jspPrefix) {
+        this.jspPrefix = jspPrefix;
+    }
+    
+    public List<String> getJspResources() {
+        return jspResources;
+    }
+
+    public void setJspResources(List<String> jspResources) {
+        this.jspResources = jspResources;
     }
 }

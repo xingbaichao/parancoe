@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+ * Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
  *
  * This file is part of Parancoe Plugin Spring Security Evolution.
  *
@@ -32,6 +32,9 @@ import org.lambico.po.hibernate.EntityBase;
 
 /**
  * A PO for UserProfile table.
+ *
+ * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
+ * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
  * @version $Revision$
  */
 @javax.persistence.Entity

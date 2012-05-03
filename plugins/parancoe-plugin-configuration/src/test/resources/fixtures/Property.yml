@@ -1,0 +1,48 @@
+#
+# Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
+#
+# This file is part of Parancoe Plugin Configuration.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+- &Property-first-first
+  name: first_property
+  description: the first property
+  category: *Category-first
+  type: STRING
+  value: first value
+- &Property-second-integer
+  name: integer_property
+  description: An integer property
+  category: *Category-second
+  type: INTEGER
+  value: 10
+- &Property-second-boolean
+  name: boolean_property
+  description: A boolean property
+  category: *Category-second
+  type: BOOLEAN
+  value: true
+- &Property-second-real
+  name: real_property
+  description: A real property
+  category: *Category-second
+  type: REAL
+  value: 3.141592653589793238462643383279502884197169399375105820974944592
+- &Property-second-text
+  name: text_property
+  description: A text property
+  category: *Category-second
+  type: TEXT
+  value: Here you can have a very long text.
