@@ -38,7 +38,9 @@
         <property name="name" value="parancoe-plugin-configuration"/>
         <property name="interceptors">
             <list>
+                <!--
                 <ref bean="parancoe-plugin-configurationSampleInterceptor"/>
+                -->
             </list>
         </property>
     </bean>

@@ -31,7 +31,7 @@ public class SanityTest extends PluginTest {
     private WebPlugin plugin;
     
     @Autowired
-    private SampleContextListener sampleContextListener;
+    private InitializerContextListener sampleContextListener;
     
     @Autowired
     private SampleInterceptor sampleInterceptor;

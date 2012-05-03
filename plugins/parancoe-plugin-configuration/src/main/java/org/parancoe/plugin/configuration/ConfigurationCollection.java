@@ -17,25 +17,24 @@
  */
 package org.parancoe.plugin.configuration;
 
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.stereotype.Component;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletContextEvent;
+import java.util.List;
+import org.parancoe.plugin.configuration.po.Category;
 
 /**
- * A sample context listener for the plugin
+ * A class for collecting configuration. Usually it's used for create an initial configuration for a
+ * module or a web application.
  *
- * @author paolo.dona@seesaw.it
- * @author lucio.benfante@jugpadova.it
+ * @author Lucio Benfante <lucio@benfante.com>
  */
-@Component("parancoe-plugin-configurationSampleContextListener")
-public class SampleContextListener extends ContextLoaderListener {
+public class ConfigurationCollection {
 
-    private static final Logger log = Logger.getLogger(SampleContextListener.class);
+    private List<Category> categories;
 
-    @Override
-    public void contextInitialized(ServletContextEvent evt) {
-        log.info("parancoe-plugin-configuration contextInitialized");
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
