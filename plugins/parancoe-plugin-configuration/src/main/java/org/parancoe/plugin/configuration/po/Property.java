@@ -47,6 +47,7 @@ public class Property extends EntityBase {
     private String description;
     private Category category;
     private String value;
+    private PropertyType type = PropertyType.STRING;
 
     /**
      * Get the value of name
@@ -122,7 +123,6 @@ public class Property extends EntityBase {
     public void setValue(String value) {
         this.value = value;
     }
-    private PropertyType type = PropertyType.STRING;
 
     /**
      * Get the value of type
@@ -180,7 +180,7 @@ public class Property extends EntityBase {
     }
 
     @Transient
-    public Integer getValueAsInteger() {
+    public Integer getValueAsInteger() throws NumberFormatException {
         return Integer.valueOf(this.getValue());
     }
 

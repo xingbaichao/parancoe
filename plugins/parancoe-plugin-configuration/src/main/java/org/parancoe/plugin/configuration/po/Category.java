@@ -21,6 +21,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -33,6 +35,9 @@ import org.lambico.po.hibernate.EntityBase;
  */
 @Entity
 @Table(name="PLUGIN_CONFIGURATION_CATEGORY")
+@NamedQueries({
+    @NamedQuery(name="Category.findByOrderByName", query="SELECT DISTINCT c FROM Category c ORDER BY c.name")
+})
 public class Category extends EntityBase {
 
     private String name;

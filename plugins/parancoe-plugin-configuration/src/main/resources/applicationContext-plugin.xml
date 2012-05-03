@@ -45,7 +45,7 @@
         <property name="name" value="parancoe-plugin-configuration"/>
         <property name="contextLoaderListeners">
             <list>
-                <ref bean="parancoe-plugin-configurationSampleContextListener"/>
+                <ref bean="parancoe-plugin-configurationInitializerContextListener"/>
             </list>
         </property>
         

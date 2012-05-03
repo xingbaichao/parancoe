@@ -31,6 +31,11 @@ public class CategoryDaoTest extends BaseTest {
         List<Category> results = categoryDao.findAll();
         assertSize(2, results);
     }
+
+    public void testFindAllOrdered() {
+        List<Category> results = categoryDao.findByOrderByName();
+        assertSize(2, results);
+    }
     
     public void testFindByName() {
         Category result = categoryDao.findByName("first_category");
