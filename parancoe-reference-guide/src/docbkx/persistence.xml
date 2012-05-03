@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter version="5.0" xml:id="persistence"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://docbook.org/ns/docbook http://www.docbook.org/xml/5.0/xsd/docbook.xsd
+    http://www.w3.org/1999/xlink http://www.docbook.org/xml/5.0/xsd/xlink.xsd">
+
+    <title>Persistence</title>
+
+    <sect1 xml:id="persistence-introduction">
+        <title>Introduction</title>
+
+        <para>The persistence layer of Parancoe is based on the Hibernate
+    implementation of the Java Persistence API (JPA). Moreover it provides:
+        </para>
+
+        <itemizedlist spacing="compact">
+            <listitem>
+                <para>utility classes for easy definition of persistent entities</para>
+            </listitem>
+
+            <listitem>
+                <para>a DAO system for common methods and for easy definition of finder methods</para>
+            </listitem>
+
+            <listitem>
+                <para>a standard default configuration</para>
+            </listitem>
+        </itemizedlist>
+
+    </sect1>
+
+    <sect1 xml:id="persistent-entities">
+        <title>Persistent entities</title>
+
+        <para>The recommended method for creating a persistent entity with Parancoe is
+    to use the JPA annotations. As at present the JPA implementation used by
+    Parancoe is the Hibernate one, you can read the
+            <link xlink:href="http://annotations.hibernate.org/">Hibernate documentation</link>
+    for a complete reference about the JPA annotations.
+        </para>
+
+        <para>Parancoe provides the
+            <code>org.parancoe.persistence.po.hibernate.EntityBase</code>
+    class, that can be used as the base class for your entities. The features inherited
+    from the
+            <code>EntityBase</code> are:
+        </para>
+
+        <itemizedlist spacing="compact">
+            <listitem>
+                <para>an auto-generated identifier of type
+                    <code>Long</code>;
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>versioning for optimistic locking;</para>
+            </listitem>
+
+            <listitem>
+                <para>properly defined
+                    <code>hashCode</code> and
+                    <code>equals</code> methods;
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    <code>toString</code> method, printing the class name and the
+                    identifier of the persistent instance.
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>The following code is an example of defining an entity class extending the
+            <code>EntityBase</code>:
+            <example>
+                <title>The Person entity</title>
+                <programlisting>package org.parancoe.example.po;
+
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+                    <emphasis>@Entity</emphasis>
+public class Person
+                    <emphasis>extends EntityBase</emphasis> {
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String email;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+                    <emphasis>@Temporal(TemporalType.DATE)</emphasis>
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+                </programlisting>
+            </example>
+        </para>
+
+        <para>The entities are auto-discovered using the following tag in
+        your Spring configuration (already included in the configuration produced
+        by the Parancoe Web Archetype):
+            <programlisting><![CDATA[
+    <parancoe:discover-persistent-classes basePackage="org.parancoe.example.po"/>
+]]>
+            </programlisting>
+        So the only thing you need to do is to add the entities classes in the correct package. No per-class configuration is needed.
+        </para>
+    </sect1>
+
+    <sect1 xml:id="entity-daos">
+        <title>Entity DAOs</title>
+
+        <para>For using the persistent entities you need to write almost no code.
+        Parancoe provides a Data Access Object (DAO) layer very powerful and easy to use.
+        </para>
+
+        <sect2 xml:id="defining-a-dao">
+            <title>Define a DAO for an entity</title>
+
+            <para>In Parancoe the DAOs are not classes, just interfaces, without an
+            explicit implementation. For example, for defining the DAO for the Person
+            entity, you need to write:
+                <example>
+                    <title>The Person DAO</title>
+                    <programlisting><![CDATA[package org.parancoe.example.dao;
+
+import org.parancoe.example.po.Person;
+import org.parancoe.persistence.dao.generic.Dao;
+import org.parancoe.persistence.dao.generic.GenericDao;
+
+@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+}]]>
+                    </programlisting>
+                </example>
+            The generic parameters of the
+                <classname>GenericDao</classname> interface
+            are the type of the persistent entity, and the type of its identifier.
+            </para>
+            <para>You don't have to write an implementation of this interface.
+            The implementation will be automatically added at runtime through Spring AOP.
+            The current implementation provides the following methods to each DAO:
+                <programlisting><![CDATA[T read(PK id);
+T get(PK id);
+void create(T transientObject);
+void store(T transientObject);
+void delete(T persistentObject);
+List<T> findAll();
+List<T> searchByCriteria(Criterion... criterion);
+List<T> searchByCriteria(DetachedCriteria criteria);
+List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults);
+Page<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion);
+Page<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria);
+int deleteAll();
+long count();    
+long countByCriteria(DetachedCriteria criteria);]]>
+                </programlisting>
+            Note that even these methods are parametrized with the type of the
+            entity (
+                <code>T</code>) and the type of the entity identifier (
+                <code>PK</code>).
+            So, for example, the 
+                <code>findAll</code> method of the DAO of the
+                <classname>Person</classname>
+            entity doesn't return a generic
+                <classname>List&lt;Object&gt;</classname>, but it can return a
+            more usefull type-checked
+                <classname>List&lt;Person&gt;</classname>.
+            </para>
+            <para>The DAOs are auto-discovered using the following tag in
+        your Spring configuration (already included in the configuration produced
+        by the Parancoe Web Archetype):
+                <programlisting><![CDATA[
+    <parancoe:define-daos basePackage="org.parancoe.example.dao"/>
+]]>
+                </programlisting>
+        So the only thing you need to do is to add the DAO interfaces classes
+        in the correct package. No per-DAO configuration is needed.
+            </para>
+
+        </sect2>
+
+        <sect2 xml:id="using-a-dao">
+            <title>Use the DAO</title>
+            <para>To use a DAO you simply need to get it from the Spring application
+            context. You could of course retrieve it by name from the context, using
+            its unqualified name. For example you could retrieve the
+                <classname>PersonDao</classname> throught the
+            "personDao" name. But the easiest way for obtaining a reference to a
+            DAO is to auto-wire it in a Spring managed bean.
+            </para>
+            <para>For example, for using the
+                <classname>PersonDao</classname> in
+            a controller of your application:
+                <example>
+                    <title>A controller using a DAO</title>
+                    <programlisting>
+package org.parancoe.example.controllers;
+
+import org.parancoe.example.dao.PersonDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/people/*.html")
+public class PeopleController {
+
+                        <emphasis>@Autowired
+    private PersonDao personDao;
+                        </emphasis>
+
+    @RequestMapping
+    public String list(Model model) {
+        model.addAttribute("people",
+                        <emphasis>personDao.findAll()</emphasis>);
+        return "people/list";
+    }
+}
+                    </programlisting>
+                </example>
+            </para>
+        </sect2>
+
+    </sect1>
+
+    <sect1 xml:id="adding-finders">
+        <title>Add finder methods to the DAOs</title>
+
+        <para>The
+            <classname>GenericDao</classname> interface provides the base methods
+        you need for interacting with persistent entities. You will add to your DAO
+        interface the methods your application needs for finding the data in the database.
+        Again, you don't have to implements those methods, they will be solved at runtime
+        through Spring AOP, using some simple rules:
+        </para>
+
+        <orderedlist>
+            <listitem>
+                <para>if it exists a
+                    <emphasis>named query</emphasis> with name
+                    <code>&lt;entityName&gt;.methodName</code>, then execute that query
+            and return the result as the result of the method;
+                </para>
+            </listitem>
+            <listitem>
+                <para>else if the
+                    <emphasis>method name</emphasis> is in the form
+                    <code>findBy[&lt;And-separated list of attributes&gt;][OrderBy[&lt;And-separated list of attributes&gt;]</code>,
+            then the method signature is parsed for generating a query.
+            The generated query will be executed and the result will be returned as the result of the method;
+                </para>
+            </listitem>
+            <listitem>
+                <para>else call the method on the base DAO implementation.</para>
+            </listitem>
+        </orderedlist>
+
+        <para>The return type of the finder methods can be a
+            <classname>List&lt;T&gt;</classname>
+        or a single 
+            <classname>T</classname>, where
+            <classname>T</classname> is
+        the type of the persistent entity. In the case of single
+            <classname>T</classname>:
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para>if the query will produce a single result, that result will be returned;</para>
+            </listitem>
+            <listitem>
+                <para>if the query will produce more than a single result, only the first one will be returned;</para>
+            </listitem>
+            <listitem>
+                <para>if the query will produce no results,
+                    <code>null will be returned.</code>
+                </para>
+            </listitem>
+        </itemizedlist>
+
+        <para>Some pratical examples will help you being very productive with this technique.</para>
+        
+        <sect2 xml:id="finders-find-by-equality">
+            <title>Find by field equality</title>
+
+            <para>For example, you need to find all people with first name equals
+            to "John". Add to the interface the following method:
+
+                <programlisting><![CDATA[@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByFirstName(String firstName);
+}]]>
+                </programlisting>
+
+            If the finder needs to compare on more fields, simply list them in
+            the method name separated by the “And” keyword:
+
+                <programlisting><![CDATA[
+@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByFirstName(String firstName);
+  List<Person> findByFirstNameAndLastNameAndBirthDate(
+      String firstName, String lastName, Date birthDate);
+}]]>
+                </programlisting>
+            </para>
+
+        </sect2>
+
+        <sect2 xml:id="finders-ordering">
+            <title>Ordering results</title>
+
+            <para>If you need to order (ascending) the results, declare a method
+            as the following:
+
+                <programlisting><![CDATA[@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByBirthDateOrderByLastName(Date birthDate);
+}]]>
+                </programlisting>
+
+            Again, If you need to order on more than one field, list the fields
+            you need:
+
+                <programlisting><![CDATA[List<Person> findByBirthDateOrderByLastNameAndFirstName(Date birthDate);]]>
+                </programlisting>
+
+            If you don’t want to filter by equality, but the result must contains all records, omit the list of fields:
+
+                <programlisting><![CDATA[List<Person> findByOrderByLastNameAndFirstName();]]>
+                </programlisting>
+
+            </para>
+        </sect2>
+
+        <sect2 xml:id="finders-single-object">
+            <title>Find a single object</title>
+
+            <para>Define the finder method returning the entity type, not a List:
+
+                <programlisting><![CDATA[Person findByFirstNameAndLastName(String firstName, String lastName);]]>
+                </programlisting>
+
+            If the query will produce more than one result, only the first one
+            in the list will be returned. If the query will produce no results,
+            the method will return null.
+            </para>
+        </sect2>
+
+        <sect2 xml:id="finders-hql-query">
+            <title>Write the query in JPA-QL/HQL</title>
+
+            <para>You can write an JPA-QL/HQL query and add a method in the DAO
+            interface that will execute it when invoked. Declare the method as
+            you like in the DAO interface, and declare the query as a named query
+            in the DAO’s entity. The name of the query must be
+                <code>&lt;entityName&gt;.methodName</code>. The method parameters
+            are passed in the same order as values for the query parameters.
+            For example:
+
+                <programlisting><![CDATA[@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByPartialUncasedLastName(String partialLastName);
+}]]>
+                </programlisting>
+
+
+                <programlisting><![CDATA[@Entity()
+@NamedQueries({
+  @NamedQuery(
+    name="Person.findByPartialUncasedLastName",
+    query="from Person p where lower(p.lastName) like lower(?) order by p.lastName")
+})
+public class Person extends EntityBase {
+  // ...
+}]]>
+                </programlisting>
+
+            Now You can invoke it:
+
+                <programlisting><![CDATA[List <Person> people = dao.findByPartialUncasedLastName("B%");]]>
+                </programlisting>
+            </para>
+        </sect2>
+
+        <sect2 xml:id="finders-pagination">
+            <title>Methods with support for the pagination of results</title>
+
+            <para>You can annotate the finder method parameters with the
+                <classname>@FirstResult</classname> and
+                <classname>@MaxResults</classname> annotations. For example:
+
+                <programlisting><![CDATA[@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByLastName(String lastName,
+                              @FirstResult int firstResult,
+                              @MaxResults int maxResults);
+}]]>
+                </programlisting>
+
+                The type of the annotate parameter must be
+                <type>int</type>. You can apply this technique to finder methods
+                associated to named queries, without the need to modify the query.
+                For example:
+
+                <programlisting><![CDATA[@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByPartialUncasedLastName(String partialLastName,
+                                            @FirstResult int firstResult,
+                                            @MaxResults maxResults);
+}]]>
+                </programlisting>
+
+                <programlisting><![CDATA[@Entity()
+@NamedQueries({
+  @NamedQuery(
+    name="Person.findByPartialUncasedLastName",
+    query="from Person p where lower(p.lastName) like lower(?) order by p.lastName")
+})
+public class Person extends EntityBase {
+  // ...
+}]]>
+                </programlisting>
+
+                If there are situations in which you don’t want to limit the
+                number of records, you can pass a negative value for the
+                <parameter>maxRecords</parameter> parameter:
+
+                <programlisting><![CDATA[List<Person> people = dao.findByPartialUncasedLastName("B%", 0, -1);]]>
+                </programlisting>
+
+                It will return all records, from the first (0) to the end.
+            </para>
+        </sect2>
+
+        <sect2 xml:id="finders-comparison-strategies">
+            <title>Using different strategies for comparing parameter values</title>
+
+            <para>In totally dynamic finders you can choose the type of the
+                comparison applied to each parameter using the
+                <classname>@Compare</classname> annotation. For example:
+
+                <programlisting><![CDATA[
+@Dao(entity=Person.class)
+public interface PersonDao extends GenericDao<Person, Long> {
+  List<Person> findByLastName(
+                 @Compare(CompareType.ILIKE) String lastName);
+}]]>
+                </programlisting>
+
+                The supported comparison strategies are:
+            </para>
+            <variablelist>
+                <varlistentry>
+                    <term>EQUAL</term>
+                    <listitem>equality, it’s the default</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>LIKE</term>
+                    <listitem>like, using ’%’</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>ILIKE</term>
+                    <listitem>case-insensitive like</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>GE</term>
+                    <listitem>greater than or equal</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>GT</term>
+                    <listitem>greater than</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>LE</term>
+                    <listitem>less than or equal</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>LT</term>
+                    <listitem>less than</listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>NE</term>
+                    <listitem>not equal</listitem>
+                </varlistentry>
+            </variablelist>
+        </sect2>
+
+    </sect1>
+
+    <sect1 xml:id="search-with-criteria">
+        <title>Search with criteria</title>
+
+        <para>
+                Very complex queries can be implemented using criteria in place
+                of writing JPA-QL/HQL queries. This is particularly useful for
+                implementing search forms, where some or all parameters are optional.
+        </para>
+        <para>The methods of the base DAO that support this kind of queries are:
+            <programlisting><![CDATA[List<T> searchByCriteria(Criterion... criterion);
+List<T> searchByCriteria(DetachedCriteria criteria);
+List<T> searchByCriteria(DetachedCriteria criteria, int firstResult, int maxResults);
+Page<T> searchPaginatedByCriteria(int page, int pageSize, Criterion... criterion);
+Page<T> searchPaginatedByCriteria(int page, int pageSize, DetachedCriteria criteria);
+long countByCriteria(DetachedCriteria criteria);]]>
+            </programlisting>
+        </para>
+        <para>
+            For example:
+            <example>
+                <title>Searching using a
+                    <classname>DetachedCriteria</classname>
+                </title>
+                <programlisting><![CDATA[DetachedCriteria personCriteria =
+        DetachedCriteria.forClass(Person.class);
+if (StringUtils.isNotBlank(firstNameValue)) {
+    personCriteria.add(Restrictions.ilike("firstName",
+            firstNameValue, MatchMode.ANYWHERE));
+}
+if (StringUtils.isNotBlank(lastNameValue)) {
+    personCriteria.add(Restrictions.ilike("lastName",
+            lastNameValue, MatchMode.ANYWHERE));
+}
+List<Person> result = personDao.searchByCriteria(personCriteria);]]>
+                </programlisting>
+            </example>
+        </para>
+    </sect1>
+
+    <sect1 xml:id="transaction-demarcation">
+        <title>Transaction demarcation</title>
+
+        <para>Without any additional configuration the transaction is identified
+        by the single DAO method call.</para>
+
+        <para>The application generated by the Parancoe Web Archetype is configured
+        for using a transaction-per-request strategy.</para>
+
+        <para>The transaction will be commited at the end of the request, except if
+        an uncaught exception has been thrown.</para>
+
+        <para>You can rollback the current transaction calling the <methodname>rollbackTransaction</methodname>
+        method of any DAO.</para>
+    </sect1>
+</chapter>
