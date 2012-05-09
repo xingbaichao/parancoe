@@ -1,8 +1,10 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 package ${package};
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
