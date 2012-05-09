@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 package ${package};
 
 import org.springframework.web.context.ContextLoaderListener;
@@ -8,7 +11,7 @@ import javax.servlet.ServletContextEvent;
 
 /**
  * A sample context listener for the plugin
- * 
+ *
  * @author paolo.dona@seesaw.it
  * @author lucio.benfante@jugpadova.it
  */
@@ -19,6 +22,6 @@ public class SampleContextListener extends ContextLoaderListener {
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
-      log.info("${artifactId} contextInitialized"); 
+        log.info("${artifactId} contextInitialized");
     }
 }

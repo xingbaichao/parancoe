@@ -1,36 +1,48 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:parancoe="http://www.parancoe.org/schema/parancoe"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-        http://www.parancoe.org/schema/parancoe http://www.parancoe.org/schema/parancoe.xsd">
 
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
-    <!-- Authomatic discovering of persistent classes and DAOs -->
-    <parancoe:define-daos basePackage="${package}"/>
-    <parancoe:discover-persistent-classes basePackage="${package}"/>
-    
-    <!-- ContextListener specifico per questo plugin -->
-    <bean id="${artifactId}ContextListener" class="${package}.SampleContextListener"/>
-    
+    <!-- Authomatic discovering of components -->
+    <context:component-scan base-package="${package}"/>
+    <!-- Authomatic discovering of persistent classes -->
+    <lambico:discover-persistent-classes basePackage="${package}"/>
+    <!-- Authomatic DAO definition from persistent classes -->
+    <lambico:define-daos baseInterfacePackage="${package}" />
+
     <!--                           -->
     <!-- Configurazione del plugin -->
     <!--                           -->
-    <bean id="applicationContext-${artifactId}Config" class="org.parancoe.web.plugin.ApplicationContextPlugin">
+    <bean id="applicationContext_${artifactId}Config" class="org.parancoe.web.plugin.ApplicationContextPlugin">
         <property name="name" value="${artifactId}"/>
         <property name="contextLoaderListeners">
             <list>
-                <ref bean="${artifactId}ContextListener"/>
+                <ref bean="${artifactId}SampleContextListener"/>
             </list>
         </property>
-
-        <!-- fixtures to load on starting of the plugin -->
+        
+        <!-- fixtures da caricare all'avvio del plugin -->
         <property name="fixtureClassNames">
             <list>
                 <value>${package}.Sample</value>
             </list>
         </property>
+        
+        <property name="jspPrefix" value="/WEB-INF/jsp"/>
+        
+        <property name="jspResources">
+            <list>
+                <bean class="java.lang.String"><constructor-arg value="classpath:${symbol_pound}{applicationContext_${artifactId}Config.jspPrefix}/plugin/sample/*"/></bean>
+            </list>
+        </property>
+        
     </bean>
 </beans>
