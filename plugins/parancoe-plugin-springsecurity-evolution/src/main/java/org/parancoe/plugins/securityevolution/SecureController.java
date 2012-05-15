@@ -27,23 +27,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Controller for secure porpouse.
+ * Controller for secure purpose.
  * @author Enrico Giurin
  *
  */
 @Controller
-@RequestMapping("/*.html")
+@RequestMapping("/plugin/security/*.html")
 
 public  class SecureController {
     private static Logger logger = Logger.getLogger(SecureController.class);
     
     @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
-        return new ModelAndView("login");
+        return new ModelAndView("plugin/security/login");
     }
     @RequestMapping
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
-        return new ModelAndView("accessDenied");
+        return new ModelAndView("plugin/security/accessDenied");
     }
     
     @RequestMapping
@@ -52,14 +52,14 @@ public  class SecureController {
         return null;
     }
     
-    @RequestMapping
+    /*@RequestMapping
     public ModelAndView j_spring_security_check(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
     @RequestMapping
     public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
         return null;
-    }
+    }*/
     
     
 }

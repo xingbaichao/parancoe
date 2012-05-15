@@ -26,29 +26,18 @@
 
 
      
-     <!-- Authomatic discovering of controller classes -->
+    <!-- Authomatic discovering of components -->
     <context:component-scan base-package="org.parancoe.plugins.securityevolution"/>
+      
     
-    
-    <!-- Interceptor specifico per questo plugin -->
-  <!--   <bean id="pluginSecurityInterceptor" class="org.parancoe.plugins.securityevolution.SecureInterceptor"/> -->
-        <!-- <property name="delegate">
-            <ref bean="filterChainProxy"/>
-        </property> -->
-    
-    
-    <!-- <bean id="filterChainProxy" class="org.springframework.web.filter.DelegatingFilterProxy" /> -->
-
-    
-
     <!--                           -->
     <!-- Configurazione del plugin -->
     <!--                           -->
-    <bean id="pluginSecurityConfig" class="org.parancoe.web.plugin.WebPlugin">
-        <property name="name" value="parancoe-plugin-security-springsecurityevolution"/>
+    <bean id="parancoe-plugin-springsecurity-evolutionPluginConfig" class="org.parancoe.web.plugin.WebPlugin">
+        <property name="name" value="parancoe-plugin-springsecurity-evolution"/>
         <property name="interceptors">
             <list>
-              <!--   <ref bean="pluginSecurityInterceptor"/> -->
+              
             </list>
         </property>
     </bean>

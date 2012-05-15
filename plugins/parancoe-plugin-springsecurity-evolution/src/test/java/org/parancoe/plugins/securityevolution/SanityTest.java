@@ -33,18 +33,13 @@ public class SanityTest extends PluginTest {
 
 
 
-    @Resource(name="applicationContextpluginSecurityEvolutionConfig")
-    private ApplicationContextPlugin applicationContextPlugin;
+	@Autowired
+    @Qualifier("parancoe-plugin-springsecurity-evolutionPluginConfig")
+    private WebPlugin plugin;
         
     /* test everything has been loaded properly */
     public void testSanity() {
-       assertNotNull(applicationContextPlugin);       
-       
-       
-       for(String s:applicationContext.getBeanDefinitionNames())
-        {
-    	   logger.debug("bean: "+s+" - class: "+applicationContext.getType(s));
-        }
+       assertNotNull(plugin);            
     }
     
     @Override

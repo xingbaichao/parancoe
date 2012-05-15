@@ -79,6 +79,11 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.parancoe</groupId>
+				 <artifactId>parancoe-plugin-configuration</artifactId>
+				<version>${project.version}</version>
+			</dependency>   
+			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>2.4</version>
@@ -159,6 +164,10 @@
 			<groupId>org.parancoe</groupId>
 			<artifactId>parancoe-plugin-dwr</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.parancoe</groupId>
+			<artifactId>parancoe-plugin-configuration</artifactId>				
+		</dependency>   
 
 		<!-- Servlet/JSP APIs provided by your container -->
 		<dependency>
@@ -201,15 +210,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
 		</dependency>
-		<!-- maven dependencies needed for apache ldap -->
-		<!-- <dependency>
-			<groupId>org.apache.directory.server</groupId>
-			<artifactId>apacheds-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.directory.server</groupId>
-			<artifactId>apacheds-server-jndi</artifactId>
-		</dependency> -->
+		
 		
 
 	</dependencies>

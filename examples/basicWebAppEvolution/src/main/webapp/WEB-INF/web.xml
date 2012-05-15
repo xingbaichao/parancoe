@@ -77,11 +77,12 @@
         <servlet-name>parancoe</servlet-name>
         <url-pattern>/r/*</url-pattern>
     </servlet-mapping>
-    <!-- secure porpouse -->
-    <!-- <servlet-mapping>
+    
+     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
-        <url-pattern>*.secure</url-pattern>
-    </servlet-mapping> -->
+        <url-pattern>/plugin/configuration/*</url-pattern>
+    </servlet-mapping>
+  
     <servlet-mapping>
         <servlet-name>parancoe</servlet-name>
         <url-pattern>*.form</url-pattern>
