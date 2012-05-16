@@ -1,0 +1,4 @@
+- &Person-rossi
+  firstName: Mario
+  lastName: Rossi
+  birthDate: 04/25/1970
