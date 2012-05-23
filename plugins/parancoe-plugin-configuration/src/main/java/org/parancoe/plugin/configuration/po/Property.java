@@ -72,7 +72,7 @@ public class Property extends EntityBase {
      *
      * @return the value of description
      */
-    @Column(length = 1024)
+    @Column(length = 4096)
     public String getDescription() {
         return description;
     }
