@@ -18,14 +18,11 @@
 package org.parancoe.plugins.securityevolution;
 
 import org.apache.log4j.Logger;
-import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.plugin.WebPlugin;
 import org.parancoe.web.test.PluginTest;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.filter.DelegatingFilterProxy;
-
-import javax.annotation.Resource;
 
 public class SanityTest extends PluginTest {
 	private static Logger logger = Logger.getLogger(
@@ -37,10 +34,20 @@ public class SanityTest extends PluginTest {
     @Qualifier("parancoe-plugin-springsecurity-evolutionPluginConfig")
     private WebPlugin plugin;
         
-    /* test everything has been loaded properly */
-    public void testSanity() {
-       assertNotNull(plugin);            
-    }
+	/* test everything has been loaded properly */
+	public void testSanity() {
+
+		/*for (String beanName : applicationContext.getBeanDefinitionNames()) {
+			try {
+				Object bean = applicationContext.getBean(beanName);
+				System.out.println("beanName: " + beanName + " - class: "
+						+ bean.getClass().getName());
+			} catch (BeansException e) {
+				System.err.println("Error with beanName: "+beanName);
+			}
+		}*/
+		assertNotNull(plugin);
+	}
     
     @Override
     public Class[] getFixtureClasses() {
