@@ -56,7 +56,8 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
             Object handler) throws Exception {       
-        populateLog4JMDC();        
+        populateLog4JMDC();      
+        
         return true;
     }
 
