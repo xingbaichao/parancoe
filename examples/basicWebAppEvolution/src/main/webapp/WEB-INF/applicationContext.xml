@@ -18,34 +18,12 @@
                    
     <bean id="conf" class="org.parancoe.basicwebappevolution.Conf" parent="abstractConf"/>
     
-    <!-- begin security section -->	  
-    
-    <!--  logout section -->
-    <security:http auto-config="true" use-expressions="true" pattern="/logout.html">
-    	<security:logout invalidate-session="true" 
-    	logout-success-url="/" 
-    	logout-url="/logout.html"   delete-cookies="true" />    
-    </security:http>
-    <!-- to investigate how to use handler (reference to external beans) for loging, logout, accessdenied -->
-
-    
-    <security:http auto-config="true"    pattern="/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
-        <security:intercept-url pattern="/r/**"  access="hasRole('ROLE_USER')"/>
-        <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')"/>	
-        <security:form-login login-page="/plugin/security/login.html" authentication-failure-url="/plugin/security/login.html?login_error=1" login-processing-url="/plugin/security/j_spring_security_check" />
-        <security:access-denied-handler  error-page="/plugin/security/accessDenied.html" />
-        <security:openid-login authentication-failure-url="/plugin/security/login.html?login_error=1"
-        user-service-ref="openIDUserService" login-processing-url="/plugin/security/j_spring_openid_security_check">
-        	<security:attribute-exchange identifier-match="https://www.google.com/.*">
-                <security:openid-attribute name="email" type="http://schema.openid.net/contact/email" required="true" />                
-             </security:attribute-exchange>
-        </security:openid-login>
-    </security:http>     
-    
-    <!-- LDAP integration -->
-	<!-- <security:ldap-server ldif="classpath:ldap/parancoe-ldap.ldif" id="ldapLocal" root="dc=parancoe,dc=org"/> -->
-
-    
+    <!-- begin security section -->	      
+   <security:filter-security-metadata-source id="securityMetadataSource" use-expressions="true">
+    	<security:intercept-url pattern="/r/**"  access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />	
+    </security:filter-security-metadata-source>
+   
     <!-- end security section -->
     
 </beans>
