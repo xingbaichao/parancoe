@@ -42,7 +42,13 @@ public class FlashHelper {
     public static void doSet(HttpServletRequest req, String code, String type, String attribute) {
         Map<String, String> flash = (Map<String, String>)req.getAttribute(attribute);
         if (flash == null) flash = new HashMap<String, String>();
-        flash.put(DEFAULT_ERROR_TYPE, code);
+        if (type == null) {
+            type = DEFAULT_ERROR_TYPE;
+        }
+        if (attribute == null) {
+            attribute = DEFAULT_FLASH_ATTRIBUTE;
+        }
+        flash.put(type, code);
         req.setAttribute(attribute, flash);
     }
 
@@ -57,6 +63,12 @@ public class FlashHelper {
     public static void doSetRedirect(HttpServletRequest req, String code, String type, String attribute) {
         Map<String, String> flash = (Map<String, String>)req.getSession().getAttribute(attribute);
         if (flash == null) flash = new HashMap<String, String>();
+        if (type == null) {
+            type = DEFAULT_ERROR_TYPE;
+        }
+        if (attribute == null) {
+            attribute = DEFAULT_FLASH_ATTRIBUTE;
+        }
         flash.put(type, code);
         req.getSession().setAttribute(attribute, flash);
     }
