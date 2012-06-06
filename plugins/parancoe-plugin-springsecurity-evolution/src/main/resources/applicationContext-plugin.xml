@@ -38,32 +38,71 @@
     <context:component-scan base-package="org.parancoe.plugins.securityevolution"/>
     
     
-    <!-- BEGIN Security configuration -->
+    <!--  
+     BEGIN Security configuration 
+    -->
+
+	<security:http auto-config="true" pattern="/**"
+		use-expressions="true" access-decision-manager-ref="accessDecisionManager"
+		authentication-manager-ref="authenticationManager">
+
+		<security:logout invalidate-session="true"
+			logout-success-url="/" logout-url="/logout.html" delete-cookies="true" />
+		<security:custom-filter ref="parancoeFilterSecurityInterceptor"
+			before="FILTER_SECURITY_INTERCEPTOR" />
+
+
+		<security:form-login login-page="/plugin/security/login.html"
+			authentication-failure-url="/plugin/security/login.html?login_error=1"
+			login-processing-url="/plugin/security/j_spring_security_check" />
+		<security:access-denied-handler
+			error-page="/plugin/security/accessDenied.html" />
+		<security:openid-login
+			authentication-failure-url="/plugin/security/login.html?login_error=1"
+			user-service-ref="openIDUserService" login-processing-url="/plugin/security/j_spring_openid_security_check">
+			<security:attribute-exchange
+				identifier-match="https://www.google.com/.*">
+				<security:openid-attribute name="email"
+					type="http://schema.openid.net/contact/email" required="true" />
+			</security:attribute-exchange>
+		</security:openid-login>
+	</security:http>
+
+	<security:authentication-manager id="authenticationManager"
+		alias="authenticationManager">
+		<security:authentication-provider
+			user-service-ref="userDetailsService">
+			<security:password-encoder ref="passwordEncoder">
+				<security:salt-source ref="saltSource" />
+			</security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- This section will be override at application level (webapp using the plugin)-->
+	<security:filter-security-metadata-source
+		id="securityMetadataSource" use-expressions="true">
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+	</security:filter-security-metadata-source> 
+    
+   
+    <bean id="parancoeFilterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor" >  
+    	<property name="authenticationManager" ref="authenticationManager"/>
+    	<property name="accessDecisionManager" ref="accessDecisionManager"/>
+    	<property name="securityMetadataSource" ref="securityMetadataSource"/>
+    </bean>
     
     <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
         
     <bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
-          <property name="userPropertyToUse" value="getUsername"/>
+          <property name="userPropertyToUse" value="getUsername"/>                
      </bean>
      
     <bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>    
 
-    <!--    
-     <security:http auto-config="true"    pattern="/admin/**" use-expressions="true" access-decision-manager-ref="accessDecisionManager" >
-        <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')"/>
-    </security:http>   
-    -->
     
     <!-- custom authentication for openId -->
     <bean id="openIDUserService" class="org.parancoe.plugins.securityevolution.ParancoeOpenIDUserDetailsService" />  
-  
-    <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref = "userDetailsService" >
-        	<security:password-encoder ref="passwordEncoder">
-        		<security:salt-source ref="saltSource" />
-        	</security:password-encoder>
-        </security:authentication-provider>
-    </security:authentication-manager>
 
     <bean class="org.springframework.security.access.vote.UnanimousBased" id="accessDecisionManager">
 		<property name="decisionVoters">
@@ -74,7 +113,9 @@
 	</bean>
 	<bean id="webExpressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter" />
     
-    <!-- END Security configuration -->
+     <!--  
+     END Security configuration 
+     -->
     
 
    
