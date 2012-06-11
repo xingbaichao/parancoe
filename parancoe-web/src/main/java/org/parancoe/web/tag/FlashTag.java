@@ -18,6 +18,7 @@
 package org.parancoe.web.tag;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
@@ -40,10 +41,18 @@ public class FlashTag extends  RequestContextAwareTag {
        this.type = type;
    } 
    
+    @Override
    protected final int doStartTagInternal() throws JspException, IOException {
         try {
-            Map<String, String> flash = (Map<String, String>) pageContext.getRequest().getAttribute("flash");
-            if (flash == null) flash = (Map<String, String>) pageContext.getSession().getAttribute("flash");
+            Map<String, String> flash = new HashMap<String, String>();
+            Map<String, String> flashRequest = (Map<String, String>) pageContext.getRequest().getAttribute("flash");
+            if (flashRequest != null) {
+                flash.putAll(flashRequest);
+            }
+            Map<String, String> flashSession = (Map<String, String>) pageContext.getSession().getAttribute("flash");
+            if (flashSession != null) {
+                flash.putAll(flashSession);
+            }
             if (flash != null && flash.get(type) != null) {
                 // Resolve the message.
                 MessageSource messageSource = getMessageSource();
