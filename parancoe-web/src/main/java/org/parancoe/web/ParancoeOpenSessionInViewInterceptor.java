@@ -17,6 +17,7 @@
 
 package org.parancoe.web;
 
+import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
@@ -61,7 +62,13 @@ public class ParancoeOpenSessionInViewInterceptor implements HandlerInterceptor 
         try{
             if(ex==null){
                 logger.debug("Committing the database transaction");
-                if (session.getTransaction().isActive() && !session.getTransaction().wasRolledBack()) session.getTransaction().commit();
+                if (session.getTransaction().isActive() && !session.getTransaction().wasRolledBack()) {
+                    Connection connection = session.connection();
+                    boolean autoCommit = connection.getAutoCommit();
+                    connection.setAutoCommit(false);
+                    session.getTransaction().commit();
+                    connection.setAutoCommit(autoCommit);
+                }                
             }else{
                 logger.error(ex);
                 logger.debug("Rolling back the database transaction");
