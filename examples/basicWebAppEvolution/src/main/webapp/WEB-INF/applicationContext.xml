@@ -23,6 +23,13 @@
     	<security:intercept-url pattern="/r/**"  access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />	
     </security:filter-security-metadata-source>
+    <!-- Here you can override any of the properties of the plugin security -->
+    
+   <!--  
+   <bean id="loginView" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/italy/index"/>
+	</bean> 
+	-->
    
     <!-- end security section -->
     
