@@ -50,15 +50,6 @@
         <tr><td colspan='2'><input name="submit" type="submit"></td></tr>
         <tr><td colspan='2'><input name="reset" type="reset"></td></tr>
       </table>
-    </form>
-    
-    
-    <h1>Register with Google OpenID support</h1>
-    <form action="j_spring_openid_security_check" method="post">
-    	<input name="openid_identifier" size="50" maxlength="100" 
-    		type="hidden" value=" https://www.google.com/accounts/o8/id" />
-    	<input type="submit" value="Sign in with Google" />
-    </form>
-  
+    </form>  
   </body>
 </html>
