@@ -17,11 +17,11 @@
  */
 package org.parancoe.plugins.securityevolution;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,16 +34,31 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/plugin/security/*.html")
 
-public  class SecureController {
+public  class SecureController  {
     private static Logger logger = Logger.getLogger(SecureController.class);
+    
+    
+    @Resource(name="loginView")
+    private String loginView;
+    
+    @Resource(name="accessDeniedView")
+    private String accessDeniedView;
     
     @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
-        return new ModelAndView("plugin/security/login");
+    	if(logger.isDebugEnabled())
+    	{
+    		logger.debug("Forwarding view to "+loginView);
+    	}
+        return new ModelAndView(loginView);
     }
     @RequestMapping
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
-        return new ModelAndView("plugin/security/accessDenied");
+    	if(logger.isDebugEnabled())
+    	{
+    		logger.debug("Forwarding view to "+accessDeniedView);
+    	}
+        return new ModelAndView(accessDeniedView);
     }
     
     @RequestMapping
@@ -51,7 +66,7 @@ public  class SecureController {
             HttpServletResponse res) {
         return null;
     }
-    
+	
     /*@RequestMapping
     public ModelAndView j_spring_security_check(HttpServletRequest req, HttpServletResponse res){
         return null;

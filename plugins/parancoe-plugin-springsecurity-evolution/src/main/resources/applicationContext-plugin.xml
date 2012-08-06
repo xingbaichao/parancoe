@@ -29,100 +29,239 @@
         http://www.springframework.org/schema/security 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
-    <!-- Authomatic discovering of persistent classes -->
+    <!-- Automatic discovering of persistent classes -->
     <lambico:discover-persistent-classes basePackage="org.parancoe.plugins.securityevolution"/>
-    <!-- Authomatic DAO definition from persistent classes -->
+    <!-- Automatic DAO definition from persistent classes -->
     <lambico:define-daos baseInterfacePackage="org.parancoe.plugins.securityevolution"/>
     
-    <!-- Authomatic discovering of components -->
+    <!-- Automatic discovering of components -->
     <context:component-scan base-package="org.parancoe.plugins.securityevolution"/>
     
+<!--  
+   
+     BEGIN Security configuration.
+     This configuration is based on the dogstore-explicit-base.xml configuration file
+     available at http://www.packtpub.com/support?nid=4435 - www.springsecuritybook.com
+     Book: Spring Security 3 - Peter Mularien
+     
+-->
     
-    <!--  
-     BEGIN Security configuration 
-    -->
-
-	<security:http auto-config="true" pattern="/**"
-		use-expressions="true" access-decision-manager-ref="accessDecisionManager"
-		authentication-manager-ref="authenticationManager">
-
-		<security:logout invalidate-session="true"
-			logout-success-url="/" logout-url="/logout.html" delete-cookies="true" />
-		<security:custom-filter ref="parancoeFilterSecurityInterceptor"
-			before="FILTER_SECURITY_INTERCEPTOR" />
-
-
-		<security:form-login login-page="/plugin/security/login.html"
-			authentication-failure-url="/plugin/security/login.html?login_error=1"
-			login-processing-url="/plugin/security/j_spring_security_check" />
-		<security:access-denied-handler
-			error-page="/plugin/security/accessDenied.html" />
-		<security:openid-login
-			authentication-failure-url="/plugin/security/login.html?login_error=1"
-			user-service-ref="openIDUserService" login-processing-url="/plugin/security/j_spring_openid_security_check">
-			<security:attribute-exchange
-				identifier-match="https://www.google.com/.*">
-				<security:openid-attribute name="email"
-					type="http://schema.openid.net/contact/email" required="true" />
-			</security:attribute-exchange>
-		</security:openid-login>
-	</security:http>
-
-	<security:authentication-manager id="authenticationManager"
-		alias="authenticationManager">
-		<security:authentication-provider
-			user-service-ref="userDetailsService">
-			<security:password-encoder ref="passwordEncoder">
-				<security:salt-source ref="saltSource" />
-			</security:password-encoder>
-		</security:authentication-provider>
-	</security:authentication-manager>
-
-	<!-- This section will be override at application level (webapp using the plugin)-->
+<!-- 
+      Plugin properties which are very likely to be overridden. 
+      web-app can override  one or more of the following values in the application configuration file: WEB-INF\applicationContext.xml 
+      Name is meaningful so no comment is needed 
+-->
+    
+    
+     <bean id="filterUrlLogout" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/logout.html"/>
+	</bean>
+	
+	 <bean id="loginView" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/login"/>
+	</bean>
+	
+	<bean id="accessDeniedView" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/accessDenied"/>
+	</bean>
+	
+	<!-- This keyString should be overridden by your application. This value is shared between  rememberMeServices and rememberMeAuthenticationProvider, so these two need to have the same value for 'key'-->
+	<bean id="keyString" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="parancoeKey"/>
+	</bean>
+	
+	<bean id="logoutSuccessUrl" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/"/>
+	</bean>
+	
+	<bean id="defaultFailureUrl" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/login.html?login_error=1"/>
+	</bean>
+	
+	<bean id="loginFormUrl" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/login.html"/>
+	</bean>
+	
+	<bean id="accessDeniedUrl" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/accessDenied.html"/>
+	</bean>
+	<!-- The URL destination that this filter intercepts and processes -->
+	<bean id="filterProcessesUrl" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/plugin/security/j_spring_security_check"/>
+	</bean>
+	
+	
+	
+	<bean id="tokenKey" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="ASGDADAG7625SGSG"/>
+	</bean>
+	
+	   
+    
+   
+<!-- 
+      Filters definition. The commas are required in the filter-chain "filters" attribute!
+-->   
+ 
+	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+	  <security:filter-chain-map path-type="ant">
+	     <security:filter-chain pattern="/**" filters="
+	           securityContextPersistenceFilter,
+	           logoutFilter,
+	           usernamePasswordProcessingFilter,
+	           rememberMeProcessingFilter,
+	           anonymousProcessingFilter,
+	           exceptionTranslationFilter,
+	           filterSecurityInterceptor" />
+	  </security:filter-chain-map>
+	</bean>
+	
+	<bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
+	
+	<!-- Note the construction of the logout filter differs from most others -->
+	<bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<!-- the post-logout destination -->
+		<constructor-arg ref="logoutSuccessUrl"/>
+		
+ 		<constructor-arg>
+			<array>
+				<ref bean="logoutHandler"/>
+				<ref bean="rememberMeServices"/>
+			</array>
+		</constructor-arg>
+		<property name="filterProcessesUrl" ref="filterUrlLogout"/>
+	</bean>
+	
+   
+	
+	<bean id="usernamePasswordProcessingFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+	 <property name="filterProcessesUrl" ref="filterProcessesUrl" />
+	  <!--  
+      
+ 	  <property name="usernameParameter" value="login_username"/>
+	  <property name="passwordParameter" value="login_password"/> 
+      -->
+	  <property name="authenticationManager" ref="customAuthenticationManager"/>
+	  <property name="rememberMeServices" ref="rememberMeServices"/>
+	  <property name="authenticationFailureHandler" ref="authenticationFailureHandler"/>
+	</bean>
+	
+	<bean id="rememberMeProcessingFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+	  <property name="rememberMeServices" ref="rememberMeServices"/>
+	  <property name="authenticationManager" ref="customAuthenticationManager" />
+	</bean>
+	
+	<bean id="anonymousProcessingFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+	<!-- Both of these are required -->
+		<!-- username, default role -->
+		<property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+		<!-- randomly generated key -->
+		<property name="key" ref="tokenKey"/>
+	</bean>
+	
+	<bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+	  <property name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+	  <property name="accessDeniedHandler" ref="accessDeniedHandler"/>
+	</bean>
+	
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+	  <property name="authenticationManager" ref="customAuthenticationManager"/>
+	  <property name="accessDecisionManager" ref="affirmativeBased"/>
+	  <property name="securityMetadataSource" ref="securityMetadataSource"/>	  
+	</bean>
+	
+	
+	
+<!-- 
+      Handlers and beans needed by the filters.
+-->   
+	
+	<!-- This section will be overridden at application level (webapp using the plugin)-->
 	<security:filter-security-metadata-source
 		id="securityMetadataSource" use-expressions="true">
 		<security:intercept-url pattern="/admin/**"
 			access="hasRole('ROLE_ADMIN')" />
 	</security:filter-security-metadata-source> 
-    
-   
-    <bean id="parancoeFilterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor" >  
-    	<property name="authenticationManager" ref="authenticationManager"/>
-    	<property name="accessDecisionManager" ref="accessDecisionManager"/>
-    	<property name="securityMetadataSource" ref="securityMetadataSource"/>
-    </bean>
-    
-    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
-        
-    <bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
-          <property name="userPropertyToUse" value="getUsername"/>                
-     </bean>
-     
-    <bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>    
-
-    
-    <!-- custom authentication for openId -->
-    <bean id="openIDUserService" class="org.parancoe.plugins.securityevolution.ParancoeOpenIDUserDetailsService" />  
-
-    <bean class="org.springframework.security.access.vote.UnanimousBased" id="accessDecisionManager">
-		<property name="decisionVoters">
+	
+	<bean id="logoutHandler" class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>	
+	
+	<bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<property name="key" ref="keyString"/>		
+		<property name="userDetailsService" ref="userDetailsService"/>
+	</bean>
+	
+	 <!-- Custom parancoe implementation of the UserDetailsService interface -->
+	 <bean id="userDetailsService" class="org.parancoe.plugins.securityevolution.ParancoeUserDetailsService"/>
+	 
+	 <bean id="customAuthenticationManager" class="org.springframework.security.authentication.ProviderManager">		
+		<property name="providers">
 			<list>
-				<ref bean="webExpressionVoter"/>				
+				<ref  bean="authenticationProvider"/>
+				<ref  bean="rememberMeAuthenticationProvider"/>
 			</list>
 		</property>
 	</bean>
-	<bean id="webExpressionVoter" class="org.springframework.security.web.access.expression.WebExpressionVoter" />
+	
+	<bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="passwordEncoder" ref="passwordEncoder"/>
+		<property name="saltSource" ref="saltSource"/>
+		<property name="userDetailsService" ref="userDetailsService"/>
+	</bean>    
+	
+	<bean class="org.springframework.security.authentication.dao.ReflectionSaltSource" id="saltSource">
+          <property name="userPropertyToUse" value="getUsername"/>                
+     </bean>
+     
+     <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
+     
+     <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider">
+	  	<property name="key" ref="keyString"/>
+	</bean>	
+	
+	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<property name="defaultFailureUrl"  ref="defaultFailureUrl"/>
+	</bean>	
+	
+	<bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	  <property name="loginFormUrl" ref="loginFormUrl" />
+	</bean>
+	
+	<bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+	  <property name="errorPage" ref="accessDeniedUrl" />
+	</bean>	
+		
+	<bean class="org.springframework.security.access.vote.AffirmativeBased" id="affirmativeBased">
+		<property name="decisionVoters">
+			<list>
+				<ref bean="roleVoter"/>
+				<ref bean="expressionVoter"/>
+				<ref bean="authenticatedVoter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.security.access.vote.RoleVoter" id="roleVoter"/>
+	
+	<bean class="org.springframework.security.access.vote.AuthenticatedVoter" id="authenticatedVoter"/>
+
+	<!-- Used for expressions -->
+	<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" id="expressionHandler"/>
+	<bean class="org.springframework.security.web.access.expression.WebExpressionVoter" id="expressionVoter">		
+		<property name="expressionHandler" ref="expressionHandler"/>		
+	</bean>	
     
-     <!--  
-     END Security configuration 
-     -->
+<!--  
+   
+     END - Security configuration 
+     
+-->
     
 
    
 
-    <!--                           -->
-    <!-- Configurazione del plugin -->
-    <!--                           -->
+<!--                           
+    Plugin configuration in accordance with the parancoe plugins architecture
+-->
     <bean id="applicationContextPluginSpringSecurityEvolutionConfig" class="org.parancoe.web.plugin.ApplicationContextPlugin">
         <property name="name" value="parancoe-plugin-springsecurity-evoulution"/>
         <property name="contextLoaderListeners">
