@@ -23,6 +23,8 @@
     	<security:intercept-url pattern="/r/**"  access="hasRole('ROLE_USER')"/>
         <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />	
     </security:filter-security-metadata-source>
+    <!-- override plugin section -->
+   
     <!-- Here you can override any of the properties of the plugin security -->
     
    <!--  

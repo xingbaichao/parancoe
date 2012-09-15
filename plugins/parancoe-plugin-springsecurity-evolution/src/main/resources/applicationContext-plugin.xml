@@ -75,19 +75,19 @@
 	</bean>
 	
 	<bean id="defaultFailureUrl" class="java.lang.String">
-		<constructor-arg type="java.lang.String" value="/plugin/security/login.html?login_error=1"/>
+		<constructor-arg type="java.lang.String" value="/login.html?login_error=1"/>
 	</bean>
 	
 	<bean id="loginFormUrl" class="java.lang.String">
-		<constructor-arg type="java.lang.String" value="/plugin/security/login.html"/>
+		<constructor-arg type="java.lang.String" value="/login.html"/>
 	</bean>
 	
 	<bean id="accessDeniedUrl" class="java.lang.String">
-		<constructor-arg type="java.lang.String" value="/plugin/security/accessDenied.html"/>
+		<constructor-arg type="java.lang.String" value="/accessDenied.html"/>
 	</bean>
 	<!-- The URL destination that this filter intercepts and processes -->
 	<bean id="filterProcessesUrl" class="java.lang.String">
-		<constructor-arg type="java.lang.String" value="/plugin/security/j_spring_security_check"/>
+		<constructor-arg type="java.lang.String" value="/security_check"/>
 	</bean>
 	
 	

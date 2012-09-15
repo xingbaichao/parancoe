@@ -21,13 +21,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>   
+   <% 
+    String cp = request.getContextPath();
+    pageContext.setAttribute("cp", cp);
+    %>	
      <title>Access denied</title>
+     <style type="text/css">
+	     .error{
+	    padding: 100px;	    
+	    background-color: white;
+	    margin: 20px;
+	    text-align: center;
+	    }	   
+	</style>
   </head>
+    
   <body>
     
-    <br />
-    <br />
-	<h1>Sorry, access is denied</h1>
+    
+	
+	
+	<div class="error">
+	    <h3>Sorry, access to this resource is denied</h3>	    
+	    <a href="${cp}/"><h5>Home</h5></a></p>
+	</div>
 	
 	
   </body>

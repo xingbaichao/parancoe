@@ -35,7 +35,7 @@
    
 - &User-admin
   username: admin
-  password: d928b1a8468c96804da6fcc70bff826f
+  password: ceb4f32325eda6142bd65215f4c0f371
   enabled: true
   locked: false 
   contactEmail: enricogiurin@gmail.com
