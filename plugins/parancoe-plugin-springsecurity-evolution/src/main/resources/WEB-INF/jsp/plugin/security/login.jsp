@@ -23,33 +23,39 @@
 
 <html>
   <head>
-    <% request.setAttribute("cp", "."); %>	
+    <% 
+    String cp = request.getContextPath();
+    pageContext.setAttribute("cp", cp);
+    %>	
+	    <title>login</title>
+	    <style type="text/css">
+	    	
+		#loginBox {
+		    position: relative;
+		    width: 35em;
+		    margin: 40px auto 20px auto;
+		    padding: 2em 2em 2em 2em;
+		}
+	    </style>
   </head>
 
   <body>
    
 	
-    <%-- this form-login-page form is also used as the 
-         form-error-page to ask for a login again.
-         --%>
+ <div id="loginBox">
    <c:if test="${not empty param.login_error}">
      <font color="red">
-        Your login attempt was not successful, try again.<br />
-        Reason: <%= session.getAttribute("SPRING_SECURITY_LAST_EXCEPTION").toString() %>
-        		
+        Your login attempt was not successful, try again.<br />        		
     </font>
-</c:if>
+   </c:if>
 
-
-
-    <form action="<c:url value='j_spring_security_check'/>" method="POST">
+    <form action="<c:url value='${cp}/security_check'/>" method="POST">
       <table>
         <tr><td>User:</td><td><input type='text' name='j_username' autofocus="autofocus" /></td></tr>
-        <tr><td>Password:</td><td><input type='password' name='j_password'  /></td></tr>
-       
-        <tr><td colspan='2'><input name="submit" type="submit"></td></tr>
-        <tr><td colspan='2'><input name="reset" type="reset"></td></tr>
+        <tr><td>Password:</td><td><input type='password' name='j_password'  /></td></tr>       
+        <tr><td colspan="2"><input name="submit" type="submit" value="Sign in"></td></tr>        
       </table>
     </form>  
+    </div>
   </body>
 </html>

@@ -18,7 +18,7 @@
 package org.parancoe.plugins.securityevolution;
 
 /**
- * Defines useful fuctions for security porpouse
+ * Defines useful functions for security purpose
  * @author Enrico Giurin
  *
  */
