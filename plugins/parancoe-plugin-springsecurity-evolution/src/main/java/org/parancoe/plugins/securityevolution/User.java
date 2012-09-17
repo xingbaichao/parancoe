@@ -56,7 +56,7 @@ public class User extends EntityBase {
     @Email
     private String contactEmail;
     private boolean enabled = true;    
-    private boolean locked = true;
+    private boolean locked = Boolean.FALSE;
     private List<Group> groups;
 
     /**
