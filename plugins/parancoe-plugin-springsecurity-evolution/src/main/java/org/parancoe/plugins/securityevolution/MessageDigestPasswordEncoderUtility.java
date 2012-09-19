@@ -38,7 +38,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
 /**
- * Convenient method to encrypt password based on {@link Md5PasswordEncoder}
+ * Provide a  method to encrypt password based on {@link MessageDigestPasswordEncoder} and salt.
  * @author enrico
  *
  */
