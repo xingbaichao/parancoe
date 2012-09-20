@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>    
+    <session-factory>
+        <!-- No more required
+        <mapping class="org.parancoe.basicWebApp.po.Person"/>
+        <mapping class="org.parancoe.persistence.security.UserProfile"/>
+        <mapping class="org.parancoe.persistence.security.Authorities"/>
+        -->
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,32 @@
+- &Person-lucio
+  firstName: Lucio
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-ugo
+  firstName: Ugo
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-grandugo
+  firstName: Ugo
+  lastName: Benfante
+  birthDate: 1176535645454
+- &Person-guido
+  firstName: Guido
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-chiara
+  firstName: Chiara
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-Carlo
+  firstName: Carlo
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-Silvia
+  firstName: Silvia
+  lastName: Benfante
+  birthDate: 1177535645454
+- &Person-Filippo
+  firstName: Filippo
+  lastName: Benfante
+  birthDate: 1177535645454
