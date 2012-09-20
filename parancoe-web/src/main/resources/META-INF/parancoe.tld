@@ -36,6 +36,14 @@
             <rtexprvalue>false</rtexprvalue>
             <description>The id of the path for this marking.</description>
         </attribute>
+        
+        <attribute>
+            <name>useFullUri</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>If true, use complete URIs (http://host/...etc.).</description>
+        </attribute>
+        
     </tag>
 
     <tag>

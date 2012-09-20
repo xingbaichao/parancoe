@@ -18,10 +18,11 @@
 package org.parancoe.web.tag;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import org.apache.commons.lang.StringUtils;
+import org.parancoe.web.util.MarkPositionHelper;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
@@ -38,6 +39,10 @@ public class MarkPositionTag extends RequestContextAwareTag {
      * The identifier of the path in which the position has been marked.
      */
     protected String pathId = null;
+    /**
+     * If true, the tag generate full URIs (http://host/..etc.)
+     */
+    protected boolean useFullUri;
 
     public String getPathId() {
         return pathId;
@@ -47,21 +52,36 @@ public class MarkPositionTag extends RequestContextAwareTag {
         this.pathId = pathId;
     }
 
+    public boolean isUseFullUri() {
+        return useFullUri;
+    }
+
+    public void setUseFullUri(boolean useFullUri) {
+        this.useFullUri = useFullUri;
+    }
+
     @Override
     protected final int doStartTagInternal() throws JspException, IOException {
-        final HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         final HttpSession session = pageContext.getSession();
+        ServletRequest request = pageContext.getRequest();
         final RequestContext requestContext = this.getRequestContext();
-        final String uri = requestContext.getUrlPathHelper().getOriginatingRequestUri(request);
+        final String uri = requestContext.getRequestUri();
         final String queryString =
-                requestContext.getUrlPathHelper().getOriginatingQueryString(request);
+                requestContext.getQueryString();
         String url = "";
         if (StringUtils.isBlank(queryString)) {
             url = uri;
         } else {
             url = uri + "?" + queryString;
         }
-        session.setAttribute(PREFIX + pathId, url);
+        if (useFullUri) {
+            String port = "";
+            if (request.getServerPort() != 80) {
+                port = ":"+request.getServerPort();
+            }
+            url = request.getScheme()+"://"+request.getServerName()+port+requestContext.getContextPath()+url;
+        }
+        MarkPositionHelper.markPosition(session, pathId, url);
         return SKIP_BODY;
     }
 }

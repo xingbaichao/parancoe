@@ -20,6 +20,7 @@ package org.parancoe.web.tag;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
+import org.parancoe.web.util.MarkPositionHelper;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 /**
@@ -58,9 +59,9 @@ public class MarkedPositionTag extends RequestContextAwareTag {
     @Override
     protected final int doStartTagInternal() throws JspException, IOException {
         final HttpSession session = pageContext.getSession();
-        Object value = session.getAttribute(MarkPositionTag.PREFIX + pathId);
+        String value = MarkPositionHelper.getMarkedPosition(session, pathId);
         if (value != null) {
-            pageContext.getOut().write(value.toString());
+            pageContext.getOut().write(value);
         } else {
             if (defaultUrl != null) {
                 pageContext.getOut().write(defaultUrl);
