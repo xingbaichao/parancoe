@@ -66,12 +66,16 @@ public class MarkPositionTag extends RequestContextAwareTag {
         ServletRequest request = pageContext.getRequest();
         final RequestContext requestContext = this.getRequestContext();
         final String uri = requestContext.getRequestUri();
+        String contextPath = requestContext.getContextPath();
         final String queryString =
                 requestContext.getQueryString();
         String url = "";
-        if (StringUtils.isBlank(queryString)) {
-            url = uri;
+        if (uri.startsWith(contextPath)) {
+            url = uri.substring(contextPath.length());
         } else {
+            url = uri;
+        }
+        if (!StringUtils.isBlank(queryString)) {
             url = uri + "?" + queryString;
         }
         if (useFullUri) {
