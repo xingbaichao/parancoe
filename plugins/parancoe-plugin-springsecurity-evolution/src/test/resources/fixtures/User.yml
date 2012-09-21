@@ -38,7 +38,6 @@
   password: d928b1a8468c96804da6fcc70bff826f
   enabled: true
   locked: true 
-  contactEmail: enricogiurin@gmail.com
   groups: 
     - *Group-administrator
     
