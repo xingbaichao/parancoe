@@ -78,8 +78,8 @@ public abstract class TagTest extends BaseTest {
         req.setSession(httpSession);
         req.setMethod("GET");
         req.setContextPath("/testctx");
-        req.setRequestURI("/test/request/uri");
-        req.setAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE, "/test/forward/request/uri");
+        req.setRequestURI("/testctx/test/request/uri");
+        req.setAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE, "/testctx/test/forward/request/uri");
         req.setQueryString("p1=v1&p2=v2&p3=v3");
         res = new MockHttpServletResponse();
         pc = new MockPageContext(((WebApplicationContext) this.getApplicationContext()).

@@ -76,7 +76,7 @@ public class MarkPositionTag extends RequestContextAwareTag {
             url = uri;
         }
         if (!StringUtils.isBlank(queryString)) {
-            url = uri + "?" + queryString;
+            url = url + "?" + queryString;
         }
         if (useFullUri) {
             String port = "";
