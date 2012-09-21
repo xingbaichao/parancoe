@@ -49,12 +49,11 @@ public class User extends EntityBase {
     private static final long serialVersionUID = 832363948575562242L;
     @NotBlank
     private String username = null;
-    @NotBlank
+    // @NotBlank
     private String password = null;
     private String oldPassword = null;
 
-    @Email
-    private String contactEmail;
+    
     private boolean enabled = true;    
     private boolean locked = Boolean.FALSE;
     private List<Group> groups;
@@ -135,18 +134,7 @@ public class User extends EntityBase {
 		return groups;
 	}
 
-
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
-	}
-
-
-	public String getContactEmail() {
-		return contactEmail;
-	}
-
-
-	public void setContactEmail(String contactEmail) {
-		this.contactEmail = contactEmail;
-	}
+	}	
 }

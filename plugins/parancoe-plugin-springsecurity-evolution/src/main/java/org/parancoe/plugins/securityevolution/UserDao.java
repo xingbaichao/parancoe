@@ -53,7 +53,7 @@ public interface UserDao extends GenericDao<User, Long> {
      */
     List<User> findByPartialUsername(String username);
     
-    List<User> findByContactEmail(String contactEmail);
+  
 
     
 }
