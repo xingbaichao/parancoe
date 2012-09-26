@@ -17,18 +17,12 @@
  */
 package org.parancoe.web.test;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.mock.web.MockPageContext;
-import org.springframework.mock.web.MockServletContext;
-import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.servlet.support.JspAwareRequestContext;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
@@ -88,29 +82,4 @@ public abstract class TagTest extends BaseTest {
         pc.setAttribute(RequestContextAwareTag.REQUEST_CONTEXT_PAGE_ATTRIBUTE, rc);
     }
 
-    @Override
-    protected ConfigurableApplicationContext createApplicationContext(
-            String[] locations) {
-        FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        MockServletContext servletContext = new MockServletContext(rl);
-        servletContext.setMinorVersion(4);
-        servletContext.registerContext("/test", servletContext);
-        servletContext.setServletContextName("/test");
-        servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                arrayToString(locations));
-        ContextLoader loader = new ContextLoader();
-        WebApplicationContext context = loader.initWebApplicationContext(servletContext);
-        return (ConfigurableApplicationContext) context;
-    }
-
-    private String arrayToString(String[] locations) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < locations.length - 1; i++) {
-            sb.append(locations[i]).append(',');
-        }
-        if (locations.length > 0) {
-            sb.append(locations[locations.length - 1]);
-        }
-        return sb.toString();
-    }
 }
