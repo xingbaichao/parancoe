@@ -19,13 +19,13 @@ package org.parancoe.web.test;
 
 import java.io.File;
 import java.io.IOException;
-import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 import org.lambico.test.spring.hibernate.DBTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.mock.web.MockServletContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * E' la classe base per tutti i test.
@@ -65,11 +65,26 @@ public abstract class BaseTest extends DBTest {
     protected ConfigurableApplicationContext createApplicationContext(
             String[] locations) {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
-        ServletContext servletContext = new MockServletContext(rl);
-        XmlWebApplicationContext context = new XmlWebApplicationContext();
-        context.setServletContext(servletContext);
-        context.setConfigLocations(locations);
-        context.refresh();
-        return context;
+        MockServletContext servletContext = new MockServletContext(rl);
+        servletContext.setMinorVersion(4);
+        servletContext.registerContext("/test", servletContext);
+        servletContext.setServletContextName("/test");
+        servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                arrayToString(locations));
+        ContextLoader loader = new ContextLoader();
+        WebApplicationContext context = loader.initWebApplicationContext(servletContext);
+        return (ConfigurableApplicationContext) context;
     }
+
+    private String arrayToString(String[] locations) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < locations.length - 1; i++) {
+            sb.append(locations[i]).append(',');
+        }
+        if (locations.length > 0) {
+            sb.append(locations[locations.length - 1]);
+        }
+        return sb.toString();
+    }
+    
 }
