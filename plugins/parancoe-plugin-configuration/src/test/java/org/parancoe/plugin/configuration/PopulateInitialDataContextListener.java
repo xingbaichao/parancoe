@@ -15,15 +15,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.plugin.configuration.dao;
+package org.parancoe.plugin.configuration;
 
-import java.util.List;
-import org.lambico.dao.generic.Dao;
-import org.lambico.dao.generic.GenericDao;
+import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
 
-@Dao(entity=Property.class)
-public interface PropertyDao extends GenericDao<Property, Long> {
-    Property findByNameAndCategoryId(String name, Long categoryId);
-    List<Property> findByCategoryId(Long categoryId);
+/**
+ * A context listener that initialize the database of the application (if not
+ * initialized yet).
+ *
+ * @author Lucio Benfante
+ */
+public class PopulateInitialDataContextListener extends org.parancoe.web.PopulateInitialDataContextListener {
+
+    public PopulateInitialDataContextListener() {
+        // Add here to the clazzToPopulate collection the entity classes you need to populate
+        clazzToPopulate.add(Category.class);
+        clazzToPopulate.add(Property.class);
+    }
 }

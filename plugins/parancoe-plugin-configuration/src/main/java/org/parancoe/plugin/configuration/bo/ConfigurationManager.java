@@ -19,12 +19,13 @@ package org.parancoe.plugin.configuration.bo;
 
 import java.util.List;
 import javax.annotation.Resource;
-import org.apache.log4j.Logger;
 import org.parancoe.plugin.configuration.ConfigurationCollection;
+import org.parancoe.plugin.configuration.PropertyCollection;
 import org.parancoe.plugin.configuration.dao.CategoryDao;
 import org.parancoe.plugin.configuration.dao.PropertyDao;
 import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,9 +36,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Lucio Benfante <lucio@benfante.com>
  */
 @Service
-public class ConfigurationManager {
+public class ConfigurationManager implements ConfigurationService {
 
-    private static final Logger log = Logger.getLogger(ConfigurationManager.class);
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(ConfigurationManager.class);
     @Resource
     private CategoryDao categoryDao;
     @Resource
@@ -51,15 +52,46 @@ public class ConfigurationManager {
      * @return A property. null if the category or the property are not found.
      */
     @Transactional(readOnly = true)
+    @Override
     public Property getProperty(String categoryName, String propertyName) {
         Property result = null;
         Category category = categoryDao.findByName(categoryName);
         if (category != null) {
+            log.debug("Category {} found.", categoryName);
             result = propertyDao.findByNameAndCategoryId(propertyName, category.getId());
+            if (log.isDebugEnabled()) {
+                if (result == null) {
+                    log.debug("Property {} not found.", propertyName);
+                } else {
+                    log.debug("Property {} found.", propertyName);
+                }
+            }
+        } else {
+            log.debug("Category {} not found.", categoryName);
         }
         return result;
     }
 
+    /**
+     * Return all properties of a category.
+     *
+     * @param categoryName The category name.
+     * @return A property collection. null if the category is not found.
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public PropertyCollection getProperties(String categoryName) {
+        List<Property> result = null;
+        Category category = categoryDao.findByName(categoryName);
+        if (category != null) {
+            log.debug("Category {} found.", categoryName);
+            result = propertyDao.findByCategoryId(category.getId());
+        } else {
+            log.debug("Category {} not found.", categoryName);
+        }
+        return new PropertyCollection(result);
+    }
+    
     /**
      * Load a property.
      *
@@ -67,6 +99,7 @@ public class ConfigurationManager {
      * @return A property. null if the property doesn't exist.
      */
     @Transactional(readOnly = true)
+    @Override
     public Property getProperty(Long id) {
         return propertyDao.get(id);
     }
@@ -82,11 +115,22 @@ public class ConfigurationManager {
     }
 
     /**
+     * Load all configuration categories.
+     *
+     * @return The configuration categories.
+     */
+    @Transactional(readOnly = true)
+    public ConfigurationCollection getConfiguration() {
+        return new ConfigurationCollection(loadCategories());
+    }
+    
+    /**
      * Store a property.
      *
      * @param property The property to store.
      */
     @Transactional
+    @Override
     public void store(Property property) {
         propertyDao.store(property);
     }
@@ -98,6 +142,7 @@ public class ConfigurationManager {
      * @param value The configuration collection to initialize.
      */
     @Transactional
+    @Override
     public void initializeConfiguration(ConfigurationCollection configurationCollection) {
         for (Category category : configurationCollection.getCategories()) {
             Category dbCategory = categoryDao.findByName(category.getName());

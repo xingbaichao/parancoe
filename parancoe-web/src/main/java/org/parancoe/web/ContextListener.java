@@ -43,9 +43,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  */
 public class ContextListener implements ServletContextListener {
     private static final Logger log = Logger.getLogger(ContextListener.class);
-    private ServletContext servletContext;
-    private XmlWebApplicationContext applicationContext;
+    protected ServletContext servletContext;
+    protected XmlWebApplicationContext applicationContext;
 
+    @Override
     public void contextInitialized(ServletContextEvent evt) {
         try {
             this.servletContext = evt.getServletContext();
@@ -68,7 +69,7 @@ public class ContextListener implements ServletContextListener {
      * load the ApplicationContext mixing the base parancoe
      * files and the application specific configuration
      */
-    private void loadApplicationContext() {
+    protected void loadApplicationContext() {
         List<String> config = new ArrayList<String>();
         // generici
         config.add("classpath:org/lambico/spring/dao/hibernate/genericDao.xml");
@@ -97,7 +98,7 @@ public class ContextListener implements ServletContextListener {
     /**
      * Populate the "daoMap" bean with the DAOs defined in the context.
      */
-    private void populateDaoMap(XmlWebApplicationContext ctx) {
+    protected void populateDaoMap(XmlWebApplicationContext ctx) {
         Map daoMap = (Map) ctx.getBean("daoMap");
         Map daos = DaoUtils.getDaos(ctx);
         daoMap.putAll(daos);
