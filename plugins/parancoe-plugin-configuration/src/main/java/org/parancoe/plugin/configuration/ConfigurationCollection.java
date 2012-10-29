@@ -18,6 +18,7 @@
 package org.parancoe.plugin.configuration;
 
 import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.parancoe.plugin.configuration.po.Category;
 
 /**
@@ -26,9 +27,17 @@ import org.parancoe.plugin.configuration.po.Category;
  *
  * @author Lucio Benfante <lucio@benfante.com>
  */
+@XmlRootElement
 public class ConfigurationCollection {
 
     private List<Category> categories;
+
+    public ConfigurationCollection() {
+    }
+
+    public ConfigurationCollection(List<Category> categories) {
+        this.categories = categories;
+    }
 
     public List<Category> getCategories() {
         return categories;

@@ -17,6 +17,9 @@
  */
 package org.parancoe.plugin.configuration.po;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +31,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.lambico.po.hibernate.EntityBase;
 
 /**
@@ -39,8 +43,13 @@ import org.lambico.po.hibernate.EntityBase;
 @Table(name = "PLUGIN_CONFIGURATION_PROPERTY")
 @NamedQueries({
     @NamedQuery(name = "Property.findByNameAndCategoryId", query =
-    "from Property p where p.name = ? and p.category.id = ?")
+    "from Property p where p.name = ? and p.category.id = ? order by p.category.name, p.name"),
+    @NamedQuery(name = "Property.findByCategoryId", query =
+    "from Property p where p.category.id = ? order by p.name")
 })
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, 
+                  property = "@id")
+@XmlRootElement
 public class Property extends EntityBase {
 
     private String name;
@@ -180,16 +189,19 @@ public class Property extends EntityBase {
     }
 
     @Transient
+    @JsonIgnore
     public Integer getValueAsInteger() throws NumberFormatException {
         return Integer.valueOf(this.getValue());
     }
 
     @Transient
+    @JsonIgnore
     public BigDecimal getValueAsReal() {
         return new BigDecimal(this.getValue());
     }
 
     @Transient
+    @JsonIgnore
     public Boolean getValueAsBoolean() {
         return Boolean.valueOf(this.getValue());
     }

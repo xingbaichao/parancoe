@@ -26,6 +26,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 import org.lambico.po.hibernate.EntityBase;
 
 /**
@@ -84,6 +85,7 @@ public class Category extends EntityBase {
 
     @OneToMany(mappedBy = "category", fetch= FetchType.EAGER)
     @OrderBy("name ASC")
+    @XmlTransient
     public List<Property> getProperties() {
         return properties;
     }
