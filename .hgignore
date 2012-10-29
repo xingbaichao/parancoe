@@ -36,3 +36,4 @@ syntag: regexp
 .settings
 
 ^plugins/parancoe-plugin-configuration/nbactions\.xml$
+^plugins/parancoe-plugin-configuration/nb-configuration\.xml$
