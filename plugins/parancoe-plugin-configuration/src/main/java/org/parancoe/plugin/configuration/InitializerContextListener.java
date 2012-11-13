@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
-import org.parancoe.plugin.configuration.bo.ConfigurationManager;
+import org.parancoe.plugin.configuration.bo.ConfigurationService;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -41,7 +41,7 @@ public class InitializerContextListener extends ContextLoaderListener {
     private static final Logger log = Logger.getLogger(InitializerContextListener.class);
     
     @Resource
-    private ConfigurationManager configurationManager;
+    private ConfigurationService configurationService;
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
@@ -54,7 +54,7 @@ public class InitializerContextListener extends ContextLoaderListener {
         for (Map.Entry<String, ConfigurationCollection> entry : configurationCollections.entrySet()) {
             log.info("Loading "+entry.getKey()+" configuration collection...");
             ConfigurationCollection value = entry.getValue();
-            configurationManager.initializeConfiguration(value);
+            configurationService.initializeConfiguration(value);
         }
     }
 }
