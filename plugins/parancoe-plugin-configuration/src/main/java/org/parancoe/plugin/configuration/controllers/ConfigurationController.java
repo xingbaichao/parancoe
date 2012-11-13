@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.parancoe.plugin.configuration.bo.ConfigurationManager;
+import org.parancoe.plugin.configuration.bo.ConfigurationService;
 import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
 import org.parancoe.plugin.configuration.po.PropertyType;
@@ -48,19 +48,19 @@ public class ConfigurationController {
     private static final Logger logger = Logger.getLogger(ConfigurationController.class);
 
     @Resource
-    private ConfigurationManager configurationManager;
+    private ConfigurationService configurationService;
     
     @RequestMapping(method= RequestMethod.GET)
     public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
         logger.info("Executing index in the ConfigurationController");
-        List<Category> categories = configurationManager.loadCategories();
+        List<Category> categories = configurationService.getConfiguration().getCategories();
         model.addAttribute("pluginConfigurationCategories", categories);
         return "plugin/configuration/index";
     }
 
     @RequestMapping(value = "/{propertyId}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable("propertyId") Long id, Model model) {
-        Property property = configurationManager.getProperty(id);
+        Property property = configurationService.getProperty(id);
         if (property != null) {
             model.addAttribute("pluginConfigurationProperty", property);
         } else {
@@ -93,7 +93,7 @@ public class ConfigurationController {
         if (result.hasErrors()) {
             return "plugin/configuration/edit";
         }
-        configurationManager.store(property);
+        configurationService.store(property);
         FlashHelper.setRedirectNotice(req, "PluginConfiguration_flash_PropertyUpdated");
         status.setComplete();
         return "redirect:..";
