@@ -15,22 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.persistence.util;
-
-import org.lambico.test.spring.hibernate.DBTest;
-import org.parancoe.persistence.po.hibernate.AuthorTC;
-import org.parancoe.persistence.po.hibernate.BookTC;
-import org.parancoe.persistence.po.hibernate.EntityTC;
+package org.parancoe.util;
 
 /**
- * A base class for Parancoe-core tests.
  *
- * @author lucio
+ * @author michele franzin <michele at franzin.net>
  */
-public abstract class BaseTest extends DBTest {
-
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{EntityTC.class, BookTC.class, AuthorTC.class};
-    }
+public class TestConf extends BaseConf {
 }

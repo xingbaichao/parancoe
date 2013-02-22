@@ -59,15 +59,7 @@
     <!-- Authomatic DAO definition from persistent classes -->
     <lambico:define-daos baseInterfacePackage="org.parancoe.persistence" />
 
-    <bean id="daos" parent="abstractDaoProvider">
-        <property name="proxyInterfaces">
-            <value>org.parancoe.persistence.dao.TestDaos</value>
-        </property>
-        <property name="target">
-            <bean parent="genericDaoProvider"/>
-        </property>
-    </bean>
+    <bean class="org.parancoe.util.TestConf" parent="abstractConf" />
 
     <bean id="daoExceptionManager" class="org.lambico.dao.BypassingExceptionManager"/>
-
 </beans>
