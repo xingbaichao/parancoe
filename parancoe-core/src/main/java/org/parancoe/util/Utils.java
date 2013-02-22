@@ -36,6 +36,7 @@ import org.springframework.core.io.Resource;
  * @author Paolo Dona paolo.dona@seesaw.it
  * @author michele franzin <michele at franzin.net>
  * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/>
+ * @deprecated please use apache commons
  */
 @Deprecated
 public class Utils {
