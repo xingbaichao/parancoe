@@ -15,9 +15,10 @@ package org.parancoe.basicWebApp.controllers;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.apache.log4j.Logger;
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.po.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +38,8 @@ public class PeopleEditController {
     private PersonDao personDao;
     @Resource
     private Validator validator;
-    
-    private final static Logger logger = Logger.getLogger(
-            PeopleEditController.class);
+
+    private final static Logger logger = LoggerFactory.getLogger(PeopleEditController.class);
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
     @RequestMapping
@@ -77,9 +77,5 @@ public class PeopleEditController {
         }
         model.addAttribute("person", p);
         return "people/edit";
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 }

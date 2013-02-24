@@ -17,8 +17,9 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/home/*.html")
 public class HomeController {
-    private static final Logger logger = Logger.getLogger(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     // the simplest possible action
     @RequestMapping
@@ -35,7 +36,7 @@ public class HomeController {
         params.put("something", new Object());
         return new ModelAndView("welcome", params);
     }
-    
+
     @RequestMapping
     public ModelAndView page1(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("page1", null);

@@ -15,7 +15,6 @@ package org.parancoe.basicWebApp.controllers;
 
 import java.text.ParseException;
 import org.parancoe.basicWebApp.po.Person;
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +25,8 @@ import javax.annotation.Resource;
 import org.parancoe.basicWebApp.blo.PersonBo;
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.web.util.FlashHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/people/*.html")
 public class PeopleController {
 
-    private static Logger logger = Logger.getLogger(PeopleController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PeopleController.class);
     @Resource
     private PersonDao personDao;
     @Resource
@@ -57,15 +58,11 @@ public class PeopleController {
     @RequestMapping
     public ModelAndView show(HttpServletRequest req, HttpServletResponse res) {
         Long id = Long.parseLong(req.getParameter("id"));
-        logger.debug("got id " + id);
+        logger.debug("got id {}", id);
         Map params = new HashMap();
         Person p = personDao.read(id);
 
         params.put("person", p);
         return new ModelAndView("people/show", params);
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 }
