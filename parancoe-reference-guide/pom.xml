@@ -19,11 +19,13 @@
             <plugin>
                 <groupId>com.agilejava.docbkx</groupId>
                 <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.14</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate-html</goal>
                             <goal>generate-pdf</goal>
+                            <goal>generate-epub</goal>
                         </goals>
                         <phase>generate-sources</phase>
                     </execution>
@@ -46,7 +48,7 @@
                     <entities>
                         <entity>
                             <name>version</name>
-                            <value>${pom.version}</value>
+                            <value>${project.version}</value>
                         </entity>
                     </entities>
                     <postProcess>
@@ -69,17 +71,9 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
     <properties>
         <docbook.source>${basedir}/src/docbkx</docbook.source>
         <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
-        <docbook.target>${basedir}/target/site/guide</docbook.target>        
-    </properties>    
+        <docbook.target>${basedir}/target/site/guide</docbook.target>
+    </properties>
 </project>
