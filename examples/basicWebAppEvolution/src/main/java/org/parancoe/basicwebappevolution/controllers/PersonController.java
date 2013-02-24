@@ -14,7 +14,6 @@
 package org.parancoe.basicwebappevolution.controllers;
 
 import java.text.ParseException;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.annotation.Resource;
@@ -24,6 +23,8 @@ import org.parancoe.basicwebappevolution.blo.PersonBo;
 import org.parancoe.basicwebappevolution.dao.PersonDao;
 import org.parancoe.basicwebappevolution.po.Person;
 import org.parancoe.web.util.FlashHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +40,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("person")
 public class PersonController {
 
-    private static Logger logger = Logger.getLogger(PersonController.class);
+    private static Logger logger = LoggerFactory.getLogger(PersonController.class);
     @Resource
     private PersonDao personDao;
     @Resource
