@@ -17,54 +17,51 @@
  */
 package org.parancoe.web.tag;
 
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
-import org.parancoe.web.test.TagTest;
+import org.junit.Test;
 import org.parancoe.web.util.MarkPositionHelper;
 import org.springframework.mock.web.MockHttpServletResponse;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  *
  * @author Lucio Benfante <lucio@benfante.com>
+ * @author michele franzin <michele at franzin.net>
  */
-public class MarkPositionTagTest extends TagTest {
+public class MarkPositionTagTest extends BaseTagTest {
 
-    public void testDoStartTag() throws Exception {
-        MarkPositionTag tag = new MarkPositionTag();
-        tag.setPageContext(this.pc);
-        String pathId = "testPathId";
-        tag.setPathId(pathId);
+    @Test
+    public void doStartTag() throws Exception {
+        MarkPositionTag tag = buildMarkPositionTag("testPathId");
         int result = tag.doStartTag();
-        assertEquals(Tag.SKIP_BODY, result);
-        String output = ((MockHttpServletResponse)this.pc.getResponse()).getContentAsString();        
-        assertEquals("", output);
-        assertEquals("/test/forward/request/uri?p1=v1&p2=v2&p3=v3", this.req.getSession().getAttribute(MarkPositionHelper.getSessionAttributeKey(pathId)));
+        assertThat(result, equalTo(Tag.SKIP_BODY));
+        String output = ((MockHttpServletResponse) pageContext.getResponse()).getContentAsString();
+        assertThat(output, equalTo(""));
+        final String path = (String) request.getSession().getAttribute(MarkPositionHelper.
+                getSessionAttributeKey("testPathId"));
+        assertThat(path, equalTo("/test/forward/request/uri?p1=v1&p2=v2&p3=v3"));
     }
 
-    public void testDoStartTagWithAbsolute() throws Exception {
-        MarkPositionTag tag = new MarkPositionTag();
-        tag.setPageContext(this.pc);
+    @Test
+    public void doStartTagWithFullUrl() throws Exception {
+        MarkPositionTag tag = buildMarkPositionTag("testPathId");
         tag.setUseFullUri(true);
-        String pathId = "testPathId";
-        tag.setPathId(pathId);
         int result = tag.doStartTag();
-        assertEquals(Tag.SKIP_BODY, result);
-        String output = ((MockHttpServletResponse)this.pc.getResponse()).getContentAsString();        
-        assertEquals("", output);
-        assertEquals("http://localhost/testctx/test/forward/request/uri?p1=v1&p2=v2&p3=v3", this.req.getSession().getAttribute(MarkPositionHelper.getSessionAttributeKey(pathId)));
-    }
-    
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{};
+        assertThat(result, equalTo(Tag.SKIP_BODY));
+        String output = ((MockHttpServletResponse) pageContext.getResponse()).getContentAsString();
+        assertThat(output, equalTo(""));
+        final String path = (String) request.getSession().getAttribute(MarkPositionHelper.
+                getSessionAttributeKey("testPathId"));
+        assertThat(path, equalTo(
+                "http://localhost/testctx/test/forward/request/uri?p1=v1&p2=v2&p3=v3"));
     }
 
-    @Override
-    protected String[] getConfigLocations() {
-        return new String[]{
-                    "classpath:org/lambico/spring/dao/hibernate/genericDao.xml",
-                    "classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml",
-                    "classpath:org/parancoe/web/parancoeBase.xml",
-                    "classpath:spring-test.xml"};
+    private MarkPositionTag buildMarkPositionTag(String pathId) throws JspException {
+        MarkPositionTag tag = new MarkPositionTag();
+        tag.setPageContext(pageContext);
+        tag.setPathId(pathId);
+        return tag;
     }
-    
 }

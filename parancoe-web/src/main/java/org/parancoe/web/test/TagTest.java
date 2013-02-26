@@ -28,6 +28,10 @@ import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
 import org.springframework.web.util.WebUtils;
 
+/**
+ * @deprecated please use {@link AbstractContextTest}
+ */
+@Deprecated
 public abstract class TagTest extends BaseTest {
 
     protected MockMultipartHttpServletRequest mpReq;

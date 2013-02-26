@@ -15,16 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.core;
-
-import org.lambico.test.spring.hibernate.junit4.FixtureSet;
-import org.parancoe.persistence.po.hibernate.AuthorTC;
-import org.parancoe.persistence.po.hibernate.BookTC;
-import org.parancoe.test.junit4.AbstractContextTest;
+package org.parancoe.util;
 
 /**
+ *
  * @author michele franzin <michele at franzin.net>
  */
-@FixtureSet(modelClasses = {BookTC.class, AuthorTC.class})
-public abstract class BaseTest extends AbstractContextTest {
+public class MockConf extends BaseConf {
 }

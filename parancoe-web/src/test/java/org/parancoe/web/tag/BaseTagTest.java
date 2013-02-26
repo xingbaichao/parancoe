@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Core.
+ * This file is part of Parancoe Web.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.core;
+package org.parancoe.web.tag;
 
-import org.lambico.test.spring.hibernate.junit4.FixtureSet;
-import org.parancoe.persistence.po.hibernate.AuthorTC;
-import org.parancoe.persistence.po.hibernate.BookTC;
-import org.parancoe.test.junit4.AbstractContextTest;
+import org.junit.Before;
+import org.parancoe.web.AbstractContextTest;
+import org.springframework.web.util.WebUtils;
 
 /**
+ *
  * @author michele franzin <michele at franzin.net>
  */
-@FixtureSet(modelClasses = {BookTC.class, AuthorTC.class})
-public abstract class BaseTest extends AbstractContextTest {
+public abstract class BaseTagTest extends AbstractContextTest {
+
+    @Before
+    public void setupRequestParams() {
+        request.setContextPath("/testctx");
+        request.setRequestURI("/testctx/test/request/uri");
+        request.setAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE,
+                "/testctx/test/forward/request/uri");
+        request.setQueryString("p1=v1&p2=v2&p3=v3");
+    }
 }

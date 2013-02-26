@@ -15,11 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.util;
+package org.parancoe.core;
+
+import javax.annotation.Resource;
+import org.junit.Test;
+import org.parancoe.util.BaseConf;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
+ * test everything has been loaded properly
  *
  * @author michele franzin <michele at franzin.net>
  */
-public class TestConf extends BaseConf {
+public class ParancoeTest extends BaseTest {
+
+    @Resource
+    private BaseConf configuration;
+
+    @Test
+    public void sanity() {
+        assertThat(configuration, is(notNullValue()));
+    }
 }
