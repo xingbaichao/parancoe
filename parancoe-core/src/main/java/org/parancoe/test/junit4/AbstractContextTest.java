@@ -15,16 +15,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.core;
+package org.parancoe.test.junit4;
 
-import org.lambico.test.spring.hibernate.junit4.FixtureSet;
-import org.parancoe.persistence.po.hibernate.AuthorTC;
-import org.parancoe.persistence.po.hibernate.BookTC;
-import org.parancoe.test.junit4.AbstractContextTest;
+import org.lambico.test.spring.hibernate.junit4.AbstractBaseTest;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * A base class for Parancoe context tests.
+ *
  * @author michele franzin <michele at franzin.net>
  */
-@FixtureSet(modelClasses = {BookTC.class, AuthorTC.class})
-public abstract class BaseTest extends AbstractContextTest {
+@ContextConfiguration(inheritLocations = false,
+        locations = {"/org/lambico/spring/dao/hibernate/genericDao.xml",
+    "/org/lambico/spring/dao/hibernate/applicationContextBase.xml",
+    "/org/parancoe/core/applicationContextBase.xml",
+    "/applicationContext.xml",
+    "/database-test.xml",
+    "/applicationContext-test.xml"})
+public abstract class AbstractContextTest extends AbstractBaseTest {
+// TODO move to parancoe-test project
 }

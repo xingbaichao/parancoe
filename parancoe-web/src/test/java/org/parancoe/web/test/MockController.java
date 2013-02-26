@@ -15,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 // Copyright 2008 The Parancoe Team
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,9 +28,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package org.parancoe.web.test.controller;
-
-
+package org.parancoe.web.test;
 
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -47,18 +44,17 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @RequestMapping("/test/controller.form")
 @SessionAttributes("something")
-public class ForTestController {
+public class MockController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String form(@RequestParam("value") String value,
-            Model model) {
-        ForTestControllerModel tcm = new ForTestControllerModel(value);
+    public String form(@RequestParam("value") String value, Model model) {
+        MockModel tcm = new MockModel(value);
         model.addAttribute("something", tcm);
         return "test/form";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String submit(@ModelAttribute("something") @Valid ForTestControllerModel tcm,
+    public String submit(@ModelAttribute("something") @Valid MockModel tcm,
             BindingResult result, SessionStatus status) {
         if (result.hasErrors()) {
             return "test/form";

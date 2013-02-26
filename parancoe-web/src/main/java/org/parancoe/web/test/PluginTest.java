@@ -32,7 +32,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * Carica all'avvio tutti i bean configurati in modo da renderli
  * disponibili ai test specifici senza la necessità di tirarli su di volta in volta con
  * getCtx().getBean()
+ *
+ * @deprecated please use {@link AbstractPluginTest}
  */
+@Deprecated
 public abstract class PluginTest extends DBTest {
 
     @Resource

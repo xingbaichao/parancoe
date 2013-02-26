@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
 
-    This file is part of Parancoe Web.
+    This file is part of Parancoe Core.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,20 +18,7 @@
     limitations under the License.
 
 -->
-<configuration>
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <appender name="MEMORY" class="ch.qos.logback.core.MemoryAppender">
-        <MaxSize>100</MaxSize>
-    </appender>
-
-    <logger name="org.parancoe" level="INFO"/>
-
-    <root level="ERROR">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="MEMORY" />
-    </root>
-</configuration>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+</beans>

@@ -22,6 +22,12 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 
+/**
+ *
+ * @author michele franzin <michele at franzin.net>
+ * @deprecated please use {@link AbstractControllerTest}
+ */
+@Deprecated
 public abstract class ControllerTest extends BaseTest {
 
     protected MockMultipartHttpServletRequest mpReq;

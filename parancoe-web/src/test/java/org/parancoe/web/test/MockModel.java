@@ -15,22 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.parancoe.web.test.controller;
+package org.parancoe.web.test;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * A simple bean used as model for testing a controller.
- * 
+ *
  * @author Lucio
  */
-public class ForTestControllerModel {
+public class MockModel {
 
     @NotBlank
     private String value;
 
-    public ForTestControllerModel(String value) {
+    public MockModel(String value) {
         this.value = value;
     }
 
