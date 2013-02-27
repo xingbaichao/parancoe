@@ -25,7 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * A PO for UserProfile table.
  *
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @author Lucio Benfante <lucio.benfante@gmail.com>
  * @version ${symbol_dollar}Revision${symbol_dollar}
  */
