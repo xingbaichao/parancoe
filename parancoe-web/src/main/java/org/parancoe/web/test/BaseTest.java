@@ -19,7 +19,6 @@ package org.parancoe.web.test;
 
 import java.io.File;
 import java.io.IOException;
-import org.apache.log4j.Logger;
 import org.lambico.test.spring.hibernate.DBTest;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.FileSystemResourceLoader;
@@ -35,7 +34,6 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public abstract class BaseTest extends DBTest {
 
-    private static final Logger log = Logger.getLogger(BaseTest.class);
 //    @Autowired
 //    protected BaseConf conf;
 
@@ -62,8 +60,7 @@ public abstract class BaseTest extends DBTest {
     }
 
     @Override
-    protected ConfigurableApplicationContext createApplicationContext(
-            String[] locations) {
+    protected ConfigurableApplicationContext createApplicationContext(String[] locations) {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         MockServletContext servletContext = new MockServletContext(rl);
         servletContext.setMinorVersion(4);
@@ -86,5 +83,5 @@ public abstract class BaseTest extends DBTest {
         }
         return sb.toString();
     }
-    
+
 }

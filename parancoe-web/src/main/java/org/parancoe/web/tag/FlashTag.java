@@ -58,13 +58,13 @@ public class FlashTag extends RequestContextAwareTag {
                 // And clean the session
                 flashSession.remove(type);
             }
-            if (flash != null && flash.get(type) != null) {
+            if (flash.get(type) != null) {
                 // Resolve the message.
                 MessageSource messageSource = getMessageSource();
                 if (messageSource == null) {
                     throw new JspTagException("No corresponding MessageSource found");
                 }
-                String msg = "";
+                String msg;
                 try {
                     Object[] argumentsArray = {};
                     msg = messageSource.getMessage(flash.get(type), argumentsArray,

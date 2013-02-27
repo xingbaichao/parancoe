@@ -27,19 +27,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
  * @author Paolo Dona paolo.dona@seesaw.it
- * @author Michele Franzin paolo.dona@seesaw.it
+ * @author michele franzin <michele at franzin.net>
  * @author Andrea Nasato <mailto:andrea.nasato@jugpadova.it/>
  */
+@Deprecated
 public class Utils {
 
-    private static final Logger logger =
-            Logger.getLogger(Utils.class);
+    private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
     private static final byte[] UTF8_PREAMBLE =
             new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
@@ -182,7 +183,7 @@ public class Utils {
     public static boolean hasUTF8preamble(String s) {
         return s.startsWith(UTF8_UNICODE_PREAMBLE);
     }
-    
+
     /**
      * Return an array containing all the substrings of
      * <code>camelString</code>, according to this rule: divide <code>camelString</code>
@@ -214,7 +215,7 @@ public class Utils {
         }
 
         // no upper case found: we return the entire word
-        if (idxList.size() == 0) {
+        if (idxList.isEmpty()) {
             return new String[]{camelString};
         }
 
@@ -238,5 +239,5 @@ public class Utils {
 
         return strList.toArray(new String[strList.size() - 1]);
     }
-    
+
 }

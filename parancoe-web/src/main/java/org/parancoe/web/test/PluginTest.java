@@ -20,7 +20,6 @@ package org.parancoe.web.test;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
-import org.apache.log4j.Logger;
 import javax.sql.DataSource;
 import org.lambico.test.spring.hibernate.DBTest;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -36,11 +35,9 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  */
 public abstract class PluginTest extends DBTest {
 
-    private static final Logger log = Logger.getLogger(PluginTest.class);
-
     @Resource
     protected DataSource dataSource;
-    
+
     @Override
     protected String[] getConfigLocations() {
         return new String[] {
@@ -51,10 +48,9 @@ public abstract class PluginTest extends DBTest {
             "classpath*:parancoe-plugin.xml",
             "classpath*:applicationContext-plugin.xml"};
     }
-    
+
     @Override
-    protected ConfigurableApplicationContext createApplicationContext(
-            String[] locations) {
+    protected ConfigurableApplicationContext createApplicationContext(String[] locations) {
         FileSystemResourceLoader rl = new FileSystemResourceLoader();
         ServletContext servletContext = new MockServletContext(rl);
         XmlWebApplicationContext context = new XmlWebApplicationContext();
@@ -63,5 +59,5 @@ public abstract class PluginTest extends DBTest {
         context.refresh();
         return context;
     }
-    
+
 }

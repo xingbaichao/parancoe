@@ -25,11 +25,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.log4j.Logger;
 import org.lambico.spring.dao.DaoUtils;
 import org.parancoe.util.BaseConf;
 import org.parancoe.util.MemoryAppender;
 import org.parancoe.web.plugin.PluginHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
@@ -42,7 +43,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * @version $Revision$
  */
 public class ContextListener implements ServletContextListener {
-    private static final Logger log = Logger.getLogger(ContextListener.class);
+    private static final Logger log = LoggerFactory.getLogger(ContextListener.class);
     protected ServletContext servletContext;
     protected XmlWebApplicationContext applicationContext;
 
@@ -58,7 +59,7 @@ public class ContextListener implements ServletContextListener {
             PluginHelper helper = new PluginHelper(applicationContext);
             helper.initApplicationContextPlugins(evt); // deve essere DOPO loadApplicationContext()
             helper.invokePluginContextInitialized(evt);
-            log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");        
+            log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");
         } catch (Exception e) {
             log.error("Error in base ContextListener.contextInitialized", e);
         }
@@ -90,6 +91,7 @@ public class ContextListener implements ServletContextListener {
         populateDaoMap(ctx);
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent evt) {
         new PluginHelper(applicationContext).invokePluginContextDestroyed(evt);
         log.info("### Shutting down Parancoe in " + BaseConf.getEnv() + " mode.");
@@ -98,6 +100,7 @@ public class ContextListener implements ServletContextListener {
     /**
      * Populate the "daoMap" bean with the DAOs defined in the context.
      */
+    @SuppressWarnings("unchecked")
     protected void populateDaoMap(XmlWebApplicationContext ctx) {
         Map daoMap = (Map) ctx.getBean("daoMap");
         Map daos = DaoUtils.getDaos(ctx);

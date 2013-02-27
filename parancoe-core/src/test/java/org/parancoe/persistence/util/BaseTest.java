@@ -24,13 +24,13 @@ import org.parancoe.persistence.po.hibernate.EntityTC;
 
 /**
  * A base class for Parancoe-core tests.
- * 
+ *
  * @author lucio
  */
 public abstract class BaseTest extends DBTest {
 
     @Override
     public Class[] getFixtureClasses() {
-        return new Class[]{EntityTC.class, AuthorTC.class, BookTC.class};
+        return new Class[]{EntityTC.class, BookTC.class, AuthorTC.class};
     }
 }

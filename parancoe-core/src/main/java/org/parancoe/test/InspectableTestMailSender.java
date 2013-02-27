@@ -18,18 +18,16 @@
 package org.parancoe.test;
 
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
- * Inspectable mock implementation of JavaMailSender for test porpouse.
- * 
- * @author Michele Franzin
+ * Inspectable mock implementation of JavaMailSender for testing porpouses.
+ *
+ * @author michele franzin <michele at franzin.net>
  */
 public class InspectableTestMailSender extends JavaMailSenderImpl {
 
-    private static final Logger logger = Logger.getLogger(InspectableTestMailSender.class);
     private MimeMessage[] messages = new MimeMessage[0];
 
     @Override

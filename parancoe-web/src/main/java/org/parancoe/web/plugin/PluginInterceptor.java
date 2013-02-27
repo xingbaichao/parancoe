@@ -20,7 +20,8 @@ package org.parancoe.web.plugin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -31,38 +32,42 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * Questa classe fa da proxy per tutti gli interceptor configurati nei plugins.
  * Parancoe chiama questo interceptor che poi fa il dispatch a tutti gli
  * interceptor dei plugin.
- * 
+ *
  * @author paolo.dona@seesaw.it
  * @author Jacopo Murador <jacopo.murador at seesaw.it>
  */
 public class PluginInterceptor  implements HandlerInterceptor, ApplicationContextAware {
     private ApplicationContext ctx;
 
-    private static final Logger logger = Logger.getLogger(PluginInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(PluginInterceptor.class);
 
     public PluginInterceptor() {
         logger.info("PluginInterceptor set up");
     }
 
+    @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler)
             throws Exception {
         logger.debug("PluginInterceptor.preHandle()");
         return new PluginHelper(ctx).invokePluginPreHandle(req, res, handler);
     }
 
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
         new PluginHelper(ctx).invokePluginPostHandle(request, response, handler, modelAndView);
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception exception) throws Exception {
         new PluginHelper(ctx).invokeAfterCompletion(request, response, handler, exception); // To
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         ctx = applicationContext;
     }
-    
-    
+
+
 }

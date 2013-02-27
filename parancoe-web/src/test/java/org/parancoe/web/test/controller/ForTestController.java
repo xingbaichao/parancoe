@@ -34,7 +34,6 @@ package org.parancoe.web.test.controller;
 
 
 import javax.validation.Valid;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,8 +48,6 @@ import org.springframework.web.bind.support.SessionStatus;
 @RequestMapping("/test/controller.form")
 @SessionAttributes("something")
 public class ForTestController {
-
-    private static final Logger logger = Logger.getLogger(ForTestController.class);
 
     @RequestMapping(method = RequestMethod.GET)
     public String form(@RequestParam("value") String value,

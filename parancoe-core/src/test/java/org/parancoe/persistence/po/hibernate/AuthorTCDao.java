@@ -24,7 +24,7 @@ import org.lambico.dao.generic.GenericDao;
 /**
  * A DAO to be used for the tests M:N relationships.
  * 
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @version $Revision$
  */
 @Dao(entity = AuthorTC.class)
