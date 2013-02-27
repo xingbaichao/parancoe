@@ -28,6 +28,11 @@ import org.parancoe.plugin.configuration.po.PropertyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
+import org.junit.Test;
 
 public class PropertyDaoTest extends BaseTest {
 
@@ -36,72 +41,81 @@ public class PropertyDaoTest extends BaseTest {
     @Autowired
     private CategoryDao categoryDao;
 
-    public void testFindAll() {
+    @Test
+    public void findAll() {
         List<Property> results = propertyDao.findAll();
-        assertSize(5, results);
+        assertThat(results, hasSize(5));
     }
 
-    public void testFindByNameAndCategoryId() {
+    @Test
+    public void findByNameAndCategoryId() {
         Category category = categoryDao.findByName("first_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("first_property", category.getId());
-        assertNotNull(property);
-        assertEquals("first_property", property.getName());
-        assertEquals(category.getId(), property.getCategory().getId());
-        assertEquals(PropertyType.STRING, property.getType());
-        assertEquals("first value", property.getValue());
+        assertThat(property, is(notNullValue()));
+        assertThat(property.getName(), equalTo("first_property"));
+        assertThat(property.getCategory().getId(), equalTo(category.getId()));
+        assertThat(property.getType(), equalTo(PropertyType.STRING));
+        assertThat(property.getValue(), equalTo("first value"));
     }
 
-    public void testFindIntegerProperty() {
+    @Test
+    public void findIntegerProperty() {
         Category category = categoryDao.findByName("second_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("integer_property", category.getId());
-        assertEquals(PropertyType.INTEGER, property.getType());
-        assertEquals(Integer.valueOf("10"), property.getValueAsInteger());
+        assertThat(property.getType(), equalTo(PropertyType.INTEGER));
+        assertThat(property.getValueAsInteger(), equalTo(Integer.valueOf("10")));
     }
 
-    public void testFindBooleanProperty() {
+    @Test
+    public void findBooleanProperty() {
         Category category = categoryDao.findByName("second_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("boolean_property", category.getId());
-        assertEquals(PropertyType.BOOLEAN, property.getType());
-        assertEquals(Boolean.TRUE, property.getValueAsBoolean());
+        assertThat(property.getType(), equalTo(PropertyType.BOOLEAN));
+        assertThat(property.getValueAsBoolean(), equalTo(Boolean.TRUE));
     }
 
-    public void testFindRealProperty() {
+    @Test
+    public void findRealProperty() {
         Category category = categoryDao.findByName("second_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("real_property", category.getId());
-        assertEquals(PropertyType.REAL, property.getType());
-        assertEquals(new BigDecimal(
+        assertThat(property.getType(), equalTo(PropertyType.REAL));
+        assertThat(property.getValueAsReal(), closeTo(new BigDecimal(
                 "3.141592653589793238462643383279502884197169399375105820974944592"),
-                property.getValueAsReal());
+                BigDecimal.ZERO));
     }
 
-    public void testFindTextProperty() {
+    @Test
+    public void findTextProperty() {
         Category category = categoryDao.findByName("second_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("text_property", category.getId());
-        assertEquals(PropertyType.TEXT, property.getType());
-        assertEquals("Here you can have a very long text.", property.getTypedValue());
+        assertThat(property.getType(), equalTo(PropertyType.TEXT));
+        assertThat(property.getTypedValue().toString(), equalTo(
+                "Here you can have a very long text."));
     }
-    
-    public void testSetStringValue() {
+
+    @Test
+    public void setStringValue() {
         Category category = categoryDao.findByName("first_category");
         Property property =
                 propertyDao.findByNameAndCategoryId("first_property", category.getId());
         String newValue = "A new value";
         property.setTypedValue(newValue);
-        assertSame(newValue, property.getValue());
+        assertThat(property.getValue(), is(sameInstance(newValue)));
         Property oldObject = property;
         fixAndClearSession(property);
         property =
                 propertyDao.findByNameAndCategoryId("first_property", category.getId());
-        assertNotSame(oldObject, property);
-        assertEquals(newValue, property.getTypedValue());
+        assertThat(property, is(not(sameInstance(oldObject))));
+        assertThat(property.getTypedValue().toString(), equalTo(newValue));
     }
 
-    public void testSetIntegerValue() {
+    @Test
+    public void setIntegerValue() {
         Category category = categoryDao.findByName("second_category");
         String propertyName = "integer_property";
         Property property =
@@ -111,10 +125,11 @@ public class PropertyDaoTest extends BaseTest {
         fixAndClearSession(property);
         property =
                 propertyDao.findByNameAndCategoryId(propertyName, category.getId());
-        assertEquals(newValue, property.getValueAsInteger());
+        assertThat(property.getValueAsInteger(), equalTo(newValue));
     }
 
-    public void testSetRealValue() {
+    @Test
+    public void setRealValue() {
         Category category = categoryDao.findByName("second_category");
         String propertyName = "real_property";
         Property property =
@@ -124,10 +139,11 @@ public class PropertyDaoTest extends BaseTest {
         fixAndClearSession(property);
         property =
                 propertyDao.findByNameAndCategoryId(propertyName, category.getId());
-        assertEquals(newValue, property.getValueAsReal());
+        assertThat(property.getValueAsReal(), equalTo(newValue));
     }
 
-    public void testSetBooleanValue() {
+    @Test
+    public void setBooleanValue() {
         Category category = categoryDao.findByName("second_category");
         String propertyName = "boolean_property";
         Property property =
@@ -137,10 +153,11 @@ public class PropertyDaoTest extends BaseTest {
         fixAndClearSession(property);
         property =
                 propertyDao.findByNameAndCategoryId(propertyName, category.getId());
-        assertEquals(newValue, property.getValueAsBoolean());
+        assertThat(property.getValueAsBoolean(), equalTo(newValue));
     }
 
-    public void testSetTextValue() {
+    @Test
+    public void setTextValue() {
         Category category = categoryDao.findByName("second_category");
         String propertyName = "text_property";
         Property property =
@@ -150,13 +167,12 @@ public class PropertyDaoTest extends BaseTest {
         fixAndClearSession(property);
         property =
                 propertyDao.findByNameAndCategoryId(propertyName, category.getId());
-        assertEquals(newValue, property.getValue());
+        assertThat(property.getValue(), equalTo(newValue));
     }
-    
+
     private void fixAndClearSession(Property property) throws DataAccessException {
         propertyDao.store(property);
-        HibernateTemplate hibernateTemplate =
-                ((HibernateGenericDao)propertyDao).getHibernateTemplate();
+        HibernateTemplate hibernateTemplate = ((HibernateGenericDao) propertyDao).getHibernateTemplate();
         hibernateTemplate.flush();
         hibernateTemplate.evict(property);
     }

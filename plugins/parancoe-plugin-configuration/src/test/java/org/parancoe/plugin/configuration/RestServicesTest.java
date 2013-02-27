@@ -17,49 +17,39 @@
  */
 package org.parancoe.plugin.configuration;
 
-
-import java.util.List;
-import junit.framework.Assert;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.parancoe.plugin.configuration.bo.ConfigurationService;
-import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import org.parancoe.web.test.junit4.AbstractPluginTest;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 /**
  * Test CXF REST services
  *
  * @author Arjun Dhar
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-    "classpath:org/parancoe/plugin/configuration/rest-test-client.xml"
-})
-public class RestServicesTest {
+@ContextConfiguration(locations = {"/org/parancoe/plugin/configuration/rest-test-client.xml"})
+public class RestServicesTest extends AbstractJUnit4SpringContextTests {
 
-    private static Logger log = LoggerFactory.getLogger(RestServicesTest.class);
     private static SelfServer server;
-
     @Autowired
     @Qualifier("testclient")
     protected ConfigurationService proxy;
-
     @Autowired
     @Qualifier("testclientxml")
     protected ConfigurationService proxyXml;
-    
+
     @BeforeClass
     public static void startServer() throws Exception {
-        /* please note, in actuality, for multiple tests you will have 
+        /* please note, in actuality, for multiple tests you will have
          to ensure a single version of the server is running only.
 
          For each test case, it will invoke start and will give an error.
@@ -74,63 +64,62 @@ public class RestServicesTest {
     }
 
     @Test
-    public void testGetPropertyByCategoryAndName() throws Exception {
+    public void getPropertyByCategoryAndName() throws Exception {
         Property property = proxy.getProperty("first_category", "first_property");
-        Assert.assertNotNull(property);
-        Assert.assertEquals("first_property", property.getName());
-        Assert.assertEquals("first_category", property.getCategory().getName());
+        assertThat(property, is(notNullValue()));
+        assertThat(property.getName(), equalTo("first_property"));
+        assertThat(property.getCategory().getName(), equalTo("first_category"));
     }
-    
+
     @Test
-    public void testGetPropertyById() throws Exception {
+    public void getPropertyById() throws Exception {
         Property startProperty = proxy.getProperty("first_category", "first_property");
         Property property = proxy.getProperty(startProperty.getId());
-        Assert.assertNotNull(property);
-        Assert.assertEquals(startProperty.getId(), property.getId());
+        assertThat(property, is(notNullValue()));
+        assertThat(property.getId(), equalTo(startProperty.getId()));
     }
 
     @Test
-    public void testLoadCategories() throws Exception {
+    public void loadCategories() throws Exception {
         ConfigurationCollection configuration = proxy.getConfiguration();
-        Assert.assertNotNull(configuration.getCategories());
-        Assert.assertEquals(2, configuration.getCategories().size());
+        assertThat(configuration.getCategories(), is(notNullValue()));
+        assertThat(configuration.getCategories(), hasSize(2));
     }
 
     @Test
-    public void testGetProperties() throws Exception {
+    public void getProperties() throws Exception {
         PropertyCollection properties = proxy.getProperties("first_category");
-        Assert.assertNotNull(properties.getProperties());
-        Assert.assertEquals(2, properties.getProperties().size());
+        assertThat(properties.getProperties(), is(notNullValue()));
+        assertThat(properties.getProperties(), hasSize(2));
     }
-    
+
     @Test
-    public void testXmlGetPropertyByCategoryAndName() throws Exception {
+    public void xmlGetPropertyByCategoryAndName() throws Exception {
         Property property = proxyXml.getProperty("first_category", "first_property");
-        Assert.assertNotNull(property);
-        Assert.assertEquals("first_property", property.getName());
-        Assert.assertEquals("first_category", property.getCategory().getName());
+        assertThat(property, is(notNullValue()));
+        assertThat(property.getName(), equalTo("first_property"));
+        assertThat(property.getCategory().getName(), equalTo("first_category"));
     }
-    
+
     @Test
-    public void testXmlGetPropertyById() throws Exception {
+    public void xmlGetPropertyById() throws Exception {
         Property startProperty = proxyXml.getProperty("first_category", "first_property");
         Property property = proxyXml.getProperty(startProperty.getId());
-        Assert.assertNotNull(property);
-        Assert.assertEquals(startProperty.getId(), property.getId());
+        assertThat(property, is(notNullValue()));
+        assertThat(property.getId(), equalTo(startProperty.getId()));
     }
 
     @Test
-    public void testXmlLoadCategories() throws Exception {
+    public void xmlLoadCategories() throws Exception {
         ConfigurationCollection categories = proxyXml.getConfiguration();
-        Assert.assertNotNull(categories.getCategories());
-        Assert.assertEquals(2, categories.getCategories().size());
+        assertThat(categories.getCategories(), is(notNullValue()));
+        assertThat(categories.getCategories(), hasSize(2));
     }
 
     @Test
-    public void testXmlGetProperties() throws Exception {
+    public void xmlGetProperties() throws Exception {
         PropertyCollection properties = proxyXml.getProperties("first_category");
-        Assert.assertNotNull(properties.getProperties());
-        Assert.assertEquals(2, properties.getProperties().size());
+        assertThat(properties.getProperties(), is(notNullValue()));
+        assertThat(properties.getProperties(), hasSize(2));
     }
-    
 }

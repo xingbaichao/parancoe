@@ -11,10 +11,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.basedir>${basedir}</main.basedir>
         <year>2006-2012</year>
-        <parancoe.web.version>3.0-SNAPSHOT</parancoe.web.version>
+        <parancoe.app.version>3.0-SNAPSHOT</parancoe.app.version>
         <parancoe.slf4j.version>1.7.2</parancoe.slf4j.version>
         <parancoe.junit4.version>4.11</parancoe.junit4.version>
         <parancoe.hsqldb.version>2.2.9</parancoe.hsqldb.version>
+        <parancoe.servlet-api.version>2.4</parancoe.servlet-api.version>
 
         <!-- NetBeans IDE properties -->
         <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
@@ -188,6 +189,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <scope>test</scope>
@@ -203,12 +209,17 @@
             <dependency>
                 <groupId>org.parancoe</groupId>
                 <artifactId>parancoe-web</artifactId>
-                <version>${parancoe.web.version}</version>
+                <version>${parancoe.app.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.parancoe</groupId>
+                <artifactId>parancoe-test</artifactId>
+                <version>${parancoe.app.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-                <version>2.4</version>
+                <version>${parancoe.servlet-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-dbcp</groupId>
