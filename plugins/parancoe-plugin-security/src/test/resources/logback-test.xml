@@ -25,7 +25,6 @@
     </appender>
 
     <logger name="org.parancoe" level="INFO"/>
-    <logger name="org.parancoe.plugin.dwr" level="INFO"/>
 
     <root level="ERROR">
         <appender-ref ref="CONSOLE" />

@@ -20,39 +20,38 @@ package org.parancoe.plugin.configuration;
 import org.parancoe.plugin.configuration.dao.CategoryDao;
 import org.parancoe.plugin.configuration.dao.PropertyDao;
 import org.parancoe.web.plugin.WebPlugin;
-import org.parancoe.web.test.PluginTest;
+import org.parancoe.web.test.junit4.AbstractPluginTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.Test;
 
-public class SanityTest extends PluginTest {
+/**
+ * test everything has been loaded properly
+ *
+ * @author michele franzin <michele at franzin.net>
+ */
+public class ParancoeTest extends AbstractPluginTest {
 
     @Autowired
     @Qualifier("parancoe-plugin-configurationPluginConfig")
     private WebPlugin plugin;
-    
     @Autowired
     private InitializerContextListener sampleContextListener;
-    
     @Autowired
     private SampleInterceptor sampleInterceptor;
-    
     @Autowired
     private CategoryDao categoryDao;
     @Autowired
     private PropertyDao propertyDao;
-    
-    /* test everything has been loaded properly */
-    public void testSanity() {
-        assertNotNull(plugin);
-        assertNotNull(sampleContextListener);
-        assertNotNull(sampleInterceptor);
-        assertNotNull(categoryDao);
-        assertNotNull(propertyDao);
+
+    @Test
+    public void sanity() {
+        assertThat(plugin, is(notNullValue()));
+        assertThat(sampleContextListener, is(notNullValue()));
+        assertThat(sampleInterceptor, is(notNullValue()));
+        assertThat(categoryDao, is(notNullValue()));
+        assertThat(propertyDao, is(notNullValue()));
     }
-    
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{};
-    }
-    
 }

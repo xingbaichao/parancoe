@@ -17,15 +17,11 @@
  */
 package org.parancoe.plugin.configuration;
 
+import org.lambico.test.spring.hibernate.junit4.FixtureSet;
 import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
-import org.parancoe.web.test.PluginTest;
+import org.parancoe.web.test.junit4.AbstractPluginTest;
 
-public abstract  class BaseTest extends PluginTest {
-        
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{Category.class, Property.class};
-    }
-    
+@FixtureSet(modelClasses = {Category.class, Property.class})
+public abstract class BaseTest extends AbstractPluginTest {
 }

@@ -21,26 +21,33 @@ import java.util.List;
 import org.parancoe.plugin.configuration.dao.CategoryDao;
 import org.parancoe.plugin.configuration.po.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import org.junit.Test;
 
 public class CategoryDaoTest extends BaseTest {
-    
+
     @Autowired
     private CategoryDao categoryDao;
-    
-    public void testFindAll() {
+
+    @Test
+    public void findAll() {
         List<Category> results = categoryDao.findAll();
-        assertSize(2, results);
+        assertThat(results, hasSize(2));
     }
 
-    public void testFindAllOrdered() {
+    @Test
+    public void findAllOrdered() {
         List<Category> results = categoryDao.findByOrderByName();
-        assertSize(2, results);
+        assertThat(results, hasSize(2));
     }
-    
-    public void testFindByName() {
+
+    @Test
+    public void findByName() {
         Category result = categoryDao.findByName("first_category");
-        assertNotNull(result);
-        assertEquals("first_category", result.getName());
-        assertSize(1, result.getProperties());
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getName(), equalTo("first_category"));
+        assertThat(result.getProperties(), hasSize(1));
     }
 }
