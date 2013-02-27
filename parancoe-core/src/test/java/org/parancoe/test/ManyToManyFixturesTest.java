@@ -30,7 +30,7 @@ import org.parancoe.persistence.util.BaseTest;
 /**
  * Tests fixture load with M:N relationships
  * 
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @author Jacopo Murador <jacopo.murador at seesaw.it>
  * @version $Revision$
  */

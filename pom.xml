@@ -18,8 +18,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.basedir>${basedir}</main.basedir>
         <year>2006-2010</year>
+        <parancoe.lambico.version>1.0-SNAPSHOT</parancoe.lambico.version>
         <parancoe.spring.version>3.0.7.RELEASE</parancoe.spring.version>
-        <parancoe.hibernate.version>3.6.2.Final</parancoe.hibernate.version>
+        <parancoe.hibernate.version>3.6.7.Final</parancoe.hibernate.version>
+        <parancoe.slf4j.version>1.7.2</parancoe.slf4j.version>
+        <parancoe.junit4.version>4.11</parancoe.junit4.version>
+        <parancoe.hsqldb.version>2.2.9</parancoe.hsqldb.version>
 
         <!-- NetBeans IDE properties -->
         <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
@@ -59,17 +63,22 @@
             <dependency>
                 <groupId>org.lambico</groupId>
                 <artifactId>lambico-spring-hibernate</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${parancoe.lambico.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lambico</groupId>
+                <artifactId>lambico-pump</artifactId>
+                <version>${parancoe.lambico.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.lambico</groupId>
                 <artifactId>lambico-test</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${parancoe.lambico.version}</version>
             </dependency>
             <dependency>
-                <groupId>hsqldb</groupId>
+                <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
-                <version>1.8.0.10</version>
+                <version>${parancoe.hsqldb.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -92,9 +101,49 @@
                 <version>4.1.0.Final</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>1.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${parancoe.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${parancoe.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${parancoe.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${parancoe.junit4.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -103,7 +152,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.0</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -113,7 +162,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.10</version>
+                <version>2.13</version>
                 <configuration>
                     <skip>false</skip>
                     <useFile>false</useFile>
@@ -129,7 +178,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.6</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
@@ -137,7 +186,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>2.4</version>
                 <configuration>
                     <descriptors>
                         <descriptor>src/assembly/bin.xml</descriptor>
@@ -208,15 +257,6 @@
             <layout>default</layout>
             <snapshots>
                 <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>false</enabled>
             </snapshots>
         </repository>
         <repository>
@@ -301,7 +341,7 @@
     </mailingLists>
     <developers>
         <developer>
-            <id>agente_volpe</id>
+            <id>michele</id>
             <name>Michele Franzin</name>
             <email>michele.franzin@jugpadova.it</email>
             <url>http://www.jugpadova.it</url>
@@ -311,8 +351,6 @@
                 <role>developer</role>
             </roles>
             <timezone>+1</timezone>
-            <properties>
-            </properties>
         </developer>
         <developer>
             <id>benfante</id>

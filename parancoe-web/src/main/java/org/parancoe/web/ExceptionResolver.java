@@ -23,18 +23,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 /**
  * @author paolo.dona@seesaw.it
  */
 public class ExceptionResolver implements HandlerExceptionResolver {
-    private static final Logger log = Logger.getLogger(ExceptionResolver.class);
 
     /**
      * sends unhandled exceptions to genericError.jsp
      */
+    @Override
     public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res,
             Object object, Exception e) {
         Map<String, Object> params = new HashMap<String, Object>();

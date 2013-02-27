@@ -18,20 +18,21 @@
 package org.parancoe.test;
 
 import javax.mail.internet.MimeMessage;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
  * Mock implementation of JavaMailSender for test porpouse.
- * 
+ *
  * @author Enrico Giurin
  * @author Lucio Benfante
- * 
+ *
  */
 public class MailSenderMock extends JavaMailSenderImpl {
 
-    private static final Logger logger = Logger.getLogger(
+    private static final Logger logger = LoggerFactory.getLogger(
             MailSenderMock.class);
 
     @Override
@@ -40,7 +41,7 @@ public class MailSenderMock extends JavaMailSenderImpl {
         if (mimeMessages != null) {
             for (MimeMessage mimeMessage : mimeMessages) {
                 try {
-                    logger.info(mimeMessage.getContent());
+                    logger.info(mimeMessage.getContent().toString());
                 } catch (Exception ex) {
                     logger.error("Can't get message content", ex);
                 }
@@ -48,7 +49,7 @@ public class MailSenderMock extends JavaMailSenderImpl {
         }
         if (originalMessages != null) {
             for (Object o : originalMessages) {
-                logger.info(o);
+                logger.info(o.toString());
             }
         }
     }

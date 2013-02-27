@@ -20,7 +20,8 @@ package org.parancoe.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContext;
@@ -29,27 +30,30 @@ import org.springframework.web.servlet.support.RequestContext;
  * @author paolo.dona@seesaw.it
  */
 public class LanguageInterceptor implements HandlerInterceptor {
-    public static final Logger logger = Logger.getLogger(LanguageInterceptor.class);
 
+    public static final Logger logger = LoggerFactory.getLogger(LanguageInterceptor.class);
 
     public LanguageInterceptor() {
         logger.debug("LanguageInterceptor set up");
     }
 
+    @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
-                             Object object) throws Exception {
+            Object object) throws Exception {
         RequestContext rc = new RequestContext(req);
-        req.setAttribute("requestContext",rc);
+        req.setAttribute("requestContext", rc);
         req.setAttribute("lang", rc.getLocale().getLanguage());
         logger.debug("LanguageInterceptor.preHandle()");
         return true;
     }
 
-    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3) throws Exception {
-        
+    @Override
+    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
+            ModelAndView arg3) throws Exception {
     }
 
-    public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
-        
+    @Override
+    public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
+            Exception arg3) throws Exception {
     }
 }
