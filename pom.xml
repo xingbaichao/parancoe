@@ -48,11 +48,6 @@
         <dependencies>
             <dependency>
                 <groupId>org.parancoe</groupId>
-                <artifactId>parancoe-yaml</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.parancoe</groupId>
                 <artifactId>parancoe-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
