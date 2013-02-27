@@ -7,6 +7,11 @@
     <version>3.0-SNAPSHOT</version>
     <name>Parancoe Example - Basic WebApp</name>
     <url>http://www.parancoe.org</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.basedir>${basedir}/../..</main.basedir>
+        <year>2006-2013</year>
+    </properties>
     <build>
         <finalName>basicWebApp</finalName>
         <plugins>
@@ -39,6 +44,50 @@
                     <!-- <reportFormat>plain</reportFormat> -->
                     <!--argLine>-Xmx512M</argLine-->
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>${main.basedir}/LICENSE_HEADER</header>
+                    <strictCheck>true</strictCheck>
+                    <aggregate>false</aggregate>
+                    <excludes>
+                        <exclude>target/**</exclude>
+                        <exclude>m2-target/**</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>LICENSE_HEADER</exclude>
+                        <exclude>nb-configuration.xml</exclude>
+                        <exclude>nbactions.xml</exclude>
+                        <exclude>profiles.xml</exclude>
+                        <exclude>.idea/**</exclude>
+                        <exclude>.hgtags</exclude>
+                        <exclude>.hgignore</exclude>
+                        <exclude>catalog.xml</exclude>
+                        <exclude>**/BUGS</exclude>
+                        <exclude>**/LICENSE</exclude>
+                        <exclude>**/TODO</exclude>
+                    </excludes>
+                    <properties>
+                        <name>${project.name}</name>
+                        <year>${year}</year>
+                        <holder>The Parancoe Team</holder>
+                        <contact>info@parancoe.org</contact>
+                    </properties>
+                    <encoding>UTF-8</encoding>
+                    <mapping>
+                        <yml>SCRIPT_STYLE</yml>
+                        <jspf>DYNASCRIPT_STYLE</jspf>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -170,6 +219,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

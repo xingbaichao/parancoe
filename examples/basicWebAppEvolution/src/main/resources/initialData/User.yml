@@ -1,7 +1,7 @@
 #
-# Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
+# Copyright (C) 2006-2013 The Parancoe Team <info@parancoe.org>
 #
-# This file is part of Parancoe Plugin Spring Security Evolution.
+# This file is part of Parancoe Example - Basic WebApp Evolution.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
- 
+
 - &User-parancoe
   username: parancoe
   password: d928b1a8468c96804da6fcc70bff826f

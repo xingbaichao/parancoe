@@ -15,37 +15,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.parancoe.example.dao;
-
-import java.util.List;
+package org.parancoe.example.test;
 
 import javax.annotation.Resource;
-import org.parancoe.example.po.Book;
-import org.parancoe.example.test.BaseTest;
+import org.parancoe.example.bo.PersonBO;
+import org.parancoe.example.dao.PersonDao;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import org.junit.Test;
 
 /**
+ * test everything has been loaded properly
  *
- * @author Enrico Giurin
+ * @author michele franzin <michele at franzin.net>
  */
-public class BookDaoTest extends BaseTest {
+public class ParancoeTest extends BaseTest {
 
     @Resource
-    private BookDao bookDao;
+    private PersonDao personDao;
+    @Resource
+    private PersonBO personBO;
 
     @Test
-    public void allBooksByBorrower() {
-        List<Book> list = bookDao.allBooksByBorrower("Ugo", "Benfante");
-        assertThat(list, hasSize(2));
-    }
-
-    @Test
-    public void findByAuthor() {
-        List<Book> books = bookDao.findByAuthor("Doug Lea");
-        assertThat(books, hasSize(1));
-        assertThat(books.get(0).getTitle(), equalTo("Concurrent programming in java second edition"));
+    public void sanity() {
+        assertThat(personBO, is(notNullValue()));
+        assertThat(personDao, is(notNullValue()));
     }
 }
