@@ -5,7 +5,6 @@ package ${package}.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -18,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ExceptionResolver extends org.parancoe.web.ExceptionResolver {
 
-    private static final Logger logger =
-            Logger.getLogger(ExceptionResolver.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionResolver.class);
     private CommonsMultipartResolver multipartResolver;
 
     public CommonsMultipartResolver getMultipartResolver() {

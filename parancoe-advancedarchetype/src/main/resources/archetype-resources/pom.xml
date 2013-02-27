@@ -15,7 +15,7 @@
         <main.basedir>${symbol_dollar}{basedir}</main.basedir>
         <year>2011</year>
         <app.parancoe.version>3.0-SNAPSHOT</app.parancoe.version>
-        <app.lambico.version>1.0-SNAPSHOT</app.lambico.version>
+        <app.lambico.version>1.1-SNAPSHOT</app.lambico.version>
         <app.springsecurity.version>3.0.5.RELEASE</app.springsecurity.version>
         <app.hibernate.version>3.6.2.Final</app.hibernate.version>
         <app.log4j.version>1.2.14</app.log4j.version>
@@ -195,7 +195,7 @@
                 <version>${symbol_dollar}{app.junit3.version}</version>
             </dependency>
             <dependency>
-                <groupId>hsqldb</groupId>
+                <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
                 <version>${symbol_dollar}{app.hsqldb.version}</version>
             </dependency>
@@ -207,7 +207,6 @@
             <dependency>
                 <groupId>commons-dbcp</groupId>
                 <artifactId>commons-dbcp</artifactId>
-                <version>1.4</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -238,7 +237,6 @@
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.2.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
