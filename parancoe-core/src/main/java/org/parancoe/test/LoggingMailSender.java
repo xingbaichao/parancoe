@@ -17,35 +17,39 @@
  */
 package org.parancoe.test;
 
+import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
- * Mock implementation of JavaMailSender for testing porpouses.
+ * Fake sender that logs and discard emails
  *
- * @author Enrico Giurin
- * @author Lucio Benfante
+ * @author michele franzin <michele at franzin.net>
  */
-public class MailSenderMock extends JavaMailSenderImpl {
+public class LoggingMailSender extends JavaMailSenderImpl {
 
-    private static final Logger logger = LoggerFactory.getLogger(MailSenderMock.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggingMailSender.class);
 
     @Override
     protected void doSend(MimeMessage[] mimeMessages, Object[] originalMessages) {
         if (mimeMessages != null) {
             for (MimeMessage mimeMessage : mimeMessages) {
                 try {
-                    logger.info(mimeMessage.getContent().toString());
+                    logger.info("from: {}", (Object[]) mimeMessage.getFrom());
+                    logger.info("to: {}", (Object[]) mimeMessage.getRecipients(
+                            Message.RecipientType.TO));
+                    logger.info("cc: {}", (Object[]) mimeMessage.getRecipients(
+                            Message.RecipientType.CC));
+                    logger.info("bcc: {}", (Object[]) mimeMessage.getRecipients(
+                            Message.RecipientType.BCC));
+                    logger.info("subject: {}", mimeMessage.getSubject());
+                    logger.info("content: {}", mimeMessage.getContent().toString());
+                    logger.info("content type: {}", mimeMessage.getContentType());
                 } catch (Exception ex) {
                     logger.error("Can't get message content", ex);
                 }
-            }
-        }
-        if (originalMessages != null) {
-            for (Object o : originalMessages) {
-                logger.info(o.toString());
             }
         }
     }

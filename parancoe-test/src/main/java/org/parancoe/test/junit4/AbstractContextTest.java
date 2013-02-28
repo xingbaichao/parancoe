@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Core.
+ * This file is part of Parancoe Test.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,5 +33,4 @@ import org.springframework.test.context.ContextConfiguration;
     "/database-test.xml",
     "/applicationContext-test.xml"})
 public abstract class AbstractContextTest extends AbstractBaseTest {
-// TODO move to parancoe-test project
 }

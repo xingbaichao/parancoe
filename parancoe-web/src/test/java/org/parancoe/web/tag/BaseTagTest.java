@@ -18,14 +18,14 @@
 package org.parancoe.web.tag;
 
 import org.junit.Before;
-import org.parancoe.web.AbstractContextTest;
+import org.parancoe.web.test.junit4.AbstractJspTest;
 import org.springframework.web.util.WebUtils;
 
 /**
  *
  * @author michele franzin <michele at franzin.net>
  */
-public abstract class BaseTagTest extends AbstractContextTest {
+public abstract class BaseTagTest extends AbstractJspTest {
 
     @Before
     public void setupRequestParams() {

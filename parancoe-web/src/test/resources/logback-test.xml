@@ -27,8 +27,6 @@
         <MaxSize>100</MaxSize>
     </appender>
 
-    <logger name="org.parancoe" level="INFO"/>
-
     <root level="ERROR">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="MEMORY" />
