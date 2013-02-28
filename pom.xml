@@ -132,7 +132,7 @@
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
+                <artifactId>jcl-over-slf4j</artifactId>
                 <version>${parancoe.slf4j.version}</version>
             </dependency>
             <dependency>

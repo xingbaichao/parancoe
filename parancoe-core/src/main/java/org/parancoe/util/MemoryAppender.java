@@ -26,6 +26,13 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 import org.apache.log4j.spi.LoggingEvent;
 
+/**
+ * Log4J in memory log appender
+ * 
+ * @author michele franzin <michele at franzin.net>
+ * @deprecated please use @{@link ch.qos.logback.core.read.MemoryAppender}
+ */
+@Deprecated
 public class MemoryAppender extends WriterAppender {
     private static StringWriter buffer = new StringWriter();
     private static MemoryAppender instance;
@@ -75,6 +82,7 @@ public class MemoryAppender extends WriterAppender {
      * svuoto il log se è troppo grande
      * in modo da non avere OutOfMemoryError
      */
+    @Override
     public void append(LoggingEvent loggingEvent) {
         if (getFullLog().length() >= getMaxBufferSize()) {
             clean();

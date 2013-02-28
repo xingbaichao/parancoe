@@ -18,11 +18,4 @@
     <build>
         <finalName>parancoe-plugin-italy</finalName>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 </project>
