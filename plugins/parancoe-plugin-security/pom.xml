@@ -24,7 +24,6 @@
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security</artifactId>
             <version>1.0.7</version>
-            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -50,12 +49,16 @@
                     <groupId>commons-lang</groupId>
                     <artifactId>commons-lang</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${parancoe.slf4j.version}</version>
         </dependency>
     </dependencies>
 </project>

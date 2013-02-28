@@ -17,6 +17,8 @@
  */
 package org.parancoe.web;
 
+import ch.qos.logback.classic.spi.LoggerContextListener;
+import ch.qos.logback.core.MemoryAppender;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -27,7 +29,6 @@ import javax.servlet.ServletContextListener;
 
 import org.lambico.spring.dao.DaoUtils;
 import org.parancoe.util.BaseConf;
-import org.parancoe.util.MemoryAppender;
 import org.parancoe.web.plugin.PluginHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,35 +41,37 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * @author paolo.dona@seesaw.it
  * @author <a href="mailto:lucio.benfante@jugpadova.it">Lucio Benfante</a>
  * @author Jacopo Murador <jacopo.murador at seesaw.it>
- * @version $Revision$
+ * @author michele franzin <michele at franzin.net>
  */
 public class ContextListener implements ServletContextListener {
+
     private static final Logger log = LoggerFactory.getLogger(ContextListener.class);
     protected ServletContext servletContext;
     protected XmlWebApplicationContext applicationContext;
+    LoggerContextListener inMemoryLogger;
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
         try {
             this.servletContext = evt.getServletContext();
 
-            MemoryAppender.clean();
+            MemoryAppender instance = MemoryAppender.getInstance();
+            instance.clearLogs();
 
             log.info("loading custom Spring WebApplicationContext");
             loadApplicationContext();
             PluginHelper helper = new PluginHelper(applicationContext);
             helper.initApplicationContextPlugins(evt); // deve essere DOPO loadApplicationContext()
             helper.invokePluginContextInitialized(evt);
-            log.info("### Starting up Parancoe in " + BaseConf.getEnv() + " mode.");
+            log.info("### Starting up Parancoe in {} mode.", BaseConf.getEnv());
         } catch (Exception e) {
             log.error("Error in base ContextListener.contextInitialized", e);
         }
     }
 
-
     /**
-     * load the ApplicationContext mixing the base parancoe
-     * files and the application specific configuration
+     * load the ApplicationContext mixing the base parancoe files and the application specific
+     * configuration
      */
     protected void loadApplicationContext() {
         List<String> config = new ArrayList<String>();
@@ -85,7 +88,8 @@ public class ContextListener implements ServletContextListener {
         ctx.setConfigLocations(config.toArray(new String[config.size()]));
         ctx.refresh();
 
-        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ctx);
+        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
+                ctx);
         applicationContext = ctx;
 
         populateDaoMap(ctx);
@@ -94,7 +98,10 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent evt) {
         new PluginHelper(applicationContext).invokePluginContextDestroyed(evt);
-        log.info("### Shutting down Parancoe in " + BaseConf.getEnv() + " mode.");
+        log.info("### Shutting down Parancoe in {} mode.", BaseConf.getEnv());
+
+        MemoryAppender instance = MemoryAppender.getInstance();
+        instance.stop();
     }
 
     /**
@@ -106,5 +113,4 @@ public class ContextListener implements ServletContextListener {
         Map daos = DaoUtils.getDaos(ctx);
         daoMap.putAll(daos);
     }
-
 }
