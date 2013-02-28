@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Web.
+ * This file is part of Parancoe Test.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,5 +38,4 @@ import org.springframework.test.context.ContextConfiguration;
     "/applicationContext-test.xml"},
         loader = org.parancoe.web.test.junit4.WebXmlContextLoader.class)
 public abstract class AbstractWebTest extends AbstractContextTest {
-// TODO move to parancoe-test project
 }

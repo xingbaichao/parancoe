@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Web.
+ * This file is part of Parancoe Test.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * E' la classe base per i test di plugins.
- * 
+ *
  * @author michele franzin <michele at franzin.net>
  */
 @ContextConfiguration(inheritLocations = false,
@@ -34,5 +34,4 @@ import org.springframework.test.context.ContextConfiguration;
     "classpath*:applicationContext-plugin.xml",
     "/applicationContext-test.xml"})
 public abstract class AbstractPluginTest extends AbstractWebTest {
-// TODO move to parancoe-test project
 }

@@ -18,17 +18,18 @@
 package org.parancoe.basicwebappevolution.controllers;
 
 import java.util.List;
+import javax.annotation.Resource;
 import org.junit.Test;
 import org.lambico.test.spring.hibernate.junit4.FixtureSet;
 import org.parancoe.basicwebappevolution.dao.PersonDao;
 import org.parancoe.basicwebappevolution.po.Person;
-import org.parancoe.web.test.junit4.AbstractControllerTest;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
+import org.parancoe.web.test.junit4.AbstractControllerTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.test.web.ModelAndViewAssert.*;
 
@@ -40,11 +41,11 @@ import static org.springframework.test.web.ModelAndViewAssert.*;
 @FixtureSet(modelClasses = {Person.class})
 public class PersonControllerTest extends AbstractControllerTest {
 
-    @Autowired
+    @Resource
     private PersonController controller;
-    @Autowired
+    @Resource(name = "org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter#0")
     private HandlerAdapter handler;
-    @Autowired
+    @Resource
     private PersonDao personDao;
 
     @Test

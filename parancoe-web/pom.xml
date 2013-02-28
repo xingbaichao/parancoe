@@ -34,13 +34,13 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
+            <version>${parancoe.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
+            <version>${parancoe.jsp-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -72,8 +72,9 @@
             <artifactId>lambico-pump</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.lambico</groupId>
-            <artifactId>lambico-test</artifactId>
+            <groupId>org.parancoe</groupId>
+            <artifactId>parancoe-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

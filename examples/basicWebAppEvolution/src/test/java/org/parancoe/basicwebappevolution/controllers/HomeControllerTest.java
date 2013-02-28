@@ -17,6 +17,7 @@
  */
 package org.parancoe.basicwebappevolution.controllers;
 
+import javax.annotation.Resource;
 import org.junit.Test;
 import org.parancoe.web.test.junit4.AbstractControllerTest;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,9 +34,9 @@ import static org.springframework.test.web.ModelAndViewAssert.*;
  */
 public class HomeControllerTest extends AbstractControllerTest {
 
-    @Autowired
+    @Resource
     private HomeController controller;
-    @Autowired
+    @Resource(name = "org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter#0")
     private HandlerAdapter handler;
 
     @Test

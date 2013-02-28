@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2010 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of Parancoe Web.
+ * This file is part of Parancoe Test.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +24,15 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigUtils;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.support.AbstractContextLoader;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.GenericWebApplicationContext;
 
 /**
- * Concrete implementation of {@link AbstractGenericContextLoader} which reads
- * bean definitions from XML resources. NB creates a {@link GenericWebApplicationContext}
- * suitable fot testing purposes.
+ * Concrete implementation of {@link AbstractGenericContextLoader} which reads bean definitions from
+ * XML resources. NB creates a {@link GenericWebApplicationContext} suitable fot testing purposes.
  *
  * @see {@link GenericXmlContextLoader}.
  * @author michele franzin <michele at franzin.net>
@@ -41,7 +42,8 @@ public class WebXmlContextLoader extends AbstractContextLoader {
     private static final Logger logger = LoggerFactory.getLogger(WebXmlContextLoader.class);
 
     /**
-     * Returns &quot;<code>-test.xml</code>&quot;.
+     * Returns &quot;
+     * <code>-test.xml</code>&quot;.
      */
     @Override
     public String getResourceSuffix() {
@@ -64,8 +66,12 @@ public class WebXmlContextLoader extends AbstractContextLoader {
             logger.debug("Loading ApplicationContext for locations [{}].",
                     StringUtils.arrayToCommaDelimitedString(locations));
         }
-        GenericApplicationContext context = new GenericWebApplicationContext();
+        GenericWebApplicationContext context = new GenericWebApplicationContext();
         createBeanDefinitionReader(context).loadBeanDefinitions(locations);
+        MockServletContext servletContext = new MockServletContext();
+        servletContext.setAttribute(
+                WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, context);
+        context.setServletContext(servletContext);
         AnnotationConfigUtils.registerAnnotationConfigProcessors(context);
         context.refresh();
         context.registerShutdownHook();

@@ -13,6 +13,7 @@
         <module>parancoe-core</module>
         <module>parancoe-yaml</module>
         <module>parancoe-validator</module>
+        <module>parancoe-test</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +25,8 @@
         <parancoe.slf4j.version>1.7.2</parancoe.slf4j.version>
         <parancoe.junit4.version>4.11</parancoe.junit4.version>
         <parancoe.hsqldb.version>2.2.9</parancoe.hsqldb.version>
+        <parancoe.servlet-api.version>2.4</parancoe.servlet-api.version>
+        <parancoe.jsp-api.version>2.0</parancoe.jsp-api.version>
 
         <!-- NetBeans IDE properties -->
         <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
@@ -53,6 +56,11 @@
             <dependency>
                 <groupId>org.parancoe</groupId>
                 <artifactId>parancoe-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.parancoe</groupId>
+                <artifactId>parancoe-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
