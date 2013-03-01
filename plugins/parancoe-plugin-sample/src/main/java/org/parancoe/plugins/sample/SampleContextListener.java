@@ -18,25 +18,19 @@
 package org.parancoe.plugins.sample;
 
 import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.context.ApplicationContext;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author paolo.dona@seesaw.it
  */
 public class SampleContextListener extends ContextLoaderListener {
 
-    private static final Logger log = Logger.getLogger(SampleContextListener.class);
-
-    private ServletContext servletContext;
-
-    private ApplicationContext ctx;
+    private static final Logger log = LoggerFactory.getLogger(SampleContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
-      log.info("SamplePlugin contextInitialized"); 
+        log.info("SamplePlugin contextInitialized");
     }
 }

@@ -32,7 +32,7 @@ import org.lambico.po.hibernate.EntityBase;
  * A PO for UserProfile table.
  *
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @version $Revision$
  */
 @javax.persistence.Entity

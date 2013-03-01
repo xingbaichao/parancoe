@@ -26,25 +26,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Test based on PluginTest.
- * 
+ *
  * @author Enrico Giurin
- * 
+ *
  */
 public class SecurityTest extends PluginTest {
 
         @Resource
 	private WebPlugin webPluginSecurityConfig;
-        
+
         @Resource
         UserDao userDao;
-        
+
         @Resource
         AuthorityDao authorityDao;
-        
+
 
 	public SecurityTest() {
 	}
-        
+
 	public void testPlugin() throws Exception {
 		assertEquals(2, getFixtureClasses().length);
 
@@ -52,12 +52,12 @@ public class SecurityTest extends PluginTest {
 
 	@Transactional
 	public void testInsertUser() {
-		
+
 		// creates entities
 		User pippo = SecureUtility.newUserToValidate("pippo");
 		userDao.store(pippo);
 		Authority parancoeAuthority = authorityDao.findByRole("ROLE_ADMIN");
-		
+
 		List<Authority> authorities = new ArrayList<Authority>();
                 authorities.add(parancoeAuthority);
                 pippo.setAuthorities(authorities);
@@ -68,7 +68,7 @@ public class SecurityTest extends PluginTest {
 
 	@Override
 	public Class[] getFixtureClasses() {
-		return new Class[] { User.class, Authority.class };
+		return new Class[] { Authority.class, User.class };
 	}
 
 }

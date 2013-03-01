@@ -24,7 +24,7 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-          <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
+                    <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -34,8 +34,8 @@
                     <skip>false</skip>
                     <useFile>true</useFile>
                     <forkMode>once</forkMode>
-          <!-- pertest once or never -->
-          <!-- <reportFormat>plain</reportFormat> -->
+                    <!-- pertest once or never -->
+                    <!-- <reportFormat>plain</reportFormat> -->
                     <argLine>-Xmx512M</argLine>
                     <systemProperties>
                         <property>
@@ -54,4 +54,11 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

@@ -14,13 +14,13 @@
   <url>http://www.parancoe.org</url>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
-        <parancoe.springsecurity.version>3.1.0.RELEASE</parancoe.springsecurity.version>
+        <parancoe.springsecurity.version>3.1.3.RELEASE</parancoe.springsecurity.version>
     </properties>
     <build>
         <finalName>parancoe-plugin-springsecurity-evolution</finalName>
     </build>
   <dependencies>
-    <dependency>
+        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${parancoe.springsecurity.version}</version>
@@ -67,7 +67,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-		<!-- springsecurity tag lib -->
+        <!-- springsecurity tag lib -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
@@ -114,26 +114,22 @@
                     <artifactId>spring-web</artifactId>
                 </exclusion>
             </exclusions>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${parancoe.springsecurity.version}</version>
         </dependency>
-      
-        
-         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-        	 <groupId>org.mockito</groupId>
-             <artifactId>mockito-all</artifactId>
-			 <version>1.9.0</version>
-			 <scope>test</scope>			  
-  		</dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
   </dependencies>
 </project>
