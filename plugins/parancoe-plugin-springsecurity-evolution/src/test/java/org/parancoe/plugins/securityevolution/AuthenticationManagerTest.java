@@ -37,47 +37,43 @@ import static org.mockito.Mockito.*;
  *
  */
 public class AuthenticationManagerTest extends PluginTest {
-	@Resource
-	private AuthenticationManager authenticationManager;
-	
-	private Authentication authentication;
 
-	/**
-	 * Test method for {@link org.springframework.security.authentication.AuthenticationManager#authenticate(org.springframework.security.core.Authentication)}.
-	 */
+    @Resource
+    private AuthenticationManager authenticationManager;
+    private Authentication authentication;
 
-	public void testAuthenticate() {		
-		authentication =  new UsernamePasswordAuthenticationToken("parancoe", "parancoe");
-		Authentication result = authenticationManager.authenticate(authentication);
-		assertTrue(result.isAuthenticated());	
-	}
-	
-
-	public void testAuthenticateWithUserLocked() {		
-		authentication =  new UsernamePasswordAuthenticationToken("locked", "locked");		
-		try {
-			authenticationManager.authenticate(authentication);
-			fail("User locked is locked!");
-		} catch (AuthenticationException e) {
-			assertTrue(e instanceof LockedException);
-		}			
-	}
-	
-
-	public void testAuthenticateWithBadCredentials() {		
-		authentication =  new UsernamePasswordAuthenticationToken("parancoe", "wrongPassword");		
-		try {
-			authenticationManager.authenticate(authentication);
-			fail("Provided password is wrong");
-		} catch (AuthenticationException e) {
-			assertTrue(e instanceof BadCredentialsException);
-		}			
-	}
-	
-	@Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{User.class,};
+    /**
+     * Test method for
+     * {@link org.springframework.security.authentication.AuthenticationManager#authenticate(org.springframework.security.core.Authentication)}.
+     */
+    public void testAuthenticate() {
+        authentication = new UsernamePasswordAuthenticationToken("parancoe", "parancoe");
+        Authentication result = authenticationManager.authenticate(authentication);
+        assertTrue(result.isAuthenticated());
     }
 
+    public void testAuthenticateWithUserLocked() {
+        authentication = new UsernamePasswordAuthenticationToken("locked", "locked");
+        try {
+            authenticationManager.authenticate(authentication);
+            fail("User locked is locked!");
+        } catch (AuthenticationException e) {
+            assertTrue(e instanceof LockedException);
+        }
+    }
 
+    public void testAuthenticateWithBadCredentials() {
+        authentication = new UsernamePasswordAuthenticationToken("parancoe", "wrongPassword");
+        try {
+            authenticationManager.authenticate(authentication);
+            fail("Provided password is wrong");
+        } catch (AuthenticationException e) {
+            assertTrue(e instanceof BadCredentialsException);
+        }
+    }
+
+    @Override
+    public Class[] getFixtureClasses() {
+        return new Class[]{Authority.class, Group.class, User.class,};
+    }
 }

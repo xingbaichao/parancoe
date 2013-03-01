@@ -18,25 +18,19 @@
 package org.parancoe.plugins.italy;
 
 import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.context.ApplicationContext;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author paolo.dona@seesaw.it
  */
 public class PopulateData extends ContextLoaderListener {
 
-    private static final Logger log = Logger.getLogger(PopulateData.class);
-
-    private ServletContext servletContext;
-
-    private ApplicationContext ctx;
+    private static final Logger log = LoggerFactory.getLogger(PopulateData.class);
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {
-      log.info("ItalyPlugin contextInitialized"); 
+      log.info("ItalyPlugin contextInitialized");
     }
 }

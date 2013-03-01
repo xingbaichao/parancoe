@@ -21,7 +21,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,15 +36,15 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/*.html")
 
 public  class SecureController  {
-    private static Logger logger = Logger.getLogger(SecureController.class);
-    
-    
+    private static Logger logger = LoggerFactory.getLogger(SecureController.class);
+
+
     @Resource(name="loginView")
     private String loginView;
-    
+
     @Resource(name="accessDeniedView")
     private String accessDeniedView;
-    
+
     @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
     	if(logger.isDebugEnabled())
@@ -60,13 +61,13 @@ public  class SecureController  {
     	}
         return new ModelAndView(accessDeniedView);
     }
-    
+
     @RequestMapping
     public ModelAndView securityCheck(HttpServletRequest req,
             HttpServletResponse res) {
         return null;
     }
-	
+
     /*@RequestMapping
     public ModelAndView j_spring_security_check(HttpServletRequest req, HttpServletResponse res){
         return null;
@@ -75,6 +76,6 @@ public  class SecureController  {
     public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
         return null;
     }*/
-    
-    
+
+
 }

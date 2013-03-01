@@ -17,7 +17,8 @@
  */
 package org.parancoe.plugins.security;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -35,9 +36,9 @@ import org.springframework.security.core.context.SecurityContextImpl;
 public class ParancoeSecurityContextHolderStrategy implements
         SecurityContextHolderStrategy {
 
-    private static Logger logger = Logger.getLogger(
+    private static Logger logger = LoggerFactory.getLogger(
             ParancoeSecurityContextHolderStrategy.class);
-    private static ThreadLocal contextHolder = new ThreadLocal();
+    private static ThreadLocal<SecurityContext> contextHolder = new ThreadLocal<SecurityContext>();
 
     @Override
     public void clearContext() {

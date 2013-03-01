@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of parancoe-plugin-tiles Parancoe Plugin.
+ * This file is part of Parancoe Plugin Tiles.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.Definition;
 import org.apache.tiles.TilesException;
-import org.apache.tiles.access.TilesAccess;
 
 import org.apache.tiles.mgmt.MutableTilesContainer;
+import org.apache.tiles.servlet.context.ServletUtil;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 
 /**
@@ -103,35 +103,32 @@ import org.springframework.web.servlet.view.tiles2.TilesView;
 public class CheapTilesView extends TilesView {
 
     public static final String DEFAULT_DEFAULT_TEMPLATE = "template.main";
-    public static final String KEY_DEFAULT_TEMPLATE =
-            CheapTilesView.class.getName() + ".DEFAULT_TEMPLATE";
+    public static final String KEY_DEFAULT_TEMPLATE = CheapTilesView.class.getName()
+            + ".DEFAULT_TEMPLATE";
     public static final String DEFAULT_DEFAULT_ATTRIBUTES = "main";
-    public static final String KEY_DEFAULT_ATTRIBUTES =
-            CheapTilesView.class.getName() + ".DEFAULT_ATTRIBUTES";
+    public static final String KEY_DEFAULT_ATTRIBUTES = CheapTilesView.class.getName()
+            + ".DEFAULT_ATTRIBUTES";
     public static final String DEFAULT_DEFAULT_PREFIX = "/WEB-INF/jsp/";
-    public static final String KEY_DEFAULT_PREFIX =
-            CheapTilesView.class.getName() + ".DEFAULT_PREFIX";
+    public static final String KEY_DEFAULT_PREFIX = CheapTilesView.class.getName()
+            + ".DEFAULT_PREFIX";
     public static final String DEFAULT_DEFAULT_SUFFIX = ".jsp";
-    public static final String KEY_DEFAULT_SUFFIX =
-            CheapTilesView.class.getName() + ".DEFAULT_SUFFIX";
+    public static final String KEY_DEFAULT_SUFFIX = CheapTilesView.class.getName()
+            + ".DEFAULT_SUFFIX";
 
     @Override
     public boolean checkResource(Locale locale) throws Exception {
         return true;
     }
 
-
     @Override
-    protected void renderMergedOutputModel(Map model, HttpServletRequest request,
-            HttpServletResponse response)
-            throws Exception {
+    protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
 
         try {
             super.renderMergedOutputModel(model, request, response);
         } catch (TilesException te) {
             ServletContext servletContext = getServletContext();
-            MutableTilesContainer container =
-                    (MutableTilesContainer) TilesAccess.getContainer(
+            MutableTilesContainer container = (MutableTilesContainer) ServletUtil.getContainer(
                     servletContext);
             Definition definition = new Definition();
             definition.setName(getUrl());
@@ -141,19 +138,14 @@ public class CheapTilesView extends TilesView {
                     DEFAULT_DEFAULT_ATTRIBUTES);
             String[] attributes = attributeList.split(",");
             if (attributes.length == 1) {
-                definition.putAttribute(attributes[0],
-                        new Attribute(
-                        (String) getAttribute(KEY_DEFAULT_PREFIX,
-                        DEFAULT_DEFAULT_PREFIX) +
-                        getUrl() + (String) getAttribute(KEY_DEFAULT_SUFFIX,
-                        DEFAULT_DEFAULT_SUFFIX)));
+                definition.putAttribute(attributes[0], new Attribute((String) getAttribute(
+                        KEY_DEFAULT_PREFIX, DEFAULT_DEFAULT_PREFIX) + getUrl()
+                        + (String) getAttribute(KEY_DEFAULT_SUFFIX, DEFAULT_DEFAULT_SUFFIX)));
             } else {
                 for (String attribute : attributes) {
                     definition.putAttribute(attribute, new Attribute(
-                            (String) getAttribute(KEY_DEFAULT_PREFIX,
-                            DEFAULT_DEFAULT_PREFIX) +
-                            getUrl() + "_" + attribute +
-                            (String) getAttribute(KEY_DEFAULT_SUFFIX,
+                            (String) getAttribute(KEY_DEFAULT_PREFIX, DEFAULT_DEFAULT_PREFIX)
+                            + getUrl() + "_" + attribute + (String) getAttribute(KEY_DEFAULT_SUFFIX,
                             DEFAULT_DEFAULT_SUFFIX)));
                 }
             }

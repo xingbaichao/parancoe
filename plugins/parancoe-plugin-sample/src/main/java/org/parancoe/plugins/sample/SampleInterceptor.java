@@ -18,24 +18,27 @@
 package org.parancoe.plugins.sample;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author paolo.dona@seesaw.it
  */
 public class SampleInterceptor extends HandlerInterceptorAdapter {
-  public static final Logger logger = Logger.getLogger(SampleInterceptor.class);
 
-  public SampleInterceptor() {
-    logger.info("ItalyInterceptor set up");
-  }
+    public static final Logger logger = LoggerFactory.getLogger(SampleInterceptor.class);
 
-  public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
-                           Object object) throws Exception {
-    logger.info("SamplePlugin interceptor preHandle");
-    return true;
-  }
+    public SampleInterceptor() {
+        logger.info("ItalyInterceptor set up");
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
+            Object object) throws Exception {
+        logger.info("SamplePlugin interceptor preHandle");
+        return true;
+    }
 }

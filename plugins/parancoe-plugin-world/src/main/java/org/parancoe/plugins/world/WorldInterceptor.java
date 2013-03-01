@@ -18,16 +18,17 @@
 package org.parancoe.plugins.world;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author lucio.benfante@jugpadova.it
  */
 public class WorldInterceptor extends HandlerInterceptorAdapter {
 
-    public static final Logger logger = Logger.getLogger(WorldInterceptor.class);
+    public static final Logger logger = LoggerFactory.getLogger(WorldInterceptor.class);
 
     public WorldInterceptor() {
         logger.info("WorldInterceptor set up");
