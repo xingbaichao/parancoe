@@ -21,7 +21,7 @@
         <year>2006-2010</year>
         <parancoe.lambico.version>1.1-SNAPSHOT</parancoe.lambico.version>
         <parancoe.spring.version>3.0.7.RELEASE</parancoe.spring.version>
-        <parancoe.hibernate.version>3.6.7.Final</parancoe.hibernate.version>
+        <parancoe.hibernate.version>3.6.10.Final</parancoe.hibernate.version>
         <parancoe.slf4j.version>1.7.2</parancoe.slf4j.version>
         <parancoe.junit4.version>4.11</parancoe.junit4.version>
         <parancoe.hsqldb.version>2.2.9</parancoe.hsqldb.version>
