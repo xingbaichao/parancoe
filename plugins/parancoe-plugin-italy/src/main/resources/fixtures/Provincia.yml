@@ -1,0 +1,553 @@
+#
+# Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
+#
+# This file is part of Parancoe Plugin Italy.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+- &Provincia-001
+  id: 001
+  nome: "Torino"
+  targa: TO
+  regione: *Regione-01
+- &Provincia-002
+  id: 002
+  nome: "Vercelli"
+  targa: VC
+  regione: *Regione-01
+- &Provincia-003
+  id: 003
+  nome: "Novara"
+  targa: NO
+  regione: *Regione-01
+- &Provincia-004
+  id: 004
+  nome: "Cuneo"
+  targa: CN
+  regione: *Regione-01
+- &Provincia-005
+  id: 005
+  nome: "Asti"
+  targa: AT
+  regione: *Regione-01
+- &Provincia-006
+  id: 006
+  nome: "Alessandria"
+  targa: AL
+  regione: *Regione-01
+- &Provincia-007
+  id: 007
+  nome: "Valle d'Aosta"
+  targa: AO
+  regione: *Regione-02
+- &Provincia-008
+  id: 008
+  nome: "Imperia"
+  targa: IM
+  regione: *Regione-07
+- &Provincia-009
+  id: 009
+  nome: "Savona"
+  targa: SV
+  regione: *Regione-07
+- &Provincia-010
+  id: 010
+  nome: "Genova"
+  targa: GE
+  regione: *Regione-07
+- &Provincia-011
+  id: 011
+  nome: "La Spezia"
+  targa: SP
+  regione: *Regione-07
+- &Provincia-012
+  id: 012
+  nome: "Varese"
+  targa: VA
+  regione: *Regione-03
+- &Provincia-013
+  id: 013
+  nome: "Como"
+  targa: CO
+  regione: *Regione-03
+- &Provincia-014
+  id: 014
+  nome: "Sondrio"
+  targa: SO
+  regione: *Regione-03
+- &Provincia-015
+  id: 015
+  nome: "Milano"
+  targa: MI
+  regione: *Regione-03
+- &Provincia-016
+  id: 016
+  nome: "Bergamo"
+  targa: BG
+  regione: *Regione-03
+- &Provincia-017
+  id: 017
+  nome: "Brescia"
+  targa: BS
+  regione: *Regione-03
+- &Provincia-018
+  id: 018
+  nome: "Pavia"
+  targa: PV
+  regione: *Regione-03
+- &Provincia-019
+  id: 019
+  nome: "Cremona"
+  targa: CR
+  regione: *Regione-03
+- &Provincia-020
+  id: 020
+  nome: "Mantova"
+  targa: MN
+  regione: *Regione-03
+- &Provincia-021
+  id: 021
+  nome: "Bolzano - Bozen"
+  targa: BZ
+  regione: *Regione-04
+- &Provincia-022
+  id: 022
+  nome: "Trento"
+  targa: TN
+  regione: *Regione-04
+- &Provincia-023
+  id: 023
+  nome: "Verona"
+  targa: VR
+  regione: *Regione-05
+- &Provincia-024
+  id: 024
+  nome: "Vicenza"
+  targa: VI
+  regione: *Regione-05
+- &Provincia-025
+  id: 025
+  nome: "Belluno"
+  targa: BL
+  regione: *Regione-05
+- &Provincia-026
+  id: 026
+  nome: "Treviso"
+  targa: TV
+  regione: *Regione-05
+- &Provincia-027
+  id: 027
+  nome: "Venezia"
+  targa: VE
+  regione: *Regione-05
+- &Provincia-028
+  id: 028
+  nome: "Padova"
+  targa: PD
+  regione: *Regione-05
+- &Provincia-029
+  id: 029
+  nome: "Rovigo"
+  targa: RO
+  regione: *Regione-05
+- &Provincia-030
+  id: 030
+  nome: "Udine"
+  targa: UD
+  regione: *Regione-06
+- &Provincia-031
+  id: 031
+  nome: "Gorizia"
+  targa: GO
+  regione: *Regione-06
+- &Provincia-032
+  id: 032
+  nome: "Trieste"
+  targa: TS
+  regione: *Regione-06
+- &Provincia-033
+  id: 033
+  nome: "Piacenza"
+  targa: PC
+  regione: *Regione-08
+- &Provincia-034
+  id: 034
+  nome: "Parma"
+  targa: PR
+  regione: *Regione-08
+- &Provincia-035
+  id: 035
+  nome: "Reggio nell'Emilia"
+  targa: RE
+  regione: *Regione-08
+- &Provincia-036
+  id: 036
+  nome: "Modena"
+  targa: MO
+  regione: *Regione-08
+- &Provincia-037
+  id: 037
+  nome: "Bologna"
+  targa: BO
+  regione: *Regione-08
+- &Provincia-038
+  id: 038
+  nome: "Ferrara"
+  targa: FE
+  regione: *Regione-08
+- &Provincia-039
+  id: 039
+  nome: "Ravenna"
+  targa: RA
+  regione: *Regione-08
+- &Provincia-040
+  id: 040
+  nome: "Forlì-Cesena"
+  targa: FC
+  regione: *Regione-08
+- &Provincia-041
+  id: 041
+  nome: "Pesaro Urbino"
+  targa: PU
+  regione: *Regione-11
+- &Provincia-042
+  id: 042
+  nome: "Ancona"
+  targa: AN
+  regione: *Regione-11
+- &Provincia-043
+  id: 043
+  nome: "Macerata"
+  targa: MC
+  regione: *Regione-11
+- &Provincia-044
+  id: 044
+  nome: "Ascoli Piceno"
+  targa: AP
+  regione: *Regione-11
+- &Provincia-045
+  id: 045
+  nome: "Massa-Carrara"
+  targa: MS
+  regione: *Regione-09
+- &Provincia-046
+  id: 046
+  nome: "Lucca"
+  targa: LU
+  regione: *Regione-09
+- &Provincia-047
+  id: 047
+  nome: "Pistoia"
+  targa: PT
+  regione: *Regione-09
+- &Provincia-048
+  id: 048
+  nome: "Firenze"
+  targa: FI
+  regione: *Regione-09
+- &Provincia-049
+  id: 049
+  nome: "Livorno"
+  targa: LI
+  regione: *Regione-09
+- &Provincia-050
+  id: 050
+  nome: "Pisa"
+  targa: PI
+  regione: *Regione-09
+- &Provincia-051
+  id: 051
+  nome: "Arezzo"
+  targa: AR
+  regione: *Regione-09
+- &Provincia-052
+  id: 052
+  nome: "Siena"
+  targa: SI
+  regione: *Regione-09
+- &Provincia-053
+  id: 053
+  nome: "Grosseto"
+  targa: GR
+  regione: *Regione-09
+- &Provincia-054
+  id: 054
+  nome: "Perugia"
+  targa: PG
+  regione: *Regione-10
+- &Provincia-055
+  id: 055
+  nome: "Terni"
+  targa: TR
+  regione: *Regione-10
+- &Provincia-056
+  id: 056
+  nome: "Viterbo"
+  targa: VT
+  regione: *Regione-12
+- &Provincia-057
+  id: 057
+  nome: "Rieti"
+  targa: RI
+  regione: *Regione-12
+- &Provincia-058
+  id: 058
+  nome: "Roma"
+  targa: RM
+  regione: *Regione-12
+- &Provincia-059
+  id: 059
+  nome: "Latina"
+  targa: LT
+  regione: *Regione-12
+- &Provincia-060
+  id: 060
+  nome: "Frosinone"
+  targa: FR
+  regione: *Regione-12
+- &Provincia-061
+  id: 061
+  nome: "Caserta"
+  targa: CE
+  regione: *Regione-15
+- &Provincia-062
+  id: 062
+  nome: "Benevento"
+  targa: BN
+  regione: *Regione-15
+- &Provincia-063
+  id: 063
+  nome: "Napoli"
+  targa: NA
+  regione: *Regione-15
+- &Provincia-064
+  id: 064
+  nome: "Avellino"
+  targa: AV
+  regione: *Regione-15
+- &Provincia-065
+  id: 065
+  nome: "Salerno"
+  targa: SA
+  regione: *Regione-15
+- &Provincia-066
+  id: 066
+  nome: "L'Aquila"
+  targa: AQ
+  regione: *Regione-13
+- &Provincia-067
+  id: 067
+  nome: "Teramo"
+  targa: TE
+  regione: *Regione-13
+- &Provincia-068
+  id: 068
+  nome: "Pescara"
+  targa: PE
+  regione: *Regione-13
+- &Provincia-069
+  id: 069
+  nome: "Chieti"
+  targa: CH
+  regione: *Regione-13
+- &Provincia-070
+  id: 070
+  nome: "Campobasso"
+  targa: CB
+  regione: *Regione-14
+- &Provincia-071
+  id: 071
+  nome: "Foggia"
+  targa: FG
+  regione: *Regione-16
+- &Provincia-072
+  id: 072
+  nome: "Bari"
+  targa: BA
+  regione: *Regione-16
+- &Provincia-073
+  id: 073
+  nome: "Taranto"
+  targa: TA
+  regione: *Regione-16
+- &Provincia-074
+  id: 074
+  nome: "Brindisi"
+  targa: BR
+  regione: *Regione-16
+- &Provincia-075
+  id: 075
+  nome: "Lecce"
+  targa: LE
+  regione: *Regione-16
+- &Provincia-076
+  id: 076
+  nome: "Potenza"
+  targa: PZ
+  regione: *Regione-17
+- &Provincia-077
+  id: 077
+  nome: "Matera"
+  targa: MT
+  regione: *Regione-17
+- &Provincia-078
+  id: 078
+  nome: "Cosenza"
+  targa: CS
+  regione: *Regione-18
+- &Provincia-079
+  id: 079
+  nome: "Catanzaro"
+  targa: CZ
+  regione: *Regione-18
+- &Provincia-080
+  id: 080
+  nome: "Reggio di Calabria"
+  targa: RC
+  regione: *Regione-18
+- &Provincia-081
+  id: 081
+  nome: "Trapani"
+  targa: TP
+  regione: *Regione-19
+- &Provincia-082
+  id: 082
+  nome: "Palermo"
+  targa: PA
+  regione: *Regione-19
+- &Provincia-083
+  id: 083
+  nome: "Messina"
+  targa: ME
+  regione: *Regione-19
+- &Provincia-084
+  id: 084
+  nome: "Agrigento"
+  targa: AG
+  regione: *Regione-19
+- &Provincia-085
+  id: 085
+  nome: "Caltanissetta"
+  targa: CL
+  regione: *Regione-19
+- &Provincia-086
+  id: 086
+  nome: "Enna"
+  targa: EN
+  regione: *Regione-19
+- &Provincia-087
+  id: 087
+  nome: "Catania"
+  targa: CT
+  regione: *Regione-19
+- &Provincia-088
+  id: 088
+  nome: "Ragusa"
+  targa: RG
+  regione: *Regione-19
+- &Provincia-089
+  id: 089
+  nome: "Siracusa"
+  targa: SR
+  regione: *Regione-19
+- &Provincia-090
+  id: 090
+  nome: "Sassari"
+  targa: SS
+  regione: *Regione-20
+- &Provincia-091
+  id: 091
+  nome: "Nuoro"
+  targa: NU
+  regione: *Regione-20
+- &Provincia-092
+  id: 092
+  nome: "Cagliari"
+  targa: CA
+  regione: *Regione-20
+- &Provincia-093
+  id: 093
+  nome: "Pordenone"
+  targa: PN
+  regione: *Regione-06
+- &Provincia-094
+  id: 094
+  nome: "Isernia"
+  targa: IS
+  regione: *Regione-14
+- &Provincia-095
+  id: 095
+  nome: "Oristano"
+  targa: OR
+  regione: *Regione-20
+- &Provincia-096
+  id: 096
+  nome: "Biella"
+  targa: BI
+  regione: *Regione-01
+- &Provincia-097
+  id: 097
+  nome: "Lecco"
+  targa: LC
+  regione: *Regione-03
+- &Provincia-098
+  id: 098
+  nome: "Lodi"
+  targa: LO
+  regione: *Regione-03
+- &Provincia-099
+  id: 099
+  nome: "Rimini"
+  targa: RN
+  regione: *Regione-08
+- &Provincia-100
+  id: 100
+  nome: "Prato"
+  targa: PO
+  regione: *Regione-09
+- &Provincia-101
+  id: 101
+  nome: "Crotone"
+  targa: KR
+  regione: *Regione-18
+- &Provincia-102
+  id: 102
+  nome: "Vibo Valentia"
+  targa: VV
+  regione: *Regione-18
+- &Provincia-103
+  id: 103
+  nome: "Verbano-Cusio-Ossola"
+  targa: VB
+  regione: *Regione-01
+- &Provincia-104
+  id: 104
+  nome: "Olbia-Tempio"
+  targa: OT
+  regione: *Regione-20
+- &Provincia-105
+  id: 105
+  nome: "Ogliastra"
+  targa: OG
+  regione: *Regione-20
+- &Provincia-106
+  id: 106
+  nome: "Medio Campidano"
+  targa: VS
+  regione: *Regione-20
+- &Provincia-107
+  id: 107
+  nome: "Carbonia-Iglesias"
+  targa: CI
+  regione: *Regione-20
