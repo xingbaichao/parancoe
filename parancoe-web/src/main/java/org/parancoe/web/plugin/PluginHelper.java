@@ -30,16 +30,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
-import org.apache.log4j.Logger;
 import org.parancoe.util.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ViewResolver;
 
 /**
  * Questa classe è solo un helper non è configurato in spring
@@ -50,7 +48,7 @@ import org.springframework.web.servlet.ViewResolver;
 public class PluginHelper {
 
     private ApplicationContext ctx;
-    private Logger log = Logger.getLogger(PluginHelper.class);
+    private Logger log = LoggerFactory.getLogger(PluginHelper.class);
 
     public PluginHelper(ApplicationContext ctx) {
         this.ctx = ctx;

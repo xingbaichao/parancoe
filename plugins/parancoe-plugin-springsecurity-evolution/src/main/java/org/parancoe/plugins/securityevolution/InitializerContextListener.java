@@ -17,13 +17,12 @@
  */
 package org.parancoe.plugins.securityevolution;
 
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.ContextLoaderListener;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import org.slf4j.LoggerFactory;
 
 /**
 
@@ -31,11 +30,7 @@ import javax.servlet.ServletContextEvent;
 @Component("parancoe-plugin-springsecurity-evolution-InitializerContextListener")
 public class InitializerContextListener extends ContextLoaderListener {
 
-    private static final Logger log = Logger.getLogger(InitializerContextListener.class);
-
-  /*  private ServletContext servletContext;
-
-    private ApplicationContext ctx;*/
+    private static final Logger log = LoggerFactory.getLogger(InitializerContextListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent evt) {

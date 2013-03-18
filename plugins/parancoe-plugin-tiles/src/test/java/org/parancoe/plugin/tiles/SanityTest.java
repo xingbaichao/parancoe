@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2006-2012 The Parancoe Team <info@parancoe.org>
  *
- * This file is part of parancoe-plugin-tiles Parancoe Plugin.
+ * This file is part of Parancoe Plugin Tiles.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,17 +34,11 @@ public class SanityTest extends PluginTest {
     private TilesConfigurer tilesConfigurer;
     @Resource
     private ViewResolver viewResolver;
-    
+
     /* test everything has been loaded properly */
     public void testSanity() {
         assertNotNull(plugin);
         assertNotNull(tilesConfigurer);
         assertNotNull(viewResolver);
     }
-    
-    @Override
-    public Class[] getFixtureClasses() {
-        return new Class[]{};
-    }
-    
 }

@@ -31,7 +31,7 @@ import org.lambico.po.hibernate.EntityBase;
 /**
  * An persistent object to be used for the tests M:N relationships.
  * 
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @version $Revision$
  */
 @javax.persistence.Entity

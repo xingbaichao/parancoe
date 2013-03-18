@@ -3,14 +3,14 @@
     <parent>
         <artifactId>parancoe-plugins</artifactId>
         <groupId>org.parancoe</groupId>
-        <version>3.0-SNAPSHOT</version>
+        <version>3.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.parancoe</groupId>
     <artifactId>parancoe-plugin-sample</artifactId>
     <packaging>jar</packaging>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.1-SNAPSHOT</version>
     <name>Parancoe Plugin Sample</name>
     <url>http://www.parancoe.org</url>
     <properties>
@@ -24,7 +24,7 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-          <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
+                    <!-- <compilerArgument>-encoding=UTF8</compilerArgument>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -34,8 +34,8 @@
                     <skip>false</skip>
                     <useFile>true</useFile>
                     <forkMode>once</forkMode>
-          <!-- pertest once or never -->
-          <!-- <reportFormat>plain</reportFormat> -->
+                    <!-- pertest once or never -->
+                    <!-- <reportFormat>plain</reportFormat> -->
                     <argLine>-Xmx512M</argLine>
                     <systemProperties>
                         <property>

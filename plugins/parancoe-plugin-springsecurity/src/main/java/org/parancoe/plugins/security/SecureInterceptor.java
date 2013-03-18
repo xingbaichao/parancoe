@@ -25,8 +25,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -38,12 +39,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class SecureInterceptor extends HandlerInterceptorAdapter {
 
-    public static final String USERNAME_LOG4J_MDC_KEY = "psec_username";
+    public static final String USERNAME_MDC_KEY = "psec_username";
     private static final String STRATEGY_CLASS_NAME =
             "org.parancoe.plugins.security.ParancoeSecurityContextHolderStrategy";
     private Filter delegate;
     private static final Logger logger =
-            Logger.getLogger(SecureInterceptor.class);
+            LoggerFactory.getLogger(SecureInterceptor.class);
 
     /**
      * Costructor. In the costructor strategy of SecurityContextHolder
@@ -64,7 +65,7 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
             Object handler) throws Exception {
         delegate.doFilter(req, res, new ParancoeFilterChain());
-        populateLog4JMDC();
+        populateMDC();
         req.getSession(false);
         if (res.isCommitted()) {
             logger.debug("Response is committed!");
@@ -78,28 +79,28 @@ public class SecureInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest req,
             HttpServletResponse res, Object handler, Exception e) throws
             Exception {
-        cleanLog4JMDC();
+        cleanMDC();
     }
 
     /**
-     * Put in the Log4J Mapped Diagnostic Context (MDC) the infos on the logged user.
+     * Put in the Mapped Diagnostic Context (MDC) the infos on the logged user.
      * So these infos can be showed in the log, using the %X{key} format sequence in the log layout.
      */
-    private void populateLog4JMDC() {
+    private void populateMDC() {
         String username = "unknown";
         Authentication authentication =
                 SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             username = authentication.getName();
         }
-        MDC.put(USERNAME_LOG4J_MDC_KEY, username);
+        MDC.put(USERNAME_MDC_KEY, username);
     }
 
     /**
-     * Remove from the Log4J Mapped Diagnostic Context (MDC) the infos on the logged user.
+     * Remove from the Mapped Diagnostic Context (MDC) the infos on the logged user.
      */
-    private void cleanLog4JMDC() {
-        MDC.remove(USERNAME_LOG4J_MDC_KEY);
+    private void cleanMDC() {
+        MDC.remove(USERNAME_MDC_KEY);
     }
 
     /**

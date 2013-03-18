@@ -37,7 +37,8 @@ public class TestContextListener extends ContextListener {
         config.add("classpath:org/lambico/spring/dao/hibernate/genericDao.xml");
         config.add("classpath:org/lambico/spring/dao/hibernate/applicationContextBase.xml");
         config.add("classpath:org/parancoe/web/parancoeBase.xml");
-        config.add("classpath:spring-test.xml");
+        config.add("classpath:database-test-server.xml");
+        config.add("classpath:applicationContext-test.xml");
         config.add("classpath*:parancoe-plugin.xml");
         config.add("classpath*:applicationContext-plugin.xml");
         config.add("classpath:org/parancoe/plugin/configuration/restful-services.xml");
@@ -51,6 +52,6 @@ public class TestContextListener extends ContextListener {
 
         populateDaoMap(ctx);
     }
-    
-    
+
+
 }

@@ -20,7 +20,6 @@ package org.parancoe.plugins.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/*.secure")
 
 public  class SecureController {
-    private static Logger logger = Logger.getLogger(SecureController.class);
-    
+
     @RequestMapping
     public ModelAndView login(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("login");
@@ -45,7 +43,7 @@ public  class SecureController {
     public ModelAndView accessDenied(HttpServletRequest req, HttpServletResponse res){
         return new ModelAndView("accessDenied");
     }
-    
+
     @RequestMapping
     public ModelAndView j_spring_security_check(HttpServletRequest req, HttpServletResponse res){
         return null;
@@ -54,6 +52,4 @@ public  class SecureController {
     public ModelAndView logout(HttpServletRequest req, HttpServletResponse res){
         return null;
     }
-    
-    
 }

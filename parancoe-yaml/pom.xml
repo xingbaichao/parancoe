@@ -7,7 +7,7 @@
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.parancoe</groupId>
    <artifactId>parancoe-yaml</artifactId>
-   <name>Parancoe Yaml</name>
+   <name>Parancoe Yaml - DISCONTINUED</name>
    <version>3.0-SNAPSHOT</version>
    <url>http://www.parancoe.org</url>
     <properties>
@@ -17,7 +17,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.2</version>
             <scope>test</scope>
         </dependency>
    </dependencies>
