@@ -20,8 +20,8 @@ package org.parancoe.plugins.security;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolderStrategy;
 import org.acegisecurity.context.SecurityContextImpl;
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A Parancoe <code>ThreadLocal</code>-based implementation of {@link
@@ -34,17 +34,18 @@ import org.apache.log4j.Logger;
  * @see org.acegisecurity.context.HttpSessionContextIntegrationFilter
  */
 public class ParancoeSecurityContextHolderStrategy implements SecurityContextHolderStrategy {
-	private static Logger logger = Logger.getLogger(ParancoeSecurityContextHolderStrategy.class);
 
+    private static Logger logger = LoggerFactory.getLogger(
+            ParancoeSecurityContextHolderStrategy.class);
+    private static ThreadLocal<SecurityContext> contextHolder = new ThreadLocal<SecurityContext>();
 
-    private static ThreadLocal contextHolder = new ThreadLocal();
-    
     //~ Methods ========================================================================================================
-
+    @Override
     public void clearContext() {
         logger.debug("This method has void implementation!");
     }
 
+    @Override
     public SecurityContext getContext() {
         if (contextHolder.get() == null) {
             contextHolder.set(new SecurityContextImpl());
@@ -53,8 +54,8 @@ public class ParancoeSecurityContextHolderStrategy implements SecurityContextHol
         return (SecurityContext) contextHolder.get();
     }
 
+    @Override
     public void setContext(SecurityContext context) {
-       
         contextHolder.set(context);
     }
 }

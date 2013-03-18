@@ -3,13 +3,13 @@
     <parent>
         <artifactId>parancoe-plugins</artifactId>
         <groupId>org.parancoe</groupId>
-        <version>3.0-SNAPSHOT</version>
+        <version>3.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.parancoe</groupId>
     <artifactId>parancoe-plugin-tiles</artifactId>
-    <name>parancoe-plugin-tiles Parancoe Plugin</name>
-    <version>3.0-SNAPSHOT</version>
+    <name>Parancoe Plugin Tiles</name>
+    <version>3.1-SNAPSHOT</version>
     <url>http://www.parancoe.org</url>
     <properties>
         <main.basedir>${basedir}/..</main.basedir>
@@ -20,27 +20,9 @@
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
             </testResource>
-        </testResources> 
+        </testResources>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>org.parancoe</groupId>
-            <artifactId>parancoe-web</artifactId>
-            <version>3.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>1.8.0.10</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-core</artifactId>
@@ -50,6 +32,11 @@
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
             <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${parancoe.slf4j.version}</version>
         </dependency>
     </dependencies>
 </project>

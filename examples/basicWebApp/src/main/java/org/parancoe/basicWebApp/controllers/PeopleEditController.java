@@ -1,23 +1,28 @@
-// Copyright 2006-2008 The Parancoe Team
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/**
+ * Copyright (C) 2006-2013 The Parancoe Team <info@parancoe.org>
+ *
+ * This file is part of Parancoe Example - Basic WebApp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.parancoe.basicWebApp.controllers;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import org.apache.log4j.Logger;
 import org.parancoe.basicWebApp.dao.PersonDao;
 import org.parancoe.basicWebApp.po.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +42,8 @@ public class PeopleEditController {
     private PersonDao personDao;
     @Resource
     private Validator validator;
-    
-    private final static Logger logger = Logger.getLogger(
-            PeopleEditController.class);
+
+    private final static Logger logger = LoggerFactory.getLogger(PeopleEditController.class);
 
     /* questo viene chiamato solo in caso di una post a people/edit.form */
     @RequestMapping
@@ -77,9 +81,5 @@ public class PeopleEditController {
         }
         model.addAttribute("person", p);
         return "people/edit";
-    }
-
-    public Logger getLogger() {
-        return logger;
     }
 }

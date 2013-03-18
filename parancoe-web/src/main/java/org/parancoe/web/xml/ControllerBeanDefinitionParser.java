@@ -20,7 +20,8 @@ package org.parancoe.web.xml;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -34,13 +35,13 @@ import org.w3c.dom.Element;
 
 /**
  * A parser to load all the controllers defined in 'basePackage'.
- * 
+ *
  * @author <mailto:andrea.nasato@jugpadova.it/>
  * @version $Revision$
  */
 public class ControllerBeanDefinitionParser implements BeanDefinitionParser {
-    
-    private static final Logger logger = Logger.getLogger(ControllerBeanDefinitionParser.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(ControllerBeanDefinitionParser.class);
 
     private BeanDefinitionParserDelegate delegate;
     private ResourcePatternResolver resourceLoader;
@@ -51,21 +52,22 @@ public class ControllerBeanDefinitionParser implements BeanDefinitionParser {
      * The package from which this parser loads controllers
      */
     public static final String BASE_PACKAGE_ATTRIBUTE = "basePackage";
-    
+
     /**
      * The parent used to define controllers found
      */
-    public static final String PARENT_ATTRIBUTE = "parent";    
-    
+    public static final String PARENT_ATTRIBUTE = "parent";
+
 
     /**
-     * Register controllers found in <code>basePackage</code> attribute giving them 
+     * Register controllers found in <code>basePackage</code> attribute giving them
      * <code>parent</code> as parent.
      *
-     * @param element 
-     * @param parserContext 
-     * @return 
+     * @param element
+     * @param parserContext
+     * @return
      */
+    @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         String packageName = element.getAttribute(BASE_PACKAGE_ATTRIBUTE);
         String parentName = element.getAttribute(PARENT_ATTRIBUTE);
@@ -128,6 +130,6 @@ public class ControllerBeanDefinitionParser implements BeanDefinitionParser {
         }
         //logger.info("registering bean definition: " + rootBuilder.getBeanDefinition().toString());
         registry.registerBeanDefinition(id, rootBuilder.getBeanDefinition());
-        
+
     }
 }

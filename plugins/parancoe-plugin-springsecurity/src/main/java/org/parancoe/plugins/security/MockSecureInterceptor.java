@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 /**
- * 
+ *
  */
 package org.parancoe.plugins.security;
 
@@ -24,20 +24,20 @@ import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 
 /**
- * Mock secure interceptor for test purpose. 
+ * Mock secure interceptor for test purpose.
  * @author egiurin
  *
  */
 public class MockSecureInterceptor extends HandlerInterceptorAdapter {
 
-	private static final Logger logger =
-        Logger.getLogger(MockSecureInterceptor.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(MockSecureInterceptor.class);
+
 	private Filter parancoeDelegate;
 	public Filter getParancoeDelegate() {
 		return parancoeDelegate;

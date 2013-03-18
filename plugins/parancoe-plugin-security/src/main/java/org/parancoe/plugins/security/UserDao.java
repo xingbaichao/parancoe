@@ -25,7 +25,7 @@ import org.lambico.dao.generic.GenericDao;
  * The DAO interface for the UserProfile entity.
  * 
  * @author <a href="mailto:enrico.giurin@gmail.com">Enrico Giurin</a>
- * @author <a href="mailto:michele.franzin@seesaw.it">Michele Franzin</a>
+ * @author michele franzin <michele at franzin.net>
  * @version $Revision$
  */
 @Dao(entity = User.class)

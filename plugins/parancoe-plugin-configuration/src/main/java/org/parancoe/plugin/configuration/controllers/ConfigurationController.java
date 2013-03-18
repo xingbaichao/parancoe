@@ -24,12 +24,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 import org.parancoe.plugin.configuration.bo.ConfigurationService;
 import org.parancoe.plugin.configuration.po.Category;
 import org.parancoe.plugin.configuration.po.Property;
 import org.parancoe.plugin.configuration.po.PropertyType;
 import org.parancoe.web.util.FlashHelper;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,11 +46,11 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("pluginConfigurationProperty")
 public class ConfigurationController {
 
-    private static final Logger logger = Logger.getLogger(ConfigurationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConfigurationController.class);
 
     @Resource
     private ConfigurationService configurationService;
-    
+
     @RequestMapping(method= RequestMethod.GET)
     public String index(HttpServletRequest req, HttpServletResponse res, Model model) {
         logger.info("Executing index in the ConfigurationController");
@@ -68,7 +69,7 @@ public class ConfigurationController {
         }
         return "plugin/configuration/edit";
     }
-    
+
     @RequestMapping(value="/{propertyId}/store", method = {RequestMethod.PUT, RequestMethod.POST})
     public String store(@ModelAttribute("pluginConfigurationProperty") @Valid Property property,
             BindingResult result, SessionStatus status, HttpServletRequest req) {
@@ -81,13 +82,13 @@ public class ConfigurationController {
             try {
                 property.getValueAsInteger();
             } catch (NumberFormatException numberFormatException) {
-                result.rejectValue("value", "PluginConfiguration_Error_NotAnInteger", new Object[] {value}, "The value must be an integer number.");                
+                result.rejectValue("value", "PluginConfiguration_Error_NotAnInteger", new Object[] {value}, "The value must be an integer number.");
             }
         } else if (PropertyType.REAL.equals(property.getType())) {
             try {
                 Double.valueOf(value);
             } catch (NumberFormatException numberFormatException) {
-                result.rejectValue("value", "PluginConfiguration_Error_NotAReal", new Object[] {value}, "The value must be a real number.");                
+                result.rejectValue("value", "PluginConfiguration_Error_NotAReal", new Object[] {value}, "The value must be a real number.");
             }
         }
         if (result.hasErrors()) {
@@ -98,5 +99,5 @@ public class ConfigurationController {
         status.setComplete();
         return "redirect:..";
     }
-    
+
 }
