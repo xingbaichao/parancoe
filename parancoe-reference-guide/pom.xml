@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <!--
+  <parent>
+    <artifactId>parancoe</artifactId>
+    <groupId>org.parancoe</groupId>
+    <version>2.0-SNAPSHOT</version>
+  </parent>
+  -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.parancoe.doc.reference</groupId>
+    <artifactId>parancoe-reference-guide</artifactId>
+    <name>Parancoe Reference Guide</name>
+    <version>2.0-SNAPSHOT</version>
+    <url>http://www.parancoe.org</url>
+    <packaging>pom</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-html</goal>
+                            <goal>generate-pdf</goal>
+                            <goal>generate-epub</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>4.4</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <includes>parancoe-reference-guide.xml</includes>
+                    <chunkedOutput>true</chunkedOutput>
+                    <htmlStylesheet>css/html.css</htmlStylesheet>
+                    <xincludeSupported>true</xincludeSupported>
+                    <htmlCustomization>src/docbkx/resources/xsl/html_chunk.xsl</htmlCustomization>
+                    <foCustomization>src/docbkx/resources/xsl/fopdf.xsl</foCustomization>
+                    <entities>
+                        <entity>
+                            <name>version</name>
+                            <value>${project.version}</value>
+                        </entity>
+                    </entities>
+                    <postProcess>
+                        <copy todir="target/site/reference">
+                            <fileset dir="target/docbkx">
+                                <include name="**/*.html" />
+                                <include name="**/*.pdf" />
+                            </fileset>
+                        </copy>
+                        <copy todir="target/site/reference/html">
+                            <fileset dir="src/docbkx/resources">
+                                <include name="**/*.css" />
+                                <include name="**/*.png" />
+                                <include name="**/*.gif" />
+                                <include name="**/*.jpg" />
+                            </fileset>
+                        </copy>
+                    </postProcess>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <docbook.source>${basedir}/src/docbkx</docbook.source>
+        <netbeans.hint.useExternalMaven>true</netbeans.hint.useExternalMaven>
+        <docbook.target>${basedir}/target/site/guide</docbook.target>
+    </properties>
+</project>

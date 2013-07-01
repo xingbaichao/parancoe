@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2006-2013 The Parancoe Team <info@parancoe.org>
+
+    This file is part of Parancoe Example - Basic WebApp Evolution.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:lambico="http://www.lambico.org/schema/lambico"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.lambico.org/schema/lambico http://www.lambico.org/schema/lambico.xsd
+       http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       ">
+    
+    <context:component-scan base-package="org.parancoe.basicwebappevolution.blo"/>
+    <!-- Authomatic discovering of persistent classes -->
+    <lambico:discover-persistent-classes basePackage="org.parancoe.basicwebappevolution.po"/>
+    <!-- Authomatic DAO definition from persistent classes -->
+    <lambico:define-daos baseInterfacePackage="org.parancoe.basicwebappevolution.dao" />
+                   
+    <bean id="conf" class="org.parancoe.basicwebappevolution.Conf" parent="abstractConf"/>
+    
+    <!-- begin security section -->	      
+   <security:filter-security-metadata-source id="securityMetadataSource" use-expressions="true">
+    	<security:intercept-url pattern="/r/**"  access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')" />	
+    </security:filter-security-metadata-source>
+    <!-- override plugin section -->
+   
+    <!-- Here you can override any of the properties of the plugin security -->
+    
+   <!--  
+   <bean id="loginView" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="/italy/index"/>
+	</bean> 
+	-->
+   
+    <!-- end security section -->
+    
+</beans>

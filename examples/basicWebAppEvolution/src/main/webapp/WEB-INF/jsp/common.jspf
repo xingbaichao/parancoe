@@ -1,0 +1,43 @@
+<%--
+
+    Copyright (C) 2006-2013 The Parancoe Team <info@parancoe.org>
+
+    This file is part of Parancoe Example - Basic WebApp Evolution.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+--%>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
+<%@ page import="org.parancoe.basicwebappevolution.Conf" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="authz" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="p" uri="http://www.parancoe.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+
+<% String cp = request.getContextPath();
+    pageContext.setAttribute("cp", cp);
+    pageContext.setAttribute("cpr", cp+"/r");
+
+    ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(application);
+
+    Conf conf = (Conf) ctx.getBean("conf");
+    pageContext.setAttribute("conf", conf);  
+%>
+
+
+

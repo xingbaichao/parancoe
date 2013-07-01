@@ -1,0 +1,50 @@
+#
+# Copyright (C) 2006-2013 The Parancoe Team <info@parancoe.org>
+#
+# This file is part of Parancoe Example - Basic Persistence.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+- &Person-lucio
+  firstName: Lucio
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-ugo
+  firstName: Ugo
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-grandugo
+  firstName: Ugo
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-guido
+  firstName: Guido
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-chiara
+  firstName: Chiara
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-Carlo
+  firstName: Carlo
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-Silvia
+  firstName: Silvia
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33
+- &Person-Filippo
+  firstName: Filippo
+  lastName: Benfante
+  birthDate: 1970-01-02 9:42:33

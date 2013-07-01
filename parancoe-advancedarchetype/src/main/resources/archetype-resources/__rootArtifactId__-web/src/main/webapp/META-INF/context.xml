@@ -1,0 +1,7 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/${parentArtifactId}" reloadable="true">
+  <Resource auth="Container" driverClassName="${symbol_dollar}{app.datasource.driver}" maxActive="5" name="jdbc/${parentArtifactId}-webDS" password="${symbol_dollar}{app.datasource.password}" type="javax.sql.DataSource" url="${symbol_dollar}{app.datasource.url}" username="${symbol_dollar}{app.datasource.username}"/>
+</Context>
