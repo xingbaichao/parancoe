@@ -23,10 +23,10 @@ import javax.servlet.ServletContextEvent;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.lambico.dao.DaoProvider;
 import org.lambico.dao.generic.GenericDaoBase;
 import org.lambico.dao.spring.hibernate.GenericDaoHibernateSupport;
 import org.lambico.data.YamlFixtureHelper;
+import org.lambico.spring.dao.DaoUtils;
 import org.parancoe.web.plugin.ApplicationContextPlugin;
 import org.parancoe.web.plugin.PluginHelper;
 import org.slf4j.Logger;
@@ -45,12 +45,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
-    private static final String DAO_PROVIDER_ID = "daos";
-
     private static final Logger log = LoggerFactory.getLogger(PopulateInitialDataContextListener.class);
-
     private ApplicationContext ctx;
-
     protected List<Class> clazzToPopulate = new ArrayList<Class>();
 
     @Override
@@ -67,14 +63,14 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
                 fixtureClasses);
         log.info("Populating initial data for models...");
 
-        SessionFactory sessionFactory = (SessionFactory)ctx.getBean("sessionFactory");
+        SessionFactory sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         //Attach transaction to thread
         TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session));
         TransactionSynchronizationManager.initSynchronization();
 
-        try{
+        try {
             for (Class clazz : fixtures.keySet()) {
                 List modelFixtures = fixtures.get(clazz);
                 if (modelFixtures.isEmpty()) {
@@ -113,7 +109,8 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
             try {
                 clazzToPopulate.addAll(plugin.getFixtureClasses());
             } catch (Exception e) {
-                log.error("Impossibile reperire i nomi delle fixtures da caricare per il plugin {}", plugin.getName());
+                log.error("Impossibile reperire i nomi delle fixtures da caricare per il plugin {}",
+                        plugin.getName());
             }
         }
         return clazzToPopulate;
@@ -121,15 +118,15 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
 
     private void populateTableForModel(final Class model, final List fixtures) {
         String fixtureName = YamlFixtureHelper.getModelName(model);
-        DaoProvider daos = (DaoProvider)ctx.getBean(DAO_PROVIDER_ID);
-        GenericDaoBase dao = (GenericDaoBase)daos.getDao(model);
+        GenericDaoBase dao = DaoUtils.getDaoFor(model, ctx);
         if (dao == null) {
-            log.info("Dao not found for {} and po {}",fixtureName, YamlFixtureHelper.getModelName(model));
+            log.info("Dao not found for {} and po {}", fixtureName, model.getCanonicalName());
             return;
         }
         if (dao.count() == 0) {
             log.info("Populating {} with {} items...", fixtureName, fixtures.size());
-            final HibernateTemplate template = ((GenericDaoHibernateSupport) dao).getHibernateTemplate();
+            final HibernateTemplate template = ((GenericDaoHibernateSupport) dao).
+                    getHibernateTemplate();
             try {
                 for (Object entity : fixtures) {
                     template.saveOrUpdate(entity);
@@ -137,7 +134,7 @@ public class PopulateInitialDataContextListener extends ContextLoaderListener {
                 template.flush();
                 template.clear();
             } catch (Exception e) {
-                log.error("Error populating rows in {} table", YamlFixtureHelper.getModelName(model), e);
+                log.error("Error populating rows in {} table", fixtureName, e);
             }
             log.info("Population of {} done!", fixtureName);
         } else {
