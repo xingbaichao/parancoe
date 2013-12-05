@@ -26,6 +26,7 @@ import java.io.Serializable;
  * @author Lucio Benfante <lucio.benfante@gmail.com>
  */
 @NewPassword(newPasswordProperty="newPassword", confirmPasswordProperty="confirmPassword")
+@NewPasswordLength(newPasswordProperty="newPassword", confirmPasswordProperty="confirmPassword", min = 2, max = 10)
 public class NewPasswordBean implements Serializable {
 
     protected String newPassword;

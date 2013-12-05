@@ -24,19 +24,20 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.apache.commons.lang.StringUtils;
 import org.parancoe.validator.constraints.NewPassword;
+import org.parancoe.validator.constraints.NewPasswordLength;
 
 /**
  * A validator for the setting of a new password.
  *
  * @author Lucio Benfante
  */
-public class NewPasswordValidator implements
-        ConstraintValidator<NewPassword, Object> {
+public class NewPasswordLengthValidator implements
+        ConstraintValidator<NewPasswordLength, Object> {
 
-    private NewPassword constraintAnnotation;
+    private NewPasswordLength constraintAnnotation;
 
     @Override
-    public void initialize(NewPassword constraintAnnotation) {
+    public void initialize(NewPasswordLength constraintAnnotation) {
         this.constraintAnnotation = constraintAnnotation;
     }
 
@@ -82,10 +83,11 @@ public class NewPasswordValidator implements
         }
         boolean result = true;
         if (StringUtils.isNotBlank(newPasswordValue)
-                && !newPasswordValue.equals(confirmPasswordValue)) {
+                && (newPasswordValue.length() < constraintAnnotation.min()
+                || newPasswordValue.length() > constraintAnnotation.max())) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(
-                    "{org.parancoe.validator.constraints.NewPassword.message}").
+                    "{org.parancoe.validator.constraints.NewPasswordLength.message}").
                     addNode("newPassword").
                     addConstraintViolation().disableDefaultConstraintViolation();
             result = false;

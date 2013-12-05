@@ -24,16 +24,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import org.parancoe.validator.constraints.impl.NewPasswordValidator;
+import org.parancoe.validator.constraints.impl.NewPasswordLengthValidator;
 
 /**
  * Validation annotation for the setting of a new password.
  * The validation fails if the new password property is not blank and
- * it differs from the confirm password property.
+ * hasn't a length between min and max.
  *
  * Example:
  * <pre>
  * &#064;{@code NewPassword(newPasswordProperty="newPassword", confirmPasswordProperty="confirmPassword")
+ * &#064;{@code NewPasswordLength(newPasswordProperty="newPassword", confirmPasswordProperty="confirmPassword", min = 6)
  * public class NewPasswordBean implements Serializable {
  *
  *     protected String newPassword;
@@ -61,9 +62,9 @@ import org.parancoe.validator.constraints.impl.NewPasswordValidator;
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = NewPasswordValidator.class)
+@Constraint(validatedBy = NewPasswordLengthValidator.class)
 @Documented
-public @interface NewPassword {
+public @interface NewPasswordLength {
 
     String message() default "{org.parancoe.validator.constraints.NewPassword.message}";
 
@@ -84,6 +85,20 @@ public @interface NewPassword {
      * @return The name of the property.
      */
     String confirmPasswordProperty() default "confirmPassword";
+    
+    /**
+     * The min length of the new password.
+     *
+     * @return The min length of the new password.
+     */
+    int min() default 0;
+
+    /**
+     * The min length of the new password.
+     *
+     * @return The min length of the new password.
+     */
+    int max() default Integer.MAX_VALUE;
     
     /**
      * Pass the validation if the new password is blank. Usually for not changing the current password.
