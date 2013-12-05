@@ -77,4 +77,41 @@ public class NewPasswordValidatorTest extends BaseValidatorTest {
         assertEquals("{org.parancoe.validator.constraints.NewPassword.message}", constraintViolation.getMessage());
         assertEquals("{org.parancoe.validator.constraints.NewPassword.message}", constraintViolation.getMessageTemplate());
     }
+    
+    public void testValidationFailWithShortPasswd() {
+        NewPasswordBean newPasswordBean =
+                new NewPasswordBean("s", "s");
+        Set<ConstraintViolation<NewPasswordBean>> constraintViolations =
+                this.hibernateValidator.validate(newPasswordBean);
+        assertEquals(1, constraintViolations.size());
+        ConstraintViolation<NewPasswordBean> constraintViolation = constraintViolations.iterator().
+                next();
+        assertSame(newPasswordBean, constraintViolation.getRootBean());
+        Path propertyPath = constraintViolation.getPropertyPath();
+        Iterator<Node> itNodes = propertyPath.iterator();
+        assertTrue(itNodes.hasNext());
+        Node node = itNodes.next();
+        assertEquals("newPassword", node.getName());
+        assertEquals("{org.parancoe.validator.constraints.NewPasswordLength.message}", constraintViolation.getMessage());
+        assertEquals("{org.parancoe.validator.constraints.NewPasswordLength.message}", constraintViolation.getMessageTemplate());
+    }
+
+    public void testValidationFailWithLongPasswd() {
+        NewPasswordBean newPasswordBean =
+                new NewPasswordBean("accidentichepasswordlunga", "accidentichepasswordlunga");
+        Set<ConstraintViolation<NewPasswordBean>> constraintViolations =
+                this.hibernateValidator.validate(newPasswordBean);
+        assertEquals(1, constraintViolations.size());
+        ConstraintViolation<NewPasswordBean> constraintViolation = constraintViolations.iterator().
+                next();
+        assertSame(newPasswordBean, constraintViolation.getRootBean());
+        Path propertyPath = constraintViolation.getPropertyPath();
+        Iterator<Node> itNodes = propertyPath.iterator();
+        assertTrue(itNodes.hasNext());
+        Node node = itNodes.next();
+        assertEquals("newPassword", node.getName());
+        assertEquals("{org.parancoe.validator.constraints.NewPasswordLength.message}", constraintViolation.getMessage());
+        assertEquals("{org.parancoe.validator.constraints.NewPasswordLength.message}", constraintViolation.getMessageTemplate());
+    }
+    
 }
