@@ -68,7 +68,7 @@ public class SanityTest extends PluginTest {
 
     public void testCountrySize() {
         List<Country> countries = countryDao.findAll();
-        assertSize(89, countries);
+        assertSize(90, countries);
     }
 
     public void testContinentFindByName() {

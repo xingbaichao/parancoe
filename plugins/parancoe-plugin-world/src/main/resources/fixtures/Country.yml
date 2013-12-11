@@ -541,6 +541,13 @@
   localName: Sénégal
   englishName: Senegal
   continent: *Continent-Africa
+- &Country-SM
+  isoCode: SM
+  languageIsoCode: it
+  languageVariant: null
+  localName: San Marino
+  englishName: San Marino
+  continent: *Continent-Europe  
 - &Country-SK
   isoCode: SK
   languageIsoCode: sk
