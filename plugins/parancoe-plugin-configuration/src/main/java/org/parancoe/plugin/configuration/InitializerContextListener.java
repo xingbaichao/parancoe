@@ -41,7 +41,7 @@ public class InitializerContextListener extends ContextLoaderListener {
 
     private static final Logger log = LoggerFactory.getLogger(InitializerContextListener.class);
 
-    @Resource
+    @Resource(name = "configurationManager")
     private ConfigurationService configurationService;
 
     @Override

@@ -48,7 +48,7 @@ public class ConfigurationController {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationController.class);
 
-    @Resource
+    @Resource(name = "configurationManager")
     private ConfigurationService configurationService;
 
     @RequestMapping(method= RequestMethod.GET)
