@@ -29,7 +29,7 @@
     <context:component-scan base-package="org.parancoe.plugin.configuration.controllers"/>
         
     <!-- Interceptor specifico per questo plugin -->
-    <bean id="parancoe-plugin-configurationSampleInterceptor" class="org.parancoe.plugin.configuration.SampleInterceptor"/>
+    <!-- bean id="parancoe-plugin-configurationSampleInterceptor" class="org.parancoe.plugin.configuration.SampleInterceptor"/ -->
     
     <!--                           -->
     <!-- Plugin configuration      -->

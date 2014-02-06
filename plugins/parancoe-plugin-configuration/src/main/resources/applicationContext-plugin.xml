@@ -52,7 +52,7 @@
         <!-- fixtures da caricare all'avvio del plugin -->
         <property name="fixtureClassNames">
             <list>
-                <value>org.parancoe.plugin.configuration.Sample</value>
+                <!--<value>org.parancoe.plugin.configuration.Sample</value>-->
             </list>
         </property>
         
