@@ -48,7 +48,7 @@
     <!-- i18n -->
     <bean id="messageSource"
           class="org.parancoe.web.util.ReloadableResourceBundleMessageSource">
-        <property name="basenames" value="classpath*:**/messages,/WEB-INF/messages"/>
+        <property name="basenames" value="classpath*:**/messages,classpath*:messages,/WEB-INF/messages"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
         <property name="cacheSeconds" value="1"/>
         <property name="resourceLoader">
