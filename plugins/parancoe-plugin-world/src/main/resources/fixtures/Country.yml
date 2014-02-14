@@ -401,6 +401,13 @@
   localName: Македонија
   englishName: Macedonia
   continent: *Continent-Europe
+- &Country-MT
+  isoCode: MT
+  languageIsoCode: mt
+  languageVariant: null
+  localName: Malta
+  englishName: Malta
+  continent: *Continent-Europe  
 - &Country-MX
   isoCode: MX
   languageIsoCode: es
